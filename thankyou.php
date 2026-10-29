@@ -6,6 +6,7 @@
  * ------------------------------------------------------------------ */
 include_once("integrated/setup.php");
 include_once(BASEPATH . '/src/JsonTranslateCollector.php');
+include_once(__DIR__ . '/includes/language-selector.php');
 
 $collector = new JsonCollector(targetLanguage: $OfferApi->targetLanguage, pageName: "thankyou");
 function t($key, $text) {
@@ -99,7 +100,10 @@ $steps = [
 <header class="bg-white border-b border-sand">
     <div class="mx-auto max-w-5xl px-4 sm:px-6 h-16 flex items-center justify-between">
         <a href="index.php" class="shrink-0"><img src="<?= $logo ?>" alt="<?= $brand ?>" class="h-9 w-auto" width="190" height="49"></a>
-        <span class="text-sm text-muted"><?= t('order_complete', 'Order complete') ?></span>
+        <div class="flex items-center gap-3 sm:gap-5">
+            <span class="hidden sm:inline text-sm text-muted"><?= t('order_complete', 'Order complete') ?></span>
+            <?= languageSelector('header') ?>
+        </div>
     </div>
 </header>
 
@@ -184,8 +188,9 @@ $steps = [
 </main>
 
 <footer class="border-t border-sand bg-white">
-    <div class="mx-auto max-w-5xl px-4 sm:px-6 py-6 text-center text-xs text-muted">
-        © <?= date('Y') ?> <?= htmlspecialchars($OfferApi->corporateName ?: $brand) ?>. <?= t('rights', 'All rights reserved.') ?>
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted">
+        <p>© <?= date('Y') ?> <?= htmlspecialchars($OfferApi->corporateName ?: $brand) ?>. <?= t('rights', 'All rights reserved.') ?></p>
+        <?= languageSelector('footer') ?>
     </div>
 </footer>
 </body>

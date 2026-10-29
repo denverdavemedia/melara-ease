@@ -3,17 +3,16 @@
  * Melara Seat Cushion — United States offer config
  * Same shape as shopmelara-apex/integrated/config_us.php.
  *
- * PLACEHOLDER: campaignId is null until the seat-cushion campaign exists
- * in Konnektive. While it's null the site runs in "preview" mode: no CRM
- * calls, no click imports, no orders, prices come from the page itself.
- * To go live, fill in the IDs marked TODO and copy .env from shopmelara-apex.
+ * Live on Konnektive / CheckoutChamp campaign 1471 (melara-ease.com).
+ * Packs come from the campaign: "1x Melara Seat Cushion" … "4x Melara Seat Cushions".
+ * Set campaignId to null to go back to preview mode (no CRM calls, page prices).
  * ------------------------------------------------------------------ */
 
 return (object) array(
-    'campaignId' => null,                 // TODO: Konnektive campaign ID for the seat cushion
+    'campaignId' => 1471,
     'targetLanguage' => 'en',
-    'mainProductName' => 'Melara',        // TODO: CRM product name matched by initProduct()
-    'addOnProductName' => 'Secure',       // TODO: CRM product name for SecureShip
+    'mainProductName' => 'Melara Seat Cushion', // matched by initProduct() against the campaign product names
+    'addOnProductName' => 'Secure',             // SecureShip: not in campaign 1471 yet, the checkout hides it until it is
     'paypalSandboxId' => null,            // TODO
     'paypalProductionId' => null,         // TODO
     'stripeSandboxId' => null,            // TODO
@@ -27,15 +26,23 @@ return (object) array(
     'returnAddress' => '',
     'everflowOfferId' => null,            // TODO
     'checkoutType' => 'onePage',          // onePage, twoPage, compact
-    'stripePaymentWallet' => "google_pay, apple_pay, link",
+    // Express wallets (Apple/Google Pay, Link) stay off until the Stripe IDs above are set,
+    // e.g. "google_pay, apple_pay, link"
+    'stripePaymentWallet' => "",
     'stripeKeys' => [
         'sandbox_publicKey' => getenv('SANDBOX_PUBLICKEY'),
         'sandbox_secretKey' => getenv('SANDBOX_SECRETKEY'),
         'live_publicKey' => getenv('LIVE_PUBLICKEY'),
         'live_secretKey' => getenv('LIVE_SECRETKEY')
     ],
-    // No upsells yet: checkout goes straight to the thank-you page.
-    'campaignFunnel' => [],
+    // No upsells yet: a successful order goes straight to thankyou.php
+    // (OfferApi sends the customer to the first funnel page after checkout).
+    'campaignFunnel' => [
+        [
+            'page' => 'thankyou',
+            'baseQtyFromCheckout' => false,
+        ],
+    ],
 );
 
 ?>

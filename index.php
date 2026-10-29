@@ -7,6 +7,7 @@
  * ------------------------------------------------------------------ */
 include_once("integrated/setup.php");
 include_once(BASEPATH . '/src/JsonTranslateCollector.php');
+include_once(__DIR__ . '/includes/language-selector.php');
 
 // Copy is translated through lang/<language>/index.json (auto-generated on localhost, like shopmelara-apex)
 $collector = new JsonCollector(targetLanguage: $OfferApi->targetLanguage, pageName: "index");
@@ -56,6 +57,22 @@ $offers = [
     ['qty' => 3, 'title' => 'Every chair',    'tag' => 'Office · home · gaming',    'price' => 119, 'compare' => 340, 'perks' => ['3 × Melara Seat Cushion', '2 free spare covers', 'Free express shipping', 'Linen carry bag'], 'badge' => 'Save 65%', 'featured' => false],
     ['qty' => 4, 'title' => 'The team',    'tag' => 'Family or office team',    'price' => 139, 'compare' => 463, 'perks' => ['4 × Melara Seat Cushion', '4 free spare covers', 'Free express shipping', 'Linen carry bag', 'Lifetime foam warranty'], 'badge' => 'Best value', 'featured' => false],
 ];
+// Live: pack prices from the CRM campaign (loaded by setup.php), retail price from the same
+// discount tiers as checkout.php, so the landing and checkout always show the same numbers.
+if (OFFER_LIVE) {
+    $discountTiers = [1 => 0.55, 2 => 0.62, 3 => 0.65, 4 => 0.70];
+    foreach ((array) $OfferApi->offerProducts as $row) {
+        $q = (int) $row->maxOrderQty;
+        foreach ($offers as &$o) {
+            if ($o['qty'] === $q && stripos($row->productName, $configs->mainProductName) !== false) {
+                $o['price']   = (float) $row->price;
+                $o['compare'] = round($row->price / (1 - $discountTiers[$q]));
+            }
+        }
+        unset($o);
+    }
+    $currency = $OfferApi->currencySymbol ?: $currency;
+}
 
 $pains = [
     ['t' => 'That dull ache by 3pm', 'd' => 'Your lower back starts talking halfway through the day — and doesn\'t stop.'],
@@ -107,7 +124,7 @@ $life     = tRows($life, 'life', ['t', 'd']);
 $faqs     = tRows($faqs, 'faq', ['q', 'a']);
 $reviews  = tRows($reviews, 'review', ['role', 'text']);
 
-function money($n) { global $currency; return $currency . number_format($n, 0); }
+function money($n) { global $currency; return $currency . number_format($n, $n == floor($n) ? 0 : 2); }
 ?>
 <!doctype html>
 <html lang="en" class="scroll-smooth">
@@ -285,14 +302,17 @@ function money($n) { global $currency; return $currency . number_format($n, 0); 
 <!-- Nav -->
 <header id="nav" class="sticky top-0 z-40 transition-all duration-300">
     <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <a href="#" class="shrink-0"><img src="<?= $logo ?>" alt="<?= $brand ?>" class="h-9 sm:h-10 w-auto" width="190" height="49"></a>
+        <a href="#" class="shrink-0"><img src="<?= $logo ?>" alt="<?= $brand ?>" class="h-8 sm:h-10 w-auto" width="190" height="49"></a>
         <ul class="hidden md:flex items-center gap-9 text-sm text-muted">
             <li><a href="#why" class="nav-link"><?= t('idx_why_it_helps', 'Why it helps') ?></a></li>
             <li><a href="#life" class="nav-link"><?= t('idx_who_it_s_for', 'Who it\'s for') ?></a></li>
             <li><a href="#reviews" class="nav-link"><?= t('idx_reviews', 'Reviews') ?></a></li>
             <li><a href="#faq" class="nav-link"><?= t('idx_faq', 'FAQ') ?></a></li>
         </ul>
-        <a href="checkout.php?pack=2" class="rounded-full bg-ink text-cream text-sm font-medium px-5 py-2.5 hover:bg-turq hover:text-ink transition"><?= t('idx_get_70_discount', 'Get 70% Discount') ?></a>
+        <div class="flex items-center gap-2 sm:gap-3">
+            <?= languageSelector('header') ?>
+            <a href="checkout.php?pack=2" class="rounded-full bg-ink text-cream text-xs sm:text-sm font-medium px-3.5 sm:px-5 py-2.5 whitespace-nowrap hover:bg-turq hover:text-ink transition"><?= t('idx_get_70_discount', 'Get 70% Discount') ?></a>
+        </div>
     </nav>
 </header>
 
@@ -808,7 +828,10 @@ function money($n) { global $currency; return $currency . number_format($n, 0); 
             <li><a href="#" class="hover:text-ink transition"><?= t('idx_privacy', 'Privacy') ?></a></li>
             <li><a href="#" class="hover:text-ink transition"><?= t('idx_contact', 'Contact') ?></a></li>
         </ul>
-        <p>© <?= date('Y') ?> <?= $brand ?><?= t('idx_all_rights_reserved', '. All rights reserved.') ?></p>
+        <div class="flex flex-col sm:flex-row items-center gap-4">
+            <?= languageSelector('footer') ?>
+            <p>© <?= date('Y') ?> <?= $brand ?><?= t('idx_all_rights_reserved', '. All rights reserved.') ?></p>
+        </div>
     </div>
 </footer>
 
@@ -823,166 +846,7 @@ function money($n) { global $currency; return $currency . number_format($n, 0); 
     </a>
 </div>
 
-<script>
-(() => {
-    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    // Nav background + mobile buy bar
-    const nav = document.getElementById('nav'), buyBar = document.getElementById('buyBar');
-    const onScroll = () => {
-        const scrolled = scrollY > 30;
-        nav.classList.toggle('bg-cream/85', scrolled);
-        nav.classList.toggle('backdrop-blur', scrolled);
-        nav.classList.toggle('shadow-sm', scrolled);
-        buyBar.style.transform = scrollY > 600 ? 'translateY(0)' : '';
-    };
-    addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-
-    // Reveal, counters, stock bar
-    const countUp = el => {
-        const target = parseFloat(el.dataset.count), dec = +el.dataset.dec || 0;
-        if (reduce) { el.textContent = target.toFixed(dec); return; }
-        const t0 = performance.now();
-        const step = t => {
-            const p = Math.min((t - t0) / 1600, 1);
-            el.textContent = (target * (1 - Math.pow(1 - p, 4))).toFixed(dec);
-            if (p < 1) requestAnimationFrame(step);
-        };
-        requestAnimationFrame(step);
-    };
-    const io = new IntersectionObserver(entries => entries.forEach(en => {
-        if (!en.isIntersecting) return;
-        const el = en.target;
-        el.classList.add('in');
-        el.querySelectorAll('[data-count]').forEach(countUp);
-        el.querySelectorAll('.stock-bar').forEach(b => b.style.width = b.dataset.width);
-        io.unobserve(el);
-    }), { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-    // Countdown (restarts when it runs out)
-    const cds = document.querySelectorAll('[data-countdown]');
-    let deadline;
-    try { deadline = +localStorage.getItem('melara_deadline'); } catch (_) {}
-    if (!deadline || deadline < Date.now()) {
-        deadline = Date.now() + (5 * 3600 + 47 * 60) * 1000;
-        try { localStorage.setItem('melara_deadline', deadline); } catch (_) {}
-    }
-    const pad = n => String(n).padStart(2, '0');
-    const tick = () => {
-        const s = Math.max(0, Math.floor((deadline - Date.now()) / 1000));
-        cds.forEach(c => c.textContent = `${pad(Math.floor(s / 3600))}:${pad(Math.floor(s % 3600 / 60))}:${pad(s % 60)}`);
-    };
-    tick(); setInterval(tick, 1000);
-
-    // ---------- Product anatomy: real renders, driven by scroll ----------
-    const anatomy = document.getElementById('anatomy');
-    const anatA = document.getElementById('anatA'), anatZ = document.getElementById('anatZ'), anatE = document.getElementById('anatE');
-    const anatTilt = document.getElementById('anatTilt'), anatGlow = document.getElementById('anatGlow'), anatFlow = document.getElementById('anatFlow');
-    const hots = [...anatomy.querySelectorAll('.hot')];
-    const chaps = [...anatomy.querySelectorAll('.chap')];
-    const capName = anatomy.querySelector('[data-cap-name]'), capDesc = anatomy.querySelector('[data-cap-desc]');
-    const assembled = document.getElementById('assembled'), hint = document.getElementById('scrollHint');
-    const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
-    const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-    const ramp = (p, a, b) => ease(clamp((p - a) / (b - a)));
-    // load the renders before the section is reached so the cross-fades never pop
-    [anatA, anatZ, anatE].forEach(i => i.loading = 'eager');
-    let lastHot = null;
-
-    const renderAnatomy = () => {
-        const r = anatomy.getBoundingClientRect();
-        if (r.bottom < 0 || r.top > innerHeight) return;
-        const p = clamp(-r.top / (anatomy.offsetHeight - innerHeight));
-
-        const enter = ramp(p, 0, .08);
-        const back  = ramp(p, .90, .96);                     // return to the assembled view
-        const zIn = ramp(p, .30, .36), zOut = ramp(p, .56, .62);
-        const spread = ramp(p, .56, .70);                    // layers pulling apart
-        const oA = Math.max(1 - zIn, back);
-        const oZ = zIn * (1 - zOut);
-        const oE = ramp(p, .56, .64) * (1 - back);
-
-        anatA.style.opacity = oA;
-        anatA.style.filter = `blur(${((1 - oA) * 6).toFixed(2)}px)`;
-        anatZ.style.opacity = oZ;
-        anatZ.style.transform = `scale(${(1 + .05 * (1 - oZ)).toFixed(3)})`;
-        anatE.style.opacity = oE;
-        anatE.style.transform = `scaleY(${(.6 + .4 * spread).toFixed(3)}) scaleX(${(.92 + .08 * spread).toFixed(3)})`;
-        anatE.style.filter = `blur(${((1 - spread) * 8).toFixed(2)}px)`;
-        anatFlow.style.opacity = oZ;
-        anatGlow.style.opacity = (.45 + .55 * Math.max(oZ, oE * .6)).toFixed(3);
-        anatGlow.style.transform = `scale(${(.9 + .25 * oZ).toFixed(3)})`;
-
-        const ry = -14 + 28 * p, rx = 6 - 10 * p;
-        anatTilt.style.opacity = (.2 + .8 * enter).toFixed(3);
-        anatTilt.style.transform = `scale(${(.82 + .18 * enter).toFixed(3)}) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg)`;
-
-        let latest = null;
-        hots.forEach(h => {
-            const on = p >= +h.dataset.in && p < +h.dataset.out;
-            h.classList.toggle('on', on);
-            if (on) latest = h;
-        });
-        if (latest !== lastHot) {
-            lastHot = latest;
-            if (latest && capName) {
-                capName.textContent = latest.querySelector('.label p').textContent;
-                capDesc.textContent = latest.querySelectorAll('.label p')[1].textContent;
-            }
-        }
-
-        const chapter = p < .30 ? 0 : p < .58 ? 1 : 2;
-        chaps.forEach((c, i) => c.classList.toggle('active', p < .92 && i === chapter));
-        assembled.style.opacity = ramp(p, .93, .98);
-        hint.style.opacity = 1 - ramp(p, .02, .08);
-    };
-
-    // ---------- Site-wide scroll effects ----------
-    const navLinks = [...document.querySelectorAll('#nav a.nav-link')];
-    const navTargets = navLinks.map(a => document.querySelector(a.getAttribute('href')));
-    const parallax = [...document.querySelectorAll('[data-speed]')];
-    const renderScroll = () => {
-        // highlight the menu item for the section in view
-        const line = innerHeight * .35;
-        let current = -1;
-        navTargets.forEach((t, i) => { const r = t.getBoundingClientRect(); if (r.top <= line && r.bottom > line) current = i; });
-        navLinks.forEach((a, i) => { a.classList.toggle('active', i === current); i === current ? a.setAttribute('aria-current', 'true') : a.removeAttribute('aria-current'); });
-        if (!reduce) parallax.forEach(el => {
-            const r = el.getBoundingClientRect();
-            const d = (r.top + r.height / 2 - innerHeight / 2) * +el.dataset.speed;
-            el.style.transform = `translate3d(0, ${d.toFixed(1)}px, 0)`;
-        });
-        renderAnatomy();
-    };
-    let ticking = false;
-    const onFrame = () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { renderScroll(); ticking = false; }); } };
-    addEventListener('scroll', onFrame, { passive: true });
-    addEventListener('resize', onFrame);
-    renderScroll();
-
-    // Word-by-word reveal for section headlines
-    document.querySelectorAll('h2.reveal').forEach(h => {
-        let i = 0;
-        const walk = node => [...node.childNodes].forEach(n => {
-            if (n.nodeType === 3) {
-                const frag = document.createDocumentFragment();
-                n.textContent.split(/(\s+)/).forEach(part => {
-                    if (!part) return;
-                    if (/^\s+$/.test(part)) { frag.append(part); return; }
-                    const s = document.createElement('span');
-                    s.className = 'w'; s.textContent = part; s.style.transitionDelay = (i++ * 0.06) + 's';
-                    frag.append(s);
-                });
-                n.replaceWith(frag);
-            } else if (n.nodeType === 1 && !/^(svg|br)$/i.test(n.tagName)) walk(n);
-        });
-        walk(h);
-    });
-
-})();
-</script>
+<script src="public/js/index.js?t=1793290535252"></script>
 </body>
 </html>
 
