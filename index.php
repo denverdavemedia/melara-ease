@@ -5,6 +5,23 @@
  * ready. Drop generated images into assets/img/ using the filenames
  * below — any missing image shows a soft placeholder instead.
  * ------------------------------------------------------------------ */
+include_once("integrated/setup.php");
+include_once(BASEPATH . '/src/JsonTranslateCollector.php');
+
+// Copy is translated through lang/<language>/index.json (auto-generated on localhost, like shopmelara-apex)
+$collector = new JsonCollector(targetLanguage: $OfferApi->targetLanguage, pageName: "index");
+function t($key, $text) {
+    // Memoised: strings inside loops (e.g. "Verified buyer" on every review) reuse one key without tripping the duplicate-key check
+    static $cache = [];
+    global $collector;
+    return $cache[$key] ??= $collector->translate($key, $text);
+}
+/** Translate the given string fields of every row in a list (keys: {prefix}_{row}_{field}). */
+function tRows(array $rows, string $prefix, array $fields) {
+    foreach ($rows as $i => &$row) foreach ($fields as $f) if (isset($row[$f]) && is_string($row[$f])) $row[$f] = t("{$prefix}_{$i}_{$f}", $row[$f]);
+    return $rows;
+}
+
 $brand    = 'Melara';
 $product  = 'Melara Seat Cushion';
 $currency = '$';
@@ -82,6 +99,13 @@ $reviews = [
     ['name' => 'Eley S.',    'photo' => 'review-eley',    'role' => 'HR specialist',       'text' => 'Ordered one, then the Home & work pack a week later. The backrest support is the real game changer.'],
     ['name' => 'Lau B.',     'photo' => 'review-lau',     'role' => 'Marketing lead',      'text' => 'Soft but supportive, and the knit cover looks great. No more 3pm back ache before deadlines.'],
 ];
+
+// Translate the copy in the data lists above
+$pains    = tRows($pains, 'pain', ['t', 'd']);
+$benefits = tRows($benefits, 'benefit', ['t', 'd']);
+$life     = tRows($life, 'life', ['t', 'd']);
+$faqs     = tRows($faqs, 'faq', ['q', 'a']);
+$reviews  = tRows($reviews, 'review', ['role', 'text']);
 
 function money($n) { global $currency; return $currency . number_format($n, 0); }
 ?>
@@ -255,7 +279,7 @@ function money($n) { global $currency; return $currency . number_format($n, 0); 
 
 <!-- Announcement -->
 <div class="mesh text-cream text-xs sm:text-sm text-center py-2.5 px-4" style="--veil: rgba(29,34,38,.45)">
-    Launch offer: up to <strong class="text-turq-soft">70% off</strong> bundles · ends in <span data-countdown class="tabular-nums font-medium">--:--:--</span>
+    <?= t('idx_launch_offer_up_to', 'Launch offer: up to') ?> <strong class="text-turq-soft"><?= t('idx_70_off', '70% off') ?></strong> <?= t('idx_bundles_ends_in', 'bundles · ends in') ?> <span data-countdown class="tabular-nums font-medium">--:--:--</span>
 </div>
 
 <!-- Nav -->
@@ -263,12 +287,12 @@ function money($n) { global $currency; return $currency . number_format($n, 0); 
     <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <a href="#" class="shrink-0"><img src="<?= $logo ?>" alt="<?= $brand ?>" class="h-9 sm:h-10 w-auto" width="190" height="49"></a>
         <ul class="hidden md:flex items-center gap-9 text-sm text-muted">
-            <li><a href="#why" class="nav-link">Why it helps</a></li>
-            <li><a href="#life" class="nav-link">Who it's for</a></li>
-            <li><a href="#reviews" class="nav-link">Reviews</a></li>
-            <li><a href="#faq" class="nav-link">FAQ</a></li>
+            <li><a href="#why" class="nav-link"><?= t('idx_why_it_helps', 'Why it helps') ?></a></li>
+            <li><a href="#life" class="nav-link"><?= t('idx_who_it_s_for', 'Who it\'s for') ?></a></li>
+            <li><a href="#reviews" class="nav-link"><?= t('idx_reviews', 'Reviews') ?></a></li>
+            <li><a href="#faq" class="nav-link"><?= t('idx_faq', 'FAQ') ?></a></li>
         </ul>
-        <a href="checkout.php?pack=2" class="rounded-full bg-ink text-cream text-sm font-medium px-5 py-2.5 hover:bg-turq hover:text-ink transition">Get 70% Discount</a>
+        <a href="checkout.php?pack=2" class="rounded-full bg-ink text-cream text-sm font-medium px-5 py-2.5 hover:bg-turq hover:text-ink transition"><?= t('idx_get_70_discount', 'Get 70% Discount') ?></a>
     </nav>
 </header>
 
@@ -280,52 +304,53 @@ function money($n) { global $currency; return $currency . number_format($n, 0); 
         <div data-speed="0.2" class="absolute bottom-0 -left-40 w-[420px] h-[420px] blob bg-ocean-soft blur-2xl" aria-hidden="true"></div>
 
         <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-10 pb-20 lg:pt-16 lg:pb-28 grid lg:grid-cols-12 gap-12 items-center">
-            <div class="lg:col-span-6">
+            <div class="lg:col-span-7">
                 <p class="reveal inline-flex items-center gap-2 rounded-full bg-white/70 border border-sand pl-1.5 pr-4 py-1.5 text-xs font-medium text-muted">
                     <span class="flex -space-x-2"><?php foreach (['review-ang', 'review-kim', 'review-yoshiko', 'review-bert'] as $av): ?><img src="assets/img/user/<?= $av ?>.png" alt="" width="24" height="24" class="w-6 h-6 rounded-full object-cover ring-2 ring-white"><?php endforeach; ?></span>
-                    <span class="text-amber-500">★★★★★</span> Loved by 12,400+ people who work from a desk
+                    <span class="text-amber-500">★★★★★</span> <?= t('idx_loved_by_12_400', 'Loved by 12,400+ people who work from a desk') ?>
                 </p>
                 <h1 class="reveal mt-6 font-serif text-[2.5rem] sm:text-6xl lg:text-[clamp(2.75rem,4.6vw,4.5rem)] leading-[1.02] tracking-tight" data-delay="1">
-                    Upgrade your
-                    <span class="scribble text-ink">office chair.
+                    <?= t('idx_upgrade_your', 'Upgrade your') ?>
+                    <span class="scribble text-ink"><?= t('idx_office_chair', 'office chair.') ?>
                         <svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M2 14 C 50 4, 120 4, 198 12" fill="none" stroke="#1dd1a1" stroke-width="7" stroke-linecap="round"/></svg>
                     </span><br>
-                    Not your budget.
+                    <?= t('idx_not_your_budget', 'Not your budget.') ?>
                 </h1>
                 <p class="reveal mt-6 max-w-lg text-lg text-muted leading-relaxed" data-delay="2">
-                    The <?= $product ?> turns the chair you already own into an ergonomic one. A wave-shaped backrest hugs your lower back, a U-shaped cut-out takes pressure off your tailbone, and two straps lock it in place in seconds.
+                    <?= t('idx_the', 'The') ?> <?= $product ?> <?= t('idx_turns_the_chair_you', 'turns the chair you already own into an ergonomic one. A wave-shaped backrest hugs your lower back, a U-shaped cut-out takes pressure off your tailbone, and two straps lock it in place in seconds.') ?>
                 </p>
                 <div class="reveal mt-8 flex flex-col sm:flex-row gap-3" data-delay="3">
                     <a href="checkout.php?pack=2" class="group inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full bg-turq px-7 py-4 font-semibold text-ink shadow-[0_14px_30px_-12px_rgba(29,209,161,.6)] hover:bg-turq-dark transition">
-                        Get 70% Discount
+                        <?= t('idx_get_70_discount_2', 'Get 70% Discount') ?>
                         <svg class="w-4 h-4 transition group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
                     </a>
-                    <a href="#why" class="inline-flex items-center justify-center whitespace-nowrap rounded-full border border-ink/15 px-7 py-4 font-medium hover:bg-white transition">How it helps</a>
+                    <a href="#why" class="inline-flex items-center justify-center whitespace-nowrap rounded-full border border-ink/15 px-7 py-4 font-medium hover:bg-white transition"><?= t('idx_how_it_helps', 'How it helps') ?></a>
                 </div>
                 <?php
                 // Hero trust points: [title, sub-line, icon path(s)]
                 $heroPerks = [
                     ['100-night trial', 'Love it or return it', '<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/><path d="M16 3.5v3M14.5 5h3"/>'],
                     ['Free shipping',   'Ships within 24h',     '<path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/>'],
-                    ['Washable cover',  'Zip off & machine wash', '<rect x="4" y="3" width="16" height="18" rx="2.5"/><circle cx="12" cy="13" r="4.5"/><path d="M9.6 13.6c.8-.8 1.6-.8 2.4 0s1.6.8 2.4 0M7.5 6.5h.01M10.5 6.5h.01"/>'],
+                    ['Washable cover',  'Machine washable', '<rect x="4" y="3" width="16" height="18" rx="2.5"/><circle cx="12" cy="13" r="4.5"/><path d="M9.6 13.6c.8-.8 1.6-.8 2.4 0s1.6.8 2.4 0M7.5 6.5h.01M10.5 6.5h.01"/>'],
                 ];
+                $heroPerks = tRows($heroPerks, 'perk', [0, 1]);
                 ?>
-                <ul class="reveal mt-9 flex flex-wrap gap-3" data-delay="4">
+                <ul class="reveal mt-9 flex flex-wrap gap-3 lg:flex-nowrap lg:gap-2.5" data-delay="4">
                     <?php foreach ($heroPerks as [$t, $sub, $icon]): ?>
-                        <li class="group flex items-center gap-3 rounded-2xl bg-white/80 backdrop-blur border border-sand pl-2 pr-4 py-2 shadow-[0_8px_24px_-16px_rgba(29,34,38,.35)] hover:-translate-y-0.5 hover:border-turq/40 transition">
-                            <span class="grid place-items-center w-9 h-9 rounded-xl bg-turq-soft text-turq-ink group-hover:bg-turq group-hover:text-ink transition">
+                        <li class="group flex items-center gap-3 lg:gap-2.5 lg:flex-1 lg:min-w-0 rounded-2xl bg-white/80 backdrop-blur border border-sand pl-2 pr-4 lg:pr-3 py-2 shadow-[0_8px_24px_-16px_rgba(29,34,38,.35)] hover:-translate-y-0.5 hover:border-turq/40 transition">
+                            <span class="grid place-items-center shrink-0 w-9 h-9 rounded-xl bg-turq-soft text-turq-ink group-hover:bg-turq group-hover:text-ink transition">
                                 <svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><?= $icon ?></svg>
                             </span>
-                            <span class="leading-tight">
-                                <span class="block text-sm font-semibold text-ink"><?= $t ?></span>
-                                <span class="block text-xs text-muted"><?= $sub ?></span>
+                            <span class="leading-tight min-w-0">
+                                <span class="block text-sm lg:text-[13px] font-semibold text-ink whitespace-nowrap"><?= $t ?></span>
+                                <span class="block text-xs lg:text-[11px] text-muted whitespace-nowrap"><?= $sub ?></span>
                             </span>
                         </li>
                     <?php endforeach; ?>
                 </ul>
             </div>
 
-            <div class="lg:col-span-6 relative reveal order-first lg:order-none" data-delay="2">
+            <div class="lg:col-span-5 relative reveal order-first lg:order-none" data-delay="2">
                 <div class="relative aspect-[4/5] sm:aspect-[5/5] rounded-[2.5rem] overflow-hidden shadow-[0_40px_80px_-30px_rgba(29,34,38,.35)]">
                     <div class="absolute inset-0 animate-kenburns">
                         <?= photo($img['hero'], 'Woman sitting comfortably on an office chair upgraded with the Melara seat cushion', 'w-full h-full', 'hero.webp', true) ?>
@@ -334,12 +359,12 @@ function money($n) { global $currency; return $currency . number_format($n, 0); 
                 <!-- floating cards -->
                 <div class="absolute left-3 sm:-left-8 bottom-6 sm:bottom-10 bg-white rounded-2xl shadow-xl px-5 py-4 max-w-[230px] animate-float">
                     <p class="text-amber-500 text-sm">★★★★★</p>
-                    <p class="mt-1 text-sm leading-snug">“First time in years I finished a workday without back pain.”</p>
-                    <p class="mt-3 flex items-center gap-2 text-xs text-muted"><img src="assets/img/user/review-ang.png" alt="" width="28" height="28" class="w-7 h-7 rounded-full object-cover"> Jordan, works from home</p>
+                    <p class="mt-1 text-sm leading-snug"><?= t('idx_first_time_in_years', '“First time in years I finished a workday without back pain.”') ?></p>
+                    <p class="mt-3 flex items-center gap-2 text-xs text-muted"><img src="assets/img/user/review-ang.png" alt="" width="28" height="28" class="w-7 h-7 rounded-full object-cover"> <?= t('idx_jordan_works_from_home', 'Jordan, works from home') ?></p>
                 </div>
                 <div class="absolute right-3 sm:-right-6 top-4 sm:top-8 bg-white rounded-2xl shadow-xl px-5 py-4 animate-float" style="animation-delay:-3s">
                     <p class="font-serif text-3xl text-turq-ink">62%</p>
-                    <p class="text-xs text-muted leading-snug">less pressure<br>on your tailbone</p>
+                    <p class="text-xs text-muted leading-snug"><?= t('idx_less_pressure', 'less pressure') ?><br><?= t('idx_on_your_tailbone', 'on your tailbone') ?></p>
                 </div>
             </div>
         </div>
@@ -364,7 +389,7 @@ function money($n) { global $currency; return $currency . number_format($n, 0); 
     ?>
     <section class="border-y border-sand bg-soft-gray py-6 overflow-hidden" aria-label="As seen in">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row md:items-center gap-4 md:gap-10">
-            <p class="shrink-0 text-xs font-medium uppercase tracking-[.25em] text-muted text-center md:text-left">As seen in</p>
+            <p class="shrink-0 text-xs font-medium uppercase tracking-[.25em] text-muted text-center md:text-left"><?= t('idx_as_seen_in', 'As seen in') ?></p>
             <div class="relative flex-1 overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_10%,#000_90%,transparent)]">
                 <div class="flex w-max animate-marquee items-center gap-14 sm:gap-20 whitespace-nowrap hover:[animation-play-state:paused]" style="animation-duration: 45s;">
                     <?php for ($r = 0; $r < 2; $r++): foreach ($press as $p): ?>
@@ -389,13 +414,13 @@ function money($n) { global $currency; return $currency . number_format($n, 0); 
                     <?= photo($img['pain'], 'Person at a desk rubbing their sore lower back', 'w-full h-full', 'pain.jpg') ?>
                 </div>
                 <div class="absolute -bottom-6 right-6 sm:-right-6 mesh text-cream shadow-xl rounded-2xl px-6 py-5 max-w-[240px]" style="--veil: rgba(29,34,38,.5)">
-                    <p class="font-serif text-4xl"><span data-count="9.5" data-dec="1">0</span> hrs</p>
-                    <p class="text-sm text-cream/70">the average adult spends sitting every day</p>
+                    <p class="font-serif text-4xl"><span data-count="9.5" data-dec="1">0</span> <?= t('idx_hrs', 'hrs') ?></p>
+                    <p class="text-sm text-cream/70"><?= t('idx_the_average_adult_spends', 'the average adult spends sitting every day') ?></p>
                 </div>
             </div>
             <div class="order-1 lg:order-2">
-                <p class="reveal text-sm font-medium uppercase tracking-[.2em] text-turq-ink">Sound familiar?</p>
-                <h2 class="reveal mt-4 font-serif text-4xl sm:text-5xl leading-tight tracking-tight" data-delay="1">It's not you. <em class="text-muted">It's your office chair.</em></h2>
+                <p class="reveal text-sm font-medium uppercase tracking-[.2em] text-turq-ink"><?= t('idx_sound_familiar', 'Sound familiar?') ?></p>
+                <h2 class="reveal mt-4 font-serif text-4xl sm:text-5xl leading-tight tracking-tight" data-delay="1"><?= t('idx_it_s_not_you', 'It\'s not you.') ?> <em class="text-muted"><?= t('idx_it_s_your_office', 'It\'s your office chair.') ?></em></h2>
                 <div class="mt-10 space-y-4">
                     <?php foreach ($pains as $i => $p): ?>
                         <div class="reveal flex gap-5 rounded-2xl bg-white border border-sand/70 p-5 hover:shadow-lg hover:-translate-y-0.5 transition" data-delay="<?= $i + 1 ?>">
@@ -437,14 +462,16 @@ function money($n) { global $currency; return $currency . number_format($n, 0); 
         ['e', 81, 66, 'r', .76, .89, '55D high-resilience core', 'Firm support that never bottoms out.'],
         ['e', 22, 80, 'l', .79, .89, 'Non-slip grip base',       'Silicone dots stop it sliding forward.'],
     ];
+    $chapters = tRows($chapters, 'chapter', ['t', 'd']);
+    $hotspots = tRows($hotspots, 'hotspot', [6, 7]);
     ?>
     <section id="anatomy" class="relative" style="height: 520vh;" aria-label="Inside the <?= $product ?>">
         <div class="sticky top-0 h-screen overflow-hidden bg-soft-gray">
             <div class="relative mx-auto max-w-7xl h-full px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-6 items-center">
                 <!-- Chapters -->
                 <div class="lg:col-span-4 pt-20 lg:pt-0 relative z-10">
-                    <p class="text-sm font-medium uppercase tracking-[.2em] text-turq-ink">Inside the cushion</p>
-                    <h2 class="mt-3 font-serif text-3xl sm:text-5xl leading-tight tracking-tight">Engineered for<br><em class="text-turq-ink">8+ hours of comfort.</em></h2>
+                    <p class="text-sm font-medium uppercase tracking-[.2em] text-turq-ink"><?= t('idx_inside_the_cushion', 'Inside the cushion') ?></p>
+                    <h2 class="mt-3 font-serif text-3xl sm:text-5xl leading-tight tracking-tight"><?= t('idx_engineered_for', 'Engineered for') ?><br><em class="text-turq-ink"><?= t('idx_8_hours_of_comfort', '8+ hours of comfort.') ?></em></h2>
                     <ol class="mt-10 space-y-6 hidden lg:block">
                         <?php foreach ($chapters as $i => $c): ?>
                             <li class="chap relative pl-5">
@@ -457,8 +484,8 @@ function money($n) { global $currency; return $currency . number_format($n, 0); 
                     </ol>
                     <!-- mobile caption -->
                     <div class="lg:hidden mt-3 min-h-[60px]">
-                        <p class="font-semibold" data-cap-name>Scroll to look inside</p>
-                        <p class="text-sm text-muted" data-cap-desc>See what makes it comfortable all day.</p>
+                        <p class="font-semibold" data-cap-name><?= t('idx_scroll_to_look_inside', 'Scroll to look inside') ?></p>
+                        <p class="text-sm text-muted" data-cap-desc><?= t('idx_see_what_makes_it', 'See what makes it comfortable all day.') ?></p>
                     </div>
                 </div>
 
@@ -503,12 +530,12 @@ function money($n) { global $currency; return $currency . number_format($n, 0); 
 
             <!-- Finale badge -->
             <div id="assembled" class="absolute bottom-8 left-1/2 -translate-x-1/2 opacity-0 transition-opacity duration-500">
-                <p class="rounded-full mesh text-cream px-6 py-3 text-sm font-medium shadow-xl whitespace-nowrap" style="--veil: rgba(29,34,38,.35)">✓ All together: comfort that lasts all day</p>
+                <p class="rounded-full mesh text-cream px-6 py-3 text-sm font-medium shadow-xl whitespace-nowrap" style="--veil: rgba(29,34,38,.35)"><?= t('idx_all_together_comfort_that', '✓ All together: comfort that lasts all day') ?></p>
             </div>
 
             <!-- scroll hint -->
             <div id="scrollHint" class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-xs text-muted transition-opacity">
-                <span>Scroll to explore</span>
+                <span><?= t('idx_scroll_to_explore', 'Scroll to explore') ?></span>
                 <span class="w-[22px] h-[34px] rounded-full border-2 border-muted/40 grid justify-center pt-1.5"><span class="w-1 h-2 rounded-full bg-turq animate-bounce"></span></span>
             </div>
         </div>
@@ -518,8 +545,8 @@ function money($n) { global $currency; return $currency . number_format($n, 0); 
     <section id="why" class="relative py-24 lg:py-32 bg-soft-gray scroll-mt-16 overflow-hidden">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="max-w-2xl">
-                <p class="reveal text-sm font-medium uppercase tracking-[.2em] text-turq-ink">Why it helps</p>
-                <h2 class="reveal mt-4 font-serif text-4xl sm:text-5xl leading-tight tracking-tight" data-delay="1">Everything your office chair <em class="text-turq-ink">was missing.</em></h2>
+                <p class="reveal text-sm font-medium uppercase tracking-[.2em] text-turq-ink"><?= t('idx_why_it_helps_2', 'Why it helps') ?></p>
+                <h2 class="reveal mt-4 font-serif text-4xl sm:text-5xl leading-tight tracking-tight" data-delay="1"><?= t('idx_everything_your_office_chair', 'Everything your office chair') ?> <em class="text-turq-ink"><?= t('idx_was_missing', 'was missing.') ?></em></h2>
             </div>
 
             <div class="mt-16 grid lg:grid-cols-12 gap-10 items-center">
@@ -567,6 +594,8 @@ function money($n) { global $currency; return $currency . number_format($n, 0); 
                 ['t' => '2pm',  'reg' => [35, 2, 'Lower back aching'],  'mel' => [88, 'Focused, not fidgeting']],
                 ['t' => '5pm',  'reg' => [15, 3, 'Stiff, sore, done'],  'mel' => [90, 'Energy for the evening']],
             ];
+            foreach ($day as $i => &$d) { $d['reg'][2] = t("day_{$i}_regular", $d['reg'][2]); $d['mel'][1] = t("day_{$i}_melara", $d['mel'][1]); }
+            unset($d);
             $px = fn($i) => 100 + $i * 200;          // x of each time slot in the 800-wide chart
             $py = fn($v) => 210 - $v * 1.7;           // comfort 0–100 → y
             $curve = function ($vals) use ($px, $py) {  // smooth path through the points
@@ -603,13 +632,13 @@ function money($n) { global $currency; return $currency . number_format($n, 0); 
                 <!-- header -->
                 <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 p-7 sm:p-10 pb-0 sm:pb-0">
                     <div>
-                        <p class="text-xs font-medium uppercase tracking-[.2em] text-turq-ink">Your day, compared</p>
-                        <h3 class="mt-2 font-serif text-3xl sm:text-4xl tracking-tight">Same chair. <em class="text-turq-ink">Very different 5pm.</em></h3>
+                        <p class="text-xs font-medium uppercase tracking-[.2em] text-turq-ink"><?= t('idx_your_day_compared', 'Your day, compared') ?></p>
+                        <h3 class="mt-2 font-serif text-3xl sm:text-4xl tracking-tight"><?= t('idx_same_chair', 'Same chair.') ?> <em class="text-turq-ink"><?= t('idx_very_different_5pm', 'Very different 5pm.') ?></em></h3>
                     </div>
                     <div class="flex flex-wrap items-center gap-3 text-sm">
-                        <span class="inline-flex items-center gap-2 rounded-full bg-rose-50 border border-rose-100 px-3 py-1.5 text-rose-600"><span class="w-2.5 h-2.5 rounded-full bg-rose-400"></span>Regular chair</span>
-                        <span class="inline-flex items-center gap-2 rounded-full bg-turq-soft/60 border border-turq/30 px-3 py-1.5 text-turq-ink"><span class="w-2.5 h-2.5 rounded-full bg-turq"></span>With <?= $brand ?></span>
-                        <span class="inline-flex items-center gap-2 rounded-full bg-ink text-cream px-3 py-1.5 font-medium">5pm comfort <strong class="text-turq"><?= end($melVals) ?></strong> vs <span class="text-rose-300"><?= end($regVals) ?></span></span>
+                        <span class="inline-flex items-center gap-2 rounded-full bg-rose-50 border border-rose-100 px-3 py-1.5 text-rose-600"><span class="w-2.5 h-2.5 rounded-full bg-rose-400"></span><?= t('idx_regular_chair', 'Regular chair') ?></span>
+                        <span class="inline-flex items-center gap-2 rounded-full bg-turq-soft/60 border border-turq/30 px-3 py-1.5 text-turq-ink"><span class="w-2.5 h-2.5 rounded-full bg-turq"></span><?= t('idx_with', 'With') ?> <?= $brand ?></span>
+                        <span class="inline-flex items-center gap-2 rounded-full bg-ink text-cream px-3 py-1.5 font-medium"><?= t('idx_5pm_comfort', '5pm comfort') ?> <strong class="text-turq"><?= end($melVals) ?></strong> <?= t('idx_vs', 'vs') ?> <span class="text-rose-300"><?= end($regVals) ?></span></span>
                     </div>
                 </div>
 
@@ -665,7 +694,7 @@ function money($n) { global $currency; return $currency . number_format($n, 0); 
                         </div>
                     <?php endforeach; ?>
                 </div>
-                <p class="px-7 sm:px-10 py-4 border-t border-sand text-xs text-muted">Illustrative comfort score based on a typical 8-hour workday.</p>
+                <p class="px-7 sm:px-10 py-4 border-t border-sand text-xs text-muted"><?= t('idx_illustrative_comfort_score_based', 'Illustrative comfort score based on a typical 8-hour workday.') ?></p>
             </div>
         </div>
     </section>
@@ -675,10 +704,10 @@ function money($n) { global $currency; return $currency . number_format($n, 0); 
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
                 <div>
-                    <p class="reveal text-sm font-medium uppercase tracking-[.2em] text-turq-ink">Made for real life</p>
-                    <h2 class="reveal mt-4 font-serif text-4xl sm:text-5xl leading-tight tracking-tight" data-delay="1">One upgrade.<br><em>Every desk you sit at.</em></h2>
+                    <p class="reveal text-sm font-medium uppercase tracking-[.2em] text-turq-ink"><?= t('idx_made_for_real_life', 'Made for real life') ?></p>
+                    <h2 class="reveal mt-4 font-serif text-4xl sm:text-5xl leading-tight tracking-tight" data-delay="1"><?= t('idx_one_upgrade', 'One upgrade.') ?><br><em><?= t('idx_every_desk_you_sit', 'Every desk you sit at.') ?></em></h2>
                 </div>
-                <p class="reveal max-w-sm text-muted" data-delay="2">Light enough to bring to work, with straps that fit almost any office or gaming chair.</p>
+                <p class="reveal max-w-sm text-muted" data-delay="2"><?= t('idx_light_enough_to_bring', 'Light enough to bring to work, with straps that fit almost any office or gaming chair.') ?></p>
             </div>
 
             <div class="mt-14 grid grid-cols-2 lg:grid-cols-6 gap-4">
@@ -705,8 +734,8 @@ function money($n) { global $currency; return $currency . number_format($n, 0); 
     <section id="reviews" class="py-24 lg:py-32 bg-soft-gray scroll-mt-16 overflow-hidden">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
             <p class="reveal text-amber-500 text-lg">★★★★★</p>
-            <h2 class="reveal mt-3 font-serif text-4xl sm:text-5xl tracking-tight" data-delay="1">“Why didn't I get this <em class="text-turq-ink">years ago?”</em></h2>
-            <p class="reveal mt-4 text-muted" data-delay="2">4.9 out of 5 from 12,400+ happy sitters</p>
+            <h2 class="reveal mt-3 font-serif text-4xl sm:text-5xl tracking-tight" data-delay="1"><?= t('idx_why_didn_t_i', '“Why didn\'t I get this') ?> <em class="text-turq-ink"><?= t('idx_years_ago', 'years ago?”') ?></em></h2>
+            <p class="reveal mt-4 text-muted" data-delay="2"><?= t('idx_4_9_out_of', '4.9 out of 5 from 12,400+ happy sitters') ?></p>
         </div>
         <div class="mt-14 relative">
             <div class="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-40 bg-gradient-to-r from-linen to-transparent z-10"></div>
@@ -724,7 +753,7 @@ function money($n) { global $currency; return $currency . number_format($n, 0); 
                             </span>
                             <span class="ml-auto inline-flex items-center gap-1 rounded-full bg-turq-soft/70 border border-turq/30 pl-1 pr-2.5 py-0.5 text-[11px] font-semibold text-turq-ink whitespace-nowrap">
                                 <svg viewBox="0 0 24 24" class="w-4 h-4" aria-hidden="true"><path fill="#1dd1a1" d="M12 2 4 5v6.1c0 5 3.4 9.4 8 10.9 4.6-1.5 8-5.9 8-10.9V5l-8-3z"/><path d="M12 2v20c4.6-1.5 8-5.9 8-10.9V5l-8-3z" fill="#14b88c"/><path d="m8.6 12 2.4 2.4 4.4-4.6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                Verified buyer
+                                <?= t('idx_verified_buyer', 'Verified buyer') ?>
                             </span>
                         </figcaption>
                     </figure>
@@ -736,7 +765,7 @@ function money($n) { global $currency; return $currency . number_format($n, 0); 
     <!-- ============ FAQ ============ -->
     <section id="faq" class="py-24 lg:py-32 scroll-mt-16">
         <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-            <h2 class="reveal text-center font-serif text-4xl sm:text-5xl tracking-tight">Good questions</h2>
+            <h2 class="reveal text-center font-serif text-4xl sm:text-5xl tracking-tight"><?= t('idx_good_questions', 'Good questions') ?></h2>
             <div class="mt-12 space-y-3">
                 <?php foreach ($faqs as $i => $f): ?>
                     <details class="reveal bg-white rounded-2xl px-6 py-5 border border-sand/70" data-delay="<?= min($i + 1, 5) ?>">
@@ -759,10 +788,10 @@ function money($n) { global $currency; return $currency . number_format($n, 0); 
             </div>
             <div class="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/40 to-transparent"></div>
             <div class="relative p-10 sm:p-16 max-w-xl text-cream">
-                <h2 class="font-serif text-4xl sm:text-6xl leading-[1.05] tracking-tight">End the day <em class="text-turq-soft">feeling good.</em></h2>
-                <p class="mt-5 text-lg text-cream/80">Try it for 100 nights. If your back doesn't thank you, we'll refund every cent.</p>
+                <h2 class="font-serif text-4xl sm:text-6xl leading-[1.05] tracking-tight"><?= t('idx_end_the_day', 'End the day') ?> <em class="text-turq-soft"><?= t('idx_feeling_good', 'feeling good.') ?></em></h2>
+                <p class="mt-5 text-lg text-cream/80"><?= t('idx_try_it_for_100', 'Try it for 100 nights. If your back doesn\'t thank you, we\'ll refund every cent.') ?></p>
                 <a href="checkout.php?pack=2" class="mt-8 inline-flex items-center gap-2 rounded-full bg-cream text-ink px-8 py-4 font-medium hover:bg-turq hover:text-ink transition">
-                    Get 70% Discount
+                    <?= t('idx_get_70_discount_3', 'Get 70% Discount') ?>
                     <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
                 </a>
             </div>
@@ -774,12 +803,12 @@ function money($n) { global $currency; return $currency . number_format($n, 0); 
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-muted">
         <img src="<?= $logo ?>" alt="<?= $brand ?>" class="h-10 w-auto" width="190" height="49" loading="lazy">
         <ul class="flex flex-wrap justify-center gap-6">
-            <li><a href="#" class="hover:text-ink transition">Shipping</a></li>
-            <li><a href="#" class="hover:text-ink transition">Returns</a></li>
-            <li><a href="#" class="hover:text-ink transition">Privacy</a></li>
-            <li><a href="#" class="hover:text-ink transition">Contact</a></li>
+            <li><a href="#" class="hover:text-ink transition"><?= t('idx_shipping', 'Shipping') ?></a></li>
+            <li><a href="#" class="hover:text-ink transition"><?= t('idx_returns', 'Returns') ?></a></li>
+            <li><a href="#" class="hover:text-ink transition"><?= t('idx_privacy', 'Privacy') ?></a></li>
+            <li><a href="#" class="hover:text-ink transition"><?= t('idx_contact', 'Contact') ?></a></li>
         </ul>
-        <p>© <?= date('Y') ?> <?= $brand ?>. All rights reserved.</p>
+        <p>© <?= date('Y') ?> <?= $brand ?><?= t('idx_all_rights_reserved', '. All rights reserved.') ?></p>
     </div>
 </footer>
 
@@ -787,10 +816,10 @@ function money($n) { global $currency; return $currency . number_format($n, 0); 
 <div id="buyBar" class="md:hidden fixed inset-x-3 bottom-3 z-50 translate-y-[150%] transition-transform duration-500">
     <a href="checkout.php?pack=2" class="flex items-center justify-between rounded-2xl bg-white/90 backdrop-blur border border-sand px-5 py-3 shadow-2xl">
         <span>
-            <span class="block text-xs text-muted">From</span>
+            <span class="block text-xs text-muted"><?= t('idx_from', 'From') ?></span>
             <span class="font-serif text-xl"><?= money($offers[0]['price']) ?> <span class="text-sm text-muted line-through"><?= money($offers[0]['compare']) ?></span></span>
         </span>
-        <span class="rounded-full bg-turq px-5 py-2.5 text-sm font-semibold text-ink">Get 70% Discount</span>
+        <span class="rounded-full bg-turq px-5 py-2.5 text-sm font-semibold text-ink"><?= t('idx_get_70_discount_4', 'Get 70% Discount') ?></span>
     </a>
 </div>
 
@@ -956,3 +985,5 @@ function money($n) { global $currency; return $currency . number_format($n, 0); 
 </script>
 </body>
 </html>
+
+<?php $collector->saveTranslation(); ?>
