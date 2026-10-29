@@ -4,3 +4,13 @@ Thumbs.db
 desktop.ini
 .vscode/
 .idea/
+
+# Backend (same as shopmelara-apex)
+*.log
+.env
+/vendor
+/node_modules
+/cachev2/*
+package-lock.json
+package.json
+composer.lock

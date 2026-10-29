@@ -1,0 +1,12 @@
+{
+    "require": {
+        "stichoza/google-translate-php": "^5.3",
+        "stripe/stripe-php": "^18.0",
+        "deeplcom/deepl-php": "^1.14"
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": false
+        }
+    }
+}
