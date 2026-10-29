@@ -11,6 +11,3 @@ desktop.ini
 /vendor
 /node_modules
 /cachev2/*
-package-lock.json
-package.json
-composer.lock
