@@ -370,14 +370,15 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
                 </ul>
             </div>
 
-            <div class="lg:col-span-5 relative reveal order-first lg:order-none" data-delay="2">
+            <div class="lg:col-span-5 relative reveal order-first lg:order-none pb-28" data-delay="2">
+                <div class="relative">
                 <div class="relative aspect-[4/5] sm:aspect-[5/5] rounded-[2.5rem] overflow-hidden shadow-[0_40px_80px_-30px_rgba(29,34,38,.35)]">
                     <div class="absolute inset-0 animate-kenburns">
                         <?= photo($img['hero'], 'Woman sitting comfortably on an office chair upgraded with the Melara seat cushion', 'w-full h-full', 'hero.webp', true) ?>
                     </div>
                 </div>
-                <!-- floating cards -->
-                <div class="absolute left-3 sm:-left-8 bottom-6 sm:bottom-10 bg-white rounded-2xl shadow-xl px-5 py-4 max-w-[230px] animate-float">
+                <!-- floating cards: kept off the cushion (review hangs below the photo, 62% sits over the window) -->
+                <div class="absolute right-3 sm:-right-6 top-full -mt-6 bg-white rounded-2xl shadow-xl px-5 py-4 max-w-[250px] animate-float">
                     <p class="text-amber-500 text-sm">★★★★★</p>
                     <p class="mt-1 text-sm leading-snug"><?= t('idx_first_time_in_years', '“First time in years I finished a workday without back pain.”') ?></p>
                     <p class="mt-3 flex items-center gap-2 text-xs text-muted"><img src="assets/img/user/review-ang.png" alt="" width="28" height="28" class="w-7 h-7 rounded-full object-cover"> <?= t('idx_jordan_works_from_home', 'Jordan, works from home') ?></p>
@@ -385,6 +386,7 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
                 <div class="absolute right-3 sm:-right-6 top-4 sm:top-8 bg-white rounded-2xl shadow-xl px-5 py-4 animate-float" style="animation-delay:-3s">
                     <p class="font-serif text-3xl text-turq-ink">62%</p>
                     <p class="text-xs text-muted leading-snug"><?= t('idx_less_pressure', 'less pressure') ?><br><?= t('idx_on_your_tailbone', 'on your tailbone') ?></p>
+                </div>
                 </div>
             </div>
         </div>
