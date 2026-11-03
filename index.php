@@ -848,7 +848,7 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
     </a>
 </div>
 
-<script src="public/js/index.js?t=1793290535252"></script>
+<script src="public/js/index.js?t=<?= $OfferApi->assetVersion('public/js/index.js') ?>"></script>
 </body>
 </html>
 
