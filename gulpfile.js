@@ -53,6 +53,7 @@ gulp.task('checkout-js', function () {
       'src/common/js/states.js',
       'src/common/js/integrated.js',
       'assets/js/checkout.js',
+      "src/common/js/binWarningPopup.js"
   ])
     .pipe(concat(file))
     .pipe(uglify())
@@ -62,7 +63,7 @@ gulp.task('checkout-js', function () {
 function watchFiles() {
   gulp.watch(
     ['assets/js/*.js'],
-    gulp.series('index-js', 'checkout-js', 'cache-bust')
+    gulp.series('index-js', 'checkout-js')
   );
 }
 
@@ -70,6 +71,5 @@ function watchFiles() {
 gulp.task('watch', watchFiles);
 gulp.task('all', gulp.series(
   'index-js',
-  'checkout-js',
-  'cache-bust'
+  'checkout-js'
 ));
