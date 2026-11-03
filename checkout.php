@@ -413,8 +413,8 @@ $p = $packs[$selected];
 </footer>
 
 <script>window.MELARA_CHECKOUT = { live: <?= OFFER_LIVE ? 'true' : 'false' ?>, currency: '<?= $currency ?>', secureShip: <?= (float) $secureShip ?> };</script>
-<?php if (OFFER_LIVE): ?><script src="src/system/<?= $OfferApi->targetLanguage ?>.js?t=1793290535252"></script><?php endif; ?>
-<script src="public/js/checkout.js?t=1793290535252"></script>
+<?php if (OFFER_LIVE): ?><script src="src/system/<?= $OfferApi->targetLanguage ?>.js?t=<?= $OfferApi->assetVersion('src/system/' . $OfferApi->targetLanguage . '.js') ?>"></script><?php endif; ?>
+<script src="public/js/checkout.js?t=<?= $OfferApi->assetVersion('public/js/checkout.js') ?>"></script>
 </body>
 </html>
 
