@@ -1,0 +1,67 @@
+/* CRM "Processing request..." overlay (progressModal() in src/common/js/integrated.js), restyled for Melara.
+   Uses the #loading-indicator id so it wins over src/common/css/common.css, which integrated.js loads later. */
+#loading-indicator.popup-loading-wrapper {
+    background: rgba(29, 34, 38, .55);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    font-family: Montserrat, system-ui, sans-serif;
+}
+#loading-indicator .popup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: min(340px, calc(100vw - 32px));
+    min-width: 0;
+    padding: 124px 28px 30px;
+    border-radius: 28px;
+    background: #fff;
+    color: #1d2226;
+    box-shadow: 0 40px 90px -30px rgba(0, 0, 0, .6);
+    animation: crmOverlayIn .45s cubic-bezier(.2, .9, .25, 1.15) both;
+}
+/* spinning turquoise ring with a lock in the middle (replaces the lock and gear images) */
+#loading-indicator .popup::before,
+#loading-indicator .popup::after {
+    content: "";
+    position: absolute;
+    top: 34px;
+    left: 50%;
+    width: 68px;
+    height: 68px;
+    margin-left: -34px;
+    border-radius: 9999px;
+}
+#loading-indicator .popup::before {
+    border: 4px solid #d6f7ee;
+    border-top-color: #1dd1a1;
+    animation: crmOverlaySpin .9s linear infinite;
+}
+#loading-indicator .popup::after {
+    background: no-repeat center / 26px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230a8a68' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4.5' y='10.5' width='15' height='10' rx='2.2'/%3E%3Cpath d='M8 10.5V7.5a4 4 0 0 1 8 0v3'/%3E%3C/svg%3E");
+}
+#loading-indicator .popup .lock-image,
+#loading-indicator .popup .loading-image { display: none; }
+#loading-indicator .popup h3 {
+    order: -1;
+    padding: 0;
+    color: #1d2226;
+    font-family: inherit;
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -.01em;
+}
+#loading-indicator .popup p {
+    margin-top: 6px;
+    padding: 0;
+    opacity: 1;
+    color: #5e656d;
+    font-family: inherit;
+    font-size: 14px;
+}
+@keyframes crmOverlaySpin { to { transform: rotate(360deg); } }
+@keyframes crmOverlayIn { from { opacity: 0; transform: translate(-50%, -46%) scale(.96); } to { opacity: 1; transform: translate(-50%, -50%); } }
+@media (prefers-reduced-motion: reduce) {
+    #loading-indicator .popup { animation: none; }
+    #loading-indicator .popup::before { animation-duration: 2.4s; }
+}

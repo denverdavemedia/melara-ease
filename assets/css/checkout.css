@@ -1,0 +1,28 @@
+/* Montserrat throughout; titles bold; emphasis is colour-only, never italic */
+.font-serif { font-weight: 700; letter-spacing: -0.03em; }
+em, .italic { font-style: normal; }
+html, body { background: #f3f4f6; }
+.field { width: 100%; border: 1px solid #e1e4e8; background: #fff; border-radius: 12px; padding: 12px 14px; font-size: 15px; color: #1d2226; transition: border-color .2s, box-shadow .2s; }
+.field::placeholder { color: #9aa1a9; }
+.field:focus { outline: none; border-color: #1dd1a1; box-shadow: 0 0 0 4px rgba(29,209,161,.18); }
+.field.invalid { border-color: #fb7185; box-shadow: 0 0 0 4px rgba(251,113,133,.15); }
+select.field { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%235e656d' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 40px; }
+.has-icon { position: relative; }
+.has-icon .field { padding-left: 44px; }
+/* centred on the input itself (half its 48px height), not the wrapper, which grows when integrated.js adds an error message; z-index keeps it above the card-type wrapper integrated.js adds */
+.field-icon { position: absolute; z-index: 1; left: 14px; top: 24px; transform: translateY(-50%); color: #9aa1a9; pointer-events: none; display: flex; transition: color .2s; }
+.has-icon:focus-within .field-icon { color: #0a8a68; }
+.has-icon:has(.invalid) .field-icon { color: #fb7185; }
+.label { display: block; font-size: 13px; font-weight: 500; color: #1d2226; margin-bottom: 6px; }
+.card { background: #fff; border: 1px solid #e1e4e8; border-radius: 24px; }
+.pack { cursor: pointer; transition: border-color .2s, box-shadow .2s, transform .2s; }
+.pack:hover { transform: translateY(-2px); }
+.pack input:checked + .pack-body { border-color: #1dd1a1; box-shadow: 0 0 0 4px rgba(29,209,161,.18), 0 18px 40px -24px rgba(29,209,161,.9); background: #f4fdf9; }
+.pack input:checked + .pack-body .pack-radio { border-color: #1dd1a1; background: #1dd1a1; box-shadow: inset 0 0 0 3px #fff; }
+.pack input:focus-visible + .pack-body { outline: 2px solid #1d2226; outline-offset: 2px; }
+/* Live mode: integrated.js marks bad fields with .error and adds a span.error-message after them */
+.field.error { border-color: #fb7185; box-shadow: 0 0 0 4px rgba(251,113,133,.15); }
+.has-icon:has(.error) .field-icon { color: #fb7185; }
+span.error-message { display: block; margin-top: 6px; font-size: 12px; color: #e11d48; }
+.iti { width: 100%; }
+.iti .field { padding-left: 52px; }
