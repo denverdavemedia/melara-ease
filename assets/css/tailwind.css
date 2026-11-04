@@ -1,0 +1,81 @@
+/* Tailwind v4 input -> public/css/app.css (gulp tailwind-css).
+ * Utilities are unlayered on purpose and app.css is linked after the page CSS, so specificity
+ * decides conflicts and utilities win ties, as with the old v3 Play CDN. */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css";
+@import "./language-selector.css";
+@import "./crm-overlay.css";
+
+@source "../../*.php";
+@source "../../includes/**/*.php";
+@source "../js/*.js";
+
+@theme {
+    --font-sans: Montserrat, system-ui, sans-serif;
+    --font-serif: Montserrat, system-ui, sans-serif;
+
+    --color-cream: #f8f9fa;
+    --color-linen: #eef0f2;
+    --color-sand: #e1e4e8;
+    --color-turq: #1dd1a1;
+    --color-turq-dark: #14b88c;
+    --color-turq-soft: #d6f7ee;
+    --color-turq-ink: #0a8a68;
+    --color-ocean: #1dd1a1;
+    --color-ocean-soft: #e6f9f3;
+    --color-ink: #1d2226;
+    --color-muted: #5e656d;
+
+    /* v3 hex values of the default colours the pages use (v4's oklch ones are more saturated) */
+    --color-gray-200: #e5e7eb;
+    --color-gray-400: #9ca3af;
+    --color-amber-500: #f59e0b;
+    --color-rose-50: #fff1f2;
+    --color-rose-100: #ffe4e6;
+    --color-rose-300: #fda4af;
+    --color-rose-400: #fb7185;
+    --color-rose-500: #f43f5e;
+    --color-rose-600: #e11d48;
+
+    /* v3 line heights: fixed rem values, so children with a smaller text-[..] inherit the same px height */
+    --text-xs--line-height: 1rem;
+    --text-sm--line-height: 1.25rem;
+    --text-base--line-height: 1.5rem;
+    --text-lg--line-height: 1.75rem;
+    --text-xl--line-height: 1.75rem;
+    --text-2xl--line-height: 2rem;
+    --text-3xl--line-height: 2.25rem;
+    --text-4xl--line-height: 2.5rem;
+
+    --animate-marquee: marquee 40s linear infinite;
+    --animate-float: float 7s ease-in-out infinite;
+    --animate-kenburns: kenburns 24s ease-in-out infinite alternate;
+
+    @keyframes marquee {
+        from { transform: translateX(0); }
+        to { transform: translateX(-50%); }
+    }
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+    @keyframes kenburns {
+        from { transform: scale(1); }
+        to { transform: scale(1.08); }
+    }
+}
+
+/* v3 defaults the markup was written against (from the v4 upgrade guide) */
+@layer base {
+    *, ::after, ::before, ::backdrop, ::file-selector-button {
+        border-color: var(--color-gray-200, currentColor);
+    }
+    input::placeholder, textarea::placeholder {
+        color: var(--color-gray-400);
+    }
+    button:not(:disabled), [role="button"]:not(:disabled) {
+        cursor: pointer;
+    }
+}

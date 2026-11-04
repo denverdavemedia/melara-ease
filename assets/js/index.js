@@ -7,8 +7,8 @@
     const onScroll = () => {
         const scrolled = scrollY > 30;
         nav.classList.toggle('bg-cream/85', scrolled);
-        nav.classList.toggle('backdrop-blur', scrolled);
-        nav.classList.toggle('shadow-sm', scrolled);
+        nav.classList.toggle('backdrop-blur-sm', scrolled);
+        nav.classList.toggle('shadow-xs', scrolled);
         buyBar.style.transform = scrollY > 600 ? 'translateY(0)' : '';
     };
     addEventListener('scroll', onScroll, { passive: true });

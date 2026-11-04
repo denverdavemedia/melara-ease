@@ -1,0 +1,6 @@
+/* Montserrat throughout; titles bold; emphasis is colour-only, never italic */
+.font-serif { font-weight: 700; letter-spacing: -0.03em; }
+html, body { background: #f3f4f6; }
+.check-pop { animation: pop .6s cubic-bezier(.3,1.6,.5,1) both; }
+@keyframes pop { from { transform: scale(.4); opacity: 0; } to { transform: none; opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .check-pop { animation: none; } }
