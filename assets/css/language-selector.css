@@ -1,0 +1,10 @@
+/* Language selector (includes/language-selector.php) */
+.lang-sel > summary { list-style: none; }
+.lang-sel > summary::-webkit-details-marker { display: none; }
+.lang-sel .lang-chev { transition: transform .2s; }
+.lang-sel[open] .lang-chev { transform: rotate(180deg); }
+.lang-sel[open] .lang-panel { animation: langIn .18s ease-out; }
+.lang-sel[data-up][open] .lang-panel { animation-name: langInUp; }
+@keyframes langIn { from { opacity: 0; transform: translateY(-6px) scale(.98); } to { opacity: 1; transform: none; } }
+@keyframes langInUp { from { opacity: 0; transform: translateY(6px) scale(.98); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .lang-sel .lang-panel { animation: none !important; } }
