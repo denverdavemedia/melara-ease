@@ -5,7 +5,7 @@ include_once(BASEPATH . '/src/JsonTranslateCollector.php');
 include_once(__DIR__ . '/includes/language-selector.php');
 
 $percentage = [0.55, 0.62, 0.65, 0.7]; // discount per pack: 1x 55%, 2x 62%, 3x 65%, 4x 70%
-$packLabels = [1 => 'Just me', 2 => 'Home & work', 3 => 'Every chair', 4 => 'The team'];
+$packLabels = [1 => 'Just me', 2 => 'For two', 3 => 'Every chair', 4 => 'Whole family'];
 
 $collector = new JsonCollector(targetLanguage: $OfferApi->targetLanguage, pageName: "checkout");
 
@@ -59,7 +59,7 @@ $freeText = $collector->translate('co_free', 'Free');
     <div class="mx-auto max-w-6xl px-4 sm:px-6 py-8 sm:py-10 flex items-center justify-between gap-6">
         <div>
             <p class="text-xs font-medium uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('co_almost_there', 'Almost there') ?></p>
-            <h1 class="mt-2 font-serif text-3xl sm:text-5xl leading-tight sm:leading-none tracking-tight"><?= $collector->translate('co_treat_your_back_to', 'Treat your back to a') ?><br class="hidden sm:block"> <em class="text-turq-ink"><?= $collector->translate('co_better_workday', 'better workday.') ?></em></h1>
+            <h1 class="mt-2 font-serif text-3xl sm:text-5xl leading-tight sm:leading-none tracking-tight"><?= $collector->translate('co_treat_your_back_to', 'Treat your back to a') ?><br class="hidden sm:block"> <em class="text-turq-ink"><?= $collector->translate('co2_better_day', 'more comfortable day.') ?></em></h1>
         </div>
         <img src="assets/img/anatomy-assembled.webp?t=<?= $OfferApi->assetVersion('assets/img/anatomy-assembled.webp') ?>" alt="<?= $product ?>" class="hidden sm:block w-48 lg:w-60 drop-shadow-2xl" width="240" height="240">
     </div>
@@ -82,7 +82,7 @@ $freeText = $collector->translate('co_free', 'Free');
                 </span>
                 <div>
                     <p class="font-semibold text-lg text-turq-ink"><?= $collector->translate('co_your_launch_discount_has', 'Your launch discount has been applied') ?></p>
-                    <p class="mt-1 text-sm text-muted"><?= $collector->translate('co_limited_time_the', 'Limited time: the') ?> <?= $product ?> <?= $collector->translate('co_is_available_from', 'is available from') ?> <s><?= $OfferApi->formatNumber(round($firstPack->price / (1 - $percentage[0]))) ?></s> <strong class="text-ink"><?= $OfferApi->formatNumber($firstPack->price) ?></strong><?= $collector->translate('co_with_up_to', ', with up to') ?> <?= $maxSave ?><?= $collector->translate('co_off_bundles', '% off bundles.') ?></p>
+                    <p class="mt-1 text-sm text-muted"><?= $collector->translate('co_limited_time_the', 'Limited time: the') ?> <?= $product ?> <?= $collector->translate('co_is_available_from', 'is available from') ?> <s><?= $OfferApi->formatNumber(round($firstPack->price / (1 - $percentage[0]))) ?></s> <strong class="text-ink"><?= $OfferApi->formatNumber($firstPack->price) ?></strong><?= $collector->translate('co_with_up_to', ', with up to') ?> <?= $maxSave ?><?= $collector->translate('co_off_bundles', '% off when you buy more than one.') ?></p>
                 </div>
             </div>
             <div class="mt-5 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 rounded-2xl border border-dashed border-turq/50 bg-turq-soft/40 px-4 py-3 text-sm">
@@ -175,9 +175,9 @@ $freeText = $collector->translate('co_free', 'Free');
                 </dl>
             </div>
             <ul class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-2 text-sm font-medium">
-                <li class="flex items-center gap-2"><span class="grid place-items-center w-5 h-5 rounded-full bg-turq text-ink"><svg viewBox="0 0 24 24" class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg></span><?= $collector->translate('co_feature_1', 'Ergonomic design') ?></li>
+                <li class="flex items-center gap-2"><span class="grid place-items-center w-5 h-5 rounded-full bg-turq text-ink"><svg viewBox="0 0 24 24" class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg></span><?= $collector->translate('co2_feature_1', 'Lumbar support') ?></li>
                 <li class="flex items-center gap-2"><span class="grid place-items-center w-5 h-5 rounded-full bg-turq text-ink"><svg viewBox="0 0 24 24" class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg></span><?= $collector->translate('co_feature_2', 'Premium memory foam') ?></li>
-                <li class="flex items-center gap-2"><span class="grid place-items-center w-5 h-5 rounded-full bg-turq text-ink"><svg viewBox="0 0 24 24" class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg></span><?= $collector->translate('co_feature_3', 'Fits any office chair') ?></li>
+                <li class="flex items-center gap-2"><span class="grid place-items-center w-5 h-5 rounded-full bg-turq text-ink"><svg viewBox="0 0 24 24" class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg></span><?= $collector->translate('co2_feature_3', 'Fits most home chairs') ?></li>
             </ul>
 
             <div class="mt-8"><h2 class="flex items-center gap-3 text-lg font-bold"><span class="grid place-items-center w-9 h-9 rounded-xl bg-turq-soft text-turq-ink"><svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c1.2-3.6 4-5.5 7.5-5.5s6.3 1.9 7.5 5.5"/></svg></span><span><span class="text-muted font-medium"><?= $collector->translate('step_word_2', 'Step') ?> 2:</span> <?= $collector->translate('step_2_title', 'Customer information') ?></span></h2></div>
@@ -212,7 +212,7 @@ $freeText = $collector->translate('co_free', 'Free');
             <div class="mt-5 rounded-2xl border border-sand p-4">
                 <p class="text-sm font-medium"><?= $collector->translate('co_shipping_2', 'Shipping') ?></p>
                 <div class="mt-2 flex items-center justify-between text-sm">
-                    <span class="inline-flex items-center gap-3"><span class="w-5 h-5 rounded-full border-2 border-turq bg-turq shadow-[inset_0_0_0_3px_#fff]"></span> <?= $collector->translate('co_standard_3_6_business', 'Standard (3–6 business days)') ?></span>
+                    <span class="inline-flex items-center gap-3"><span class="w-5 h-5 rounded-full border-2 border-turq bg-turq shadow-[inset_0_0_0_3px_#fff]"></span> <?= $collector->translate('co_standard_3_6_business', 'Standard (5–7 business days)') ?></span>
                     <span class="font-semibold text-turq-ink" id="sumShippingOpt"><?= $sel['shippingText'] ?></span>
                 </div>
                 <p class="mt-3 text-xs text-muted bg-cream rounded-lg px-3 py-2 inline-flex items-center gap-2"><span class="text-turq-ink"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/></svg></span> <?= $collector->translate('co_we_ship_ddp_all', 'We ship DDP: all taxes and duties are paid by us.') ?></p>
@@ -239,7 +239,7 @@ $freeText = $collector->translate('co_free', 'Free');
 
         <section class="lg:col-start-2 lg:row-start-3">
             <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-muted">
-                <span class="inline-flex items-center gap-1.5"><span class="text-turq-ink"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5.5c0 4.4 3 8.2 7 9.5 4-1.3 7-5.1 7-9.5V6l-7-3z"/><path d="m9 12 2.2 2.2L15.5 10"/></svg></span> <?= $collector->translate('co_100_night_money_back', '100-night money-back') ?></span>
+                <span class="inline-flex items-center gap-1.5"><span class="text-turq-ink"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5.5c0 4.4 3 8.2 7 9.5 4-1.3 7-5.1 7-9.5V6l-7-3z"/><path d="m9 12 2.2 2.2L15.5 10"/></svg></span> <?= $collector->translate('co_100_night_money_back', '30-day money-back') ?></span>
                 <span class="inline-flex items-center gap-1.5"><span class="text-turq-ink"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/></svg></span> <?= $collector->translate('co_ships_in_24_hours', 'Ships in 24 hours') ?></span>
                 <span class="inline-flex items-center gap-1.5"><span class="text-turq-ink"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V4h8l9.5 9.5-8 8L3 12z"/><circle cx="7.5" cy="8" r="1.5"/></svg></span> <?= $collector->translate('co_launch_price_locked', 'Launch price locked') ?></span>
             </div>

@@ -104,7 +104,7 @@ foreach ($OfferApi->upsaleProducts as $product) {
         <div class="absolute -top-32 -right-32 w-[520px] h-[520px] blob bg-turq-soft/80 blur-2xl" aria-hidden="true"></div>
         <div class="absolute bottom-0 -left-40 w-[420px] h-[420px] blob bg-[#e6f9f3] blur-2xl" aria-hidden="true"></div>
 
-        <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-5 sm:pt-8 pb-16 lg:pt-12 lg:pb-24">
+        <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-5 sm:pt-8 pb-5 lg:pt-12 lg:pb-24">
 
             <div class="mx-auto max-w-4xl text-center">
                 <p class="reveal hidden sm:inline-flex items-center gap-2 rounded-full bg-white/80 border border-sand px-4 py-1.5 text-xs font-semibold uppercase tracking-[.18em] text-turq-ink">
@@ -113,7 +113,7 @@ foreach ($OfferApi->upsaleProducts as $product) {
                 <h1 class="reveal sm:mt-5 font-serif text-[1.95rem] sm:text-5xl lg:text-[3.6rem] leading-[1.04] sm:leading-none tracking-tight" data-delay="1">
                     <?= $collector->translate('h1', 'Add a second cushion') ?> <em class="text-turq-ink"><?= $collector->translate('h1_accent', 'for your other chair.') ?></em>
                 </h1>
-                <p class="reveal mt-3 sm:mt-5 text-[15px] sm:text-lg text-muted leading-relaxed sm:leading-7 max-w-2xl mx-auto" data-delay="2"><?= $collector->translate('lead', 'Your back doesn\'t stop hurting when you change chairs. Add another Melara Seat Cushion for the office, the car or the gaming chair at home — at 70% off, only on this page.') ?></p>
+                <p class="reveal mt-3 sm:mt-5 text-[15px] sm:text-lg text-muted leading-relaxed sm:leading-7 max-w-2xl mx-auto" data-delay="2"><?= $collector->translate('lead2', 'Your back needs support on every chair, not just one. Add a second Melara Seat Cushion for your reading chair, the dining table or the study, at our lowest price.') ?></p>
 
                 <ul class="reveal mt-4 sm:mt-7 mx-auto max-w-xl lg:max-w-none grid grid-cols-2 gap-x-3 gap-y-2.5 sm:gap-y-3 rounded-2xl bg-white/80 backdrop-blur-sm border border-sand p-3 sm:p-4 text-left shadow-[0_20px_40px_-30px_rgba(29,34,38,.45)]
                            lg:inline-flex lg:flex-nowrap lg:justify-center lg:items-center lg:gap-0 lg:rounded-full lg:px-3 lg:py-2.5" data-delay="3">
@@ -139,7 +139,7 @@ foreach ($OfferApi->upsaleProducts as $product) {
                         <span class="shrink-0 grid place-items-center w-5 h-5 rounded-full bg-turq text-ink shadow-[0_0_0_3px_rgba(29,209,161,.18)]" aria-hidden="true">
                             <svg viewBox="0 0 24 24" class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>
                         </span>
-                        <?= $collector->translate('chip_3_t', 'Washable knit cover') ?>
+                        <?= $collector->translate('chip_3_t', 'Anti-slip base') ?>
                     </li>
                 </ul>
             </div>
@@ -170,8 +170,8 @@ foreach ($OfferApi->upsaleProducts as $product) {
                             <p class="text-[11px] uppercase tracking-[.2em] text-turq-soft mt-1"><?= $collector->translate('badge_off', 'Off · today only') ?></p>
                         </div>
                         <div class="absolute right-0 sm:-right-4 bottom-8 bg-white rounded-2xl shadow-xl px-5 py-4 max-w-[220px] animate-float" style="animation-delay: -4s">
-                            <p class="font-serif text-2xl text-turq-ink">62%</p>
-                            <p class="text-xs text-muted leading-snug"><?= $collector->translate('stat_text', 'less pressure on your tailbone') ?></p>
+                            <p class="font-serif text-xl text-turq-ink"><?= $collector->translate('stat2_t', 'Tailbone relief') ?></p>
+                            <p class="text-xs text-muted leading-snug"><?= $collector->translate('stat2_d', 'Hollow vent lifts pressure off your coccyx') ?></p>
                         </div>
                     </div>
                 </div>
@@ -244,7 +244,7 @@ foreach ($OfferApi->upsaleProducts as $product) {
                             <span class="mx-auto mb-1.5 grid place-items-center w-9 h-9 rounded-full bg-turq-soft text-turq-ink group-hover:bg-turq group-hover:text-ink transition" aria-hidden="true">
                                 <svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19.5 14.6A7.5 7.5 0 0 1 9.4 4.5a7.5 7.5 0 1 0 10.1 10.1z"/><path d="M16.5 3.5v3M15 5h3"/></svg>
                             </span>
-                            <span class="block font-semibold text-ink text-sm"><?= $collector->translate('perk_trial_t', '100 nights') ?></span>
+                            <span class="block font-semibold text-ink text-sm"><?= $collector->translate('perk_trial_t', '30 days') ?></span>
                             <?= $collector->translate('perk_trial_d', 'love it or return it') ?>
                         </li>
                         <li class="group rounded-2xl bg-white/70 border border-sand px-2 py-3 hover:border-turq/50 hover:-translate-y-0.5 transition">
@@ -260,7 +260,7 @@ foreach ($OfferApi->upsaleProducts as $product) {
         </div>
     </section>
 
-    <section class="relative mesh text-cream py-20 lg:py-28 overflow-hidden" style="--veil: rgba(29,34,38,.55)">
+    <section class="relative mesh text-cream py-5 md:py-[30px] lg:py-28 overflow-hidden" style="--veil: rgba(29,34,38,.55)">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="max-w-2xl">
                 <p class="reveal text-sm font-medium uppercase tracking-[.2em] text-turq"><?= $collector->translate('why_eyebrow', 'Why you\'ll love it') ?></p>
@@ -274,29 +274,29 @@ foreach ($OfferApi->upsaleProducts as $product) {
                     <span class="grid place-items-center w-12 h-12 rounded-2xl bg-turq/15 text-turq group-hover:bg-turq group-hover:text-ink transition">
                         <svg viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5c2.2-1.6 4.3-1.6 6.5 0s4.3 1.6 6.5 0 3.5-1.2 5-.8"/><path d="M3 14.5c2.2-1.6 4.3-1.6 6.5 0s4.3 1.6 6.5 0 3.5-1.2 5-.8"/><path d="M3 19.5h18"/><path d="M12 2.5v3.5m-1.6-1.6L12 6l1.6-1.6"/></svg>
                     </span>
-                    <h3 class="mt-5 font-serif text-xl"><?= $collector->translate('benefit_0_t', 'Soft where you sink') ?></h3>
-                    <p class="mt-2 text-sm text-cream/70 leading-relaxed"><?= $collector->translate('benefit_0_d', 'Slow-rebound memory foam gently shapes to you, so your weight is spread evenly instead of pressing on two sore spots.') ?></p>
+                    <h3 class="mt-5 font-serif text-xl"><?= $collector->translate('ben2_0_t', 'Evenly spread pressure') ?></h3>
+                    <p class="mt-2 text-sm text-cream/70 leading-relaxed"><?= $collector->translate('ben2_0_d', 'Slow-rebound memory foam shapes to your body and spreads your weight evenly, easing pressure on your sit bones.') ?></p>
                 </div>
                 <div class="reveal group rounded-[1.75rem] border border-white/10 bg-white/[.04] backdrop-blur-sm p-6 hover:bg-white/[.08] hover:-translate-y-1 transition" data-delay="2">
                     <span class="grid place-items-center w-12 h-12 rounded-2xl bg-turq/15 text-turq group-hover:bg-turq group-hover:text-ink transition">
                         <svg viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 4v7a7.5 7.5 0 0 0 15 0V4"/><path d="M9.5 4v6.5a2.5 2.5 0 0 0 5 0V4"/><path d="M4.5 4h5M14.5 4h5"/></svg>
                     </span>
                     <h3 class="mt-5 font-serif text-xl"><?= $collector->translate('benefit_1_t', 'Space for your tailbone') ?></h3>
-                    <p class="mt-2 text-sm text-cream/70 leading-relaxed"><?= $collector->translate('benefit_1_d', 'A gentle oval opening lets your tailbone float, so sitting stops hurting.') ?></p>
+                    <p class="mt-2 text-sm text-cream/70 leading-relaxed"><?= $collector->translate('ben2_1_d', 'A hollow beneath your tailbone keeps pressure off your coccyx, so sitting stops hurting.') ?></p>
                 </div>
                 <div class="reveal group rounded-[1.75rem] border border-white/10 bg-white/[.04] backdrop-blur-sm p-6 hover:bg-white/[.08] hover:-translate-y-1 transition" data-delay="3">
                     <span class="grid place-items-center w-12 h-12 rounded-2xl bg-turq/15 text-turq group-hover:bg-turq group-hover:text-ink transition">
                         <svg viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5c-1.6 2.4 1.6 4.4 0 6.8s1.6 4.4 0 6.8 1.6 3.4 0 5.4"/><path d="M8.5 5.5h2M13.5 9h2M8.5 12.5h2M13.5 16h2"/><path d="M5 4c-1.2 5.5-1.2 10.5 0 16M19 4c1.2 5.5 1.2 10.5 0 16"/></svg>
                     </span>
-                    <h3 class="mt-5 font-serif text-xl"><?= $collector->translate('benefit_2_t', 'A backrest that hugs you') ?></h3>
-                    <p class="mt-2 text-sm text-cream/70 leading-relaxed"><?= $collector->translate('benefit_2_d', 'The wave-shaped back cushion curves around your lower back and keeps you sitting tall — no more slouching by lunch.') ?></p>
+                    <h3 class="mt-5 font-serif text-xl"><?= $collector->translate('ben2_2_t', 'Lumbar support that hugs you') ?></h3>
+                    <p class="mt-2 text-sm text-cream/70 leading-relaxed"><?= $collector->translate('ben2_2_d', 'The curved backrest supports the natural curve of your lower spine, helping you sit upright with less effort.') ?></p>
                 </div>
                 <div class="reveal group rounded-[1.75rem] border border-white/10 bg-white/[.04] backdrop-blur-sm p-6 hover:bg-white/[.08] hover:-translate-y-1 transition" data-delay="4">
                     <span class="grid place-items-center w-12 h-12 rounded-2xl bg-turq/15 text-turq group-hover:bg-turq group-hover:text-ink transition">
                         <svg viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h4.5M17.5 12H22"/><rect x="6.5" y="8" width="11" height="8" rx="2.2"/><path d="M10.5 8v8M13.5 10.5l1.5 1.5-1.5 1.5"/></svg>
                     </span>
                     <h3 class="mt-5 font-serif text-xl"><?= $collector->translate('benefit_3_t', 'Fits the chair you already have') ?></h3>
-                    <p class="mt-2 text-sm text-cream/70 leading-relaxed"><?= $collector->translate('benefit_3_d', 'Just set it on the seat and lean back. Works on office, gaming and dining chairs. No tools, no new chair.') ?></p>
+                    <p class="mt-2 text-sm text-cream/70 leading-relaxed"><?= $collector->translate('ben2_3_d', 'Just set it on the seat and lean back. Works on dining, kitchen and desk chairs. No tools, no new chair.') ?></p>
                 </div>
             </div>
 
@@ -316,14 +316,14 @@ foreach ($OfferApi->upsaleProducts as $product) {
         </div>
     </section>
 
-    <section id="road" class="road-section relative overflow-hidden py-20 lg:py-28">
+    <section id="road" class="road-section relative overflow-hidden py-5 md:py-[30px] lg:py-28">
         <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <div class="max-w-2xl mx-auto text-center">
-                <p class="reveal text-sm font-medium uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('road_eyebrow', 'A quick ride through your day') ?></p>
+                <p class="reveal text-sm font-medium uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('road2_eyebrow', 'A day at home') ?></p>
                 <h2 class="reveal mt-4 font-serif text-4xl sm:text-5xl leading-tight sm:leading-none tracking-tight" data-delay="1">
                     <?= $collector->translate('road_title', 'Every chair you sit in') ?> <em class="text-turq-ink"><?= $collector->translate('road_accent', 'is a stop on the road.') ?></em>
                 </h2>
-                <p class="reveal mt-4 text-muted leading-relaxed" data-delay="2"><?= $collector->translate('road_lead', 'Your back travels with you — desk, car, sofa, gaming chair. Here\'s what happens at every stop, and the one thing that changes it.') ?></p>
+                <p class="reveal mt-4 text-muted leading-relaxed" data-delay="2"><?= $collector->translate('road2_lead', 'Your back goes wherever you sit: the dining table, your reading chair, the desk in the study. Here\'s what that does to it.') ?></p>
             </div>
 
             <div class="road-track relative mt-14 lg:mt-20 pt-10">
@@ -349,7 +349,7 @@ foreach ($OfferApi->upsaleProducts as $product) {
                         <div class="road-card ml-[76px] lg:ml-0 lg:col-start-1 lg:text-right rounded-[1.75rem] bg-white border border-sand p-5 sm:p-6 shadow-[0_30px_60px_-45px_rgba(29,34,38,.55)]">
                             <p class="text-xs font-semibold uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('road_stop_label', 'Stop') ?> 01</p>
                             <h3 class="mt-2 font-serif text-xl sm:text-2xl leading-snug sm:leading-8"><?= $collector->translate('road_stop_0_t', '8+ hours a day, sitting') ?></h3>
-                            <p class="mt-2 text-sm sm:text-base text-muted leading-relaxed sm:leading-6"><?= $collector->translate('road_stop_0_d', 'Work, the drive home, an evening on the couch. Your lower back carries you through all of it.') ?></p>
+                            <p class="mt-2 text-sm sm:text-base text-muted leading-relaxed sm:leading-6"><?= $collector->translate('road2_stop_0_d', 'Breakfast, the morning paper, lunch, a film in the evening. Your lower back carries you through all of it.') ?></p>
                         </div>
                     </li>
                     <li class="road-stop relative lg:grid lg:grid-cols-2 lg:gap-x-48" data-side="right">
@@ -360,7 +360,7 @@ foreach ($OfferApi->upsaleProducts as $product) {
                         <div class="road-card ml-[76px] lg:ml-0 lg:col-start-2 rounded-[1.75rem] bg-white border border-sand p-5 sm:p-6 shadow-[0_30px_60px_-45px_rgba(29,34,38,.55)]">
                             <p class="text-xs font-semibold uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('road_stop_label_2', 'Stop') ?> 02</p>
                             <h3 class="mt-2 font-serif text-xl sm:text-2xl leading-snug sm:leading-8"><?= $collector->translate('road_stop_1_t', 'Pressure piles up on two small spots') ?></h3>
-                            <p class="mt-2 text-sm sm:text-base text-muted leading-relaxed sm:leading-6"><?= $collector->translate('road_stop_1_d', 'On a flat seat your weight sinks onto your tailbone and hips. By lunch, that\'s the ache you keep shifting away from.') ?></p>
+                            <p class="mt-2 text-sm sm:text-base text-muted leading-relaxed sm:leading-6"><?= $collector->translate('road2_stop_1_d', 'On a flat seat your weight sinks onto your tailbone and sit bones. By the afternoon, that pressure turns into an ache.') ?></p>
                         </div>
                     </li>
                     <li class="road-stop relative lg:grid lg:grid-cols-2 lg:gap-x-48" data-side="left">
@@ -382,7 +382,7 @@ foreach ($OfferApi->upsaleProducts as $product) {
                         <div class="road-card ml-[76px] lg:ml-0 lg:col-start-2 rounded-[1.75rem] bg-white border border-sand p-5 sm:p-6 shadow-[0_30px_60px_-45px_rgba(29,34,38,.55)]">
                             <p class="text-xs font-semibold uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('road_stop_label_4', 'Stop') ?> 04</p>
                             <h3 class="mt-2 font-serif text-xl sm:text-2xl leading-snug sm:leading-8"><?= $collector->translate('road_stop_3_t', 'And it shouldn\'t stay in one chair') ?></h3>
-                            <p class="mt-2 text-sm sm:text-base text-muted leading-relaxed sm:leading-6"><?= $collector->translate('road_stop_3_d', 'The comfort you have on one seat should follow you to the next one — the office, the car or the gaming chair at home.') ?></p>
+                            <p class="mt-2 text-sm sm:text-base text-muted leading-relaxed sm:leading-6"><?= $collector->translate('road2_stop_3_d', 'The comfort you have on one seat should follow you to the next: the dining table, your reading chair or the desk in the study.') ?></p>
                         </div>
                     </li>
                 </ol>
@@ -424,15 +424,15 @@ foreach ($OfferApi->upsaleProducts as $product) {
         </div>
     </section>
 
-    <section class="py-20 lg:py-28">
+    <section class="py-5 md:py-[30px] lg:py-28">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div class="reveal relative">
                 <div class="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-[0_40px_80px_-40px_rgba(29,34,38,.45)]">
-                    <div class="w-full h-full animate-kenburns"><img src="assets/img/upsell/cushion-life.webp?t=<?= $OfferApi->assetVersion('assets/img/upsell/cushion-life.webp') ?>" alt="Melara seat cushion on a chair in a bright office" class="w-full h-full object-cover" loading="lazy" decoding="async"></div>
+                    <div class="w-full h-full grid place-items-center bg-linen" role="img" aria-label="Woman in her 60s reading in a chair at home, sitting on the Melara cushion"><span class="flex flex-col items-center gap-2 px-6 text-center"><span class="text-[11px] tracking-widest uppercase text-ink/40 bg-white/60 rounded-full px-3 py-1">cushion-life.webp</span><span class="max-w-xs text-xs text-ink/50 leading-snug">Woman in her 60s reading in a chair at home, sitting on the Melara cushion</span></span></div>
                 </div>
                 <div class="absolute -bottom-6 left-6 sm:-left-6 bg-white rounded-2xl shadow-xl px-5 py-4 max-w-[260px]">
                     <p class="text-amber-500 text-sm">★★★★★</p>
-                    <p class="mt-1 text-sm leading-snug">“<?= $collector->translate('review_0_text', 'Ordered one, then the Home & work pack a week later. The backrest support is the real game changer.') ?>”</p>
+                    <p class="mt-1 text-sm leading-snug">“<?= $collector->translate('rev2_0_text', 'Bought one for the dining room, then a second for my reading chair. The back support is wonderful.') ?>”</p>
                     <p class="mt-2 text-xs text-muted">Eley S.</p>
                 </div>
             </div>
@@ -440,28 +440,28 @@ foreach ($OfferApi->upsaleProducts as $product) {
             <div>
                 <p class="reveal text-sm font-medium uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('story_eyebrow', 'One for every seat') ?></p>
                 <h2 class="reveal mt-4 font-serif text-4xl sm:text-5xl leading-tight sm:leading-none tracking-tight" data-delay="1">
-                    <?= $collector->translate('story_title', 'One for work.') ?> <em class="text-turq-ink"><?= $collector->translate('story_accent', 'One for home.') ?></em>
+                    <?= $collector->translate('story2_title', 'One for the table.') ?> <em class="text-turq-ink"><?= $collector->translate('story2_accent', 'One for your favourite chair.') ?></em>
                 </h2>
                 <ol class="mt-10 space-y-4">
                     <li class="reveal flex gap-5 rounded-2xl bg-white border border-sand/70 p-5 hover:shadow-lg hover:-translate-y-0.5 transition" data-delay="1">
                         <span class="grid place-items-center shrink-0 w-10 h-10 rounded-full bg-turq-soft text-turq-ink font-bold text-sm">01</span>
                         <div>
-                            <h3 class="font-semibold"><?= $collector->translate('story_0_t', 'Home office') ?></h3>
-                            <p class="mt-1 text-sm text-muted leading-relaxed"><?= $collector->translate('story_0_d', 'Calls, deadlines, and finally no back pain.') ?></p>
+                            <h3 class="font-semibold"><?= $collector->translate('story2_0_t', 'At the dining table') ?></h3>
+                            <p class="mt-1 text-sm text-muted leading-relaxed"><?= $collector->translate('story2_0_d', 'Long family meals and card games, in comfort.') ?></p>
                         </div>
                     </li>
                     <li class="reveal flex gap-5 rounded-2xl bg-white border border-sand/70 p-5 hover:shadow-lg hover:-translate-y-0.5 transition" data-delay="2">
                         <span class="grid place-items-center shrink-0 w-10 h-10 rounded-full bg-turq-soft text-turq-ink font-bold text-sm">02</span>
                         <div>
-                            <h3 class="font-semibold"><?= $collector->translate('story_1_t', 'At the office') ?></h3>
-                            <p class="mt-1 text-sm text-muted leading-relaxed"><?= $collector->translate('story_1_d', 'Turn a basic work chair into the best seat on the floor.') ?></p>
+                            <h3 class="font-semibold"><?= $collector->translate('story2_1_t', 'Your reading chair') ?></h3>
+                            <p class="mt-1 text-sm text-muted leading-relaxed"><?= $collector->translate('story2_1_d', 'A good book or an evening film, without the ache.') ?></p>
                         </div>
                     </li>
                     <li class="reveal flex gap-5 rounded-2xl bg-white border border-sand/70 p-5 hover:shadow-lg hover:-translate-y-0.5 transition" data-delay="3">
                         <span class="grid place-items-center shrink-0 w-10 h-10 rounded-full bg-turq-soft text-turq-ink font-bold text-sm">03</span>
                         <div>
-                            <h3 class="font-semibold"><?= $collector->translate('story_2_t', 'Late-night gaming') ?></h3>
-                            <p class="mt-1 text-sm text-muted leading-relaxed"><?= $collector->translate('story_2_d', 'One more round, without the ache.') ?></p>
+                            <h3 class="font-semibold"><?= $collector->translate('story2_2_t', 'The home desk') ?></h3>
+                            <p class="mt-1 text-sm text-muted leading-relaxed"><?= $collector->translate('story2_2_d', 'Paperwork, emails and calls with the grandchildren.') ?></p>
                         </div>
                     </li>
                 </ol>
@@ -484,7 +484,7 @@ foreach ($OfferApi->upsaleProducts as $product) {
         </div>
     </section>
 
-    <section class="bg-soft-gray py-20 lg:py-28 border-y border-sand">
+    <section class="bg-soft-gray py-5 md:py-[30px] lg:py-28 border-y border-sand">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="text-center">
                 <p class="reveal text-amber-500 text-lg">★★★★★</p>
@@ -494,36 +494,36 @@ foreach ($OfferApi->upsaleProducts as $product) {
             <div class="mt-12 grid md:grid-cols-3 gap-5">
                 <figure class="reveal bg-white rounded-3xl p-7 border border-sand/70 hover:-translate-y-1 hover:shadow-xl transition" data-delay="1">
                     <p class="text-amber-500 text-sm">★★★★★</p>
-                    <blockquote class="mt-3 font-serif text-lg leading-snug">“<?= $collector->translate('review_0_text_2', 'Ordered one, then the Home & work pack a week later. The backrest support is the real game changer.') ?>”</blockquote>
+                    <blockquote class="mt-3 font-serif text-lg leading-snug">“<?= $collector->translate('rev2_0_text_2', 'Bought one for the dining room, then a second for my reading chair. The back support is wonderful.') ?>”</blockquote>
                     <figcaption class="mt-5 flex items-center gap-3 text-sm">
                         <img src="assets/img/user/review-eley.png" alt="Eley S." width="44" height="44" class="w-11 h-11 rounded-full object-cover ring-2 ring-white shadow-md" loading="lazy">
                         <span>
                             <span class="block font-semibold">Eley S.</span>
-                            <span class="block text-xs text-muted"><?= $collector->translate('review_0_role', 'HR specialist') ?></span>
+                            <span class="block text-xs text-muted"><?= $collector->translate('rev2_0_role', 'Bought two') ?></span>
                         </span>
                         <span class="ml-auto rounded-full bg-turq-soft/70 border border-turq/30 px-2.5 py-0.5 text-[11px] font-semibold text-turq-ink whitespace-nowrap"><?= $collector->translate('verified', 'Verified buyer') ?></span>
                     </figcaption>
                 </figure>
                 <figure class="reveal bg-white rounded-3xl p-7 border border-sand/70 hover:-translate-y-1 hover:shadow-xl transition" data-delay="2">
                     <p class="text-amber-500 text-sm">★★★★★</p>
-                    <blockquote class="mt-3 font-serif text-lg leading-snug">“<?= $collector->translate('review_1_text', 'It fits my office chair perfectly. My tailbone used to hurt by noon. Not anymore.') ?>”</blockquote>
+                    <blockquote class="mt-3 font-serif text-lg leading-snug">“<?= $collector->translate('rev2_1_text', 'It fits our dining chairs perfectly. My tailbone used to ache by lunchtime. Not anymore.') ?>”</blockquote>
                     <figcaption class="mt-5 flex items-center gap-3 text-sm">
                         <img src="assets/img/user/review-bert.png" alt="Bert D." width="44" height="44" class="w-11 h-11 rounded-full object-cover ring-2 ring-white shadow-md" loading="lazy">
                         <span>
                             <span class="block font-semibold">Bert D.</span>
-                            <span class="block text-xs text-muted"><?= $collector->translate('review_1_role', 'Sales manager') ?></span>
+                            <span class="block text-xs text-muted"><?= $collector->translate('rev2_1_role', 'Retired engineer') ?></span>
                         </span>
                         <span class="ml-auto rounded-full bg-turq-soft/70 border border-turq/30 px-2.5 py-0.5 text-[11px] font-semibold text-turq-ink whitespace-nowrap"><?= $collector->translate('verified_2', 'Verified buyer') ?></span>
                     </figcaption>
                 </figure>
                 <figure class="reveal bg-white rounded-3xl p-7 border border-sand/70 hover:-translate-y-1 hover:shadow-xl transition" data-delay="3">
                     <p class="text-amber-500 text-sm">★★★★★</p>
-                    <blockquote class="mt-3 font-serif text-lg leading-snug">“<?= $collector->translate('review_2_text', 'It looks clean on my chair and I can sit through a six-hour stream without shifting every five minutes.') ?>”</blockquote>
+                    <blockquote class="mt-3 font-serif text-lg leading-snug">“<?= $collector->translate('rev2_2_text', 'Comfortable through a whole evening of films, and it doesn\'t slide around on the chair.') ?>”</blockquote>
                     <figcaption class="mt-5 flex items-center gap-3 text-sm">
                         <img src="assets/img/user/review-kim.png" alt="Kim R." width="44" height="44" class="w-11 h-11 rounded-full object-cover ring-2 ring-white shadow-md" loading="lazy">
                         <span>
                             <span class="block font-semibold">Kim R.</span>
-                            <span class="block text-xs text-muted"><?= $collector->translate('review_2_role', 'Streamer') ?></span>
+                            <span class="block text-xs text-muted"><?= $collector->translate('rev2_2_role', 'Grandmother of five') ?></span>
                         </span>
                         <span class="ml-auto rounded-full bg-turq-soft/70 border border-turq/30 px-2.5 py-0.5 text-[11px] font-semibold text-turq-ink whitespace-nowrap"><?= $collector->translate('verified_3', 'Verified buyer') ?></span>
                     </figcaption>
@@ -546,7 +546,63 @@ foreach ($OfferApi->upsaleProducts as $product) {
         </div>
     </section>
 
-    <section id="finalCta" class="px-4 sm:px-6 lg:px-8 py-20 lg:py-24">
+    <!-- Before you decide: price recap (follows the quantity picker) + the questions people have at this point -->
+    <section id="decide" class="px-4 sm:px-6 lg:px-8 py-5 md:py-[30px] lg:py-24">
+        <div class="mx-auto max-w-6xl">
+            <div class="text-center max-w-2xl mx-auto">
+                <p class="reveal text-sm font-medium uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('dec_eyebrow', 'Before you decide') ?></p>
+                <h2 class="reveal mt-3 font-serif text-4xl sm:text-5xl leading-tight tracking-tight" data-delay="1"><?= $collector->translate('dec_title', 'Here\'s exactly') ?> <em class="text-turq-ink"><?= $collector->translate('dec_accent', 'what you get today.') ?></em></h2>
+            </div>
+            <div class="mt-8 lg:mt-12 grid lg:grid-cols-12 gap-6 lg:gap-10 items-start">
+                <div class="reveal lg:col-span-5 rounded-[2rem] bg-white border border-sand shadow-[0_30px_80px_-40px_rgba(29,34,38,.35)] overflow-hidden">
+                    <div class="flex items-center justify-between gap-3 bg-ink text-cream px-6 py-4">
+                        <p class="text-xs font-semibold uppercase tracking-[.2em]"><?= $collector->translate('rcpt_title', 'Your one-time price') ?></p>
+                        <span class="rounded-full bg-turq px-3 py-1 text-xs font-bold text-ink"><?= $collector->translate('rcpt_badge', '70% off') ?></span>
+                    </div>
+                    <dl class="px-6 py-2 text-sm">
+                        <div class="flex justify-between gap-4 py-3 border-b border-dashed border-sand"><dt class="text-muted"><?= $collector->translate('rcpt_item', 'Item') ?></dt><dd class="font-semibold text-right" data-cta-label>1 × <?= $collector->translate('rcpt_unit', 'Seat Cushion') ?></dd></div>
+                        <div class="flex justify-between gap-4 py-3 border-b border-dashed border-sand"><dt class="text-muted"><?= $collector->translate('rcpt_regular', 'Regular price') ?></dt><dd class="text-right"><s class="text-muted" data-cta-retail><?= $OfferApi->formatNumber($retail) ?></s></dd></div>
+                        <div class="flex justify-between gap-4 py-3 border-b border-dashed border-sand"><dt class="text-muted"><?= $collector->translate('rcpt_shipping', 'Shipping') ?></dt><dd class="font-semibold text-turq-ink text-right"><?= $collector->translate('rcpt_shipping_v', 'Free, in the same box') ?></dd></div>
+                        <div class="flex justify-between gap-4 py-3 border-b border-dashed border-sand"><dt class="text-muted"><?= $collector->translate('rcpt_card', 'Card details') ?></dt><dd class="font-semibold text-right"><?= $collector->translate('rcpt_card_v', 'Not needed, one click') ?></dd></div>
+                        <div class="flex justify-between gap-4 py-3 border-b border-dashed border-sand"><dt class="text-muted"><?= $collector->translate('rcpt_refund', 'Refunds') ?></dt><dd class="font-semibold text-right"><?= $collector->translate('rcpt_refund_v', '30-day policy') ?></dd></div>
+                        <div class="flex items-end justify-between gap-4 pt-4 pb-2"><dt class="font-semibold"><?= $collector->translate('rcpt_today', 'You pay today') ?></dt><dd class="font-serif text-4xl text-ink" data-cta-total><?= $OfferApi->formatNumber($price) ?></dd></div>
+                    </dl>
+                    <div class="mx-6 mb-5 flex items-center justify-center gap-2 rounded-xl bg-turq-soft px-4 py-2.5 text-sm font-semibold text-turq-ink">
+                        <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12V7H4v5M4 12v7h16v-7M2 12h20M12 7v14M12 7c-1.5-3-5-3-5-.5S12 7 12 7Zm0 0c1.5-3 5-3 5-.5S12 7 12 7Z"/></svg>
+                        <span><?= $collector->translate('rcpt_save', 'You save') ?> <span data-cta-save><?= $OfferApi->formatNumber($retail - $price) ?></span></span>
+                    </div>
+                    <div class="px-6 pb-6">
+                        <div class="shine rounded-full"><button type="button" class="yes-upsell-link inline-flex w-full items-center justify-center gap-2 rounded-full bg-turq px-5 sm:px-7 py-4 text-[15px] sm:text-lg font-bold text-ink shadow-[0_18px_40px_-14px_rgba(29,209,161,.75)] hover:bg-turq-dark hover:-translate-y-0.5 transition nudge"><span><?= $collector->translate('rcpt_yes', 'Yes, add to my order') ?></span><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+                        <div class="mt-3"><button type="button" class="js-open-no-thanks-popup block w-full text-center text-xs underline underline-offset-4 transition text-muted hover:text-ink"><?= $collector->translate('rcpt_no', 'No thanks, I don\'t want this one-time offer') ?></button></div>
+                    </div>
+                </div>
+                <div class="lg:col-span-7 space-y-3">
+                    <details class="reveal group rounded-2xl bg-white border border-sand/70 open:border-turq/50 open:shadow-[0_18px_40px_-24px_rgba(29,34,38,.35)] transition" open>
+                        <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-semibold [&::-webkit-details-marker]:hidden"><?= $collector->translate('dec_q0', 'Will I pay for shipping again?') ?><span class="grid place-items-center shrink-0 w-7 h-7 rounded-full bg-linen text-lg leading-none transition group-open:rotate-45 group-open:bg-turq-soft" aria-hidden="true">+</span></summary>
+                        <p class="px-5 pb-5 -mt-1 text-sm text-muted leading-relaxed"><?= $collector->translate('dec_a0', 'No. It ships free, in the same box as the order you just placed.') ?></p>
+                    </details>
+                    <details class="reveal group rounded-2xl bg-white border border-sand/70 open:border-turq/50 open:shadow-[0_18px_40px_-24px_rgba(29,34,38,.35)] transition" data-delay="1">
+                        <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-semibold [&::-webkit-details-marker]:hidden"><?= $collector->translate('dec_q1', 'Do I need to enter my card details again?') ?><span class="grid place-items-center shrink-0 w-7 h-7 rounded-full bg-linen text-lg leading-none transition group-open:rotate-45 group-open:bg-turq-soft" aria-hidden="true">+</span></summary>
+                        <p class="px-5 pb-5 -mt-1 text-sm text-muted leading-relaxed"><?= $collector->translate('dec_a1', 'No. One click adds it to the order you just paid for, using the same secure payment.') ?></p>
+                    </details>
+                    <details class="reveal group rounded-2xl bg-white border border-sand/70 open:border-turq/50 open:shadow-[0_18px_40px_-24px_rgba(29,34,38,.35)] transition" data-delay="2">
+                        <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-semibold [&::-webkit-details-marker]:hidden"><?= $collector->translate('dec_q2', 'Why would I want a second cushion?') ?><span class="grid place-items-center shrink-0 w-7 h-7 rounded-full bg-linen text-lg leading-none transition group-open:rotate-45 group-open:bg-turq-soft" aria-hidden="true">+</span></summary>
+                        <p class="px-5 pb-5 -mt-1 text-sm text-muted leading-relaxed"><?= $collector->translate('dec_a2', 'Most of us sit in more than one chair at home: the dining table, a reading chair, the desk. Moving one cushion around is easy to forget. With two, the support is always where you sit.') ?></p>
+                    </details>
+                    <details class="reveal group rounded-2xl bg-white border border-sand/70 open:border-turq/50 open:shadow-[0_18px_40px_-24px_rgba(29,34,38,.35)] transition" data-delay="3">
+                        <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-semibold [&::-webkit-details-marker]:hidden"><?= $collector->translate('dec_q3', 'Can I get this price later?') ?><span class="grid place-items-center shrink-0 w-7 h-7 rounded-full bg-linen text-lg leading-none transition group-open:rotate-45 group-open:bg-turq-soft" aria-hidden="true">+</span></summary>
+                        <p class="px-5 pb-5 -mt-1 text-sm text-muted leading-relaxed"><?= $collector->translate('dec_a3', 'No. This price is offered once, here, right after your order. If you leave this page, it won\'t be shown again.') ?></p>
+                    </details>
+                    <details class="reveal group rounded-2xl bg-white border border-sand/70 open:border-turq/50 open:shadow-[0_18px_40px_-24px_rgba(29,34,38,.35)] transition" data-delay="4">
+                        <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-semibold [&::-webkit-details-marker]:hidden"><?= $collector->translate('dec_q4', 'What if it\'s not right for me?') ?><span class="grid place-items-center shrink-0 w-7 h-7 rounded-full bg-linen text-lg leading-none transition group-open:rotate-45 group-open:bg-turq-soft" aria-hidden="true">+</span></summary>
+                        <p class="px-5 pb-5 -mt-1 text-sm text-muted leading-relaxed"><?= $collector->translate('dec_a4', 'You\'re covered by our 30-day refund policy, just like the rest of your order.') ?></p>
+                    </details>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="finalCta" class="px-4 sm:px-6 lg:px-8 py-5 md:py-[30px] lg:py-24">
         <div class="reveal relative mx-auto max-w-5xl mesh rounded-[2.5rem] overflow-hidden text-cream px-6 py-12 sm:p-16 text-center" style="--veil: rgba(29,34,38,.35)">
             <p class="text-xs font-semibold uppercase tracking-[.2em] text-turq-soft"><?= $collector->translate('final_eyebrow', 'Last chance — this page won\'t show again') ?></p>
             <h2 class="mt-4 font-serif text-4xl sm:text-5xl leading-tight sm:leading-none tracking-tight"><?= $collector->translate('final_title', 'Same comfort, every chair you sit in.') ?></h2>
@@ -584,6 +640,7 @@ foreach ($OfferApi->upsaleProducts as $product) {
             <?= languageSelector('locked') ?>            <p>© <?= date('Y') ?> <?= $OfferApi->corporateName ?: 'Melara' ?>. <?= $collector->translate('rights', 'All rights reserved.') ?></p>
         </div>
     </div>
+    <p class="mx-auto max-w-3xl px-4 mt-6 text-center text-[11px] leading-relaxed text-muted/80"><?= $collector->translate('footer_disclaimer', 'Melara products are comfort and posture-support products, not medical devices. They are not intended to diagnose, treat, cure or prevent any disease. Individual results vary. If you have ongoing pain, consult your doctor or physiotherapist.') ?></p>
 </footer>
 
 <div id="no-thanks-popup" class="fixed inset-0 z-[100] items-end sm:items-center justify-center p-3 sm:p-6" role="dialog" aria-modal="true" aria-labelledby="ds-title"

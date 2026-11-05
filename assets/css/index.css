@@ -4,6 +4,8 @@ em, .italic { font-style: normal; }
 html, body { background: #f8f9fa; }
 body { background: linear-gradient(180deg, #fbfbfc 0%, #f3f4f6 45%, #fafafb 100%); }
 .bg-soft-gray { background: linear-gradient(180deg, #f1f3f5 0%, #f7f8f9 60%, #eef0f2 100%); }
+/* Anatomy on mobile: the pinned panel is only as tall as its content, so let the section's background show through it (one continuous surface, no band below the panel). */
+@media (max-width: 1023px) { #anatomy { background: #f4f5f7; } #anatomy > .sticky { background: none; } }
 
 /* soft paper grain */
 body::after {
@@ -114,4 +116,97 @@ details[open] .faq-icon { transform: rotate(45deg); }
     *, *::before, *::after { animation: none !important; transition: none !important; }
     .reveal { opacity: 1; transform: none; }
     .scribble path { stroke-dashoffset: 0; }
+}
+
+/* ---------- Policy modal (footer: Shipping / Returns / Privacy / Contact) ---------- */
+.policy-modal {
+    margin: auto auto 0; width: 100%; max-width: 100%; max-height: 88svh; padding: 0; border: 0;
+    border-radius: 1.75rem 1.75rem 0 0; background: #fff; color: #1d2226; overflow: hidden;
+    box-shadow: 0 -20px 60px -20px rgba(29,34,38,.35);
+    opacity: 0; transform: translateY(100%);
+    transition: opacity .3s ease, transform .4s cubic-bezier(.22,1,.36,1), overlay .4s allow-discrete, display .4s allow-discrete;
+}
+.policy-modal[open] { opacity: 1; transform: none; }
+@starting-style { .policy-modal[open] { opacity: 0; transform: translateY(100%); } }
+.policy-modal::backdrop {
+    background: rgba(29,34,38,0); backdrop-filter: blur(0);
+    transition: background .3s ease, backdrop-filter .3s ease, overlay .4s allow-discrete, display .4s allow-discrete;
+}
+.policy-modal[open]::backdrop { background: rgba(29,34,38,.45); backdrop-filter: blur(6px); }
+@starting-style { .policy-modal[open]::backdrop { background: rgba(29,34,38,0); backdrop-filter: blur(0); } }
+@media (min-width: 640px) {
+    .policy-modal { margin: auto; width: calc(100% - 3rem); max-width: 44rem; max-height: 82vh; border-radius: 1.75rem;
+        box-shadow: 0 40px 100px -30px rgba(29,34,38,.45); transform: translateY(16px) scale(.97); }
+    @starting-style { .policy-modal[open] { opacity: 0; transform: translateY(16px) scale(.97); } }
+}
+html:has(.policy-modal[open]) { overflow: hidden; }
+
+.policy-tab { white-space: nowrap; border-radius: 9999px; padding: .5rem 1rem; font-size: .875rem; font-weight: 500; color: #5e656d; transition: background .2s, color .2s, box-shadow .2s; }
+.policy-tab:hover { color: #1d2226; }
+.policy-tab[aria-selected="true"] { background: #fff; color: #1d2226; box-shadow: 0 1px 2px rgba(29,34,38,.08), 0 4px 12px -4px rgba(29,34,38,.15); }
+
+.policy-body b { color: #1d2226; font-weight: 600; }
+.policy-body a { color: #0a8a68; font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+.policy-body a.group { text-decoration: none; }
+.policy-list { display: grid; gap: .6rem; }
+.policy-list li { position: relative; padding-left: 1.75rem; }
+.policy-list li::before { content: ""; position: absolute; left: 0; top: .2rem; width: 1.1rem; height: 1.1rem; border-radius: 9999px;
+    background: #d6f7ee url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230a8a68' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 12 4 4 8-8'/%3E%3C/svg%3E") center / 70% no-repeat; }
+.policy-steps { counter-reset: step; display: grid; gap: .75rem; }
+.policy-steps li { counter-increment: step; position: relative; padding-left: 2.5rem; min-height: 1.75rem; }
+.policy-steps li::before { content: counter(step); position: absolute; left: 0; top: -.05rem; width: 1.75rem; height: 1.75rem; border-radius: 9999px;
+    display: grid; place-items: center; background: #1d2226; color: #fff; font-size: .75rem; font-weight: 600; }
+
+.policy-acc > summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: 1rem 1.1rem; font-weight: 600; color: #1d2226; }
+.policy-acc > summary::-webkit-details-marker { display: none; }
+.policy-acc > summary::after { content: "+"; flex-shrink: 0; display: grid; place-items: center; width: 1.6rem; height: 1.6rem; border-radius: 9999px;
+    background: #eef0f2; font-weight: 500; transition: transform .25s ease, background .2s; }
+.policy-acc[open] > summary::after { transform: rotate(45deg); background: #d6f7ee; }
+.policy-acc > div { padding: 0 1.1rem 1.1rem; }
+
+/* ---------- Five zones (How Melara fixes each one) ---------- */
+.zone-dot { position: absolute; transform: translate(-50%, -50%); width: 2.1rem; height: 2.1rem; border-radius: 9999px;
+    display: grid; place-items: center; background: #1d2226; color: #fff; font-size: .8rem; font-weight: 700;
+    box-shadow: 0 0 0 4px rgba(255,255,255,.9), 0 8px 18px -6px rgba(29,34,38,.5); transition: background .25s, color .25s, transform .25s; }
+.zone-dot::after { content: ""; position: absolute; inset: -8px; border-radius: 9999px; border: 2px solid rgba(29,209,161,.6); animation: dotPulse 2.2s ease-out infinite; }
+.zone-dot.is-active { background: #1dd1a1; color: #1d2226; transform: translate(-50%, -50%) scale(1.15); }
+.zone-card.is-active { border-color: rgba(29,209,161,.6); box-shadow: 0 18px 40px -24px rgba(29,34,38,.35); }
+.zone-card.is-active .zone-num { background: #1dd1a1; color: #1d2226; }
+
+/* ---------- Dimension labels (Product parameters) ---------- */
+.dim-pill { position: absolute; transform: translate(-50%, -50%); white-space: nowrap; border-radius: 9999px; background: #1d2226; color: #fff;
+    padding: .3rem .7rem; font-size: .8rem; font-weight: 600; box-shadow: 0 6px 16px -8px rgba(29,34,38,.6); }
+@media (max-width: 639px) { .dim-pill { font-size: .7rem; padding: .2rem .55rem; } }
+
+/* ---------- Drawn guide lines (sitting angle, crossed legs) ---------- */
+.draw-line { animation: dashFlow 1.6s linear infinite; }
+@keyframes dashFlow { to { stroke-dashoffset: -7.6; } }
+/* Crossed-legs card: arrows push gently inward, U-line centre dot pulses */
+.nudge-in-l { animation: nudgeInL 1.8s ease-in-out infinite; }
+.nudge-in-r { animation: nudgeInR 1.8s ease-in-out infinite; }
+@keyframes nudgeInL { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(3px); } }
+@keyframes nudgeInR { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-3px); } }
+.u-pulse { transform-box: fill-box; transform-origin: center; animation: uPulse 1.8s ease-in-out infinite; }
+@keyframes uPulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.8); opacity: .45; } }
+
+/* ---------- Product parameters: dimension lines draw in on scroll ---------- */
+.dims .dim-line { stroke: #1d2226; stroke-width: .55; opacity: .75; stroke-dasharray: 100; stroke-dashoffset: 100; }
+.dims .dim-tick { stroke: #1d2226; stroke-width: .55; opacity: 0; }
+.dims .dim-glow { stroke: #1dd1a1; stroke-width: 1.2; stroke-dasharray: 14 86; stroke-dashoffset: 14; opacity: 0; }
+.dim-pill { opacity: 0; scale: .6; }
+.reveal.in .dims .dim-line { animation: dimDraw .8s cubic-bezier(.65,0,.35,1) var(--d, 0s) forwards; }
+.reveal.in .dims .dim-tick { animation: dimFade .3s ease var(--d, 0s) forwards; }
+.reveal.in .dims .dim-glow { animation: dimGlow 2.8s linear calc(var(--d, 0s) + 1.8s) infinite; }
+.reveal.in .dim-pill { animation: dimPop .5s cubic-bezier(.34,1.56,.64,1) var(--d, 0s) forwards; }
+@keyframes dimDraw { to { stroke-dashoffset: 0; } }
+@keyframes dimFade { to { opacity: .75; } }
+@keyframes dimPop { to { opacity: 1; scale: 1; } }
+@keyframes dimGlow { 0% { stroke-dashoffset: 14; opacity: 0; } 12% { opacity: 1; } 80% { opacity: 1; } 100% { stroke-dashoffset: -100; opacity: 0; } }
+/* Reduced motion: show the finished diagram instead of hidden lines */
+@media (prefers-reduced-motion: reduce) {
+    .dims .dim-line { stroke-dashoffset: 0; }
+    .dims .dim-tick { opacity: .75; }
+    .dims .dim-glow { display: none; }
+    .dim-pill { opacity: 1; scale: 1; }
 }

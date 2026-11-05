@@ -1,5 +1,38 @@
 # ChatGPT image prompts: real Melara cushion
 
+## Round 2: fix sitting posture (Krystal's feedback, 5 Nov)
+
+The cushion is designed for both thighs to rest **side by side** in the two front grooves, hips centred, back against the backrest. These 4 images show crossed legs or someone perched on the edge, so only the posture needs fixing.
+
+**Attach for each (3 files):**
+1. the current image from `assets/img/` (the `.png` named below)
+2. `assets/img/actual-image/1.jpeg`: front view showing the two thigh grooves
+3. `assets/img/actual-image/5.jpeg`: side view showing the backrest angle
+
+Ask for the same aspect ratio as the original. When you save the result, overwrite the same `.png` file name. Then tell Claude, who will make the `.webp`.
+
+### hero.png (square 1:1)
+
+> Edit the first image. Keep EVERYTHING the same (the woman, her face, hair, outfit, the room, lighting, laptop, mug, chair, the cushion and the turquoise light swooshes), but change ONLY how she sits. She sits fully back and centred on the seat cushion, with her hips in the middle of the seat and her lower back resting against the cushion's backrest. Both thighs rest side by side in the two contoured grooves at the front of the cushion (see the second attached photo), knees hip-width apart and pointing forward toward the desk, both feet flat on the floor. Legs NOT crossed, NOT sitting on one side or perched on the edge. Keep her relaxed, eyes-closed, content expression and her hands on the laptop. The cushion must keep its exact shape from the attached product photos. Square 1:1, photorealistic, no text.
+
+### life-wfh.png (landscape 3:2)
+
+> Edit the first image. Keep EVERYTHING the same (the woman with headphones on her video call, her gesture, outfit, the room, desk, laptop, plants, chair, cushion and turquoise light swooshes), but change ONLY how she sits. She sits fully back and centred on the seat cushion, lower back against the cushion's backrest, both thighs side by side resting in the two grooves at the front of the cushion (see the second attached photo), knees hip-width apart pointing toward the desk, feet flat on the floor. Legs NOT crossed, NOT turned to one side. Keep the cushion's exact shape from the product photos. Landscape 3:2, photorealistic, no text.
+
+### life-study.png (portrait 2:3)
+
+> Edit the first image. Keep EVERYTHING the same (the young woman writing notes, her face, hair bun, sweater, jeans, the desk, notebooks, room, chair, cushion and turquoise glow), but change ONLY how she sits. She sits fully back and centred on the seat cushion, lower back against the backrest, both thighs side by side in the two grooves at the front of the cushion (see the second attached photo), knees hip-width apart pointing toward the desk, both feet flat on the floor. Legs NOT crossed. Keep the cushion's exact shape from the product photos. Portrait 2:3, photorealistic, no text.
+
+### life-mom.png (portrait 2:3)
+
+> Edit the first image. Keep EVERYTHING the same (the mother gently holding her sleeping baby, their faces, the blanket, her outfit, the desk, room, chair, cushion and turquoise glow), but change ONLY how she sits. She sits fully back and centred in the seat cushion instead of perched on the front edge: hips in the middle of the seat, her back resting against the cushion's backrest, both thighs side by side in the two grooves at the front (see the second attached photo), knees forward toward the desk, feet flat on the floor. Keep the baby safely held against her chest. Keep the cushion's exact shape from the product photos. Portrait 2:3, photorealistic, no text.
+
+**Tip:** if ChatGPT changes the face or room too much, reply: *"Keep the original image exactly; only move her legs and hips into the described posture."*
+
+---
+
+## Round 1 (done)
+
 The real product photos are in `assets/img/actual-image/` (1–6).
 Each prompt below says which files to attach. Attach the **old image** too, so ChatGPT keeps the scene and only swaps the product.
 
