@@ -4,12 +4,16 @@
 
     // Nav background + mobile buy bar
     const nav = document.getElementById('nav'), buyBar = document.getElementById('buyBar');
+    const footer = document.querySelector('footer');
     const onScroll = () => {
         const scrolled = scrollY > 30;
         nav.classList.toggle('bg-cream/85', scrolled);
         nav.classList.toggle('backdrop-blur-sm', scrolled);
         nav.classList.toggle('shadow-xs', scrolled);
-        buyBar.style.transform = scrollY > 600 ? 'translateY(0)' : '';
+        // Hide the mobile buy bar once the footer is on screen, so it never covers the footer
+        const atFooter = footer && footer.getBoundingClientRect().top < innerHeight;
+        // Tailwind v4's translate-y-* uses the CSS `translate` property, so override that (not `transform`)
+        buyBar.style.translate = scrollY > 600 && !atFooter ? '0 0' : '';
     };
     addEventListener('scroll', onScroll, { passive: true });
     onScroll();
@@ -155,5 +159,60 @@
         });
         walk(h);
     });
+
+    // ---------- Five zones: highlight the matching marker for the card in view (or hovered) ----------
+    const zoneCards = [...document.querySelectorAll('.zone-card')];
+    if (zoneCards.length) {
+        const setZone = n => {
+            zoneCards.forEach(c => c.classList.toggle('is-active', c.dataset.zone === n));
+            document.querySelectorAll('[data-zone-dot]').forEach(d => d.classList.toggle('is-active', d.dataset.zoneDot === n));
+        };
+        const io = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) setZone(e.target.dataset.zone); });
+        }, { rootMargin: '-45% 0px -45% 0px' });
+        zoneCards.forEach(c => {
+            io.observe(c);
+            c.addEventListener('mouseenter', () => setZone(c.dataset.zone));
+        });
+    }
+
+    // ---------- Policy modal (footer links: Shipping / Returns / Privacy / Contact) ----------
+    const policy = document.getElementById('policyModal');
+    if (policy) {
+        const tabs = [...policy.querySelectorAll('[data-policy-tab]')];
+        const panels = [...policy.querySelectorAll('[data-policy-panel]')];
+        const body = policy.querySelector('.policy-body');
+        const show = name => {
+            tabs.forEach(t => {
+                const on = t.dataset.policyTab === name;
+                t.setAttribute('aria-selected', on);
+                t.tabIndex = on ? 0 : -1;
+                if (on) t.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+            });
+            panels.forEach(p => { p.hidden = p.dataset.policyPanel !== name; });
+            body.scrollTop = 0;
+        };
+        const open = name => { show(name); if (!policy.open) policy.showModal(); };
+
+        document.querySelectorAll('[data-policy]').forEach(a => a.addEventListener('click', e => {
+            e.preventDefault();
+            open(a.dataset.policy);
+        }));
+        tabs.forEach((t, i) => {
+            t.addEventListener('click', () => show(t.dataset.policyTab));
+            // arrow keys move between tabs
+            t.addEventListener('keydown', e => {
+                if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+                const next = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+                show(next.dataset.policyTab); next.focus();
+            });
+        });
+        policy.querySelector('[data-policy-close]').addEventListener('click', () => policy.close());
+        // close when clicking the dimmed backdrop: those clicks land on the <dialog> itself, never on its content
+        policy.addEventListener('click', e => { if (e.target === policy) policy.close(); });
+        // open straight to a policy from a link like index.php#privacy
+        const fromHash = location.hash.slice(1);
+        if (tabs.some(t => t.dataset.policyTab === fromHash)) open(fromHash);
+    }
 
 })();

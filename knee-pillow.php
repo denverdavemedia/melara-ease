@@ -94,7 +94,7 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
         <div class="absolute -top-32 -right-32 w-[520px] h-[520px] blob bg-turq-soft/80 blur-2xl" aria-hidden="true"></div>
         <div class="absolute bottom-0 -left-40 w-[420px] h-[420px] blob bg-[#e6f9f3] blur-2xl" aria-hidden="true"></div>
 
-        <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-5 sm:pt-8 pb-16 lg:pt-12 lg:pb-24">
+        <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-5 sm:pt-8 pb-5 lg:pt-12 lg:pb-24">
 
             <div class="mx-auto max-w-4xl text-center">
                 <p class="reveal hidden sm:inline-flex items-center gap-2 rounded-full bg-white/80 border border-sand px-4 py-1.5 text-xs font-semibold uppercase tracking-[.18em] text-turq-ink">
@@ -103,7 +103,7 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
                 <h1 class="reveal sm:mt-5 font-serif text-[1.95rem] sm:text-5xl lg:text-[3.6rem] leading-[1.04] sm:leading-none tracking-tight" data-delay="1">
                     <?= $collector->translate('h1', 'Align better,') ?> <em class="text-turq-ink"><?= $collector->translate('h1_accent', 'sleep deeper.') ?></em>
                 </h1>
-                <p class="reveal mt-3 sm:mt-5 text-[15px] sm:text-lg text-muted leading-relaxed sm:leading-7 max-w-2xl mx-auto" data-delay="2"><?= $collector->translate('lead', 'Get the Melara Knee Pillow at 70% off. Ergonomic knee support for side sleepers that keeps your knees, hips and spine in line — so you wake up refreshed, not stiff.') ?></p>
+                <p class="reveal mt-3 sm:mt-5 text-[15px] sm:text-lg text-muted leading-relaxed sm:leading-7 max-w-2xl mx-auto" data-delay="2"><?= $collector->translate('lead2', 'Get the Melara Knee Pillow at 70% off. It sits between your knees to keep your hips, pelvis and lower spine aligned while you sleep on your side, easing pressure so you wake up less stiff.') ?></p>
 
                 <ul class="reveal mt-4 sm:mt-7 mx-auto max-w-xl lg:max-w-none grid grid-cols-2 gap-x-3 gap-y-2.5 sm:gap-y-3 rounded-2xl bg-white/80 backdrop-blur-sm border border-sand p-3 sm:p-4 text-left shadow-[0_20px_40px_-30px_rgba(29,34,38,.45)]
                            lg:inline-flex lg:flex-nowrap lg:justify-center lg:items-center lg:gap-0 lg:rounded-full lg:px-3 lg:py-2.5" data-delay="3">
@@ -161,7 +161,7 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
                         </div>
                         <div class="absolute right-0 sm:-right-4 bottom-8 bg-white rounded-2xl shadow-xl px-5 py-4 max-w-[220px] animate-float" style="animation-delay: -4s">
                             <p class="font-serif text-2xl text-turq-ink">33,160+</p>
-                            <p class="text-xs text-muted leading-snug"><?= $collector->translate('stat_text', 'side sleepers waking up without the aches') ?></p>
+                            <p class="text-xs text-muted leading-snug"><?= $collector->translate('stat2_text', 'happy side sleepers') ?></p>
                         </div>
                     </div>
                 </div>
@@ -234,7 +234,7 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
                             <span class="mx-auto mb-1.5 grid place-items-center w-9 h-9 rounded-full bg-turq-soft text-turq-ink group-hover:bg-turq group-hover:text-ink transition" aria-hidden="true">
                                 <svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19.5 14.6A7.5 7.5 0 0 1 9.4 4.5a7.5 7.5 0 1 0 10.1 10.1z"/><path d="M16.5 3.5v3M15 5h3"/></svg>
                             </span>
-                            <span class="block font-semibold text-ink text-sm"><?= $collector->translate('perk_trial_t', '100 nights') ?></span>
+                            <span class="block font-semibold text-ink text-sm"><?= $collector->translate('perk_trial_t', '30 days') ?></span>
                             <?= $collector->translate('perk_trial_d', 'love it or return it') ?>
                         </li>
                         <li class="group rounded-2xl bg-white/70 border border-sand px-2 py-3 hover:border-turq/50 hover:-translate-y-0.5 transition">
@@ -250,7 +250,7 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
         </div>
     </section>
 
-    <section class="relative mesh text-cream py-20 lg:py-28 overflow-hidden" style="--veil: rgba(29,34,38,.55)">
+    <section class="relative mesh text-cream py-5 md:py-[30px] lg:py-28 overflow-hidden" style="--veil: rgba(29,34,38,.55)">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="max-w-2xl">
                 <p class="reveal text-sm font-medium uppercase tracking-[.2em] text-turq"><?= $collector->translate('why_eyebrow', 'Why you\'ll love it') ?></p>
@@ -278,8 +278,8 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
                     <span class="grid place-items-center w-12 h-12 rounded-2xl bg-turq/15 text-turq group-hover:bg-turq group-hover:text-ink transition">
                         <svg viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/></svg>
                     </span>
-                    <h3 class="mt-5 font-serif text-xl"><?= $collector->translate('benefit_2_t', 'Wake up without the aches') ?></h3>
-                    <p class="mt-2 text-sm text-cream/70 leading-relaxed"><?= $collector->translate('benefit_2_d', 'Consistent knee support eases tension in your hips, knees and lower back — say goodbye to stiff mornings.') ?></p>
+                    <h3 class="mt-5 font-serif text-xl"><?= $collector->translate('ben2_2_t', 'Wake up less stiff') ?></h3>
+                    <p class="mt-2 text-sm text-cream/70 leading-relaxed"><?= $collector->translate('ben2_2_d', 'Steady knee support eases tension in your hips, knees and lower back, so mornings feel easier.') ?></p>
                 </div>
                 <div class="reveal group rounded-[1.75rem] border border-white/10 bg-white/[.04] backdrop-blur-sm p-6 hover:bg-white/[.08] hover:-translate-y-1 transition" data-delay="4">
                     <span class="grid place-items-center w-12 h-12 rounded-2xl bg-turq/15 text-turq group-hover:bg-turq group-hover:text-ink transition">
@@ -306,7 +306,7 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
         </div>
     </section>
 
-    <section id="road" class="road-section relative overflow-hidden py-20 lg:py-28">
+    <section id="road" class="road-section relative overflow-hidden py-5 md:py-[30px] lg:py-28">
         <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <div class="max-w-2xl mx-auto text-center">
                 <p class="reveal text-sm font-medium uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('road_eyebrow', 'A quick ride through your night') ?></p>
@@ -414,7 +414,7 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
         </div>
     </section>
 
-    <section class="py-20 lg:py-28">
+    <section class="py-5 md:py-[30px] lg:py-28">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div class="reveal relative">
                 <div class="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-[0_40px_80px_-40px_rgba(29,34,38,.45)]">
@@ -474,11 +474,11 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
         </div>
     </section>
 
-    <section class="bg-soft-gray py-20 lg:py-28 border-y border-sand">
+    <section class="bg-soft-gray py-5 md:py-[30px] lg:py-28 border-y border-sand">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="text-center">
                 <p class="reveal text-amber-500 text-lg">★★★★★</p>
-                <h2 class="reveal mt-2 font-serif text-4xl sm:text-5xl tracking-tight" data-delay="1"><?= $collector->translate('reviews_title', 'More than 33,160+ happy sleepers') ?></h2>
+                <h2 class="reveal mt-2 font-serif text-4xl sm:text-5xl tracking-tight" data-delay="1"><?= $collector->translate('reviews2_title', '33,160+ happy sleepers') ?></h2>
             </div>
 
             <div class="mt-12 grid md:grid-cols-3 gap-5">
@@ -536,7 +536,63 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
         </div>
     </section>
 
-    <section id="finalCta" class="px-4 sm:px-6 lg:px-8 py-20 lg:py-24">
+    <!-- Before you decide: price recap (follows the quantity picker) + the questions people have at this point -->
+    <section id="decide" class="px-4 sm:px-6 lg:px-8 py-5 md:py-[30px] lg:py-24">
+        <div class="mx-auto max-w-6xl">
+            <div class="text-center max-w-2xl mx-auto">
+                <p class="reveal text-sm font-medium uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('dec_eyebrow', 'Before you decide') ?></p>
+                <h2 class="reveal mt-3 font-serif text-4xl sm:text-5xl leading-tight tracking-tight" data-delay="1"><?= $collector->translate('dec_title', 'Here\'s exactly') ?> <em class="text-turq-ink"><?= $collector->translate('dec_accent', 'what you get today.') ?></em></h2>
+            </div>
+            <div class="mt-8 lg:mt-12 grid lg:grid-cols-12 gap-6 lg:gap-10 items-start">
+                <div class="reveal lg:col-span-5 rounded-[2rem] bg-white border border-sand shadow-[0_30px_80px_-40px_rgba(29,34,38,.35)] overflow-hidden">
+                    <div class="flex items-center justify-between gap-3 bg-ink text-cream px-6 py-4">
+                        <p class="text-xs font-semibold uppercase tracking-[.2em]"><?= $collector->translate('rcpt_title', 'Your one-time price') ?></p>
+                        <span class="rounded-full bg-turq px-3 py-1 text-xs font-bold text-ink"><?= $collector->translate('rcpt_badge', '70% off') ?></span>
+                    </div>
+                    <dl class="px-6 py-2 text-sm">
+                        <div class="flex justify-between gap-4 py-3 border-b border-dashed border-sand"><dt class="text-muted"><?= $collector->translate('rcpt_item', 'Item') ?></dt><dd class="font-semibold text-right" data-cta-label>1 × <?= $collector->translate('rcpt_unit', 'Knee Pillow') ?></dd></div>
+                        <div class="flex justify-between gap-4 py-3 border-b border-dashed border-sand"><dt class="text-muted"><?= $collector->translate('rcpt_regular', 'Regular price') ?></dt><dd class="text-right"><s class="text-muted" data-cta-retail><?= $OfferApi->formatNumber($retail) ?></s></dd></div>
+                        <div class="flex justify-between gap-4 py-3 border-b border-dashed border-sand"><dt class="text-muted"><?= $collector->translate('rcpt_shipping', 'Shipping') ?></dt><dd class="font-semibold text-turq-ink text-right"><?= $collector->translate('rcpt_shipping_v', 'Free, in the same box') ?></dd></div>
+                        <div class="flex justify-between gap-4 py-3 border-b border-dashed border-sand"><dt class="text-muted"><?= $collector->translate('rcpt_card', 'Card details') ?></dt><dd class="font-semibold text-right"><?= $collector->translate('rcpt_card_v', 'Not needed, one click') ?></dd></div>
+                        <div class="flex justify-between gap-4 py-3 border-b border-dashed border-sand"><dt class="text-muted"><?= $collector->translate('rcpt_refund', 'Refunds') ?></dt><dd class="font-semibold text-right"><?= $collector->translate('rcpt_refund_v', '30-day policy') ?></dd></div>
+                        <div class="flex items-end justify-between gap-4 pt-4 pb-2"><dt class="font-semibold"><?= $collector->translate('rcpt_today', 'You pay today') ?></dt><dd class="font-serif text-4xl text-ink" data-cta-total><?= $OfferApi->formatNumber($price) ?></dd></div>
+                    </dl>
+                    <div class="mx-6 mb-5 flex items-center justify-center gap-2 rounded-xl bg-turq-soft px-4 py-2.5 text-sm font-semibold text-turq-ink">
+                        <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12V7H4v5M4 12v7h16v-7M2 12h20M12 7v14M12 7c-1.5-3-5-3-5-.5S12 7 12 7Zm0 0c1.5-3 5-3 5-.5S12 7 12 7Z"/></svg>
+                        <span><?= $collector->translate('rcpt_save', 'You save') ?> <span data-cta-save><?= $OfferApi->formatNumber($retail - $price) ?></span></span>
+                    </div>
+                    <div class="px-6 pb-6">
+                        <div class="shine rounded-full"><button type="button" class="yes-upsell-link inline-flex w-full items-center justify-center gap-2 rounded-full bg-turq px-5 sm:px-7 py-4 text-[15px] sm:text-lg font-bold text-ink shadow-[0_18px_40px_-14px_rgba(29,209,161,.75)] hover:bg-turq-dark hover:-translate-y-0.5 transition nudge"><span><?= $collector->translate('rcpt_yes', 'Yes, add to my order') ?></span><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+                        <div class="mt-3"><button type="button" class="js-open-no-thanks-popup block w-full text-center text-xs underline underline-offset-4 transition text-muted hover:text-ink"><?= $collector->translate('rcpt_no', 'No thanks, I don\'t want this one-time offer') ?></button></div>
+                    </div>
+                </div>
+                <div class="lg:col-span-7 space-y-3">
+                    <details class="reveal group rounded-2xl bg-white border border-sand/70 open:border-turq/50 open:shadow-[0_18px_40px_-24px_rgba(29,34,38,.35)] transition" open>
+                        <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-semibold [&::-webkit-details-marker]:hidden"><?= $collector->translate('dec_q0', 'Will I pay for shipping again?') ?><span class="grid place-items-center shrink-0 w-7 h-7 rounded-full bg-linen text-lg leading-none transition group-open:rotate-45 group-open:bg-turq-soft" aria-hidden="true">+</span></summary>
+                        <p class="px-5 pb-5 -mt-1 text-sm text-muted leading-relaxed"><?= $collector->translate('dec_a0', 'No. It ships free, in the same box as the order you just placed.') ?></p>
+                    </details>
+                    <details class="reveal group rounded-2xl bg-white border border-sand/70 open:border-turq/50 open:shadow-[0_18px_40px_-24px_rgba(29,34,38,.35)] transition" data-delay="1">
+                        <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-semibold [&::-webkit-details-marker]:hidden"><?= $collector->translate('dec_q1', 'Do I need to enter my card details again?') ?><span class="grid place-items-center shrink-0 w-7 h-7 rounded-full bg-linen text-lg leading-none transition group-open:rotate-45 group-open:bg-turq-soft" aria-hidden="true">+</span></summary>
+                        <p class="px-5 pb-5 -mt-1 text-sm text-muted leading-relaxed"><?= $collector->translate('dec_a1', 'No. One click adds it to the order you just paid for, using the same secure payment.') ?></p>
+                    </details>
+                    <details class="reveal group rounded-2xl bg-white border border-sand/70 open:border-turq/50 open:shadow-[0_18px_40px_-24px_rgba(29,34,38,.35)] transition" data-delay="2">
+                        <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-semibold [&::-webkit-details-marker]:hidden"><?= $collector->translate('dec_q2', 'How does a knee pillow help my back?') ?><span class="grid place-items-center shrink-0 w-7 h-7 rounded-full bg-linen text-lg leading-none transition group-open:rotate-45 group-open:bg-turq-soft" aria-hidden="true">+</span></summary>
+                        <p class="px-5 pb-5 -mt-1 text-sm text-muted leading-relaxed"><?= $collector->translate('dec_a2', 'When you sleep on your side, your top leg tends to drop forward and twist your pelvis. A pillow between your knees keeps your legs, hips and lower spine level, which can ease pressure on your lower back and hips overnight.') ?></p>
+                    </details>
+                    <details class="reveal group rounded-2xl bg-white border border-sand/70 open:border-turq/50 open:shadow-[0_18px_40px_-24px_rgba(29,34,38,.35)] transition" data-delay="3">
+                        <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-semibold [&::-webkit-details-marker]:hidden"><?= $collector->translate('dec_q3', 'Can I get this price later?') ?><span class="grid place-items-center shrink-0 w-7 h-7 rounded-full bg-linen text-lg leading-none transition group-open:rotate-45 group-open:bg-turq-soft" aria-hidden="true">+</span></summary>
+                        <p class="px-5 pb-5 -mt-1 text-sm text-muted leading-relaxed"><?= $collector->translate('dec_a3', 'No. This price is offered once, here, right after your order. If you leave this page, it won\'t be shown again.') ?></p>
+                    </details>
+                    <details class="reveal group rounded-2xl bg-white border border-sand/70 open:border-turq/50 open:shadow-[0_18px_40px_-24px_rgba(29,34,38,.35)] transition" data-delay="4">
+                        <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-semibold [&::-webkit-details-marker]:hidden"><?= $collector->translate('dec_q4', 'What if it\'s not right for me?') ?><span class="grid place-items-center shrink-0 w-7 h-7 rounded-full bg-linen text-lg leading-none transition group-open:rotate-45 group-open:bg-turq-soft" aria-hidden="true">+</span></summary>
+                        <p class="px-5 pb-5 -mt-1 text-sm text-muted leading-relaxed"><?= $collector->translate('dec_a4', 'You\'re covered by our 30-day refund policy, just like the rest of your order.') ?></p>
+                    </details>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="finalCta" class="px-4 sm:px-6 lg:px-8 py-5 md:py-[30px] lg:py-24">
         <div class="reveal relative mx-auto max-w-5xl mesh rounded-[2.5rem] overflow-hidden text-cream px-6 py-12 sm:p-16 text-center" style="--veil: rgba(29,34,38,.35)">
             <p class="text-xs font-semibold uppercase tracking-[.2em] text-turq-soft"><?= $collector->translate('final_eyebrow', 'Last chance — this page won\'t show again') ?></p>
             <h2 class="mt-4 font-serif text-4xl sm:text-5xl leading-tight sm:leading-none tracking-tight"><?= $collector->translate('final_title', 'Sit well by day. Sleep aligned by night.') ?></h2>
@@ -574,6 +630,7 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
             <?= languageSelector('locked') ?>            <p>© <?= date('Y') ?> <?= $OfferApi->corporateName ?: 'Melara' ?>. <?= $collector->translate('rights', 'All rights reserved.') ?></p>
         </div>
     </div>
+    <p class="mx-auto max-w-3xl px-4 mt-6 text-center text-[11px] leading-relaxed text-muted/80"><?= $collector->translate('footer_disclaimer', 'Melara products are comfort and posture-support products, not medical devices. They are not intended to diagnose, treat, cure or prevent any disease. Individual results vary. If you have ongoing pain, consult your doctor or physiotherapist.') ?></p>
 </footer>
 
 <script src="src/system/<?= $OfferApi->targetLanguage ?>.js?t=<?= $OfferApi->assetVersion('src/system/' . $OfferApi->targetLanguage . '.js') ?>"></script>

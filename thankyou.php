@@ -174,8 +174,8 @@ function thumb($name) {
                     <svg viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19.5 14.6A7.5 7.5 0 0 1 9.4 4.5a7.5 7.5 0 1 0 10.1 10.1z"/><path d="M16.5 3.5v3M15 5h3"/></svg>
                 </span>
                 <span class="block sm:mt-4">
-                    <span class="block text-xs font-semibold uppercase tracking-[.18em] text-turq-ink"><?= $collector->translate('next_3_when', 'Your first 100 nights') ?></span>
-                    <span class="mt-1 block font-semibold"><?= $collector->translate('next_3_title', 'Start your 100 nights') ?></span>
+                    <span class="block text-xs font-semibold uppercase tracking-[.18em] text-turq-ink"><?= $collector->translate('next_3_when', 'Your first 30 days') ?></span>
+                    <span class="mt-1 block font-semibold"><?= $collector->translate('next_3_title', 'Try it for 30 days') ?></span>
                     <span class="mt-1 block text-sm text-muted"><?= $collector->translate('next_3_text', 'Set it on your chair, sit back, and feel the difference from day one.') ?></span>
                 </span>
             </li>
