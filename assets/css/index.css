@@ -171,6 +171,12 @@ html:has(.policy-modal[open]) { overflow: hidden; }
     box-shadow: 0 0 0 4px rgba(255,255,255,.9), 0 8px 18px -6px rgba(29,34,38,.5); transition: background .25s, color .25s, transform .25s; }
 .zone-dot::after { content: ""; position: absolute; inset: -8px; border-radius: 9999px; border: 2px solid rgba(29,209,161,.6); animation: dotPulse 2.2s ease-out infinite; }
 .zone-dot.is-active { background: #1dd1a1; color: #1d2226; transform: translate(-50%, -50%) scale(1.15); }
+/* Phone: the pinned cushion is small, so shrink the markers to give them breathing room */
+@media (max-width: 639px) {
+    .zone-dot { width: 1.45rem; height: 1.45rem; font-size: .62rem; box-shadow: 0 0 0 2.5px rgba(255,255,255,.9), 0 5px 12px -5px rgba(29,34,38,.5); }
+    .zone-dot::after { inset: -5px; border-width: 1.5px; }
+    .zone-dot.is-active { transform: translate(-50%, -50%) scale(1.1); }
+}
 .zone-card.is-active { border-color: rgba(29,209,161,.6); box-shadow: 0 18px 40px -24px rgba(29,34,38,.35); }
 .zone-card.is-active .zone-num { background: #1dd1a1; color: #1d2226; }
 

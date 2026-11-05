@@ -292,8 +292,9 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
             </div>
 
             <div class="mt-8 lg:mt-14 grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-                <div class="lg:col-span-6 lg:sticky lg:top-24">
-                    <div class="reveal relative mx-auto max-w-[560px] aspect-square rounded-[2.5rem] bg-white border border-sand/70 shadow-[0_30px_80px_-40px_rgba(29,34,38,.3)]">
+                <!-- Phone: the cushion stays pinned under the header while the zone cards scroll past, so the lit marker is always visible -->
+                <div class="sticky top-16 z-10 -mx-4 px-4 pt-2 pb-3 bg-soft-gray sm:-mx-6 sm:px-6 lg:mx-0 lg:px-0 lg:pt-0 lg:pb-0 lg:bg-transparent lg:col-span-6 lg:top-24">
+                    <div class="reveal relative mx-auto max-w-[250px] sm:max-w-[340px] lg:max-w-[560px] aspect-square rounded-[2.5rem] bg-white border border-sand/70 shadow-[0_30px_80px_-40px_rgba(29,34,38,.3)]">
                         <img src="assets/img/anatomy-assembled.webp?t=<?= $OfferApi->assetVersion('assets/img/anatomy-assembled.webp') ?>" alt="<?= $product ?> with its five support zones numbered" class="absolute inset-[6%] w-[88%] h-[88%] object-contain" loading="lazy" decoding="async">
                         <div class="absolute inset-[6%]">
                             <?php foreach ($zones as [$n, $x, $y]): ?>
