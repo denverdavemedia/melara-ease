@@ -1,5 +1,5 @@
 <?php
-/* Melara Seat Cushion landing page */
+/* Melara Sitora landing page */
 include_once("integrated/setup.php");
 include_once(BASEPATH . '/src/JsonTranslateCollector.php');
 include_once(__DIR__ . '/includes/language-selector.php');
@@ -7,21 +7,14 @@ include_once(__DIR__ . '/includes/language-selector.php');
 $collector = new JsonCollector(targetLanguage: $OfferApi->targetLanguage, pageName: "index");
 
 $brand    = 'Melara';
-$product  = 'Melara Seat Cushion';
+$product  = 'Melara Sitora';
 $currency = '$';
 $logo     = 'assets/img/logo.svg';
 
 $img = [
-    'hero'     => 'assets/img/v2/hero.webp',   // placeholder: woman 60+ on the cushion at her dining table
-    'product'  => 'assets/img/product.webp',   // product on cream backdrop
-    'pain'     => 'assets/img/v2/pain.webp',   // placeholder: man 60+ holding his lower back at home
-    'detail'   => 'assets/img/detail.webp',    // close-up of foam / fabric texture
-    'wfh'      => 'assets/img/life-wfh.webp',
-    'office'   => 'assets/img/life-office.webp',
-    'gaming'   => 'assets/img/life-gaming.webp',
-    'study'    => 'assets/img/life-study.webp',
-    'mom'      => 'assets/img/life-mom.webp',
-    'cta'      => 'assets/img/cta.webp',       // calm evening, person stretching happily
+    'hero'     => 'assets/img/v2/hero.webp',   // Margaret at her dining table on the cushion
+    'detail'   => 'assets/img/detail.webp',    // hand pressing the memory foam
+    'cta'      => 'assets/img/cta.webp',       // final banner: cushion on a chair
 ];
 
 /** Render an image if it exists, otherwise a soft labelled placeholder. */
@@ -36,17 +29,17 @@ function photo($src, $alt, $class = '', $label = null, $eager = false) {
 }
 
 $offers = [
-    ['qty' => 1, 'title' => 'Just me',       'tag' => 'Start feeling better', 'price' => 49,  'compare' => 109,  'perks' => ['1 × Melara Seat Cushion', 'Skin-friendly fabric', 'Free shipping'], 'badge' => null, 'featured' => false],
-    ['qty' => 2, 'title' => 'Home & work',   'tag' => 'Home office + work',           'price' => 89,  'compare' => 234, 'perks' => ['2 × Melara Seat Cushion', 'Free spare cover', 'Free express shipping', 'Priority support'], 'badge' => 'Most loved', 'featured' => true],
-    ['qty' => 3, 'title' => 'Every chair',    'tag' => 'Office · home · gaming',    'price' => 119, 'compare' => 340, 'perks' => ['3 × Melara Seat Cushion', '2 free spare covers', 'Free express shipping', 'Linen carry bag'], 'badge' => 'Save 65%', 'featured' => false],
-    ['qty' => 4, 'title' => 'The team',    'tag' => 'Family or office team',    'price' => 139, 'compare' => 463, 'perks' => ['4 × Melara Seat Cushion', '4 free spare covers', 'Free express shipping', 'Linen carry bag', 'Lifetime foam warranty'], 'badge' => 'Best value', 'featured' => false],
+    ['qty' => 1, 'title' => 'Just me',       'tag' => 'Start feeling better', 'price' => 49,  'compare' => 109,  'perks' => ['1 × Melara Sitora', 'Skin-friendly fabric'], 'badge' => null, 'featured' => false],
+    ['qty' => 2, 'title' => 'Home & work',   'tag' => 'Home office + work',           'price' => 89,  'compare' => 234, 'perks' => ['2 × Melara Sitora', 'Free spare cover', 'Priority support'], 'badge' => 'Most loved', 'featured' => true],
+    ['qty' => 3, 'title' => 'Every chair',    'tag' => 'Office · home · gaming',    'price' => 119, 'compare' => 340, 'perks' => ['3 × Melara Sitora', '2 free spare covers', 'Linen carry bag'], 'badge' => 'Save 65%', 'featured' => false],
+    ['qty' => 4, 'title' => 'The team',    'tag' => 'Family or office team',    'price' => 139, 'compare' => 463, 'perks' => ['4 × Melara Sitora', '4 free spare covers', 'Linen carry bag', 'Lifetime foam warranty'], 'badge' => 'Best value', 'featured' => false],
 ];
 // Pack prices from the CRM, retail price from the same discount tiers as checkout.php
 $discountTiers = [1 => 0.55, 2 => 0.62, 3 => 0.65, 4 => 0.70];
 foreach ((array) $OfferApi->offerProducts as $row) {
     $q = (int) $row->maxOrderQty;
     foreach ($offers as &$o) {
-        if ($o['qty'] === $q && stripos($row->productName, 'Melara Seat Cushion') !== false) {
+        if ($o['qty'] === $q && (stripos($row->productName, 'Melara Seat Cushion') !== false || stripos($row->productName, 'Sitora') !== false)) {
             $o['price']   = (float) $row->price;
             $o['compare'] = round($row->price / (1 - $discountTiers[$q]));
         }
@@ -75,21 +68,19 @@ $zones = [
 
 // Everyday home scenes. Images are placeholders until the new photos are made (see the alt text for what each shows).
 $life = [
-    ['img' => 'assets/img/v2/life-dining.webp',  'alt' => 'Couple in their 60s at the dining table at home, one sitting on the Melara cushion',               't' => $collector->translate('life2_0_t', 'At the dining table'),     'd' => $collector->translate('life2_0_d', 'Long family meals, puzzles and card games, in comfort.')],
-    ['img' => 'assets/img/v2/life-hobbies.webp', 'alt' => 'Woman in her 60s knitting in a chair at home, sitting on the Melara cushion',                     't' => $collector->translate('life2_1_t', 'Reading and hobbies'),     'd' => $collector->translate('life2_1_d', 'Knitting, painting or a good book, without the ache.')],
-    ['img' => 'assets/img/v2/life-family.webp',  'alt' => 'Grandfather on a video call with his grandchildren, sitting on the Melara cushion at home',        't' => $collector->translate('life2_2_t', 'Calls with family'),       'd' => $collector->translate('life2_2_d', 'Catch up with the grandchildren for as long as you like.')],
-    ['img' => 'assets/img/v2/life-desk.webp',    'alt' => 'Man in his 50s doing paperwork at a home desk, sitting on the Melara cushion',                     't' => $collector->translate('life2_3_t', 'Paperwork and computer'),  'd' => $collector->translate('life2_3_d', 'Bills, emails and browsing, without getting up every few minutes.')],
-    ['img' => 'assets/img/v2/life-rest.webp',    'alt' => 'Woman in her 70s relaxing with a cup of tea in a chair at home, sitting on the Melara cushion',     't' => $collector->translate('life2_4_t', 'Taking it easy'),          'd' => $collector->translate('life2_4_d', 'Gentle, steady support for slower days at home.')],
+    ['img' => 'assets/img/v2/life-sofa.webp',   'alt' => 'Woman in her 60s watching TV on the sofa, sitting on the Melara Sitora cushion',             't' => $collector->translate('life3_0_t', 'On the sofa'),          'd' => $collector->translate('life3_0_d', 'Sink into a film or a good book with your lower back supported.')],
+    ['img' => 'assets/img/v2/life-dining.webp', 'alt' => 'Woman in her 60s having dinner with her husband, sitting on the Melara Sitora cushion on a dining chair',          't' => $collector->translate('life3_1_t', 'On dining chairs'),     'd' => $collector->translate('life2_0_d', 'Long family meals, puzzles and card games, in comfort.')],
+    ['img' => 'assets/img/v2/life-car.webp',    'alt' => 'Woman in her 60s driving, sitting on the Melara Sitora cushion on the driver\'s seat',         't' => $collector->translate('life3_2_t', 'In the driver\'s seat'), 'd' => $collector->translate('life3_2_d', 'Support for errands, family visits and longer drives.')],
+    ['img' => 'assets/img/v2/life-office.webp', 'alt' => 'Woman in her 60s working at a laptop, sitting on the Melara Sitora cushion on an office chair', 't' => $collector->translate('life3_3_t', 'On the office chair'),  'd' => $collector->translate('life3_3_d', 'Hours at the desk, without the afternoon ache.')],
 ];
 
 $faqs = [
-    ['q' => $collector->translate('faq_0_q', 'Will it fit my chair?'), 'a' => $collector->translate('faq2_0_a', 'It measures 44 × 42 × 32 cm (W × D × H) and fits most dining, kitchen and desk chairs with a seat at least 44 cm wide. Just set it on the seat and sit back.')],
+    ['q' => $collector->translate('faq_0_q', 'Will it fit my chair?'), 'a' => $collector->translate('faq3_0_a', 'It measures 44 × 42 × 32 cm (17.3 × 16.5 × 12.6 in, W × D × H) and fits most sofas, dining chairs, car seats and office chairs with a seat at least 44 cm (17.3 in) wide. Just set it on the seat and sit back.')],
     ['q' => $collector->translate('faq2_sci_q', 'Can it help with sciatica?'), 'a' => $collector->translate('faq2_sci_a', 'Many people find that sitting on a flat, hard seat makes sciatic discomfort worse. Melara is designed to take pressure off the tailbone, sit bones and back of the thighs, which can make sitting more comfortable. It is a comfort product, not a medical device, so if you have ongoing or severe pain, please speak to your doctor or physiotherapist.')],
     ['q' => $collector->translate('faq2_firm_q', 'Is it firm or soft?'), 'a' => $collector->translate('faq2_firm_a', 'Both, in the right places. The slow-rebound memory foam is soft enough to sink into and supportive enough to hold its shape. It springs back in about 5 seconds and doesn\'t flatten.')],
     ['q' => $collector->translate('faq_1_q', 'How soon will I feel a difference?'), 'a' => $collector->translate('faq2_1_a', 'Most people notice less pressure the first time they sit down. The memory foam gently adapts to your shape as you use it.')],
     ['q' => $collector->translate('faq_2_q', 'Will it slide around on my chair?'), 'a' => $collector->translate('faq_2_a', 'No. The base is covered in silicone anti-slip dots, so the cushion stays in place even when you shift or lean back.')],
     ['q' => $collector->translate('faq_3_q', 'What if it\'s not right for me?'), 'a' => $collector->translate('faq_3_a', 'We offer refunds within 30 days of purchase. Just contact our support team and we\'ll guide you through the return.')],
-    ['q' => $collector->translate('faq_4_q', 'How fast is shipping?'), 'a' => $collector->translate('faq_4_a', 'Orders ship within 24 hours. Delivery typically takes 5–7 business days.')],
 ];
 
 // Sample reviews: replace with real customer reviews (and photos) before launch.
@@ -114,6 +105,9 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="assets/img/favicon/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon/favicon-16x16.png">
     <title><?= $product ?> — Support for Your Back, Hips &amp; Tailbone</title>
     <meta name="description" content="<?= $product ?>: a supportive memory-foam seat cushion with lumbar support and tailbone relief, for more comfortable sitting at home. 30-day returns.">
 
@@ -179,19 +173,20 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
                 // Hero trust points: [title, sub-line, icon path(s)]
                 $heroPerks = [
                     [$collector->translate('perk_0_0', '30-day returns'), $collector->translate('perk_0_1', 'Love it or return it'), '<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/><path d="M16 3.5v3M14.5 5h3"/>'],
-                    [$collector->translate('perk_1_0', 'Free shipping'),   $collector->translate('perk_1_1', 'Ships within 24h'),     '<path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/>'],
+                    [$collector->translate('perk2_1_0', 'Memory foam'),     $collector->translate('perk2_1_1', 'Springs back in 5 sec'), '<path d="M3 9c3-3 6 3 9 0s6 3 9 0M3 15c3-3 6 3 9 0s6 3 9 0"/>'],
                     [$collector->translate('perk_2_0', 'Anti-slip base'),  $collector->translate('perk_2_1', 'Stays put on any chair'), '<rect x="3.5" y="5" width="17" height="14" rx="3"/><path d="M8 9.5h.01M12 9.5h.01M16 9.5h.01M8 14.5h.01M12 14.5h.01M16 14.5h.01" stroke-width="2.6"/>'],
                 ];
                 ?>
-                <ul class="reveal mt-9 flex flex-wrap gap-3 lg:flex-nowrap lg:gap-2.5" data-delay="4">
+                <!-- Phone: 3 portrait cards side by side. Tablet and up: horizontal pills -->
+                <ul class="reveal mt-9 grid grid-cols-3 gap-2 sm:flex sm:flex-wrap sm:gap-3 lg:flex-nowrap lg:gap-2.5" data-delay="4">
                     <?php foreach ($heroPerks as [$t, $sub, $icon]): ?>
-                        <li class="group flex items-center gap-3 lg:gap-2.5 lg:flex-1 lg:min-w-0 rounded-2xl bg-white/80 backdrop-blur-sm border border-sand pl-2 pr-4 lg:pr-3 py-2 shadow-[0_8px_24px_-16px_rgba(29,34,38,.35)] hover:-translate-y-0.5 hover:border-turq/40 transition">
+                        <li class="group flex flex-col items-center text-center gap-2 px-2 py-3.5 sm:flex-row sm:text-left sm:gap-3 lg:gap-2.5 lg:flex-1 lg:min-w-0 rounded-2xl bg-white/80 backdrop-blur-sm border border-sand sm:pl-2 sm:pr-4 lg:pr-3 sm:py-2 shadow-[0_8px_24px_-16px_rgba(29,34,38,.35)] hover:-translate-y-0.5 hover:border-turq/40 transition">
                             <span class="grid place-items-center shrink-0 w-9 h-9 rounded-xl bg-turq-soft text-turq-ink group-hover:bg-turq group-hover:text-ink transition">
                                 <svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><?= $icon ?></svg>
                             </span>
                             <span class="leading-tight min-w-0">
-                                <span class="block text-sm lg:text-[13px] font-semibold text-ink whitespace-nowrap"><?= $t ?></span>
-                                <span class="block text-xs lg:text-[11px] text-muted whitespace-nowrap"><?= $sub ?></span>
+                                <span class="block text-[13px] sm:text-sm lg:text-[13px] font-semibold text-ink text-balance sm:whitespace-nowrap"><?= $t ?></span>
+                                <span class="block mt-0.5 sm:mt-0 text-[11px] sm:text-xs lg:text-[11px] text-muted text-balance sm:whitespace-nowrap"><?= $sub ?></span>
                             </span>
                         </li>
                     <?php endforeach; ?>
@@ -202,17 +197,13 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
                 <div class="relative">
                 <div class="relative aspect-[4/5] sm:aspect-[5/5] rounded-[2.5rem] overflow-hidden shadow-[0_40px_80px_-30px_rgba(29,34,38,.35)]">
                     <div class="absolute inset-0 animate-kenburns">
-                        <?= photo($img['hero'], 'Woman in her 60s smiling as she sits back on the Melara cushion on a dining chair at home', 'w-full h-full', 'hero.webp', true) ?>
+                        <?= photo($img['hero'], 'Woman in her 60s with a cup of tea, sitting upright on the Melara Sitora cushion on a dining chair at home', 'w-full h-full', 'hero.webp', true) ?>
                     </div>
                 </div>
                 <div class="absolute right-3 sm:-right-6 top-full -mt-6 bg-white rounded-2xl shadow-xl px-5 py-4 max-w-[250px] animate-float">
                     <p class="text-amber-500 text-sm">★★★★★</p>
                     <p class="mt-1 text-sm leading-snug"><?= $collector->translate('hero2_review', '“I can sit through a whole film again without getting up every twenty minutes.”') ?></p>
                     <p class="mt-3 flex items-center gap-2 text-xs text-muted"><img src="assets/img/user/review-ang.png" alt="" width="28" height="28" class="w-7 h-7 rounded-full object-cover"> <?= $collector->translate('hero2_review_by', 'Margaret, retired teacher') ?></p>
-                </div>
-                <div class="absolute right-3 sm:-right-6 top-4 sm:top-8 bg-white rounded-2xl shadow-xl px-5 py-4 animate-float" style="animation-delay:-3s">
-                    <p class="font-serif text-xl text-turq-ink"><?= $collector->translate('hero2_badge_t', 'Tailbone relief') ?></p>
-                    <p class="text-xs text-muted leading-snug"><?= $collector->translate('hero2_badge_d', 'Hollow vent lifts pressure off your coccyx') ?></p>
                 </div>
                 </div>
             </div>
@@ -253,15 +244,56 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
         </div>
     </section>
 
-    <section class="py-5 md:py-[30px] lg:py-32">
+    <!-- Where it hurts: three pain areas of the body (images are placeholders until generated) -->
+    <?php
+    $painAreas = [
+        ['img' => 'assets/img/v2/pain-back.webp',     'alt' => 'Woman in her 60s sitting, hand on her lower back, with the lower back glowing red', 't' => $collector->translate('pa_0_t', 'Lower back'),        'd' => $collector->translate('pa_0_d', 'A dull ache that builds through the day and stiffens when you stand up.')],
+        ['img' => 'assets/img/v2/pain-tailbone.webp', 'alt' => 'Woman in her 60s shifting on a hard chair, with the tailbone and hips glowing red',  't' => $collector->translate('pa_1_t', 'Tailbone and hips'), 'd' => $collector->translate('pa_1_d', 'Sharp pressure at the base of your spine every time you sit down.')],
+        ['img' => 'assets/img/v2/pain-leg.webp',      'alt' => 'Woman in her 60s rubbing the back of her thigh, with the sciatic nerve path glowing red from buttock to knee', 't' => $collector->translate('pa_2_t', 'Back of the leg'), 'd' => $collector->translate('pa_2_d', 'Sciatic discomfort that runs from your buttock down the back of your thigh.')],
+    ];
+    ?>
+    <section id="pain-areas" class="py-5 md:py-[30px] lg:py-16 bg-[#faf4f2] scroll-mt-16">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="max-w-2xl">
+                <p class="reveal text-sm font-medium uppercase tracking-[.2em] text-red-500"><?= $collector->translate('pa_eyebrow', 'Where does it hurt?') ?></p>
+                <h2 class="reveal mt-4 font-serif text-4xl sm:text-5xl leading-tight sm:leading-none tracking-tight" data-delay="1"><?= $collector->translate('pa_heading', 'Sitting pain shows up in') ?> <em class="text-red-500"><?= $collector->translate('pa_heading_2', 'three places.') ?></em></h2>
+            </div>
+            <div class="mt-8 lg:mt-14 grid sm:grid-cols-3 gap-4 lg:gap-6">
+                <?php foreach ($painAreas as $i => $pa): ?>
+                    <article class="reveal rounded-[1.75rem] overflow-hidden bg-white border border-sand/70 shadow-[0_20px_50px_-35px_rgba(29,34,38,.35)]" data-delay="<?= $i + 1 ?>">
+                        <div class="relative aspect-square">
+                            <?= photo($pa['img'], $pa['alt'], 'w-full h-full', basename($pa['img'])) ?>
+                            <span class="glow-pulse glow-red" style="animation-delay: <?= $i * -.8 ?>s" aria-hidden="true"></span>
+                            <span class="badge-ping absolute top-4 left-4 grid place-items-center w-9 h-9 rounded-full bg-red-500 text-white text-sm font-bold shadow-lg"><?= $i + 1 ?></span>
+                        </div>
+                        <div class="p-5 sm:p-6">
+                            <h3 class="flex items-center gap-2 font-semibold text-lg"><span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse" aria-hidden="true"></span><?= $pa['t'] ?></h3>
+                            <p class="mt-1 text-[15px] text-muted leading-relaxed"><?= $pa['d'] ?></p>
+                        </div>
+                    </article>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5 md:py-[30px] lg:py-16">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-8 lg:gap-14 items-center">
             <div class="reveal relative order-2 lg:order-1 mb-6 lg:mb-0">
-                <div class="aspect-[4/5] rounded-[2.5rem] overflow-hidden">
-                    <?= photo($img['pain'], 'Man in his 60s at home holding his lower back as he gets up from a hard dining chair', 'w-full h-full', 'pain.jpg') ?>
-                </div>
-                <div class="absolute -bottom-6 right-6 sm:-right-6 mesh text-cream shadow-xl rounded-2xl px-6 py-5 max-w-[240px]" style="--veil: rgba(29,34,38,.5)">
-                    <p class="font-serif text-4xl"><span data-count="9.5" data-dec="1">0</span> <?= $collector->translate('idx_hrs', 'hrs') ?></p>
-                    <p class="text-sm text-cream/70"><?= $collector->translate('idx_the_average_adult_spends', 'the average adult spends sitting every day') ?></p>
+                <!-- Before / after: the two photos cross-fade on a loop (assets/js/index.js) -->
+                <div class="relative aspect-[4/5] rounded-[2.5rem] overflow-hidden" data-ba-loop>
+                    <div class="ba-slide is-on absolute inset-0">
+                        <?= photo('assets/img/v2/pain-before.webp', 'Woman in her 60s holding her lower back in pain as she sits on a hard dining chair', 'w-full h-full', 'pain-before.webp') ?>
+                        <span class="glow-pulse glow-red" aria-hidden="true"></span>
+                        <span class="absolute top-4 left-4 inline-flex items-center gap-2 rounded-full bg-red-500 px-4 py-2 text-sm font-semibold text-white shadow-lg"><span aria-hidden="true">✕</span> <?= $collector->translate('ba_before', 'Before: a hard, flat chair') ?></span>
+                    </div>
+                    <div class="ba-slide absolute inset-0">
+                        <?= photo('assets/img/v2/pain-after.webp', 'The same woman smiling and sitting comfortably on the Melara Sitora cushion on the same dining chair', 'w-full h-full', 'pain-after.webp') ?>
+                        <span class="glow-pulse glow-turq" aria-hidden="true"></span>
+                        <span class="absolute top-4 left-4 inline-flex items-center gap-2 rounded-full bg-turq px-4 py-2 text-sm font-semibold text-ink shadow-lg"><span aria-hidden="true">✓</span> <?= $collector->translate('ba_after', 'After: with Melara Sitora') ?></span>
+                    </div>
+                    <div class="absolute bottom-4 inset-x-0 flex justify-center gap-2" aria-hidden="true">
+                        <span class="ba-dot is-on"></span><span class="ba-dot"></span>
+                    </div>
                 </div>
             </div>
             <div class="order-1 lg:order-2">
@@ -270,7 +302,7 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
                 <div class="mt-10 space-y-4">
                     <?php foreach ($pains as $i => $p): ?>
                         <div class="reveal flex gap-5 rounded-2xl bg-white border border-sand/70 p-5 hover:shadow-lg hover:-translate-y-0.5 transition" data-delay="<?= $i + 1 ?>">
-                            <span class="grid place-items-center shrink-0 w-10 h-10 rounded-full bg-turq-soft text-turq-ink font-serif">✕</span>
+                            <span class="grid place-items-center shrink-0 w-10 h-10 rounded-full bg-red-50 text-red-500 ring-1 ring-red-100 font-bold">✕</span>
                             <div>
                                 <h3 class="font-semibold"><?= $p['t'] ?></h3>
                                 <p class="mt-1 text-sm text-muted"><?= $p['d'] ?></p>
@@ -283,7 +315,7 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
     </section>
 
     <!-- How Melara fixes each pain: real product photo with the 5 support zones -->
-    <section id="solution" class="py-5 md:py-[30px] lg:py-32 bg-soft-gray scroll-mt-16">
+    <section id="solution" class="py-5 md:py-[30px] lg:py-16 bg-soft-gray scroll-mt-16">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="max-w-2xl">
                 <p class="reveal text-sm font-medium uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('sol2_eyebrow', 'How it helps') ?></p>
@@ -328,7 +360,6 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
                     </a>
                     <p class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-muted">
                         <span class="inline-flex items-center gap-1"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5 text-turq-ink" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><?= $collector->translate('cta_sol_n1', '30-day returns') ?></span>
-                        <span class="inline-flex items-center gap-1"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5 text-turq-ink" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><?= $collector->translate('cta_sol_n2', 'Free shipping') ?></span>
                         <span class="inline-flex items-center gap-1"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5 text-turq-ink" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><?= $collector->translate('cta_sol_n3', '70% off today') ?></span>
                     </p>
                 </div>
@@ -338,7 +369,7 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
     </section>
 
     <!-- Sciatica: segmented pressure zones along the sciatic nerve path (diagram image is a placeholder for now) -->
-    <section id="sciatica" class="py-5 md:py-[30px] lg:py-32 scroll-mt-16">
+    <section id="sciatica" class="py-5 md:py-[30px] lg:py-16 scroll-mt-16">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-8 lg:gap-14 items-center">
             <div class="lg:col-span-5 reveal">
                 <div class="aspect-[4/5] rounded-[2.5rem] overflow-hidden bg-soft-gray border border-sand/70">
@@ -387,7 +418,6 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
                     </a>
                     <p class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-muted">
                         <span class="inline-flex items-center gap-1"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5 text-turq-ink" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><?= $collector->translate('cta_sci_n1', '30-day returns') ?></span>
-                        <span class="inline-flex items-center gap-1"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5 text-turq-ink" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><?= $collector->translate('cta_sci_n2', 'Free shipping') ?></span>
                         <span class="inline-flex items-center gap-1"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5 text-turq-ink" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><?= $collector->translate('cta_sci_n3', '70% off today') ?></span>
                     </p>
                 </div>
@@ -396,108 +426,8 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
         </div>
     </section>
 
-    <?php
-    $anatImg = [
-        'a' => 'assets/img/anatomy-assembled.webp?t=' . $OfferApi->assetVersion('assets/img/anatomy-assembled.webp'),
-        'z' => 'assets/img/anatomy-zones.webp?t=' . $OfferApi->assetVersion('assets/img/anatomy-zones.webp'),
-        'e' => 'assets/img/anatomy-exploded.webp?t=' . $OfferApi->assetVersion('assets/img/anatomy-exploded.webp'),
-    ];
-    $chapters = [
-        ['t' => $collector->translate('chapter_0_t', 'Designed for your chair'), 'd' => $collector->translate('chapter_0_d', 'One-piece support that sits on the chair you already own.')],
-        ['t' => $collector->translate('chapter_1_t', 'Pressure-relief zones'),   'd' => $collector->translate('chapter_1_d', 'See exactly where your body finally gets a break.')],
-        ['t' => $collector->translate('chapter_2_t', 'What it\'s made of'),         'd' => $collector->translate('chapter_2_d', 'Skin-friendly fabric, slow-rebound memory foam and an anti-slip base.')],
-    ];
-    // [image, x%, y%, label side, show from, hide at (scroll progress 0–1), title, text, optional leader length px]
-    $hotspots = [
-        ['a', 70, 16, 'r', .10, .29, $collector->translate('hotspot_0_6', 'Wave-shaped backrest'),     $collector->translate('hotspot_0_7', 'Curves around your lower back so you sit tall without trying.')],
-        ['a', 84, 50, 'r', .14, .29, $collector->translate('hotspot_1_6', 'Upright posture wings'),        $collector->translate('hotspot_1_7', 'Gently hold you upright to ease strain on your spine.'), 22],
-        ['a', 17, 64, 'l', .18, .29, $collector->translate('hotspot_2_6', 'Skin-friendly fabric'),          $collector->translate('hotspot_2_7', 'Soft, smooth and gentle on your skin.')],
-        ['z', 62, 30, 'r', .38, .55, $collector->translate('hotspot_3_6', 'Lumbar support'),      $collector->translate('hotspot_3_7', 'Supports the natural curve of your lower spine.')],
-        ['z', 57, 56, 'r', .42, .55, $collector->translate('hotspot_4_6', 'Coccyx relief'),          $collector->translate('hotspot_4_7', 'A hollow vent keeps pressure off your tailbone and lets air flow.')],
-        ['z', 22, 64, 'l', .46, .55, $collector->translate('hotspot_5_6', 'Thigh support'),            $collector->translate('hotspot_5_7', 'Keeps your thighs level, easing pressure on the back of your legs.')],
-        ['z', 36, 33, 'l', .50, .55, $collector->translate('hotspot_6_6', 'Breathable'),             $collector->translate('hotspot_6_7', 'Moisture-wicking, so you stay cool and dry.')],
-        ['e', 70, 37, 'r', .70, .89, $collector->translate('hotspot_7_6', 'Skin-friendly fabric'),    $collector->translate('hotspot_7_7', 'Soft and smooth, with a delicate feel.')],
-        ['e', 28, 56, 'l', .73, .89, $collector->translate('hotspot_8_6', 'Slow-rebound memory foam'), $collector->translate('hotspot_8_7', 'Shapes to your body and spreads pressure evenly.')],
-        ['e', 79, 68, 'r', .76, .89, $collector->translate('hotspot_9_6', 'Curved-fit support'), $collector->translate('hotspot_9_7', 'Rebounds in about 5 seconds and never collapses.')],
-        ['e', 28, 86, 'l', .79, .89, $collector->translate('hotspot_10_6', 'Silicone anti-slip base'),       $collector->translate('hotspot_10_7', 'Anti-slip particles keep it in place, however much you move.')],
-    ];
-    ?>
-    <section id="anatomy" class="relative bg-soft-gray" style="height: 520vh;" aria-label="Inside the <?= $product ?>">
-        <div class="sticky top-16 lg:top-0 lg:h-screen overflow-hidden bg-soft-gray">
-            <div class="relative mx-auto max-w-7xl h-full px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-6 items-center content-start lg:content-normal">
-                <div class="lg:col-span-4 pt-5 lg:pt-0 relative z-10">
-                    <p class="text-sm font-medium uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('idx_inside_the_cushion', 'Inside the cushion') ?></p>
-                    <h2 class="mt-3 font-serif text-3xl sm:text-5xl leading-tight sm:leading-none tracking-tight"><?= $collector->translate('idx_engineered_for', 'Engineered for') ?><br><em class="text-turq-ink"><?= $collector->translate('anat2_heading_2', 'all-day support.') ?></em></h2>
-                    <ol class="mt-10 space-y-6 hidden lg:block">
-                        <?php foreach ($chapters as $i => $c): ?>
-                            <li class="chap relative pl-5">
-                                <span class="absolute left-0 top-0 bottom-0 w-[3px] rounded-full bg-sand"><span class="bar block w-full h-full rounded-full bg-turq"></span></span>
-                                <p class="text-xs text-muted">0<?= $i + 1 ?></p>
-                                <p class="font-semibold text-lg"><?= $c['t'] ?></p>
-                                <p class="text-sm text-muted mt-0.5"><?= $c['d'] ?></p>
-                            </li>
-                        <?php endforeach; ?>
-                    </ol>
-                    <div class="lg:hidden mt-3 min-h-[60px]">
-                        <p class="font-semibold" data-cap-name><?= $collector->translate('idx_scroll_to_look_inside', 'Scroll to look inside') ?></p>
-                        <p class="text-sm text-muted" data-cap-desc><?= $collector->translate('idx_see_what_makes_it', 'See what makes it comfortable all day.') ?></p>
-                    </div>
-                </div>
-
-                <div class="lg:col-span-8 relative lg:static py-2 lg:py-0 lg:h-full grid place-items-center lg:content-center">
-                    <div id="anatBox" class="anat-stage relative" style="width: min(560px, 88vw, 66vh); aspect-ratio: 1;">
-                        <div id="anatGlow" class="absolute -inset-[18%] rounded-full anat-glow blur-xl" aria-hidden="true"></div>
-                        <?php foreach ([[110, 0], [110, 1.6], [110, 3.2]] as [$sz, $dl]): ?>
-                            <span class="anat-ring" style="width: <?= $sz ?>%; height: <?= $sz ?>%; animation-delay: <?= $dl ?>s;" aria-hidden="true"></span>
-                        <?php endforeach; ?>
-                        <?php foreach ([[12, 80, 0], [24, 88, 1.2], [38, 84, 2.6], [52, 90, .6], [66, 86, 1.9], [78, 82, 3.1], [88, 88, .3], [30, 70, 2.2], [60, 74, 3.6], [46, 92, 1.5]] as [$x, $y, $d]): ?>
-                            <span class="spark" style="left: <?= $x ?>%; top: <?= $y ?>%; animation-duration: <?= 4 + ($x % 3) ?>s; animation-delay: <?= $d ?>s;" aria-hidden="true"></span>
-                        <?php endforeach; ?>
-
-                        <div id="anatTilt" class="anat-tilt absolute inset-0">
-                            <div class="absolute inset-0 animate-float">
-                                <img id="anatA" src="<?= $anatImg['a'] ?>" alt="<?= $product ?> with integrated backrest" class="anat-img" loading="lazy" decoding="async">
-                                <img id="anatZ" src="<?= $anatImg['z'] ?>" alt="Pressure-relief zones of the <?= $product ?>" class="anat-img" style="opacity: 0;" loading="lazy" decoding="async">
-                                <img id="anatE" src="<?= $anatImg['e'] ?>" alt="Exploded view of the cushion: skin-friendly fabric, slow-rebound memory foam, support layer and anti-slip base" class="anat-img" style="opacity: 0; transform-origin: 50% 80%;" loading="lazy" decoding="async">
-
-                                <svg id="anatFlow" class="flow absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none" style="opacity: 0;" aria-hidden="true">
-                                    <path pathLength="100" stroke-width=".7" d="M-4,34 C18,24 34,44 52,40 S84,24 104,30"/>
-                                    <path pathLength="100" stroke-width=".5" d="M-4,58 C16,50 36,66 56,58 S86,48 104,54" style="animation-delay: -1.1s"/>
-                                    <path pathLength="100" stroke-width=".6" d="M-4,76 C22,70 40,82 62,74 S90,66 104,72" style="animation-delay: -2.2s"/>
-                                </svg>
-
-                                <?php foreach ($hotspots as $h): [$hsImg, $x, $y, $side, $in, $out, $t, $d] = $h; $len = $h[8] ?? 48; ?>
-                                    <div class="hot" data-side="<?= $side ?>" data-in="<?= $in ?>" data-out="<?= $out ?>" style="left: <?= $x ?>%; top: <?= $y ?>%; --len: <?= $len ?>px;">
-                                        <span class="dot"></span>
-                                        <span class="line"></span>
-                                        <div class="label bg-white/90 backdrop-blur-sm rounded-2xl border border-sand shadow-lg px-4 py-3">
-                                            <p class="text-sm font-semibold"><?= $t ?></p>
-                                            <p class="text-xs text-muted leading-snug mt-0.5"><?= $d ?></p>
-                                        </div>
-                                    </div>
-                                <?php endforeach; ?>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Phone: sits right under the cushion. Desktop: zero-height holder, pill pinned to the bottom centre of the section -->
-                    <div class="relative h-16 w-full lg:static lg:h-0">
-                        <div id="assembled" class="absolute top-0 lg:top-auto lg:bottom-8 left-1/2 -translate-x-1/2 opacity-0 transition-opacity duration-500">
-                            <p class="rounded-full mesh text-cream px-6 py-3 text-sm font-medium shadow-xl whitespace-nowrap" style="--veil: rgba(29,34,38,.35)"><?= $collector->translate('idx_all_together_comfort_that', '✓ All together: comfort that lasts all day') ?></p>
-                        </div>
-
-                        <div id="scrollHint" class="absolute top-0 lg:top-auto lg:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-xs text-muted transition-opacity">
-                            <span><?= $collector->translate('idx_scroll_to_explore', 'Scroll to explore') ?></span>
-                            <span class="w-[22px] h-[34px] rounded-full border-2 border-muted/40 grid justify-center pt-1.5"><span class="w-1 h-2 rounded-full bg-turq animate-bounce"></span></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Golden sitting angle + goodbye crossed legs: real side and front photos with drawn guides -->
-    <section id="posture" class="py-5 md:py-[30px] lg:py-32 scroll-mt-16">
+    <section id="posture" class="py-5 md:pt-0 md:pb-[30px] lg:py-16 scroll-mt-16">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="max-w-2xl">
                 <p class="reveal text-sm font-medium uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('pos_eyebrow', 'Sit the way your spine wants') ?></p>
@@ -538,7 +468,7 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
     </section>
 
     <!-- Materials: fabric, memory foam, anti-slip base -->
-    <section id="materials" class="py-5 md:py-[30px] lg:py-32 bg-soft-gray scroll-mt-16">
+    <section id="materials" class="py-5 md:py-[30px] lg:py-16 bg-soft-gray scroll-mt-16">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="max-w-2xl">
                 <p class="reveal text-sm font-medium uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('mat_eyebrow', 'What it\'s made of') ?></p>
@@ -593,7 +523,6 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
                     </a>
                     <p class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-muted">
                         <span class="inline-flex items-center gap-1"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5 text-turq-ink" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><?= $collector->translate('cta_mat_n1', '30-day returns') ?></span>
-                        <span class="inline-flex items-center gap-1"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5 text-turq-ink" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><?= $collector->translate('cta_mat_n2', 'Free shipping') ?></span>
                         <span class="inline-flex items-center gap-1"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5 text-turq-ink" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><?= $collector->translate('cta_mat_n3', '70% off today') ?></span>
                     </p>
                 </div>
@@ -601,10 +530,10 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
     </section>
 
     <!-- Product parameters: real photo with dimension lines -->
-    <section id="specs" class="py-5 md:py-[30px] lg:py-32 scroll-mt-16">
+    <section id="specs" class="py-5 md:py-[30px] lg:py-16 scroll-mt-16">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-8 lg:gap-14 items-center">
             <div class="reveal relative mx-auto w-full max-w-[560px] aspect-square rounded-[2.5rem] bg-soft-gray border border-sand/70">
-                <img src="assets/img/anatomy-assembled.webp?t=<?= $OfferApi->assetVersion('assets/img/anatomy-assembled.webp') ?>" alt="<?= $product ?> with its dimensions: 44 cm wide, 42 cm deep, 32 cm high" class="absolute inset-[10%] w-[80%] h-[80%] object-contain" loading="lazy" decoding="async">
+                <img src="assets/img/anatomy-assembled.webp?t=<?= $OfferApi->assetVersion('assets/img/anatomy-assembled.webp') ?>" alt="<?= $product ?> with its dimensions: 44 cm (17.3 in) wide, 42 cm (16.5 in) deep, 32 cm (12.6 in) high" class="absolute inset-[10%] w-[80%] h-[80%] object-contain" loading="lazy" decoding="async">
                 <div class="absolute inset-[10%]">
                     <svg class="absolute inset-0 w-full h-full overflow-visible" viewBox="0 0 100 100" aria-hidden="true">
                         <!-- On scroll-in each line draws itself (one after another), its end ticks appear, then a soft highlight keeps sweeping along it -->
@@ -620,17 +549,17 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
                             <path class="dim-glow" pathLength="100" style="--d: .9s" d="M102,11 L102,55"/>
                         </g>
                     </svg>
-                    <span class="dim-pill" style="left: 13.5%; top: 86%; --d: .8s;">44 cm</span>
-                    <span class="dim-pill" style="left: 67%; top: 80%; --d: 1.25s;">42 cm</span>
-                    <span class="dim-pill" style="left: 102%; top: 33%; --d: 1.7s;">32 cm</span>
+                    <span class="dim-pill" style="left: 13.5%; top: 86%; --d: .8s;">44 cm<small>17.3 in</small></span>
+                    <span class="dim-pill" style="left: 67%; top: 80%; --d: 1.25s;">42 cm<small>16.5 in</small></span>
+                    <span class="dim-pill" style="left: 102%; top: 33%; --d: 1.7s;">32 cm<small>12.6 in</small></span>
                 </div>
             </div>
             <div>
                 <p class="reveal text-sm font-medium uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('spec_eyebrow', 'Product parameters') ?></p>
                 <h2 class="reveal mt-4 font-serif text-4xl sm:text-5xl leading-tight sm:leading-none tracking-tight" data-delay="1"><?= $collector->translate('spec_heading', 'Made to fit') ?> <em class="text-turq-ink"><?= $collector->translate('spec_heading_2', 'your chair.') ?></em></h2>
                 <dl class="reveal mt-8 divide-y divide-sand rounded-2xl border border-sand bg-white text-sm sm:text-[15px]" data-delay="2">
-                    <div class="flex justify-between gap-6 px-5 py-4"><dt class="text-muted"><?= $collector->translate('spec_size_k', 'Size (W × D × H)') ?></dt><dd class="font-semibold text-right"><?= $collector->translate('spec_size_v', '44 × 42 × 32 cm') ?></dd></div>
-                    <div class="flex justify-between gap-6 px-5 py-4"><dt class="text-muted"><?= $collector->translate('spec_fit_k', 'Fits') ?></dt><dd class="font-semibold text-right"><?= $collector->translate('spec_fit_v', 'Chair seats 44 cm wide or more') ?></dd></div>
+                    <div class="flex justify-between gap-6 px-5 py-4"><dt class="text-muted"><?= $collector->translate('spec_size_k', 'Size (W × D × H)') ?></dt><dd class="font-semibold text-right"><?= $collector->translate('spec2_size_v', '44 × 42 × 32 cm<br><span class="font-normal text-muted">17.3 × 16.5 × 12.6 in</span>') ?></dd></div>
+                    <div class="flex justify-between gap-6 px-5 py-4"><dt class="text-muted"><?= $collector->translate('spec_fit_k', 'Fits') ?></dt><dd class="font-semibold text-right"><?= $collector->translate('spec2_fit_v', 'Chair seats 44 cm (17.3 in) wide or more') ?></dd></div>
                     <div class="flex justify-between gap-6 px-5 py-4"><dt class="text-muted"><?= $collector->translate('spec_design_k', 'Design') ?></dt><dd class="font-semibold text-right"><?= $collector->translate('spec_design_v', 'One-piece seat and backrest') ?></dd></div>
                     <div class="flex justify-between gap-6 px-5 py-4"><dt class="text-muted"><?= $collector->translate('spec_fabric_k', 'Cover') ?></dt><dd class="font-semibold text-right"><?= $collector->translate('spec_fabric_v', 'Skin-friendly fabric') ?></dd></div>
                     <div class="flex justify-between gap-6 px-5 py-4"><dt class="text-muted"><?= $collector->translate('spec_fill_k', 'Filling') ?></dt><dd class="font-semibold text-right"><?= $collector->translate('spec_fill_v', 'Slow-rebound memory foam') ?></dd></div>
@@ -642,7 +571,7 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
         </div>
     </section>
 
-    <section id="why" class="relative py-5 md:py-[30px] lg:py-32 bg-soft-gray scroll-mt-16 overflow-hidden">
+    <section id="why" class="relative py-5 md:py-[30px] lg:py-16 bg-soft-gray scroll-mt-16 overflow-hidden">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="max-w-2xl">
                 <p class="reveal text-sm font-medium uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('idx_why_it_helps_2', 'Why it helps') ?></p>
@@ -764,36 +693,32 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
                     </a>
                     <p class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-muted">
                         <span class="inline-flex items-center gap-1"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5 text-turq-ink" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><?= $collector->translate('cta_why_n1', '30-day returns') ?></span>
-                        <span class="inline-flex items-center gap-1"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5 text-turq-ink" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><?= $collector->translate('cta_why_n2', 'Free shipping') ?></span>
                         <span class="inline-flex items-center gap-1"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5 text-turq-ink" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><?= $collector->translate('cta_why_n3', '70% off today') ?></span>
                     </p>
                 </div>
         </div>
     </section>
 
-    <section id="life" class="py-5 md:py-[30px] lg:py-32 scroll-mt-16">
+    <section id="life" class="py-5 md:py-[30px] lg:py-16 scroll-mt-16">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
                 <div>
                     <p class="reveal text-sm font-medium uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('idx_made_for_real_life', 'Made for real life') ?></p>
-                    <h2 class="reveal mt-4 font-serif text-4xl sm:text-5xl leading-tight sm:leading-none tracking-tight" data-delay="1"><?= $collector->translate('life2_h_1', 'One cushion.') ?><br><em><?= $collector->translate('life2_h_2', 'Every chair at home.') ?></em></h2>
+                    <h2 class="reveal mt-4 font-serif text-4xl sm:text-5xl leading-tight sm:leading-none tracking-tight" data-delay="1"><?= $collector->translate('life2_h_1', 'One cushion.') ?><br><em><?= $collector->translate('life3_h_2', 'Every seat in your day.') ?></em></h2>
                 </div>
-                <p class="reveal max-w-sm text-muted" data-delay="2"><?= $collector->translate('life2_sub', 'Light enough to move from the dining table to your favourite reading chair, and it sits on almost any chair with a backrest.') ?></p>
+                <p class="reveal max-w-sm text-muted" data-delay="2"><?= $collector->translate('life3_sub', 'Light and easy to carry: it fits on the sofa, dining chairs, the driver\'s seat in your car and your office chair.') ?></p>
             </div>
 
-            <div class="mt-8 lg:mt-14 grid grid-cols-2 lg:grid-cols-6 gap-4">
-                <?php foreach ($life as $i => $l):
-                    $span = $i < 2 ? 'lg:col-span-3 aspect-[4/3]' : 'lg:col-span-2 aspect-[4/5]';
-                    if ($i === 4) $span .= ' col-span-2';
-                ?>
+            <div class="mt-8 lg:mt-14 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+                <?php foreach ($life as $i => $l): $span = 'aspect-[4/5]'; ?>
                     <article class="reveal group relative rounded-[1.75rem] overflow-hidden <?= $span ?>" data-delay="<?= ($i % 3) + 1 ?>">
                         <div class="absolute inset-0 transition duration-700 group-hover:scale-105">
                             <?= photo($l['img'], $l['alt'], 'w-full h-full object-[50%_25%]', basename($l['img'])) ?>
                         </div>
                         <div class="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/10 to-transparent"></div>
-                        <div class="absolute bottom-0 p-5 sm:p-7 text-cream">
+                        <div class="absolute bottom-0 p-4 sm:p-6 text-cream">
                             <h3 class="font-serif text-xl sm:text-2xl"><?= $l['t'] ?></h3>
-                            <p class="mt-1 text-sm text-cream/80 max-w-xs hidden sm:block"><?= $l['d'] ?></p>
+                            <p class="mt-1 text-xs sm:text-sm text-cream/85 max-w-xs leading-snug"><?= $l['d'] ?></p>
                         </div>
                     </article>
                 <?php endforeach; ?>
@@ -801,7 +726,7 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
         </div>
     </section>
 
-    <section id="reviews" class="py-5 md:py-[30px] lg:py-32 bg-soft-gray scroll-mt-16 overflow-hidden">
+    <section id="reviews" class="py-5 md:py-[30px] lg:py-16 bg-soft-gray scroll-mt-16 overflow-hidden">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
             <p class="reveal text-amber-500 text-lg">★★★★★</p>
             <h2 class="reveal mt-3 font-serif text-4xl sm:text-5xl tracking-tight" data-delay="1"><?= $collector->translate('idx_why_didn_t_i', '“Why didn\'t I get this') ?> <em class="text-turq-ink"><?= $collector->translate('idx_years_ago', 'years ago?”') ?></em></h2>
@@ -839,14 +764,13 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
                     </a>
                     <p class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-muted">
                         <span class="inline-flex items-center gap-1"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5 text-turq-ink" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><?= $collector->translate('cta_rev_n1', '30-day returns') ?></span>
-                        <span class="inline-flex items-center gap-1"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5 text-turq-ink" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><?= $collector->translate('cta_rev_n2', 'Free shipping') ?></span>
                         <span class="inline-flex items-center gap-1"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5 text-turq-ink" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><?= $collector->translate('cta_rev_n3', '70% off today') ?></span>
                     </p>
                 </div>
         </div>
     </section>
 
-    <section id="faq" class="py-5 md:py-[30px] lg:pt-32 lg:pb-20 scroll-mt-16">
+    <section id="faq" class="py-5 md:py-[30px] lg:pt-16 lg:pb-20 scroll-mt-16">
         <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
             <h2 class="reveal text-center font-serif text-4xl sm:text-5xl tracking-tight"><?= $collector->translate('idx_good_questions', 'Good questions') ?></h2>
             <div class="mt-8 lg:mt-12 space-y-3">
@@ -868,7 +792,6 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
                     </a>
                     <p class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-muted">
                         <span class="inline-flex items-center gap-1"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5 text-turq-ink" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><?= $collector->translate('cta_faq_n1', '30-day returns') ?></span>
-                        <span class="inline-flex items-center gap-1"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5 text-turq-ink" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><?= $collector->translate('cta_faq_n2', 'Free shipping') ?></span>
                         <span class="inline-flex items-center gap-1"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5 text-turq-ink" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><?= $collector->translate('cta_faq_n3', '70% off today') ?></span>
                     </p>
                 </div>
@@ -907,7 +830,7 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
             <p>© <?= date('Y') ?> <?= $brand ?><?= $collector->translate('idx_all_rights_reserved', '. All rights reserved.') ?></p>
         </div>
     </div>
-    <p class="mx-auto max-w-3xl px-4 mt-6 text-center text-[11px] leading-relaxed text-muted/80"><?= $collector->translate('footer_disclaimer', 'The Melara Seat Cushion is a comfort and posture-support product, not a medical device. It is not intended to diagnose, treat, cure or prevent any disease. Individual results vary. If you have ongoing pain, consult your doctor or physiotherapist.') ?></p>
+    <p class="mx-auto max-w-3xl px-4 mt-6 text-center text-[11px] leading-relaxed text-muted/80"><?= $collector->translate('footer_disclaimer', 'The Melara Sitora is a comfort and posture-support product, not a medical device. It is not intended to diagnose, treat, cure or prevent any disease. Individual results vary. If you have ongoing pain, consult your doctor or physiotherapist.') ?></p>
 </footer>
 
 <?php
@@ -1131,12 +1054,9 @@ $address      = $OfferApi->companyAddress;
 </dialog>
 
 <div id="buyBar" class="md:hidden fixed inset-x-3 bottom-3 z-50 translate-y-[150%] transition-transform duration-500">
-    <a href="checkout.php?pack=2" class="flex items-center justify-between rounded-2xl bg-white/90 backdrop-blur-sm border border-sand px-5 py-3 shadow-2xl">
-        <span>
-            <span class="block text-xs text-muted"><?= $collector->translate('idx_from', 'From') ?></span>
-            <span class="font-serif text-xl"><?= money($offers[0]['price']) ?> <span class="text-sm text-muted line-through"><?= money($offers[0]['compare']) ?></span></span>
-        </span>
-        <span class="rounded-full bg-turq px-5 py-2.5 text-sm font-semibold text-ink"><?= $collector->translate('idx_get_70_discount_4', 'Get 70% Discount') ?></span>
+    <a href="checkout.php?pack=2" class="flex items-center justify-center gap-2 rounded-full bg-turq px-6 py-4 font-semibold text-ink shadow-[0_14px_30px_-10px_rgba(29,34,38,.45)]">
+        <?= $collector->translate('idx_get_70_discount_4', 'Get 70% Discount') ?>
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </a>
 </div>
 

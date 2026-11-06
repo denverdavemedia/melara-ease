@@ -1,19 +1,25 @@
-/* Melara landing page: nav, scroll reveal, 3D anatomy, parallax, word reveal, countdown. Bundled by gulp → public/js/index.js */
+/* Melara landing page: nav, scroll reveal, parallax, word reveal, countdown. Bundled by gulp → public/js/index.js */
 (() => {
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     // Nav background + mobile buy bar
     const nav = document.getElementById('nav'), buyBar = document.getElementById('buyBar');
     const footer = document.querySelector('footer');
+    // The page's green "buy" buttons; the floating bar only appears when none of them is on screen
+    const greenCtas = [...document.querySelectorAll('a.bg-turq')].filter(a => !buyBar.contains(a));
+    const ctaInView = () => greenCtas.some(a => {
+        const r = a.getBoundingClientRect();
+        return r.height > 0 && r.bottom > nav.offsetHeight && r.top < innerHeight;
+    });
     const onScroll = () => {
         const scrolled = scrollY > 30;
         nav.classList.toggle('bg-cream/85', scrolled);
         nav.classList.toggle('backdrop-blur-sm', scrolled);
         nav.classList.toggle('shadow-xs', scrolled);
-        // Hide the mobile buy bar once the footer is on screen, so it never covers the footer
+        // Hide the mobile buy bar while a green CTA is visible, and once the footer is on screen
         const atFooter = footer && footer.getBoundingClientRect().top < innerHeight;
         // Tailwind v4's translate-y-* uses the CSS `translate` property, so override that (not `transform`)
-        buyBar.style.translate = scrollY > 600 && !atFooter ? '0 0' : '';
+        buyBar.style.translate = !ctaInView() && !atFooter ? '0 0' : '';
     };
     addEventListener('scroll', onScroll, { passive: true });
     onScroll();
@@ -55,69 +61,6 @@
     };
     tick(); setInterval(tick, 1000);
 
-    // ---------- Product anatomy: real renders, driven by scroll ----------
-    const anatomy = document.getElementById('anatomy');
-    const anatA = document.getElementById('anatA'), anatZ = document.getElementById('anatZ'), anatE = document.getElementById('anatE');
-    const anatTilt = document.getElementById('anatTilt'), anatGlow = document.getElementById('anatGlow'), anatFlow = document.getElementById('anatFlow');
-    const hots = [...anatomy.querySelectorAll('.hot')];
-    const chaps = [...anatomy.querySelectorAll('.chap')];
-    const capName = anatomy.querySelector('[data-cap-name]'), capDesc = anatomy.querySelector('[data-cap-desc]');
-    const assembled = document.getElementById('assembled'), hint = document.getElementById('scrollHint');
-    const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
-    const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-    const ramp = (p, a, b) => ease(clamp((p - a) / (b - a)));
-    // load the renders before the section is reached so the cross-fades never pop
-    [anatA, anatZ, anatE].forEach(i => i.loading = 'eager');
-    let lastHot = null;
-
-    const renderAnatomy = () => {
-        const r = anatomy.getBoundingClientRect();
-        if (r.bottom < 0 || r.top > innerHeight) return;
-        const p = clamp(-r.top / (anatomy.offsetHeight - innerHeight));
-
-        const enter = ramp(p, 0, .08);
-        const back  = ramp(p, .90, .96);                     // return to the assembled view
-        const zIn = ramp(p, .30, .36), zOut = ramp(p, .56, .62);
-        const spread = ramp(p, .56, .70);                    // layers pulling apart
-        const oA = Math.max(1 - zIn, back);
-        const oZ = zIn * (1 - zOut);
-        const oE = ramp(p, .56, .64) * (1 - back);
-
-        anatA.style.opacity = oA;
-        anatA.style.filter = `blur(${((1 - oA) * 6).toFixed(2)}px)`;
-        anatZ.style.opacity = oZ;
-        anatZ.style.transform = `scale(${(1 + .05 * (1 - oZ)).toFixed(3)})`;
-        anatE.style.opacity = oE;
-        anatE.style.transform = `scaleY(${(.6 + .4 * spread).toFixed(3)}) scaleX(${(.92 + .08 * spread).toFixed(3)})`;
-        anatE.style.filter = `blur(${((1 - spread) * 8).toFixed(2)}px)`;
-        anatFlow.style.opacity = oZ;
-        anatGlow.style.opacity = (.45 + .55 * Math.max(oZ, oE * .6)).toFixed(3);
-        anatGlow.style.transform = `scale(${(.9 + .25 * oZ).toFixed(3)})`;
-
-        const ry = -14 + 28 * p, rx = 6 - 10 * p;
-        anatTilt.style.opacity = (.2 + .8 * enter).toFixed(3);
-        anatTilt.style.transform = `scale(${(.82 + .18 * enter).toFixed(3)}) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg)`;
-
-        let latest = null;
-        hots.forEach(h => {
-            const on = p >= +h.dataset.in && p < +h.dataset.out;
-            h.classList.toggle('on', on);
-            if (on) latest = h;
-        });
-        if (latest !== lastHot) {
-            lastHot = latest;
-            if (latest && capName) {
-                capName.textContent = latest.querySelector('.label p').textContent;
-                capDesc.textContent = latest.querySelectorAll('.label p')[1].textContent;
-            }
-        }
-
-        const chapter = p < .30 ? 0 : p < .58 ? 1 : 2;
-        chaps.forEach((c, i) => c.classList.toggle('active', p < .92 && i === chapter));
-        assembled.style.opacity = ramp(p, .93, .98);
-        hint.style.opacity = 1 - ramp(p, .02, .08);
-    };
-
     // ---------- Site-wide scroll effects ----------
     const navLinks = [...document.querySelectorAll('#nav a.nav-link')];
     const navTargets = navLinks.map(a => document.querySelector(a.getAttribute('href')));
@@ -133,7 +76,6 @@
             const d = (r.top + r.height / 2 - innerHeight / 2) * +el.dataset.speed;
             el.style.transform = `translate3d(0, ${d.toFixed(1)}px, 0)`;
         });
-        renderAnatomy();
     };
     let ticking = false;
     const onFrame = () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { renderScroll(); ticking = false; }); } };
@@ -158,6 +100,17 @@
             } else if (n.nodeType === 1 && !/^(svg|br)$/i.test(n.tagName)) walk(n);
         });
         walk(h);
+    });
+
+    // ---------- Pain section: before / after photos cross-fade on a loop ----------
+    document.querySelectorAll('[data-ba-loop]').forEach(box => {
+        const slides = [...box.querySelectorAll('.ba-slide')], dots = [...box.querySelectorAll('.ba-dot')];
+        let cur = 0;
+        setInterval(() => {
+            cur = (cur + 1) % slides.length;
+            slides.forEach((s, i) => s.classList.toggle('is-on', i === cur));
+            dots.forEach((d, i) => d.classList.toggle('is-on', i === cur));
+        }, 3500);
     });
 
     // ---------- Five zones: highlight the matching marker for the card in view (or hovered) ----------

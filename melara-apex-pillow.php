@@ -27,6 +27,9 @@ foreach ($OfferApi->upsaleProducts as $product) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="assets/img/favicon/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon/favicon-16x16.png">
     <title><?= $collector->translate('title', 'Wait! A one-time offer for you') ?> — Melara Memory Foam Pillow</title>
     <meta name="robots" content="noindex, nofollow">
 
@@ -447,7 +450,7 @@ foreach ($OfferApi->upsaleProducts as $product) {
                         <span class="grid place-items-center shrink-0 w-10 h-10 rounded-full bg-turq-soft text-turq-ink font-bold text-sm">01</span>
                         <div>
                             <h3 class="font-semibold"><?= $collector->translate('story_0_t', 'Sit well all day') ?></h3>
-                            <p class="mt-1 text-sm text-muted leading-relaxed"><?= $collector->translate('story2_0_d', 'Your Melara Seat Cushion keeps your lower back and tailbone comfortable through every meal, book and film.') ?></p>
+                            <p class="mt-1 text-sm text-muted leading-relaxed"><?= $collector->translate('story2_0_d', 'Your Melara Sitora keeps your lower back and tailbone comfortable through every meal, book and film.') ?></p>
                         </div>
                     </li>
                     <li class="reveal flex gap-5 rounded-2xl bg-white border border-sand/70 p-5 hover:shadow-lg hover:-translate-y-0.5 transition" data-delay="2">
