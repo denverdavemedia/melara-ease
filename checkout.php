@@ -1,5 +1,5 @@
 <?php
-/* Melara Seat Cushion checkout. Pack prices, shipping, currency, SecureShip and countries come from the CRM campaign. */
+/* Melara Sitora checkout. Pack prices, shipping, currency, SecureShip and countries come from the CRM campaign. */
 include_once("integrated/setup.php");
 include_once(BASEPATH . '/src/JsonTranslateCollector.php');
 include_once(__DIR__ . '/includes/language-selector.php');
@@ -23,7 +23,7 @@ $selected    = in_array((int) ($_GET['pack'] ?? 0), [1, 2, 3, 4]) ? (int) $_GET[
 $maxSave     = round(max($percentage) * 100);
 $firstPack   = $mainProd->product[0];
 
-$product  = $collector->translate('product_name', 'Melara Seat Cushion');
+$product  = $collector->translate('product_name', 'Melara Sitora');
 $freeText = $collector->translate('co_free', 'Free');
 ?>
 <!doctype html>
@@ -31,6 +31,9 @@ $freeText = $collector->translate('co_free', 'Free');
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="assets/img/favicon/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon/favicon-16x16.png">
     <title>Checkout — <?= $product ?></title>
     <meta name="robots" content="noindex">
 

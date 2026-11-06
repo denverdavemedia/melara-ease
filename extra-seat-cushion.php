@@ -1,5 +1,5 @@
 <?php
-/* Upsell 1 — Extra Melara Seat Cushion (step 1 of 3). Self-contained: copy it with assets/css/upsell.css, assets/js/upsell.js and assets/img/upsell/. */
+/* Upsell 1 — Extra Melara Sitora (step 1 of 3). Self-contained: copy it with assets/css/upsell.css, assets/js/upsell.js and assets/img/upsell/. */
 include_once('integrated/setup.php');
 include_once(BASEPATH . '/src/JsonTranslateCollector.php');
 include_once('includes/language-selector.php');
@@ -27,7 +27,10 @@ foreach ($OfferApi->upsaleProducts as $product) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= $collector->translate('title', 'Wait! A one-time offer for you') ?> — Melara Seat Cushion</title>
+    <link rel="icon" href="assets/img/favicon/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon/favicon-16x16.png">
+    <title><?= $collector->translate('title', 'Wait! A one-time offer for you') ?> — Melara Sitora</title>
     <meta name="robots" content="noindex, nofollow">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -113,7 +116,7 @@ foreach ($OfferApi->upsaleProducts as $product) {
                 <h1 class="reveal sm:mt-5 font-serif text-[1.95rem] sm:text-5xl lg:text-[3.6rem] leading-[1.04] sm:leading-none tracking-tight" data-delay="1">
                     <?= $collector->translate('h1', 'Add a second cushion') ?> <em class="text-turq-ink"><?= $collector->translate('h1_accent', 'for your other chair.') ?></em>
                 </h1>
-                <p class="reveal mt-3 sm:mt-5 text-[15px] sm:text-lg text-muted leading-relaxed sm:leading-7 max-w-2xl mx-auto" data-delay="2"><?= $collector->translate('lead2', 'Your back needs support on every chair, not just one. Add a second Melara Seat Cushion for your reading chair, the dining table or the study, at our lowest price.') ?></p>
+                <p class="reveal mt-3 sm:mt-5 text-[15px] sm:text-lg text-muted leading-relaxed sm:leading-7 max-w-2xl mx-auto" data-delay="2"><?= $collector->translate('lead2', 'Your back needs support on every chair, not just one. Add a second Melara Sitora for your reading chair, the dining table or the study, at our lowest price.') ?></p>
 
                 <ul class="reveal mt-4 sm:mt-7 mx-auto max-w-xl lg:max-w-none grid grid-cols-2 gap-x-3 gap-y-2.5 sm:gap-y-3 rounded-2xl bg-white/80 backdrop-blur-sm border border-sand p-3 sm:p-4 text-left shadow-[0_20px_40px_-30px_rgba(29,34,38,.45)]
                            lg:inline-flex lg:flex-nowrap lg:justify-center lg:items-center lg:gap-0 lg:rounded-full lg:px-3 lg:py-2.5" data-delay="3">
@@ -162,7 +165,7 @@ foreach ($OfferApi->upsaleProducts as $product) {
                         <span class="spark" style="left: 64%; top: 76%; animation-duration: 5s; animation-delay: 3.6s" aria-hidden="true"></span>
                         <div id="stageTilt" class="stage-tilt absolute inset-[6%]">
                             <div class="relative w-full h-full rounded-[2.5rem] overflow-hidden shadow-[0_40px_80px_-30px_rgba(29,34,38,.4)] animate-float">
-                                <img src="assets/img/upsell/cushion-hero.webp?t=<?= $OfferApi->assetVersion('assets/img/upsell/cushion-hero.webp') ?>" alt="Melara Seat Cushion" class="w-full h-full object-cover" fetchpriority="high" decoding="async">                            <span class="sheen" aria-hidden="true"></span>
+                                <img src="assets/img/upsell/cushion-hero.webp?t=<?= $OfferApi->assetVersion('assets/img/upsell/cushion-hero.webp') ?>" alt="Melara Sitora" class="w-full h-full object-cover" fetchpriority="high" decoding="async">                            <span class="sheen" aria-hidden="true"></span>
                             </div>
                         </div>
                         <div class="absolute left-0 sm:-left-4 top-6 mesh text-cream rounded-2xl px-5 py-3 shadow-xl animate-float" style="--veil: rgba(29,34,38,.35); animation-delay: -2s">
@@ -397,14 +400,14 @@ foreach ($OfferApi->upsaleProducts as $product) {
                             <div class="relative mx-auto w-full max-w-sm aspect-square">
                                 <span class="reveal-burst"></span><span class="reveal-burst"></span>
                                 <div class="absolute inset-0 rounded-[2rem] overflow-hidden ring-1 ring-white/15 shadow-[0_0_80px_rgba(29,209,161,.35)]">
-                                    <img src="assets/img/upsell/cushion-hero.webp?t=<?= $OfferApi->assetVersion('assets/img/upsell/cushion-hero.webp') ?>" alt="Melara Seat Cushion" class="reveal-img w-full h-full object-cover" loading="lazy" decoding="async">                                                                <span class="reveal-q absolute inset-0 grid place-items-center font-serif text-8xl text-white/90" aria-hidden="true">?</span>
+                                    <img src="assets/img/upsell/cushion-hero.webp?t=<?= $OfferApi->assetVersion('assets/img/upsell/cushion-hero.webp') ?>" alt="Melara Sitora" class="reveal-img w-full h-full object-cover" loading="lazy" decoding="async">                                                                <span class="reveal-q absolute inset-0 grid place-items-center font-serif text-8xl text-white/90" aria-hidden="true">?</span>
                                 </div>
                             </div>
 
                             <div class="reveal-copy text-center lg:text-left">
                                 <p class="text-xs font-semibold uppercase tracking-[.2em] text-turq-soft"><?= $collector->translate('road_reveal_eyebrow', 'Waiting at the end of the road') ?></p>
                                 <h2 class="mt-3 font-serif text-3xl sm:text-4xl leading-tight sm:leading-10 tracking-tight">
-                                    <?= $collector->translate('road_reveal_title', 'A second Melara Seat Cushion') ?> <em class="text-turq"><?= $collector->translate('road_reveal_accent', '— 70% off, today only.') ?></em>
+                                    <?= $collector->translate('road_reveal_title', 'A second Melara Sitora') ?> <em class="text-turq"><?= $collector->translate('road_reveal_accent', '— 70% off, today only.') ?></em>
                                 </h2>
                                 <p class="mt-3 text-cream/75 leading-relaxed"><?= $collector->translate('road_reveal_text', 'Set it on your other chair and keep the same support everywhere you sit.') ?></p>
                                 <p class="mt-5 text-cream/75">
@@ -428,7 +431,7 @@ foreach ($OfferApi->upsaleProducts as $product) {
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div class="reveal relative">
                 <div class="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-[0_40px_80px_-40px_rgba(29,34,38,.45)]">
-                    <div class="w-full h-full grid place-items-center bg-linen" role="img" aria-label="Woman in her 60s reading in a chair at home, sitting on the Melara cushion"><span class="flex flex-col items-center gap-2 px-6 text-center"><span class="text-[11px] tracking-widest uppercase text-ink/40 bg-white/60 rounded-full px-3 py-1">cushion-life.webp</span><span class="max-w-xs text-xs text-ink/50 leading-snug">Woman in her 60s reading in a chair at home, sitting on the Melara cushion</span></span></div>
+                    <div class="w-full h-full animate-kenburns"><img src="assets/img/upsell/cushion-life.webp?t=<?= $OfferApi->assetVersion('assets/img/upsell/cushion-life.webp') ?>" alt="Woman in her 60s reading in a chair at home, sitting on the Melara Sitora cushion" class="w-full h-full object-cover" style="object-position: 50% 30%;" width="1120" height="1400" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="absolute -bottom-6 left-6 sm:-left-6 bg-white rounded-2xl shadow-xl px-5 py-4 max-w-[260px]">
                     <p class="text-amber-500 text-sm">★★★★★</p>
@@ -653,7 +656,7 @@ foreach ($OfferApi->upsaleProducts as $product) {
                 <span class="w-1.5 h-1.5 rounded-full bg-turq animate-pulse"></span><?= $collector->translate('ds_pill', 'Wait — one last price drop') ?>
             </span>
             <h2 id="ds-title" class="mt-3 font-serif text-2xl sm:text-3xl leading-tight sm:leading-9 tracking-tight">
-                <?= $collector->translate('ds_title', 'Get the Melara Seat Cushion for just') ?> <em class="text-turq"><?= $OfferApi->formatNumber($dsPrice) ?></em>
+                <?= $collector->translate('ds_title', 'Get the Melara Sitora for just') ?> <em class="text-turq"><?= $OfferApi->formatNumber($dsPrice) ?></em>
             </h2>
             <p class="mt-2 text-sm text-cream/70"><?= $collector->translate('ds_lead', 'Our lowest price ever — only here, only for one.') ?></p>
         </div>
@@ -661,7 +664,7 @@ foreach ($OfferApi->upsaleProducts as $product) {
         <div class="p-5 sm:p-6">
             <div class="flex items-center gap-4">
                 <div class="relative w-[36%] shrink-0 aspect-square rounded-2xl bg-linen grid place-items-center overflow-hidden">
-                    <img src="assets/img/anatomy-assembled.webp?t=<?= $OfferApi->assetVersion('assets/img/anatomy-assembled.webp') ?>" alt="Melara Seat Cushion" class="w-[82%] drop-shadow-[0_10px_12px_rgba(29,34,38,.3)]" loading="lazy">
+                    <img src="assets/img/anatomy-assembled.webp?t=<?= $OfferApi->assetVersion('assets/img/anatomy-assembled.webp') ?>" alt="Melara Sitora" class="w-[82%] drop-shadow-[0_10px_12px_rgba(29,34,38,.3)]" loading="lazy">
                     <span class="absolute top-2 left-2 rounded-full bg-turq text-ink text-[11px] font-bold px-2 py-0.5">-<?= round(($price - $dsPrice) / $price * 100) ?>%</span>
                 </div>
                 <div class="flex-1 grid grid-cols-2 gap-2 text-center">
