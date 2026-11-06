@@ -1,11 +1,11 @@
 <?php
-/* Melara Seat Cushion thank-you page: shows the order from the CRM. */
+/* Melara Sitora thank-you page: shows the order from the CRM. */
 include_once("integrated/setup.php");
 include_once(BASEPATH . '/src/JsonTranslateCollector.php');
 include_once(__DIR__ . '/includes/language-selector.php');
 
 $collector = new JsonCollector(targetLanguage: $OfferApi->targetLanguage, pageName: "thankyou");
-$product = $collector->translate('product_name', 'Melara Seat Cushion');
+$product = $collector->translate('product_name', 'Melara Sitora');
 
 $OfferApi->initProduct(orderData: $_POST);
 $order = $OfferApi->query_customer_order();
@@ -36,6 +36,9 @@ function thumb($name) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="assets/img/favicon/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon/favicon-16x16.png">
     <title><?= $collector->translate('title', 'Thank you') ?> — <?= $product ?></title>
     <meta name="robots" content="noindex">
 
@@ -68,7 +71,7 @@ function thumb($name) {
                 </span>
                 <h1 class="mt-5 font-serif text-3xl sm:text-5xl leading-tight sm:leading-none"><?= $collector->translate('heading', 'Thank you!') ?> <span class="text-turq-ink"><?= $collector->translate('heading_accent', 'Your back says thanks too.') ?></span></h1>
                 <p class="mt-3 text-muted max-w-xl">
-                    <?= count($items) > 1 ? $collector->translate('intro_multi', 'Your order is confirmed. We\'re packing everything into one box, ready to ship.') : $collector->translate('intro', 'Your order is confirmed. We\'re getting your Melara Seat Cushion ready to ship.') ?>
+                    <?= count($items) > 1 ? $collector->translate('intro_multi', 'Your order is confirmed. We\'re packing everything into one box, ready to ship.') : $collector->translate('intro', 'Your order is confirmed. We\'re getting your Melara Sitora ready to ship.') ?>
                     <?php if (!empty($order->emailAddress)): ?><?= $collector->translate('intro_email', 'A confirmation is on its way to') ?> <strong class="text-ink"><?= htmlspecialchars($order->emailAddress) ?></strong>.<?php endif; ?>
                 </p>
                 <p class="mt-4 inline-flex items-center gap-2 rounded-full bg-cream border border-sand px-4 py-1.5 text-sm">

@@ -216,3 +216,22 @@ html:has(.policy-modal[open]) { overflow: hidden; }
     .dims .dim-glow { display: none; }
     .dim-pill { opacity: 1; scale: 1; }
 }
+
+/* ---------- Pain section: before / after photos cross-fade on a loop ---------- */
+.ba-slide { opacity: 0; transition: opacity 1.1s ease; }
+.ba-slide.is-on { opacity: 1; }
+.ba-dot { width: .55rem; height: .55rem; border-radius: 9999px; background: rgba(255,255,255,.6); box-shadow: 0 1px 4px rgba(29,34,38,.35); transition: width .4s, background .4s; }
+.ba-dot.is-on { width: 1.6rem; background: #fff; }
+
+/* Dimension pills: inches under the centimetres */
+.dim-pill small { display: block; font-size: .9em; font-weight: 500; opacity: .85; line-height: 1.1; }
+.dim-pill:has(small) { border-radius: .75rem; text-align: center; }
+
+/* ---------- Pain glow pulse: soft red glow on pain photos, turquoise on the "after" photo ---------- */
+.glow-pulse { position: absolute; inset: 0; pointer-events: none; border-radius: inherit; animation: glowPulse 2.6s ease-in-out infinite; }
+.glow-red  { box-shadow: inset 0 0 70px 6px rgba(239, 68, 68, .55); background: radial-gradient(circle at 50% 55%, rgba(239, 68, 68, .12), transparent 60%); }
+.glow-turq { box-shadow: inset 0 0 70px 6px rgba(29, 209, 161, .55); background: radial-gradient(circle at 50% 55%, rgba(29, 209, 161, .12), transparent 60%); }
+@keyframes glowPulse { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
+.badge-ping::after { content: ""; position: absolute; inset: 0; border-radius: 9999px; border: 2px solid rgba(239, 68, 68, .7); animation: badgePing 1.8s ease-out infinite; }
+@keyframes badgePing { from { transform: scale(1); opacity: 1; } to { transform: scale(1.9); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .glow-pulse { animation: none; opacity: .7; } .badge-ping::after { animation: none; opacity: 0; } }
