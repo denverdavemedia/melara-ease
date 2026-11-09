@@ -50,6 +50,7 @@
         intlPhoneInitialCountry: $('userCountry') ? $('userCountry').value : 'US',
         dynamicShippingFields: false,
     });
+    window.MELARA_CRM = CRM; // read by ef-events.js (Everflow funnel events)
 
     // Pack cards are ._prodSelect: integrated.js blocks the label's default click, so check the radio here
     CRM.selectProdToOrderCallback = data => {
@@ -62,7 +63,10 @@
     };
     CRM.selectProdToOrder({ el: '._prodSelect', callback: CRM.selectProdToOrderCallback });
     if (ship) CRM.addAddOnToOrder({ el: '#insuranceAddOn' });
-    CRM.conversionEverflowPerEvent = () => {}; // no add-on Everflow events yet
+    // Add-ons with their own Everflow event (offer 84): SecureShip -> "Secure Ship" (559)
+    CRM.conversionEverflowPerEvent = (amount, prodName) => {
+        if (String(prodName).toLowerCase().includes('secure')) CRM.conversionEverflow({ totalAmount: amount }, 559);
+    };
 
     // Phone: at most as many digits as a phone number has in the chosen country (US: 10)
     const phone = $('fields_phone');

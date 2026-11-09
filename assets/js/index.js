@@ -2,6 +2,17 @@
 (() => {
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    // Keep the ad's tracking params (oid, affId, transaction_id, sub ids…) on every link to the checkout,
+    // otherwise the sale can't be credited in Everflow. The link's own params (e.g. pack=2) win.
+    if (location.search) {
+        const incoming = new URLSearchParams(location.search);
+        document.querySelectorAll('a[href*="checkout.php"]').forEach(a => {
+            const u = new URL(a.getAttribute('href'), location.href);
+            incoming.forEach((v, k) => { if (!u.searchParams.has(k)) u.searchParams.set(k, v); });
+            a.setAttribute('href', 'checkout.php' + u.search + u.hash);
+        });
+    }
+
     // Nav background + mobile buy bar
     const nav = document.getElementById('nav'), buyBar = document.getElementById('buyBar');
     const footer = document.querySelector('footer');
