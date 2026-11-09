@@ -3,10 +3,10 @@
 return (object) array(
     'campaignId' => 1471,
     'targetLanguage' => 'en',
-    'paypalSandboxId' => null, // TODO
-    'paypalProductionId' => null, // TODO
-    'stripeSandboxId' => null, // TODO
-    'stripeProductionId' => null, // TODO
+    'paypalSandboxId' => 27, // same Melara Pro LLC merchants as shopmelara-apex
+    'paypalProductionId' => 23,
+    'stripeSandboxId' => 35, // vanotium stripe sandbox id
+    'stripeProductionId' => 17,
     'corporateName' => 'Melara Pro LLC',
     'customDescriptor' => 'Melara Seat Cushion',
     'companyAddress' => '30 N Gould ST. N Sheridan WY. 82801',
@@ -16,7 +16,7 @@ return (object) array(
     'returnAddress' => '',
     'everflowOfferId' => 84, // Everflow offer "Melara Seat Cushion"
     'checkoutType' => 'onePage', // onePage, twoPage, compact
-    'stripePaymentWallet' => "", // e.g. "google_pay, apple_pay, link" once the Stripe IDs are set
+    'stripePaymentWallet' => "google_pay, apple_pay, link", // Stripe express buttons on the checkout
     'stripeKeys' =>[
         'sandbox_publicKey' => getenv('SANDBOX_PUBLICKEY'),
         'sandbox_secretKey' => getenv('SANDBOX_SECRETKEY'),

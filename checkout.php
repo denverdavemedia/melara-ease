@@ -44,6 +44,7 @@ $freeText = $collector->translate('co_free', 'Free');
     <link rel="stylesheet" href="src/common/js/intltelinput/css/intltelInput.css">
     <link rel="stylesheet" href="assets/css/checkout.css?t=<?= $OfferApi->assetVersion('assets/css/checkout.css') ?>">
     <link rel="stylesheet" href="public/css/app.css?t=<?= $OfferApi->assetVersion('public/css/app.css') ?>">
+    <script src="https://js.stripe.com/v3/" async></script>
 </head>
 <body class="font-sans text-ink antialiased">
 <?= $mainProd->hiddenInputs ?? '' ?>
@@ -183,7 +184,24 @@ $freeText = $collector->translate('co_free', 'Free');
                 <li class="flex items-center gap-2"><span class="grid place-items-center w-5 h-5 rounded-full bg-turq text-ink"><svg viewBox="0 0 24 24" class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg></span><?= $collector->translate('co2_feature_3', 'Fits most home chairs') ?></li>
             </ul>
 
-            <div class="mt-8"><h2 class="flex items-center gap-3 text-lg font-bold"><span class="grid place-items-center w-9 h-9 rounded-xl bg-turq-soft text-turq-ink"><svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c1.2-3.6 4-5.5 7.5-5.5s6.3 1.9 7.5 5.5"/></svg></span><span><span class="text-muted font-medium"><?= $collector->translate('step_word_2', 'Step') ?> 2:</span> <?= $collector->translate('step_2_title', 'Customer information') ?></span></h2></div>
+            <!-- Express checkout (same as shopmelara-apex _paymentMethod.php): integrated.js mounts the Stripe wallet buttons
+                 (Google Pay / Apple Pay / Link) into #express-checkout-stripe and opens PayPal from .paypal-btn -->
+            <div class="mt-8">
+                <p class="text-center text-sm font-semibold"><?= $collector->translate('express_checkout', 'Express checkout') ?></p>
+                <div class="mt-3 space-y-3">
+                    <div id="express-checkout-stripe" class="w-full"></div>
+                    <?php if ($OfferApi->currencySymbol != 'MOP$'): ?>
+                    <button type="button" id="paypal-btn" class="paypal-btn w-full grid place-items-center rounded-lg bg-[#ffc439] hover:brightness-95 transition h-12" aria-label="<?= $collector->translate('pay_with_paypal', 'Pay with PayPal') ?>">
+                        <img src="assets/img/paypal-logo.png?t=<?= $OfferApi->assetVersion('assets/img/paypal-logo.png') ?>" alt="PayPal" class="h-6 w-auto" width="353" height="90" loading="lazy">
+                    </button>
+                    <?php endif; ?>
+                </div>
+                <div class="mt-5 flex items-center gap-3 text-xs font-medium text-muted">
+                    <span class="flex-1 border-t border-sand"></span><?= $collector->translate('pay_or_card', 'Or fill in your details and pay by card') ?><span class="flex-1 border-t border-sand"></span>
+                </div>
+            </div>
+
+            <div class="mt-6"><h2 class="flex items-center gap-3 text-lg font-bold"><span class="grid place-items-center w-9 h-9 rounded-xl bg-turq-soft text-turq-ink"><svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c1.2-3.6 4-5.5 7.5-5.5s6.3 1.9 7.5 5.5"/></svg></span><span><span class="text-muted font-medium"><?= $collector->translate('step_word_2', 'Step') ?> 2:</span> <?= $collector->translate('step_2_title', 'Customer information') ?></span></h2></div>
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div><label class="label" for="fields_fname"><?= $collector->translate('co_first_name', 'First name') ?></label><div class="has-icon"><span class="field-icon"><svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c1.2-3.6 4-5.5 7.5-5.5s6.3 1.9 7.5 5.5"/></svg></span><input class="field" id="fields_fname" name="first_name" autocomplete="given-name" placeholder="First name" required></div></div>
                 <div><label class="label" for="fields_lname"><?= $collector->translate('co_last_name', 'Last name') ?></label><div class="has-icon"><span class="field-icon"><svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c1.2-3.6 4-5.5 7.5-5.5s6.3 1.9 7.5 5.5"/></svg></span><input class="field" id="fields_lname" name="last_name" autocomplete="family-name" placeholder="Last name" required></div></div>
