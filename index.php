@@ -263,7 +263,6 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
                     <article class="reveal rounded-[1.75rem] overflow-hidden bg-white border border-sand/70 shadow-[0_20px_50px_-35px_rgba(29,34,38,.35)]" data-delay="<?= $i + 1 ?>">
                         <div class="relative aspect-square">
                             <?= photo($pa['img'], $pa['alt'], 'w-full h-full', basename($pa['img'])) ?>
-                            <span class="glow-pulse glow-red" style="animation-delay: <?= $i * -.8 ?>s" aria-hidden="true"></span>
                             <span class="badge-ping absolute top-4 left-4 grid place-items-center w-9 h-9 rounded-full bg-red-500 text-white text-sm font-bold shadow-lg"><?= $i + 1 ?></span>
                         </div>
                         <div class="p-5 sm:p-6">
@@ -735,7 +734,7 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
         <div class="mt-8 lg:mt-14 relative">
             <div class="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-40 bg-linear-to-r/srgb from-linen to-transparent z-10"></div>
             <div class="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-40 bg-linear-to-l/srgb from-linen to-transparent z-10"></div>
-            <div class="flex w-max animate-marquee gap-5 hover:[animation-play-state:paused]" style="animation-duration: 55s;">
+            <div class="flex w-max animate-marquee gap-5 hover:[animation-play-state:paused] select-none" style="animation-duration: 55s;" data-marquee-drag>
                 <?php $verifiedBuyer = $collector->translate('idx_verified_buyer', 'Verified buyer'); // translated once, used on every review card ?>
                 <?php for ($r = 0; $r < 2; $r++): foreach ($reviews as $rv): ?>
                     <figure class="bg-white rounded-3xl p-7 w-[300px] sm:w-[370px] shrink-0 border border-sand/70">
