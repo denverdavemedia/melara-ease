@@ -1,6 +1,13 @@
 <?php
 /* Melara Sitora landing page */
 include_once("integrated/setup.php");
+
+// ?custom_config=hr serves the hemorrhoid-friendly sitting-comfort version (index-hr.php, copy in lang/<code>/index-hr.json).
+// The session value (set by OfferApi) keeps visitors on it when they change language.
+if (($_GET['custom_config'] ?? $_SESSION['custom_config'] ?? '') === 'hr') {
+    include __DIR__ . '/index-hr.php';
+    return;
+}
 include_once(BASEPATH . '/src/JsonTranslateCollector.php');
 include_once(__DIR__ . '/includes/language-selector.php');
 
