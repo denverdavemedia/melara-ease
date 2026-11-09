@@ -61,8 +61,7 @@ $life = [
     ['img' => 'assets/img/v2/life-office.webp', 'alt' => 'Woman in her 60s working at a laptop, sitting on the Melara Sitora cushion on an office chair',                    't' => $collector->translate('life_hr_0_t', 'At your desk'),           'd' => $collector->translate('life_hr_0_d', 'Long hours at the desk, with less pressure under you.')],
     ['img' => 'assets/img/v2/life-dining.webp', 'alt' => 'Woman in her 60s having dinner with her husband, sitting on the Melara Sitora cushion on a dining chair', 't' => $collector->translate('life_hr_1_t', 'At the dining table'),   'd' => $collector->translate('life_hr_1_d', 'Unhurried family meals, without shifting in your seat.')],
     ['img' => 'assets/img/v2/life-sofa.webp',   'alt' => 'Woman in her 60s watching TV on the sofa, sitting on the Melara Sitora cushion',                                   't' => $collector->translate('life_hr_2_t', 'Reading and relaxing'),   'd' => $collector->translate('life_hr_2_d', 'Settle in with a book or a film, supported.')],
-    // New photo needed: the file doesn't exist yet, so a labelled placeholder is shown until it is added.
-    ['img' => 'assets/img/v2/hr/life-wfh.webp', 'alt' => 'Person working from home at a laptop, sitting on the Melara Sitora cushion',                                          't' => $collector->translate('life_hr_3_t', 'Working from home'),      'd' => $collector->translate('life_hr_3_d', 'Video calls and long working days, in comfort.')],
+    ['img' => 'assets/img/v2/life-car.webp',    'alt' => 'Woman in her 60s driving, sitting on the Melara Sitora cushion on the driver\'s seat', 't' => $collector->translate('life_hr_3_t', 'In the driver\'s seat'), 'd' => $collector->translate('life_hr_3_d', 'Support for errands, family visits and longer drives.')],
 ];
 
 // FAQ order follows the brief: hemorrhoids, difference from a regular cushion, everyday use, fit, returns (then extras).
@@ -243,7 +242,7 @@ $reviews = [
     // The two images that don't exist yet (hr/…) show as labelled placeholders until the new art is added.
     $painAreas = [
         ['img' => 'assets/img/v2/pain-tailbone.webp', 'alt' => 'Woman in her 60s shifting on a hard chair, with the tailbone and hips glowing red', 't' => $collector->translate('pa_0_t', 'Hard seating surfaces'), 'd' => $collector->translate('pa_0_d', 'Hard seats press right where you sit, so every sit-down becomes something you brace for.')],
-        ['img' => 'assets/img/v2/hr/pain-sensitive.webp', 'alt' => 'Illustration of seated pressure concentrating at the base of the seat on a flat, hard surface (no graphic imagery)', 't' => $collector->translate('pa_1_t', 'Sensitive areas'), 'd' => $collector->translate('pa_1_d', 'Long stretches on a flat surface concentrate pressure where you are already tender, so you keep shifting around.')],
+        ['img' => 'assets/img/v2/pain-leg.webp', 'alt' => 'Woman in her 60s rubbing the back of her thigh, with the area from buttock to knee glowing red', 't' => $collector->translate('pa_1_t', 'Thighs and buttocks'), 'd' => $collector->translate('pa_1_d', 'Hard seat edges press under your thighs and buttocks, so long stretches on a flat surface feel tiring.')],
         ['img' => 'assets/img/v2/pain-back.webp', 'alt' => 'Woman in her 60s sitting, hand on her lower back, with the lower back glowing red', 't' => $collector->translate('pa_2_t', 'Hips and lower back'), 'd' => $collector->translate('pa_2_d', 'Without support, your weight settles into your sit bones and your lower back tires as the day goes on.')],
     ];
     ?>
@@ -367,8 +366,8 @@ $reviews = [
     <section id="pressure-zones" class="py-5 md:py-[30px] lg:py-16 scroll-mt-16">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-8 lg:gap-14 items-center">
             <div class="lg:col-span-5 reveal">
-                <div class="aspect-[4/5] rounded-[2.5rem] overflow-hidden bg-soft-gray border border-sand/70">
-                    <?= photo('assets/img/v2/hr/pressure-zones.webp', 'Diagram: side view of a seated person on the Melara cushion with four numbered pressure zones (lower back, tailbone, sit bones, back of thighs). Illustrative only, no anatomical or graphic detail.', 'w-full h-full', 'pressure-zones.webp') ?>
+                <div class="aspect-[4/5] rounded-[2.5rem] overflow-hidden bg-soft-gray border border-sand/70 grid place-items-center p-6">
+                    <img src="assets/img/anatomy-assembled.webp?t=<?= $OfferApi->assetVersion('assets/img/anatomy-assembled.webp') ?>" alt="<?= $product ?>: contoured seat with backrest, side wings and a hollow relief vent" class="w-full h-auto max-h-full object-contain" loading="lazy" decoding="async">
                 </div>
             </div>
             <div class="lg:col-span-7">
