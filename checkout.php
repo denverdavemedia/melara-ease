@@ -279,14 +279,235 @@ $freeText = $collector->translate('co_free', 'Free');
     <div class="mx-auto max-w-6xl px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted">
         <img src="assets/img/logo.svg" alt="Melara" class="h-8 w-auto" width="190" height="49" loading="lazy">
         <ul class="flex flex-wrap justify-center gap-5">
-            <li><a href="#" class="hover:text-ink transition"><?= $collector->translate('co_contact_us', 'Contact us') ?></a></li>
-            <li><a href="#" class="hover:text-ink transition"><?= $collector->translate('co_terms_of_service', 'Terms of service') ?></a></li>
-            <li><a href="#" class="hover:text-ink transition"><?= $collector->translate('co_privacy_policy', 'Privacy policy') ?></a></li>
-            <li><a href="#" class="hover:text-ink transition"><?= $collector->translate('co_returns_refunds', 'Returns &amp; refunds') ?></a></li>
+            <li><a href="#shipping" data-policy="shipping" class="hover:text-ink transition"><?= $collector->translate('co_shipping_link', 'Shipping') ?></a></li>
+            <li><a href="#returns" data-policy="returns" class="hover:text-ink transition"><?= $collector->translate('co_returns_refunds', 'Returns &amp; refunds') ?></a></li>
+            <li><a href="#privacy" data-policy="privacy" class="hover:text-ink transition"><?= $collector->translate('co_privacy_policy', 'Privacy policy') ?></a></li>
+            <li><a href="#contact" data-policy="contact" class="hover:text-ink transition"><?= $collector->translate('co_contact_us', 'Contact us') ?></a></li>
         </ul>
         <?= languageSelector('locked') ?>
     </div>
 </footer>
+
+<!-- Policy modal: same content as the landing page footer modal -->
+<?php
+// Policy modal: content matches shopmelara-apex (Terms §6 Shipping, Returns & Refunds, Privacy, Contact). Company details come from the CRM config.
+$corp         = $OfferApi->corporateName;
+$supportEmail = $OfferApi->companyEmailAddress;
+$ordersEmail  = $OfferApi->companyEmailAddress1;
+$address      = $OfferApi->companyAddress;
+?>
+<dialog id="policyModal" class="policy-modal" aria-labelledby="policyTitle">
+    <div class="flex flex-col max-h-[inherit]">
+        <!-- Header: title, close, tabs -->
+        <div class="shrink-0 border-b border-sand bg-white/95 backdrop-blur-sm px-5 sm:px-8 pt-3 sm:pt-6">
+            <span class="sm:hidden mx-auto mb-3 block h-1.5 w-10 rounded-full bg-sand" aria-hidden="true"></span>
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <p class="text-xs font-medium uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('pol_eyebrow', 'Help & policies') ?></p>
+                    <h2 id="policyTitle" class="mt-1 font-serif text-2xl sm:text-3xl tracking-tight"><?= $collector->translate('pol_heading', 'We\'re here to help') ?></h2>
+                </div>
+                <button type="button" data-policy-close class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-linen text-ink hover:bg-sand transition" aria-label="<?= $collector->translate('pol_close', 'Close') ?>">
+                    <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+                </button>
+            </div>
+            <div class="-mx-5 sm:mx-0 mt-5 overflow-x-auto px-5 sm:px-0 [scrollbar-width:none]">
+                <div class="inline-flex gap-1 rounded-full bg-linen p-1 mb-4" role="tablist" aria-label="<?= $collector->translate('pol_tabs_label', 'Policies') ?>">
+                    <button type="button" role="tab" id="tab-shipping" aria-controls="panel-shipping" data-policy-tab="shipping" class="policy-tab"><?= $collector->translate('pol_tab_shipping', 'Shipping') ?></button>
+                    <button type="button" role="tab" id="tab-returns" aria-controls="panel-returns" data-policy-tab="returns" class="policy-tab"><?= $collector->translate('pol_tab_returns', 'Returns') ?></button>
+                    <button type="button" role="tab" id="tab-privacy" aria-controls="panel-privacy" data-policy-tab="privacy" class="policy-tab"><?= $collector->translate('pol_tab_privacy', 'Privacy') ?></button>
+                    <button type="button" role="tab" id="tab-contact" aria-controls="panel-contact" data-policy-tab="contact" class="policy-tab"><?= $collector->translate('pol_tab_contact', 'Contact') ?></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Body -->
+        <div class="policy-body flex-1 overflow-y-auto overscroll-contain px-5 sm:px-8 py-6 sm:py-8 text-[15px] leading-relaxed text-muted">
+
+            <!-- Shipping -->
+            <section id="panel-shipping" role="tabpanel" aria-labelledby="tab-shipping" data-policy-panel="shipping">
+                <h3 class="font-serif text-xl text-ink"><?= $collector->translate('pol_ship_title', 'Shipping') ?></h3>
+                <div class="mt-4 grid grid-cols-2 gap-3">
+                    <div class="rounded-2xl bg-turq-soft/60 p-4">
+                        <p class="font-serif text-2xl text-ink"><?= $collector->translate('pol_ship_stat_1', '5–7 days') ?></p>
+                        <p class="text-xs text-muted"><?= $collector->translate('pol_ship_stat_1_d', 'Typical delivery (business days)') ?></p>
+                    </div>
+                    <div class="rounded-2xl bg-linen p-4">
+                        <p class="font-serif text-2xl text-ink"><?= $collector->translate('pol_ship_stat_2', 'SecureShip') ?></p>
+                        <p class="text-xs text-muted"><?= $collector->translate('pol_ship_stat_2_d', 'Optional cover for lost packages') ?></p>
+                    </div>
+                </div>
+                <p class="mt-5"><?= $collector->translate('pol_ship_p1', 'Delivery typically takes <b>5 to 7 business days</b>, although delays may occasionally occur. Shipping charges for your order will be calculated and displayed at checkout.') ?></p>
+                <p class="mt-3"><?= $collector->translate('pol_ship_p2', 'We are not responsible for any customs or taxes applied to your order. All fees imposed during or after shipping (tariffs, taxes, etc.) are your responsibility.') ?></p>
+                <ul class="policy-list mt-4">
+                    <li><?= $collector->translate('pol_ship_li_1', '<b>Lost packages</b> are only covered if you purchased the <b>SecureShip add-on</b> at checkout.') ?></li>
+                    <li><?= $collector->translate('pol_ship_li_2', '<b>Damaged items</b> may be exchanged if reported promptly.') ?></li>
+                    <li><?= $collector->translate('pol_ship_li_3', 'All other liability for shipping issues is excluded.') ?></li>
+                </ul>
+                <p class="mt-4 rounded-2xl border border-sand p-4 text-sm"><?= $collector->translate('pol_ship_note', 'We recommend retaining packaging materials and damaged goods until a claim or exchange process is completed.') ?></p>
+            </section>
+
+            <!-- Returns -->
+            <section id="panel-returns" role="tabpanel" aria-labelledby="tab-returns" data-policy-panel="returns" hidden>
+                <h3 class="font-serif text-xl text-ink"><?= $collector->translate('pol_ret_title', 'Returns & Refunds Policy') ?></h3>
+                <p class="mt-3"><?= $collector->translate('pol_ret_p1', '<b>We offer refunds within 30 days of purchase</b>. To request a refund, please contact our Customer Service team within 30 days of the original purchase date. After this 30-day period, all sales are final and no refunds will be issued.') ?></p>
+
+                <h4 class="mt-6 font-semibold text-ink"><?= $collector->translate('pol_ret_h_returns', 'Returns') ?></h4>
+                <ul class="policy-list mt-2">
+                    <li><?= $collector->translate('pol_ret_li_1', 'Our Return Policy lasts <b>30 days</b> from delivery.') ?></li>
+                </ul>
+
+                <h4 class="mt-6 font-semibold text-ink"><?= $collector->translate('pol_ret_h_process', 'Process') ?></h4>
+                <ol class="policy-steps mt-3">
+                    <li><?= $collector->translate('pol_ret_step_1', "Contact us at <a href='mailto:{$supportEmail}'>{$supportEmail}</a> to confirm the return address and provide a tracking number.") ?></li>
+                    <li><?= $collector->translate('pol_ret_step_2', 'Once received and inspected, we will notify you of approval or rejection.') ?></li>
+                    <li><?= $collector->translate('pol_ret_step_3', 'Approved returns will be processed within <b>30 days</b>.') ?></li>
+                </ol>
+
+                <h4 class="mt-6 font-semibold text-ink"><?= $collector->translate('pol_ret_h_refunds', 'Refunds & Exchanges') ?></h4>
+                <ul class="policy-list mt-2">
+                    <li><?= $collector->translate('pol_ret_ref_1', 'We offer <b>refunds to the original payment method or exchanges for the same item.</b>') ?></li>
+                    <li><?= $collector->translate('pol_ret_ref_2', 'Store credits are <b>not offered.</b>') ?></li>
+                    <li><?= $collector->translate('pol_ret_ref_3', 'Refunds to credit cards may take up to 5 to 7 business days to appear, depending on your card issuer.') ?></li>
+                    <li><?= $collector->translate('pol_ret_ref_4', 'Refunds by bank transfer will be completed within 48 hours after receipt of your bank details, in the original order currency.') ?></li>
+                </ul>
+
+                <h4 class="mt-6 font-semibold text-ink"><?= $collector->translate('pol_ret_h_shipping', 'Shipping Costs') ?></h4>
+                <ul class="policy-list mt-2">
+                    <li><?= $collector->translate('pol_ret_ship_1', 'You are responsible for return shipping costs.') ?></li>
+                    <li><?= $collector->translate('pol_ret_ship_2', 'Shipping costs are non-refundable.') ?></li>
+                    <li><?= $collector->translate('pol_ret_ship_3', 'For items over US$75, we recommend using a trackable shipping service or purchasing shipping insurance.') ?></li>
+                </ul>
+
+                <div class="mt-6 rounded-2xl bg-linen p-4">
+                    <p class="text-xs font-medium uppercase tracking-[.18em] text-muted"><?= $collector->translate('pol_ret_h_address', 'Return address') ?></p>
+                    <p class="mt-1 font-medium text-ink"><?= htmlspecialchars($address) ?></p>
+                </div>
+            </section>
+
+            <!-- Privacy -->
+            <section id="panel-privacy" role="tabpanel" aria-labelledby="tab-privacy" data-policy-panel="privacy" hidden>
+                <h3 class="font-serif text-xl text-ink"><?= $collector->translate('pol_priv_title', 'Privacy Policy') ?></h3>
+                <p class="mt-3"><?= $collector->translate('pol_priv_p1', 'By using our Site, you consent to the collection, use, and transfer of your personal information as described in this Privacy Policy.') ?></p>
+                <p class="mt-3"><?= $collector->translate('pol_priv_p2', 'For residents of the European Union: In order to comply with the requirements of the General Data Protection Regulation (GDPR), this Privacy Policy explains the legal basis on which we process your personal data and provides other information required under GDPR.') ?></p>
+
+                <div class="mt-5 divide-y divide-sand rounded-2xl border border-sand">
+                    <details class="policy-acc" open>
+                        <summary><?= $collector->translate('pol_priv_s1', 'Information we collect and how we use it') ?></summary>
+                        <div>
+                            <p><?= $collector->translate('pol_priv_s1_p1', 'We collect personal data in several ways and for a variety of purposes, including:') ?></p>
+                            <ul class="policy-list mt-2">
+                                <li><?= $collector->translate('pol_priv_s1_li1', '<b>When you make a purchase:</b> As part of the buying and selling process, we collect the personal information you provide such as your name, billing and shipping address, phone number, and email address.') ?></li>
+                                <li><?= $collector->translate('pol_priv_s1_li2', '<b>When you browse our Site:</b> We automatically receive your computer’s internet protocol (IP) address and information about your browser and operating system.') ?></li>
+                                <li><?= $collector->translate('pol_priv_s1_li3', "<b>Email marketing (where legally permitted):</b> With your consent, we may send you emails about {$corp}, our products, promotions, and updates. Consent may be established through actions such as subscribing to our newsletter, entering your email during checkout (without opting out), or participating in events, surveys, or contests where you are notified of marketing communications.") ?></li>
+                            </ul>
+                            <p class="mt-3"><?= $collector->translate('pol_priv_s1_p2', 'All marketing emails will include a clear “unsubscribe” option. Once you opt out, we will stop sending you marketing emails. Transactional and legally required communications (such as receipts, order confirmations, or policy updates) are not affected by marketing preferences.') ?></p>
+                            <p class="mt-3"><?= $collector->translate('pol_priv_s1_p3', 'We may use your personal information to:') ?></p>
+                            <ul class="policy-list mt-2">
+                                <li><?= $collector->translate('pol_priv_use_1', 'Communicate and build a relationship with you') ?></li>
+                                <li><?= $collector->translate('pol_priv_use_2', 'Personalize your shopping experience and recommendations') ?></li>
+                                <li><?= $collector->translate('pol_priv_use_3', 'Process and fulfill transactions and requests') ?></li>
+                                <li><?= $collector->translate('pol_priv_use_4', 'Verify your account or authority to use services') ?></li>
+                                <li><?= $collector->translate('pol_priv_use_5', 'Conduct market research and improve our Site and services') ?></li>
+                                <li><?= $collector->translate('pol_priv_use_6', 'Send marketing materials and targeted advertising (where permitted)') ?></li>
+                                <li><?= $collector->translate('pol_priv_use_7', 'Detect, deter, and prevent fraud or illegal activity') ?></li>
+                                <li><?= $collector->translate('pol_priv_use_8', 'Comply with legal requirements') ?></li>
+                            </ul>
+                            <p class="mt-3"><?= $collector->translate('pol_priv_s1_p4', "If you wish to stop receiving marketing communications, you may opt out at any time by clicking “unsubscribe” in our emails or contacting us at <a href='mailto:{$supportEmail}'>{$supportEmail}</a>.") ?></p>
+                            <p class="mt-3"><?= $collector->translate('pol_priv_s1_p5', 'We may release personal data if required by law, or when we believe it is necessary to comply with government requests, enforce our policies, or protect our rights and the safety of others.') ?></p>
+                        </div>
+                    </details>
+                    <details class="policy-acc">
+                        <summary><?= $collector->translate('pol_priv_s2', 'Consent as basis') ?></summary>
+                        <div>
+                            <p><?= $collector->translate('pol_priv_s2_p1', '<b>How do we obtain your consent?</b><br>By providing personal information to complete a transaction, verify a payment, place an order, arrange a delivery, or request a return, you consent to our collecting and using it for that purpose. If we ask for information for any secondary purpose (such as marketing), we will either ask you directly for explicit consent or provide you with an option to decline.') ?></p>
+                            <p class="mt-3"><?= $collector->translate('pol_priv_s2_p2', "<b>How do you withdraw your consent?</b><br>If you change your mind, you may withdraw your consent with future effect at any time by contacting us at <a href='mailto:{$supportEmail}'>{$supportEmail}</a> or by using the unsubscribe instructions included in our communications. Withdrawing consent will not affect processing carried out before withdrawal.") ?></p>
+                            <p class="mt-3"><?= $collector->translate('pol_priv_s2_p3', 'Certain uses of your data may not require consent, including:') ?></p>
+                            <ul class="policy-list mt-2">
+                                <li><?= $collector->translate('pol_priv_s2_li1', 'To fulfill our contractual obligations to you') ?></li>
+                                <li><?= $collector->translate('pol_priv_s2_li2', 'To comply with legal obligations or investigations') ?></li>
+                                <li><?= $collector->translate('pol_priv_s2_li3', 'Where we have a legitimate business interest, except where your rights override such interests') ?></li>
+                            </ul>
+                            <p class="mt-3"><?= $collector->translate('pol_priv_s2_p4', "You may request to view, update, or delete your personal information at any time by emailing <a href='mailto:{$supportEmail}'>{$supportEmail}</a>. We will not retain your data longer than necessary for the purposes collected, except as required by law.") ?></p>
+                        </div>
+                    </details>
+                    <details class="policy-acc">
+                        <summary><?= $collector->translate('pol_priv_s3', 'Disclosure') ?></summary>
+                        <div>
+                            <p><?= $collector->translate('pol_priv_s3_p1', 'We may share your personal data as follows:') ?></p>
+                            <ul class="policy-list mt-2">
+                                <li><?= $collector->translate('pol_priv_s3_li1', '<b>Affiliates and partners:</b> For service delivery, product improvement, or marketing.') ?></li>
+                                <li><?= $collector->translate('pol_priv_s3_li2', '<b>Vendors and service providers:</b> Including payment processors, shipping providers, and marketing platforms.') ?></li>
+                                <li><?= $collector->translate('pol_priv_s3_li3', '<b>Advertising and analytics partners:</b> With your consent, for advertising and measurement purposes.') ?></li>
+                                <li><?= $collector->translate('pol_priv_s3_li4', '<b>Legal compliance and public safety:</b> To comply with laws, regulations, investigations, or to protect our rights and property.') ?></li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="policy-acc">
+                        <summary><?= $collector->translate('pol_priv_s4', 'Third-party services') ?></summary>
+                        <div>
+                            <p><?= $collector->translate('pol_priv_s4_p1', "Third-party providers used by {$corp} will only collect, use, and disclose your information as needed to perform their services. For example, payment processors must comply with PCI-DSS security standards to protect payment data.") ?></p>
+                            <p class="mt-3"><?= $collector->translate('pol_priv_s4_p2', 'These providers have their own privacy policies, and your data may be subject to the laws of their jurisdictions. Once you leave our Site or interact with a third-party website or application, our Privacy Policy no longer applies.') ?></p>
+                        </div>
+                    </details>
+                    <details class="policy-acc">
+                        <summary><?= $collector->translate('pol_priv_s5', 'Security') ?></summary>
+                        <div><p><?= $collector->translate('pol_priv_s5_p1', 'We implement commercially reasonable security measures to protect your personal data from loss, misuse, unauthorized access, disclosure, or alteration. Sensitive information such as credit card details is encrypted using SSL technology and stored with AES-256 encryption. However, no method of online transmission or electronic storage is completely secure, and we cannot guarantee absolute security.') ?></p></div>
+                    </details>
+                    <details class="policy-acc">
+                        <summary><?= $collector->translate('pol_priv_s6', 'Data breach notification') ?></summary>
+                        <div><p><?= $collector->translate('pol_priv_s6_p1', 'If we become aware of a personal data breach that may pose a high risk to your rights and freedoms, we will notify you and relevant authorities within 72 hours, where feasible. This notification will include details of the breach, its potential impact, and steps taken to mitigate risks.') ?></p></div>
+                    </details>
+                    <details class="policy-acc">
+                        <summary><?= $collector->translate('pol_priv_s7', 'International data transfers') ?></summary>
+                        <div><p><?= $collector->translate('pol_priv_s7_p1', 'If your personal data originates from the European Economic Area and is transferred outside of it, we will ensure adequate protections are in place as required by applicable privacy laws, such as standard contractual clauses or equivalent safeguards.') ?></p></div>
+                    </details>
+                    <details class="policy-acc">
+                        <summary><?= $collector->translate('pol_priv_s8', 'Age of consent') ?></summary>
+                        <div><p><?= $collector->translate('pol_priv_s8_p1', 'By using this Site, you confirm that you are at least the age of majority in your state or province of residence, or that you are the age of majority and have given us consent to allow your minor dependents to use this Site.') ?></p></div>
+                    </details>
+                    <details class="policy-acc">
+                        <summary><?= $collector->translate('pol_priv_s9', 'Changes to this Privacy Policy') ?></summary>
+                        <div>
+                            <p><?= $collector->translate('pol_priv_s9_p1', 'We reserve the right to update this Privacy Policy at any time. Changes take effect immediately once posted on our website. If material changes are made, we will provide notice on our Site. Your continued use of our Site after such changes indicates acceptance of the updated Privacy Policy.') ?></p>
+                            <p class="mt-3"><?= $collector->translate('pol_priv_s9_p2', "If {$corp} is acquired or merged with another company, your personal data may be shared with the acquiring or merging entity.") ?></p>
+                        </div>
+                    </details>
+                    <details class="policy-acc">
+                        <summary><?= $collector->translate('pol_priv_s10', 'Contact information') ?></summary>
+                        <div>
+                            <p><?= $collector->translate('pol_priv_s10_p1', 'If you would like to access, correct, amend, or delete any personal information we hold about you, register a complaint, or request more information, please contact us:') ?></p>
+                            <p class="mt-3"><?= $collector->translate('pol_priv_s10_phone', "Phone: <b>{$OfferApi->companyPhoneNumber}</b>") ?><br><?= $collector->translate('pol_priv_s10_email', "Email: <b>{$supportEmail}</b>") ?></p>
+                            <p class="mt-3"><?= $collector->translate('pol_priv_s10_p2', 'We have a <b>Data Protection Officer</b> responsible for privacy matters. The Data Protection Officer can be reached at the above address and email.') ?></p>
+                        </div>
+                    </details>
+                </div>
+            </section>
+
+            <!-- Contact -->
+            <section id="panel-contact" role="tabpanel" aria-labelledby="tab-contact" data-policy-panel="contact" hidden>
+                <h3 class="font-serif text-xl text-ink"><?= $collector->translate('pol_con_title', 'Need help?') ?></h3>
+                <p class="mt-3"><?= $collector->translate('pol_con_p1', "If you are looking for more information about <b>{$corp}</b> or need assistance with your order, our customer support team is here to help.") ?></p>
+                <div class="mt-5 grid gap-3 sm:grid-cols-2">
+                    <a href="mailto:<?= htmlspecialchars($supportEmail) ?>" class="group rounded-2xl border border-sand p-4 hover:border-turq hover:bg-turq-soft/40 transition">
+                        <span class="grid h-10 w-10 place-items-center rounded-full bg-turq-soft text-turq-ink"><svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></svg></span>
+                        <span class="mt-3 block text-xs uppercase tracking-[.18em] text-muted"><?= $collector->translate('pol_con_general', 'General support') ?></span>
+                        <span class="block font-semibold text-ink break-all"><?= htmlspecialchars($supportEmail) ?></span>
+                    </a>
+                    <a href="mailto:<?= htmlspecialchars($ordersEmail) ?>" class="group rounded-2xl border border-sand p-4 hover:border-turq hover:bg-turq-soft/40 transition">
+                        <span class="grid h-10 w-10 place-items-center rounded-full bg-turq-soft text-turq-ink"><svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5z"/><path d="m3 7.5 9 4.5 9-4.5M12 12v9"/></svg></span>
+                        <span class="mt-3 block text-xs uppercase tracking-[.18em] text-muted"><?= $collector->translate('pol_con_orders', 'Order inquiries') ?></span>
+                        <span class="block font-semibold text-ink break-all"><?= htmlspecialchars($ordersEmail) ?></span>
+                    </a>
+                </div>
+                <div class="mt-3 rounded-2xl bg-linen p-4">
+                    <p class="text-xs uppercase tracking-[.18em] text-muted"><?= $collector->translate('pol_con_company', 'Company') ?></p>
+                    <p class="mt-1 font-semibold text-ink"><?= htmlspecialchars($corp) ?></p>
+                    <p class="text-sm"><?= htmlspecialchars($address) ?></p>
+                </div>
+            </section>
+        </div>
+    </div>
+</dialog>
 
 <script>window.MELARA_CHECKOUT = { currency: '<?= $OfferApi->currencySymbol ?: '$' ?>', secureShip: <?= $securePrice ?>, freeText: '<?= addslashes($freeText) ?>' };</script>
 <script src="src/system/<?= $OfferApi->targetLanguage ?>.js?t=<?= $OfferApi->assetVersion('src/system/' . $OfferApi->targetLanguage . '.js') ?>"></script>

@@ -26,3 +26,50 @@ select.field { appearance: none; background-image: url("data:image/svg+xml,%3Csv
 span.error-message { display: block; margin-top: 6px; font-size: 12px; color: #e11d48; }
 .iti { width: 100%; }
 .iti .field { padding-left: 52px; }
+
+/* ---------- Policy modal (footer links), same as assets/css/index.css ---------- */
+.policy-modal {
+    margin: auto auto 0; width: 100%; max-width: 100%; max-height: 88svh; padding: 0; border: 0;
+    border-radius: 1.75rem 1.75rem 0 0; background: #fff; color: #1d2226; overflow: hidden;
+    box-shadow: 0 -20px 60px -20px rgba(29,34,38,.35);
+    opacity: 0; transform: translateY(100%);
+    transition: opacity .3s ease, transform .4s cubic-bezier(.22,1,.36,1), overlay .4s allow-discrete, display .4s allow-discrete;
+}
+.policy-modal[open] { opacity: 1; transform: none; }
+@starting-style { .policy-modal[open] { opacity: 0; transform: translateY(100%); } }
+.policy-modal::backdrop {
+    background: rgba(29,34,38,0); backdrop-filter: blur(0);
+    transition: background .3s ease, backdrop-filter .3s ease, overlay .4s allow-discrete, display .4s allow-discrete;
+}
+.policy-modal[open]::backdrop { background: rgba(29,34,38,.45); backdrop-filter: blur(6px); }
+@starting-style { .policy-modal[open]::backdrop { background: rgba(29,34,38,0); backdrop-filter: blur(0); } }
+@media (min-width: 640px) {
+    .policy-modal { margin: auto; width: calc(100% - 3rem); max-width: 44rem; max-height: 82vh; border-radius: 1.75rem;
+        box-shadow: 0 40px 100px -30px rgba(29,34,38,.45); transform: translateY(16px) scale(.97); }
+    @starting-style { .policy-modal[open] { opacity: 0; transform: translateY(16px) scale(.97); } }
+}
+html:has(.policy-modal[open]) { overflow: hidden; }
+
+.policy-tab { white-space: nowrap; border-radius: 9999px; padding: .5rem 1rem; font-size: .875rem; font-weight: 500; color: #5e656d; transition: background .2s, color .2s, box-shadow .2s; }
+.policy-tab:hover { color: #1d2226; }
+.policy-tab[aria-selected="true"] { background: #fff; color: #1d2226; box-shadow: 0 1px 2px rgba(29,34,38,.08), 0 4px 12px -4px rgba(29,34,38,.15); }
+
+.policy-body b { color: #1d2226; font-weight: 600; }
+.policy-body a { color: #0a8a68; font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+.policy-body a.group { text-decoration: none; }
+.policy-list { display: grid; gap: .6rem; }
+.policy-list li { position: relative; padding-left: 1.75rem; }
+.policy-list li::before { content: ""; position: absolute; left: 0; top: .2rem; width: 1.1rem; height: 1.1rem; border-radius: 9999px;
+    background: #d6f7ee url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230a8a68' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 12 4 4 8-8'/%3E%3C/svg%3E") center / 70% no-repeat; }
+.policy-steps { counter-reset: step; display: grid; gap: .75rem; }
+.policy-steps li { counter-increment: step; position: relative; padding-left: 2.5rem; min-height: 1.75rem; }
+.policy-steps li::before { content: counter(step); position: absolute; left: 0; top: -.05rem; width: 1.75rem; height: 1.75rem; border-radius: 9999px;
+    display: grid; place-items: center; background: #1d2226; color: #fff; font-size: .75rem; font-weight: 600; }
+
+.policy-acc > summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: 1rem 1.1rem; font-weight: 600; color: #1d2226; }
+.policy-acc > summary::-webkit-details-marker { display: none; }
+.policy-acc > summary::after { content: "+"; flex-shrink: 0; display: grid; place-items: center; width: 1.6rem; height: 1.6rem; border-radius: 9999px;
+    background: #eef0f2; font-weight: 500; transition: transform .25s ease, background .2s; }
+.policy-acc[open] > summary::after { transform: rotate(45deg); background: #d6f7ee; }
+.policy-acc > div { padding: 0 1.1rem 1.1rem; }
