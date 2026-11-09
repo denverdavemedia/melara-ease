@@ -44,6 +44,45 @@
     };
     tick(); setInterval(tick, 1000);
 
+    // ---------- Policy modal (footer links: Shipping / Returns / Privacy / Contact) ----------
+    const policy = document.getElementById('policyModal');
+    if (policy) {
+        const tabs = [...policy.querySelectorAll('[data-policy-tab]')];
+        const panels = [...policy.querySelectorAll('[data-policy-panel]')];
+        const body = policy.querySelector('.policy-body');
+        const show = name => {
+            tabs.forEach(t => {
+                const on = t.dataset.policyTab === name;
+                t.setAttribute('aria-selected', on);
+                t.tabIndex = on ? 0 : -1;
+                if (on) t.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+            });
+            panels.forEach(p => { p.hidden = p.dataset.policyPanel !== name; });
+            body.scrollTop = 0;
+        };
+        const open = name => { show(name); if (!policy.open) policy.showModal(); };
+
+        document.querySelectorAll('[data-policy]').forEach(a => a.addEventListener('click', e => {
+            e.preventDefault();
+            open(a.dataset.policy);
+        }));
+        tabs.forEach((t, i) => {
+            t.addEventListener('click', () => show(t.dataset.policyTab));
+            // arrow keys move between tabs
+            t.addEventListener('keydown', e => {
+                if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+                const next = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+                show(next.dataset.policyTab); next.focus();
+            });
+        });
+        policy.querySelector('[data-policy-close]').addEventListener('click', () => policy.close());
+        // close when clicking the dimmed backdrop: those clicks land on the <dialog> itself, never on its content
+        policy.addEventListener('click', e => { if (e.target === policy) policy.close(); });
+        // open straight to a policy from a link like checkout.php#privacy
+        const fromHash = location.hash.slice(1);
+        if (tabs.some(t => t.dataset.policyTab === fromHash)) open(fromHash);
+    }
+
     if (typeof window.CRMIntegrated !== 'function') return;
     const CRM = window.CRMIntegrated({
         intlPhone: true,
