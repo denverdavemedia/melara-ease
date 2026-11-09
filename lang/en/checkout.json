@@ -1,4 +1,7 @@
 {
+    "express_checkout": "Express checkout",
+    "pay_with_paypal": "Pay with PayPal",
+    "pay_or_card": "Or fill in your details and pay by card",
     "co2_better_day": "more comfortable day.",
     "co2_feature_1": "Lumbar support",
     "co2_feature_3": "Fits most home chairs",
