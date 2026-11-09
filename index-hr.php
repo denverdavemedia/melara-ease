@@ -39,20 +39,20 @@ foreach ((array) $OfferApi->offerProducts as $row) {
 $currency = $OfferApi->currencySymbol ?: $currency;
 
 $pains = [
-    ['t' => $collector->translate('pain2_0_t', 'A lower back that tires by afternoon'), 'd' => $collector->translate('pain2_0_d', 'After a while in a chair, your lower back feels stiff and tired, and it lingers after you stand up.')],
-    ['t' => $collector->translate('pain2_1_t', 'A tender tailbone and sensitive areas'), 'd' => $collector->translate('pain2_1_d', 'Hard seats press right at the base of your spine, so sitting down is something you brace for.')],
-    ['t' => $collector->translate('pain2_2_t', 'Pressure under your thighs'), 'd' => $collector->translate('pain2_2_d', 'Hard seat edges press under your thighs and buttocks, which makes long meals, calls and drives tiring.')],
-    ['t' => $collector->translate('pain2_3_t', 'Always shifting to get comfortable'), 'd' => $collector->translate('pain2_3_d', 'Your hips and sit bones carry all your weight, so it is hard to settle into a meal, a meeting or an evening at home.')],
-    ['t' => $collector->translate('pain2_4_t', 'Standing up sooner than you want to'), 'd' => $collector->translate('pain2_4_d', 'You cut dinners, work sessions and conversations short because the seat has had enough of you.')],
+    ['t' => $collector->translate('pain2_0_t', 'Hard seats that are tough to sit on'), 'd' => $collector->translate('pain2_0_d', 'Dining chairs, office chairs and car seats can feel unforgiving the moment you sit down.')],
+    ['t' => $collector->translate('pain2_1_t', 'Pressure on sensitive areas'), 'd' => $collector->translate('pain2_1_d', 'A flat surface puts pressure right where you are already tender, so sitting becomes something you brace for.')],
+    ['t' => $collector->translate('pain2_2_t', 'Constantly adjusting your position'), 'd' => $collector->translate('pain2_2_d', 'You shift and reshuffle all day, trying to find a spot that feels comfortable.')],
+    ['t' => $collector->translate('pain2_3_t', 'Hard to sit comfortably at work or at the table'), 'd' => $collector->translate('pain2_3_d', 'Meetings, deadlines and family meals are harder to enjoy when you can\'t settle into your seat.')],
+    ['t' => $collector->translate('pain2_4_t', 'No ergonomic support day to day'), 'd' => $collector->translate('pain2_4_d', 'Most everyday chairs aren\'t shaped for your body, so you get little support where you sit.')],
 ];
 
 // The 5 support zones from the supplier spec, each matched to a pain above.
 // [zone number, marker x%, y% on anatomy-assembled.webp, pain index, zone title, how it helps]
 $zones = [
-    [1, 68, 25, 0, $collector->translate('sol2_0_t', 'Lumbar support zone'),         $collector->translate('sol2_0_d', 'The shell-shaped backrest follows the natural inward curve of your lower spine, so your back muscles can relax instead of holding you upright.')],
-    [2, 89, 38, 4, $collector->translate('sol2_1_t', 'Upright posture wings'),       $collector->translate('sol2_1_d', 'Raised side wings gently keep your back upright and your spine aligned, so you don\'t slump forward as you tire.')],
+    [1, 68, 25, 4,$collector->translate('sol2_0_t', 'Lumbar support zone'),         $collector->translate('sol2_0_d', 'The shell-shaped backrest follows the natural inward curve of your lower spine, so your back muscles can relax instead of holding you upright.')],
+    [2, 89, 38, 3,$collector->translate('sol2_1_t', 'Upright posture wings'),       $collector->translate('sol2_1_d', 'Raised side wings gently keep your back upright and your spine aligned, so you don\'t slump forward as you tire.')],
     [3, 53, 57, 1, $collector->translate('sol2_2_t', 'Coccyx relief vent'),          $collector->translate('sol2_2_d', 'A hollow channel sits beneath your tailbone and the area around it, so there is less direct pressure against the seat and air can circulate.')],
-    [4, 34, 55, 3, $collector->translate('sol2_3_t', 'Sit-bone pressure zone'),      $collector->translate('sol2_3_d', 'The contoured seat cradles your hips and spreads your weight over a wider area, easing pressure on your sit bones.')],
+    [4, 34, 55, 0,$collector->translate('sol2_3_t', 'Sit-bone pressure zone'),      $collector->translate('sol2_3_d', 'The contoured seat cradles your hips and spreads your weight over a wider area, easing pressure on your sit bones.')],
     [5, 21, 72, 2, $collector->translate('sol2_4_t', 'Thigh support'),       $collector->translate('sol2_4_d', 'Gentle grooves keep your thighs level and side by side, easing pressure under your thighs and buttocks.')],
 ];
 
@@ -65,15 +65,16 @@ $life = [
     ['img' => 'assets/img/v2/hr/life-wfh.webp', 'alt' => 'Person working from home at a laptop, sitting on the Melara Sitora cushion',                                          't' => $collector->translate('life_hr_3_t', 'Working from home'),      'd' => $collector->translate('life_hr_3_d', 'Video calls and long working days, in comfort.')],
 ];
 
+// FAQ order follows the brief: hemorrhoids, difference from a regular cushion, everyday use, fit, returns (then extras).
 $faqs = [
+    ['q' => $collector->translate('faq_hr_1_q', 'Can I use this cushion if sitting is uncomfortable because of hemorrhoids?'), 'a' => $collector->translate('faq_hr_1_a', 'Many people find that a flat, hard seat makes sitting less comfortable when they are sensitive. Melara Sitora is an ergonomic seat cushion with a hollow relief vent and contoured support, designed to ease sitting pressure. It is a comfort and support accessory, not a replacement for professional medical diagnosis or treatment, and it does not treat, cure or shrink hemorrhoids. If you have rectal bleeding, or discomfort that is persistent, worsening or severe, please consult a qualified healthcare professional.')],
+    ['q' => $collector->translate('faq_hr_2_q', 'What makes it different from a regular cushion?'), 'a' => $collector->translate('faq_hr_2_a', 'A regular cushion is usually flat. Melara Sitora is a one-piece seat and backrest with five support zones: a lumbar curve, upright posture wings, a hollow relief vent under the tailbone, a contoured seat for your sit bones, and thigh grooves that keep your legs level.')],
+    ['q' => $collector->translate('faq_hr_4_q', 'Is it suitable for everyday sitting?'), 'a' => $collector->translate('faq_hr_4_a', 'Yes. It is designed for everyday sitting at your desk, dining table, sofa or in the car. As with any seat, it helps to stand up and move around regularly.')],
     ['q' => $collector->translate('faq_hr_0_q', 'Will it fit my chair?'), 'a' => $collector->translate('faq_hr_0_a', 'It measures 44 × 42 × 32 cm (17.3 × 16.5 × 12.6 in, W × D × H) and fits most sofas, dining chairs, car seats and office chairs with a seat at least 44 cm (17.3 in) wide. Just set it on the seat and sit back.')],
-    ['q' => $collector->translate('faq_hr_1_q', 'Can I use it if I have hemorrhoids?'), 'a' => $collector->translate('faq_hr_1_a', 'Many people find that a flat, hard seat makes sitting less comfortable when they are sensitive. Melara Sitora is an ergonomic seat cushion with a hollow relief vent and contoured support, designed to ease sitting pressure. It is a comfort accessory, not a medical device: it does not treat, cure or shrink hemorrhoids.')],
-    ['q' => $collector->translate('faq_hr_2_q', 'How is it different from a regular cushion?'), 'a' => $collector->translate('faq_hr_2_a', 'A regular cushion is usually flat. Melara Sitora is a one-piece seat and backrest with five support zones: a lumbar curve, upright posture wings, a hollow relief vent under the tailbone, a contoured seat for your sit bones, and thigh grooves that keep your legs level.')],
+    ['q' => $collector->translate('faq_hr_7_q', 'What is the return policy?'), 'a' => $collector->translate('faq_hr_7_a', 'We offer refunds within 30 days of purchase. Just contact our support team and we\'ll guide you through the return.')],
     ['q' => $collector->translate('faq_hr_3_q', 'Is it firm or soft?'), 'a' => $collector->translate('faq_hr_3_a', 'Both, in the right places. The slow-rebound memory foam is soft enough to sink into and supportive enough to hold its shape. It springs back in about 5 seconds and doesn\'t flatten.')],
-    ['q' => $collector->translate('faq_hr_4_q', 'Can I use it every day?'), 'a' => $collector->translate('faq_hr_4_a', 'Yes. It is designed for everyday sitting at your desk, dining table, sofa or in the car. As with any seat, it helps to stand up and move around regularly.')],
     ['q' => $collector->translate('faq_hr_5_q', 'Will it slide around on my chair?'), 'a' => $collector->translate('faq_hr_5_a', 'No. The base is covered in silicone anti-slip dots, so the cushion stays in place even when you shift or lean back.')],
     ['q' => $collector->translate('faq_hr_6_q', 'When should I speak to a doctor?'), 'a' => $collector->translate('faq_hr_6_a', 'Please speak to a healthcare professional if you notice rectal bleeding, pain that is getting worse, or severe or ongoing symptoms. A seat cushion is not a substitute for medical advice.')],
-    ['q' => $collector->translate('faq_hr_7_q', 'What if it\'s not right for me?'), 'a' => $collector->translate('faq_hr_7_a', 'We offer refunds within 30 days of purchase. Just contact our support team and we\'ll guide you through the return.')],
 ];
 
 // Sample reviews: replace with real customer reviews (and photos) before launch.
@@ -143,7 +144,7 @@ $reviews = [
             <div class="lg:col-span-7">
                 <p class="reveal inline-flex items-center gap-2 rounded-full bg-white/70 border border-sand pl-1.5 pr-4 py-1.5 text-xs font-medium text-muted">
                     <span class="flex -space-x-2"><?php foreach (['review-ang', 'review-kim', 'review-yoshiko', 'review-bert'] as $av): ?><img src="assets/img/user/<?= $av ?>.png" alt="" width="24" height="24" class="w-6 h-6 rounded-full object-cover ring-2 ring-white"><?php endforeach; ?></span>
-                    <span class="text-amber-500">★★★★★</span> <?= $collector->translate('hero2_loved', 'Loved by 12,400+ customers') ?>
+                    <?= $collector->translate('hero2_loved', 'Ergonomic seat cushion for everyday sitting') ?>
                 </p>
                 <h1 class="reveal mt-6 font-serif text-[2.5rem] sm:text-6xl lg:text-[clamp(2.75rem,4.6vw,4.5rem)] leading-[1.02] sm:leading-none tracking-tight" data-delay="1">
                     <?= $collector->translate('hero2_h_1', 'Sitting should feel') ?>
@@ -153,7 +154,7 @@ $reviews = [
                     <?= $collector->translate('hero2_h_3', 'Not something to brace for.') ?>
                 </h1>
                 <p class="reveal mt-6 max-w-lg text-lg text-muted leading-relaxed" data-delay="2">
-                    <?= $collector->translate('idx_the', 'The') ?> <?= $product ?> <?= $collector->translate('hero2_sub', 'is an ergonomic seat cushion with a hollow relief channel and contoured support, designed to ease sitting pressure so long stretches at your desk, table or sofa feel more comfortable.') ?>
+                    <?= $collector->translate('idx_the', 'The') ?> <?= $product ?> <?= $collector->translate('hero2_sub', 'is an ergonomic seat cushion with contoured support and a hollow relief vent, designed for more comfortable sitting when sensitive areas make hard seats hard to enjoy.') ?>
                 </p>
                 <div class="reveal mt-8 flex flex-col sm:flex-row gap-3" data-delay="3">
                     <a href="checkout.php?pack=2&custom_config=hr" class="group inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full bg-turq px-7 py-4 font-semibold text-ink shadow-[0_14px_30px_-12px_rgba(29,209,161,.6)] hover:bg-turq-dark transition">
@@ -241,9 +242,9 @@ $reviews = [
     <?php
     // The two images that don't exist yet (hr/…) show as labelled placeholders until the new art is added.
     $painAreas = [
-        ['img' => 'assets/img/v2/pain-tailbone.webp',     'alt' => 'Woman in her 60s shifting on a hard chair, with the tailbone and hips softly highlighted', 't' => $collector->translate('pa_0_t', 'Tailbone and base of the spine'), 'd' => $collector->translate('pa_0_d', 'Hard seats press right where you sit, so every sit-down becomes something you brace for.')],
+        ['img' => 'assets/img/v2/pain-tailbone.webp', 'alt' => 'Woman in her 60s shifting on a hard chair, with the tailbone and hips glowing red', 't' => $collector->translate('pa_0_t', 'Hard seating surfaces'), 'd' => $collector->translate('pa_0_d', 'Hard seats press right where you sit, so every sit-down becomes something you brace for.')],
         ['img' => 'assets/img/v2/hr/pain-sensitive.webp', 'alt' => 'Illustration of seated pressure concentrating at the base of the seat on a flat, hard surface (no graphic imagery)', 't' => $collector->translate('pa_1_t', 'Sensitive areas'), 'd' => $collector->translate('pa_1_d', 'Long stretches on a flat surface concentrate pressure where you are already tender, so you keep shifting around.')],
-        ['img' => 'assets/img/v2/pain-back.webp',         'alt' => 'Woman in her 60s sitting with a hand on her lower back, the lower back softly highlighted', 't' => $collector->translate('pa_2_t', 'Hips and lower back'), 'd' => $collector->translate('pa_2_d', 'Without support, your weight settles into your sit bones and your lower back tires as the day goes on.')],
+        ['img' => 'assets/img/v2/pain-back.webp', 'alt' => 'Woman in her 60s sitting, hand on her lower back, with the lower back glowing red', 't' => $collector->translate('pa_2_t', 'Hips and lower back'), 'd' => $collector->translate('pa_2_d', 'Without support, your weight settles into your sit bones and your lower back tires as the day goes on.')],
     ];
     ?>
     <section id="pain-areas" class="py-5 md:py-[30px] lg:py-16 bg-[#faf4f2] scroll-mt-16">
@@ -276,7 +277,7 @@ $reviews = [
                 <!-- Before / after: the two photos cross-fade on a loop (assets/js/index.js) -->
                 <div class="relative aspect-[4/5] rounded-[2.5rem] overflow-hidden" data-ba-loop>
                     <div class="ba-slide is-on absolute inset-0">
-                        <?= photo('assets/img/v2/pain-before.webp', 'Woman in her 60s holding her lower back in pain as she sits on a hard dining chair', 'w-full h-full', 'pain-before.webp') ?>
+                        <?= photo('assets/img/v2/pain-before.webp', 'Woman in her 60s holding her lower back as she sits on a hard dining chair', 'w-full h-full', 'pain-before.webp') ?>
                         <span class="glow-pulse glow-red" aria-hidden="true"></span>
                         <span class="absolute top-4 left-4 inline-flex items-center gap-2 rounded-full bg-red-500 px-4 py-2 text-sm font-semibold text-white shadow-lg"><span aria-hidden="true">✕</span> <?= $collector->translate('ba_before', 'Before: a hard, flat chair') ?></span>
                     </div>
@@ -371,9 +372,19 @@ $reviews = [
                 </div>
             </div>
             <div class="lg:col-span-7">
-                <p class="reveal text-sm font-medium uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('sci_eyebrow', 'Designed around sitting pressure') ?></p>
-                <h2 class="reveal mt-4 font-serif text-4xl sm:text-5xl leading-tight sm:leading-none tracking-tight" data-delay="1"><?= $collector->translate('sci_heading', 'Less pressure') ?> <em class="text-turq-ink"><?= $collector->translate('sci_heading_2', 'where you sit.') ?></em></h2>
-                <p class="reveal mt-4 text-muted leading-relaxed" data-delay="2"><?= $collector->translate('sci_intro', 'On a flat, hard seat your weight concentrates on a small area at the base of your spine and your sit bones. Melara\'s contoured shape and central hollow vent spread it out over a wider area.') ?></p>
+                <p class="reveal text-sm font-medium uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('sci_eyebrow', 'Why sitting pressure matters') ?></p>
+                <h2 class="reveal mt-4 font-serif text-4xl sm:text-5xl leading-tight sm:leading-none tracking-tight" data-delay="1"><?= $collector->translate('sci_heading', 'Less pressure on') ?> <em class="text-turq-ink"><?= $collector->translate('sci_heading_2', 'your sitting surface.') ?></em></h2>
+                <p class="reveal mt-4 text-muted leading-relaxed" data-delay="2"><?= $collector->translate('sci_intro', 'Where you sit matters as much as how long you sit. Here is what a contoured, ergonomic seat does differently.') ?></p>
+                <ul class="reveal mt-5 space-y-3 text-[15px] leading-relaxed text-muted" data-delay="2">
+                    <?php foreach ([
+                        ['pz_li_0', 'Sitting for long periods on a flat, hard surface can create localized pressure and discomfort.'],
+                        ['pz_li_1', 'Ergonomic support helps spread that pressure over a wider area.'],
+                        ['pz_li_2', 'The contoured seat and hollow relief vent change where your body makes contact with the cushion.'],
+                        ['pz_li_3', 'Breathable materials and a soft surface texture matter when you sit for hours every day.'],
+                    ] as [$pzKey, $pzText]): ?>
+                        <li class="flex gap-3"><svg viewBox="0 0 24 24" class="w-5 h-5 mt-0.5 shrink-0 text-turq-ink" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span><?= $collector->translate($pzKey, $pzText) ?></span></li>
+                    <?php endforeach; ?>
+                </ul>
 
                 <div class="reveal mt-6 overflow-hidden rounded-2xl border border-sand bg-white text-sm" data-delay="3">
                     <div class="hidden sm:grid grid-cols-[1.1fr_1fr_1fr] gap-4 bg-linen px-5 py-3 text-xs font-semibold uppercase tracking-[.14em] text-muted">
@@ -424,7 +435,7 @@ $reviews = [
     <section id="posture" class="py-5 md:pt-0 md:pb-[30px] lg:py-16 scroll-mt-16">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="max-w-2xl">
-                <p class="reveal text-sm font-medium uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('pos_eyebrow', 'Sit the way your spine wants') ?></p>
+                <p class="reveal text-sm font-medium uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('pos_eyebrow', 'Everyday sitting support') ?></p>
                 <h2 class="reveal mt-4 font-serif text-4xl sm:text-5xl leading-tight sm:leading-none tracking-tight" data-delay="1"><?= $collector->translate('pos_heading', 'The golden') ?> <em class="text-turq-ink"><?= $collector->translate('pos_heading_2', 'sitting angle.') ?></em></h2>
             </div>
             <div class="mt-8 lg:mt-14 grid md:grid-cols-2 gap-4 sm:gap-6">
@@ -573,14 +584,15 @@ $reviews = [
             </div>
 
             <?php
-            // Qualitative comparison through a workday (no invented scores): [unused, mood 0-3, label]
+            // Regular hard seat vs. Melara, compared on four qualities. No scores, percentages or hour-based claims.
+            // 'reg' = [unused, face mood 0-3, label]; 'mel' = [unused, label]
             $day = [
-                ['t' => '9am',  'reg' => [0, 0, 'Fine for now'],             'mel' => [0, 'Comfortable']],
-                ['t' => '11am', 'reg' => [0, 1, 'Starting to shift'],        'mel' => [0, 'Still settled']],
-                ['t' => '2pm',  'reg' => [0, 2, 'Restless on a hard seat'],  'mel' => [0, 'Focused, not fidgeting']],
-                ['t' => '5pm',  'reg' => [0, 3, 'Ready to stand up'],        'mel' => [0, 'Comfortable into the evening']],
+                ['t' => 'Surface support',   'reg' => [0, 1, 'Flat and unforgiving'],               'mel' => [0, 'Contoured to support you']],
+                ['t' => 'Contact comfort',   'reg' => [0, 1, 'Pressure concentrated in one spot'],  'mel' => [0, 'Pressure spread over a wider area']],
+                ['t' => 'Ergonomic design',  'reg' => [0, 1, 'No shape, no relief vent'],           'mel' => [0, 'Backrest, wings and a hollow relief vent']],
+                ['t' => 'Everyday usability', 'reg' => [0, 1, 'Slips and shifts as you move'],      'mel' => [0, 'Stays put on an anti-slip base']],
             ];
-            foreach ($day as $i => &$d) { $d['reg'][2] = $collector->translate("day_{$i}_regular", $d['reg'][2]); $d['mel'][1] = $collector->translate("day_{$i}_melara", $d['mel'][1]); }
+            foreach ($day as $i => &$d) { $d['t'] = $collector->translate("day_{$i}_t", $d['t']); $d['reg'][2] = $collector->translate("day_{$i}_regular", $d['reg'][2]); $d['mel'][1] = $collector->translate("day_{$i}_melara", $d['mel'][1]); }
             unset($d);
             // simple face icon: mood 0 = content … 3 = exhausted, 'happy' = with Melara
             $face = function ($mood) {
@@ -600,8 +612,8 @@ $reviews = [
             <div class="reveal cmp mt-8 lg:mt-14 rounded-[2rem] border border-sand bg-white shadow-[0_30px_80px_-40px_rgba(29,34,38,.25)] overflow-hidden">
                 <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 p-7 sm:p-10 pb-0 sm:pb-0">
                     <div>
-                        <p class="text-xs font-medium uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('idx_your_day_compared', 'Regular hard seat vs. Melara') ?></p>
-                        <h3 class="mt-2 font-serif text-3xl sm:text-4xl tracking-tight"><?= $collector->translate('idx_same_chair', 'Same day.') ?> <em class="text-turq-ink"><?= $collector->translate('why2_cmp_2', 'A more comfortable way to sit.') ?></em></h3>
+                        <p class="text-xs font-medium uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('idx_your_day_compared', 'The difference') ?></p>
+                        <h3 class="mt-2 font-serif text-3xl sm:text-4xl tracking-tight"><?= $collector->translate('idx_same_chair', 'Regular Hard Seat vs.') ?> <em class="text-turq-ink"><?= $collector->translate('why2_cmp_2', 'Melara Ergonomic Support') ?></em></h3>
                     </div>
                     <div class="flex flex-wrap items-center gap-3 text-sm">
                         <span class="inline-flex items-center gap-2 rounded-full bg-rose-50 border border-rose-100 px-3 py-1.5 text-rose-600"><span class="w-2.5 h-2.5 rounded-full bg-rose-400"></span><?= $collector->translate('idx_regular_chair', 'Regular hard seat') ?></span>
@@ -612,7 +624,7 @@ $reviews = [
                 <div class="grid grid-cols-2 lg:grid-cols-4 border-t border-sand mt-2">
                     <?php foreach ($day as $i => $d): [$rv, $mood, $rt] = $d['reg']; [$mv, $mt] = $d['mel']; ?>
                         <div class="p-5 sm:p-6 border-sand <?= $i % 2 ? 'border-l' : '' ?> <?= $i === 2 ? 'lg:border-l' : '' ?> <?= $i > 1 ? 'border-t lg:border-t-0' : '' ?>">
-                            <p class="font-serif text-2xl"><?= $d['t'] ?></p>
+                            <p class="font-serif text-xl sm:text-2xl"><?= $d['t'] ?></p>
 
                             <div class="mt-4 flex items-start gap-3">
                                 <span class="grid place-items-center shrink-0 w-9 h-9 rounded-xl bg-rose-50 text-rose-500"><?= $face($mood) ?></span>
@@ -630,7 +642,7 @@ $reviews = [
                         </div>
                     <?php endforeach; ?>
                 </div>
-                <p class="px-7 sm:px-10 py-4 border-t border-sand text-xs text-muted"><?= $collector->translate('why2_note', 'Illustrative comparison, not measured data. Individual experience varies.') ?></p>
+                <p class="px-7 sm:px-10 py-4 border-t border-sand text-xs text-muted"><?= $collector->translate('why2_note', 'Based on the cushion\'s design, not on test data. Individual experience varies.') ?></p>
             </div>
 
                 <div class="reveal mt-8 lg:mt-12 flex flex-col items-center text-center gap-3">
@@ -676,8 +688,8 @@ $reviews = [
     <section id="reviews" class="py-5 md:py-[30px] lg:py-16 bg-soft-gray scroll-mt-16 overflow-hidden">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
             <p class="reveal text-amber-500 text-lg">★★★★★</p>
-            <h2 class="reveal mt-3 font-serif text-4xl sm:text-5xl tracking-tight" data-delay="1"><?= $collector->translate('idx_why_didn_t_i', '“Why didn\'t I get this') ?> <em class="text-turq-ink"><?= $collector->translate('idx_years_ago', 'years ago?”') ?></em></h2>
-            <p class="reveal mt-4 text-muted" data-delay="2"><?= $collector->translate('idx_4_9_out_of', '4.9 out of 5 from 12,400+ happy sitters') ?></p>
+            <h2 class="reveal mt-3 font-serif text-4xl sm:text-5xl tracking-tight" data-delay="1"><?= $collector->translate('idx_why_didn_t_i', 'Everyday comfort,') ?> <em class="text-turq-ink"><?= $collector->translate('idx_years_ago', 'in their words.') ?></em></h2>
+            <p class="reveal mt-4 text-muted" data-delay="2"><?= $collector->translate('idx_4_9_out_of', 'What customers say about everyday comfort') ?></p>
         </div>
         <div class="mt-8 lg:mt-14 relative">
             <div class="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-40 bg-linear-to-r/srgb from-linen to-transparent z-10"></div>
@@ -706,7 +718,7 @@ $reviews = [
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="reveal mt-8 lg:mt-12 flex flex-col items-center text-center gap-3">
                     <a href="checkout.php?pack=2&custom_config=hr" class="group inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full bg-turq px-7 py-4 font-semibold text-ink shadow-[0_14px_30px_-12px_rgba(29,209,161,.6)] hover:bg-turq-dark hover:-translate-y-0.5 transition">
-                        <?= $collector->translate('cta_rev', 'Join 12,400+ happy customers') ?>
+                        <?= $collector->translate('cta_rev', 'Get 70% Discount') ?>
                         <svg class="w-4 h-4 transition group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
                     </a>
                     <p class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-muted">
@@ -752,7 +764,7 @@ $reviews = [
             </div>
             <div class="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/40 to-transparent"></div>
             <div class="relative p-10 sm:p-16 max-w-xl text-cream">
-                <h2 class="font-serif text-4xl sm:text-6xl leading-[1.05] sm:leading-none tracking-tight"><?= $collector->translate('idx_end_the_day', 'End the day') ?> <em class="text-turq-soft"><?= $collector->translate('idx_feeling_good', 'feeling good.') ?></em></h2>
+                <h2 class="font-serif text-4xl sm:text-6xl leading-[1.05] sm:leading-none tracking-tight"><?= $collector->translate('idx_end_the_day', 'Make everyday sitting') ?> <em class="text-turq-soft"><?= $collector->translate('idx_feeling_good', 'more comfortable.') ?></em></h2>
                 <p class="mt-5 text-lg text-cream/80"><?= $collector->translate('idx_try_it_for_100', 'Not the right fit? Request a refund within 30 days of purchase.') ?></p>
                 <a href="checkout.php?pack=2&custom_config=hr" class="mt-8 inline-flex items-center gap-2 rounded-full bg-cream text-ink px-8 py-4 font-medium hover:bg-turq hover:text-ink transition">
                     <?= $collector->translate('idx_get_70_discount_3', 'Get 70% Discount') ?>
