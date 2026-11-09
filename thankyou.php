@@ -23,6 +23,18 @@ $total = $price + $shipping - (float) ($order->totalDiscount ?? 0);
 $qtyText  = $collector->translate('qty', 'Qty');
 $freeItem = $collector->translate('free_item', 'Free');
 
+// Order line label + real quantity. Packs are single CRM products named "4x Melara Sitora Seat Cushions" with qty 1,
+// so the "4x" moves out of the name and into the quantity (4 cushions). Also drops the internal word "Downsell".
+function lineItem($item) {
+    $name = trim(preg_replace('/\s*\bdownsell\b\s*/i', ' ', $item->name));
+    $qty  = max(1, (int) ($item->qty ?? 1));
+    if (preg_match('/^(\d+)\s*x\s+(.+)$/i', $name, $m)) {
+        $qty *= (int) $m[1];
+        $name = $m[2];
+    }
+    return [$name, $qty];
+}
+
 // Product thumbnail per order line, matched on the item name
 function thumb($name) {
     if (stripos($name, 'knee') !== false)    return 'assets/img/upsell/knee-pack.png';
@@ -119,7 +131,7 @@ function thumb($name) {
     <section class="mt-6 rounded-[1.5rem] bg-ink text-white p-6 sm:p-8 bg-[radial-gradient(ellipse_at_top_right,rgba(29,209,161,.35),transparent_60%)]">
         <h2 class="text-lg font-bold"><?= $collector->translate('summary_title', 'Order summary') ?></h2>
         <ul class="mt-4 divide-y divide-white/10">
-            <?php foreach ($items as $item): ?>
+            <?php foreach ($items as $item): [$lineName, $lineQty] = lineItem($item); ?>
                 <li class="flex items-center justify-between gap-4 py-3.5 text-sm sm:text-base">
                     <span class="flex items-center gap-4 min-w-0">
                         <?php if ($src = thumb($item->name)): ?>
@@ -128,8 +140,8 @@ function thumb($name) {
                             <span class="grid place-items-center w-14 h-14 shrink-0 rounded-xl bg-white/10 text-turq" aria-hidden="true">✓</span>
                         <?php endif; ?>
                         <span class="min-w-0">
-                            <span class="block font-medium"><?= htmlspecialchars(trim(preg_replace('/\s*\bdownsell\b\s*/i', ' ', $item->name))) ?></span>
-                            <?php if (!empty($item->qty)): ?><span class="block text-xs text-white/50"><?= $qtyText ?> <?= (int) $item->qty ?></span><?php endif; ?>
+                            <span class="block font-medium"><?= htmlspecialchars($lineName) ?></span>
+                            <span class="block text-xs text-white/50"><?= $qtyText ?> <?= $lineQty ?></span>
                         </span>
                     </span>
                     <span class="font-semibold whitespace-nowrap"><?= (float) $item->price == 0 ? $freeItem : $OfferApi->formatNumber($item->price) ?></span>

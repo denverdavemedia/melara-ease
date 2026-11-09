@@ -39,7 +39,7 @@ $discountTiers = [1 => 0.55, 2 => 0.62, 3 => 0.65, 4 => 0.70];
 foreach ((array) $OfferApi->offerProducts as $row) {
     $q = (int) $row->maxOrderQty;
     foreach ($offers as &$o) {
-        if ($o['qty'] === $q && (stripos($row->productName, 'Melara Seat Cushion') !== false || stripos($row->productName, 'Sitora') !== false)) {
+        if ($o['qty'] === $q && stripos($row->productName, 'Seat Cushion') !== false) {
             $o['price']   = (float) $row->price;
             $o['compare'] = round($row->price / (1 - $discountTiers[$q]));
         }
@@ -1061,6 +1061,9 @@ $address      = $OfferApi->companyAddress;
 </div>
 
 <script src="public/js/index.js?t=<?= $OfferApi->assetVersion('public/js/index.js') ?>"></script>
+<!-- Everflow SDK + funnel events (offer 84) -->
+<script src="https://www.b04jdmd.com/scripts/main.js" defer></script>
+<script src="public/js/ef-events.js?t=<?= $OfferApi->assetVersion('public/js/ef-events.js') ?>"></script>
 </body>
 </html>
 

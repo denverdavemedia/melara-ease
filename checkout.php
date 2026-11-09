@@ -13,7 +13,7 @@ $countries = $OfferApi->countries;
 // finalizeTransaction POSTs are already handled in integrated/setup.php; don't run initProduct() a second time here
 $mainProd = (isset($_POST['finalizeTransaction']) && $_POST['finalizeTransaction'] == 1)
     ? null
-    : $OfferApi->initProduct(productName: 'Melara Seat Cushion', orderData: $_POST);
+    : $OfferApi->initProduct(productName: 'Seat Cushion', orderData: $_POST); // matches the CRM names "1x Melara Sitora Seat Cushion" … (and the old "Melara Seat Cushion")
 $insurance = $OfferApi->initProductAddOn(productName: "Secure");
 if ($mainProd) usort($mainProd->product, fn($a, $b) => $a->maxOrderQty <=> $b->maxOrderQty); // 1x, 2x, 3x, 4x
 
@@ -273,6 +273,9 @@ $freeText = $collector->translate('co_free', 'Free');
 <script>window.MELARA_CHECKOUT = { currency: '<?= $OfferApi->currencySymbol ?: '$' ?>', secureShip: <?= $securePrice ?>, freeText: '<?= addslashes($freeText) ?>' };</script>
 <script src="src/system/<?= $OfferApi->targetLanguage ?>.js?t=<?= $OfferApi->assetVersion('src/system/' . $OfferApi->targetLanguage . '.js') ?>"></script>
 <script src="public/js/checkout.js?t=<?= $OfferApi->assetVersion('public/js/checkout.js') ?>"></script>
+<!-- Everflow SDK + funnel events (offer 84) -->
+<script src="https://www.b04jdmd.com/scripts/main.js" defer></script>
+<script src="public/js/ef-events.js?t=<?= $OfferApi->assetVersion('public/js/ef-events.js') ?>"></script>
 </body>
 </html>
 

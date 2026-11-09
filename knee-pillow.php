@@ -11,6 +11,16 @@ $currency = $OfferApi->currencySymbol ?: '$';
 $price    = (float) $selectedProd->price;
 $retail   = round($price / (1 - 0.7), 2); // crossed-out price: 70% off
 $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
+
+// The downsell offered in the "No thanks" popup (productIds[1] in the funnel config), qty 1
+$dsId = (int) ($OfferApi->nextFunnelPage()['productIds'][1] ?? 0);
+$dsPrice = $dsShipping = 0;
+foreach ($OfferApi->upsaleProducts as $product) {
+    if ((int) $product->campaignProductId === $dsId) {
+        $dsPrice    = (float) $product->price;
+        $dsShipping = (float) $product->shippingPrice;
+    }
+}
 ?>
 <!doctype html>
 <html lang="<?= $OfferApi->targetLanguage ?>" class="scroll-smooth">
@@ -222,7 +232,7 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
                             <svg viewBox="0 0 24 24" class="w-4 h-4 text-turq-ink" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
                             <?= $collector->translate('one_click', 'One click — added to the order you just paid for. No card details needed.') ?>
                         </p>
-                        <div class="mt-4"><button type="button" class="no-upsell-link block w-full text-center text-xs sm:text-sm text-muted underline underline-offset-4 hover:text-ink transition"><?= $collector->translate('no_thanks', 'No thanks, I don\'t want this one-time offer') ?></button></div>
+                        <div class="mt-4"><button type="button" class="js-open-no-thanks-popup block w-full text-center text-xs sm:text-sm text-muted underline underline-offset-4 hover:text-ink transition"><?= $collector->translate('no_thanks', 'No thanks, I don\'t want this one-time offer') ?></button></div>
                     </div>
 
                     <ul class="reveal mt-6 grid grid-cols-3 gap-2 text-center text-[11px] sm:text-xs text-muted" data-delay="4">
@@ -303,7 +313,7 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
                 </div>
                 <div class="w-[340px] shrink-0">
                     <div class="shine rounded-full"><button type="button" class="yes-upsell-link inline-flex w-full items-center justify-center gap-2 rounded-full bg-turq px-5 sm:px-7 py-4 text-[15px] sm:text-lg font-bold text-ink shadow-[0_18px_40px_-14px_rgba(29,209,161,.75)] hover:bg-turq-dark hover:-translate-y-0.5 transition nudge"><span><?= $collector->translate('yes_3', 'Yes, add to my order') ?></span><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
-                    <div class="mt-3"><button type="button" class="no-upsell-link block w-full text-center text-xs underline underline-offset-4 transition text-cream/60 hover:text-cream"><?= $collector->translate('no_thanks_2', 'No thanks, I don\'t want this one-time offer') ?></button></div>
+                    <div class="mt-3"><button type="button" class="js-open-no-thanks-popup block w-full text-center text-xs underline underline-offset-4 transition text-cream/60 hover:text-cream"><?= $collector->translate('no_thanks_2', 'No thanks, I don\'t want this one-time offer') ?></button></div>
                 </div>
             </div>
         </div>
@@ -407,7 +417,7 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
                                 </p>
                                 <div class="mt-6">
                                     <div class="shine rounded-full"><button type="button" class="yes-upsell-link inline-flex w-full items-center justify-center gap-2 rounded-full bg-turq px-5 sm:px-7 py-4 text-[15px] sm:text-lg font-bold text-ink shadow-[0_18px_40px_-14px_rgba(29,209,161,.75)] hover:bg-turq-dark hover:-translate-y-0.5 transition nudge"><span><?= $collector->translate('yes_4', 'Yes, add to my order') ?></span><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
-                                    <div class="mt-3"><button type="button" class="no-upsell-link block w-full text-center lg:text-left text-xs sm:text-sm text-cream/60 underline underline-offset-4 hover:text-cream transition"><?= $collector->translate('no_thanks_3', 'No thanks, I don\'t want this one-time offer') ?></button></div>
+                                    <div class="mt-3"><button type="button" class="js-open-no-thanks-popup block w-full text-center lg:text-left text-xs sm:text-sm text-cream/60 underline underline-offset-4 hover:text-cream transition"><?= $collector->translate('no_thanks_3', 'No thanks, I don\'t want this one-time offer') ?></button></div>
                                 </div>
                             </div>
                         </div>
@@ -471,7 +481,7 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
                 </div>
                 <div class="w-[340px] shrink-0">
                     <div class="shine rounded-full"><button type="button" class="yes-upsell-link inline-flex w-full items-center justify-center gap-2 rounded-full bg-turq px-5 sm:px-7 py-4 text-[15px] sm:text-lg font-bold text-ink shadow-[0_18px_40px_-14px_rgba(29,209,161,.75)] hover:bg-turq-dark hover:-translate-y-0.5 transition nudge"><span><?= $collector->translate('yes_5', 'Yes, add to my order') ?></span><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
-                    <div class="mt-3"><button type="button" class="no-upsell-link block w-full text-center text-xs underline underline-offset-4 transition text-muted hover:text-ink"><?= $collector->translate('no_thanks_4', 'No thanks, I don\'t want this one-time offer') ?></button></div>
+                    <div class="mt-3"><button type="button" class="js-open-no-thanks-popup block w-full text-center text-xs underline underline-offset-4 transition text-muted hover:text-ink"><?= $collector->translate('no_thanks_4', 'No thanks, I don\'t want this one-time offer') ?></button></div>
                 </div>
             </div>
         </div>
@@ -533,7 +543,7 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
                 </div>
                 <div class="w-[340px] shrink-0">
                     <div class="shine rounded-full"><button type="button" class="yes-upsell-link inline-flex w-full items-center justify-center gap-2 rounded-full bg-turq px-5 sm:px-7 py-4 text-[15px] sm:text-lg font-bold text-ink shadow-[0_18px_40px_-14px_rgba(29,209,161,.75)] hover:bg-turq-dark hover:-translate-y-0.5 transition nudge"><span><?= $collector->translate('yes_6', 'Yes, add to my order') ?></span><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
-                    <div class="mt-3"><button type="button" class="no-upsell-link block w-full text-center text-xs underline underline-offset-4 transition text-muted hover:text-ink"><?= $collector->translate('no_thanks_5', 'No thanks, I don\'t want this one-time offer') ?></button></div>
+                    <div class="mt-3"><button type="button" class="js-open-no-thanks-popup block w-full text-center text-xs underline underline-offset-4 transition text-muted hover:text-ink"><?= $collector->translate('no_thanks_5', 'No thanks, I don\'t want this one-time offer') ?></button></div>
                 </div>
             </div>
         </div>
@@ -607,7 +617,7 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
                 <?= $collector->translate('final_price_post', 'ships free with your order.') ?>
             </p>
             <div class="mt-8 max-w-md mx-auto shine rounded-full"><button type="button" class="yes-upsell-link inline-flex w-full items-center justify-center gap-2 rounded-full bg-turq px-5 sm:px-7 py-4 text-[15px] sm:text-lg font-bold text-ink shadow-[0_18px_40px_-14px_rgba(29,209,161,.75)] hover:bg-turq-dark hover:-translate-y-0.5 transition nudge"><span><?= $collector->translate('yes_2', 'Yes, add it to my order') ?></span><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
-            <div class="mt-4 max-w-md mx-auto"><button type="button" class="no-upsell-link block w-full text-center text-xs sm:text-sm text-cream/60 underline underline-offset-4 hover:text-cream transition"><?= $collector->translate('no_thanks_6', 'No thanks, I don\'t want this one-time offer') ?></button></div>
+            <div class="mt-4 max-w-md mx-auto"><button type="button" class="js-open-no-thanks-popup block w-full text-center text-xs sm:text-sm text-cream/60 underline underline-offset-4 hover:text-cream transition"><?= $collector->translate('no_thanks_6', 'No thanks, I don\'t want this one-time offer') ?></button></div>
         </div>
     </section>
 
@@ -621,7 +631,7 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
             <s class="text-xs" data-cta-retail><?= $OfferApi->formatNumber($retail) ?></s>
         </p>
         <div class="mt-2.5 shine rounded-full"><button type="button" class="yes-upsell-link inline-flex w-full items-center justify-center gap-2 rounded-full bg-turq px-5 sm:px-7 py-4 text-[15px] sm:text-lg font-bold text-ink shadow-[0_18px_40px_-14px_rgba(29,209,161,.75)] hover:bg-turq-dark hover:-translate-y-0.5 transition nudge"><span><?= $collector->translate('yes_7', 'Yes, add to my order') ?></span><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
-        <div class="mt-2"><button type="button" class="no-upsell-link block w-full py-1 text-center text-[13px] text-muted underline underline-offset-4"><?= $collector->translate('no_thanks_7', 'No thanks, I don\'t want this one-time offer') ?></button></div>
+        <div class="mt-2"><button type="button" class="js-open-no-thanks-popup block w-full py-1 text-center text-[13px] text-muted underline underline-offset-4"><?= $collector->translate('no_thanks_7', 'No thanks, I don\'t want this one-time offer') ?></button></div>
     </div>
 </div>
 
@@ -635,6 +645,53 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
     </div>
     <p class="mx-auto max-w-3xl px-4 mt-6 text-center text-[11px] leading-relaxed text-muted/80"><?= $collector->translate('footer_disclaimer', 'Melara products are comfort and posture-support products, not medical devices. They are not intended to diagnose, treat, cure or prevent any disease. Individual results vary. If you have ongoing pain, consult your doctor or physiotherapist.') ?></p>
 </footer>
+
+<div id="no-thanks-popup" class="fixed inset-0 z-[100] items-end sm:items-center justify-center p-3 sm:p-6" role="dialog" aria-modal="true" aria-labelledby="ds-title"
+           data-popup-product-id="<?= $dsId ?>" data-popup-unitprice="<?= $dsPrice ?>" data-popup-shipping="<?= $dsShipping ?>">
+    <div class="ds-backdrop absolute inset-0 bg-ink/70 backdrop-blur-xs"></div>
+
+    <div class="ds-card relative w-full max-w-lg rounded-[2rem] bg-white overflow-hidden shadow-[0_40px_90px_-30px_rgba(0,0,0,.6)]">
+        <div class="mesh relative text-cream text-center px-6 pt-7 pb-6" style="--veil: rgba(29,34,38,.4)">
+            <span class="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-[.18em] text-turq-soft">
+                <span class="w-1.5 h-1.5 rounded-full bg-turq animate-pulse"></span><?= $collector->translate('ds_pill', 'Wait — one last price drop') ?>
+            </span>
+            <h2 id="ds-title" class="mt-3 font-serif text-2xl sm:text-3xl leading-tight sm:leading-9 tracking-tight">
+                <?= $collector->translate('ds_title', 'Get the Melara Knee Pillow for just') ?> <em class="text-turq"><?= $OfferApi->formatNumber($dsPrice) ?></em>
+            </h2>
+            <p class="mt-2 text-sm text-cream/70"><?= $collector->translate('ds_lead', 'Our lowest price ever — only here, only for one.') ?></p>
+        </div>
+
+        <div class="p-5 sm:p-6">
+            <div class="flex items-center gap-4">
+                <div class="relative w-[36%] shrink-0 aspect-square rounded-2xl bg-linen grid place-items-center overflow-hidden">
+                    <img src="assets/img/upsell/knee-pack.png" alt="Melara Knee Pillow" class="w-[82%] drop-shadow-[0_10px_12px_rgba(29,34,38,.3)]" loading="lazy">
+                    <span class="absolute top-2 left-2 rounded-full bg-turq text-ink text-[11px] font-bold px-2 py-0.5">-<?= round(($price - $dsPrice) / $price * 100) ?>%</span>
+                </div>
+                <div class="flex-1 grid grid-cols-2 gap-2 text-center">
+                    <div class="rounded-2xl border border-sand bg-cream px-2 py-3">
+                        <p class="text-[11px] font-semibold uppercase tracking-wider text-muted"><?= $collector->translate('ds_was', 'Was') ?></p>
+                        <p class="mt-1 text-xs text-muted">1 × <?= $collector->translate('unit_9', 'Knee Pillow') ?></p>
+                        <p class="mt-1 font-serif text-lg text-muted line-through"><?= $OfferApi->formatNumber($price) ?></p>
+                    </div>
+                    <div class="relative rounded-2xl border-2 border-turq bg-turq-soft/40 px-2 py-3">
+                        <span class="absolute -top-2.5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-ink text-cream text-[10px] font-semibold px-2 py-0.5"><?= $collector->translate('ds_save', 'Save') ?> <?= $OfferApi->formatNumber(round($price - $dsPrice, 2)) ?></span>
+                        <p class="text-[11px] font-semibold uppercase tracking-wider text-turq-ink"><?= $collector->translate('ds_now', 'Now') ?></p>
+                        <p class="mt-1 text-xs text-muted">1 × <?= $collector->translate('unit_10', 'Knee Pillow') ?></p>
+                        <p class="mt-1 font-serif text-2xl"><?= $OfferApi->formatNumber($dsPrice) ?></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-5 shine rounded-full">
+                <button type="button" class="popup-yes-btn js-popup-yes inline-flex w-full items-center justify-center gap-2 rounded-full bg-turq px-5 sm:px-7 py-4 text-[15px] sm:text-lg font-bold text-ink shadow-[0_18px_40px_-14px_rgba(29,209,161,.75)] hover:bg-turq-dark hover:-translate-y-0.5 transition nudge"><span><?= $collector->translate('ds_yes', 'Yes, add it for') ?> <?= $OfferApi->formatNumber($dsPrice) ?></span><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+            </div>
+            <p class="mt-3 text-center text-xs text-muted"><?= $collector->translate('one_click_2', 'One click — added to the order you just paid for. No card details needed.') ?></p>
+            <div class="mt-3">
+                <button type="button" class="no-upsell-link block w-full text-center text-xs sm:text-sm text-muted underline underline-offset-4 hover:text-ink transition"><?= $collector->translate('ds_skip', 'No thanks, I\'ll miss this exclusive offer') ?></button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="src/system/<?= $OfferApi->targetLanguage ?>.js?t=<?= $OfferApi->assetVersion('src/system/' . $OfferApi->targetLanguage . '.js') ?>"></script>
 <script src="public/js/upsell.js?t=<?= $OfferApi->assetVersion('public/js/upsell.js') ?>"></script>
