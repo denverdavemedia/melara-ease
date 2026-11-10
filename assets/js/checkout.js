@@ -84,33 +84,35 @@
     }
 
     if (typeof window.CRMIntegrated !== 'function') return;
-    const CRM = window.CRMIntegrated({
+    // Global CRMIntegrated instance, same as shopmelara-apex (assets/js/advertizerEf.js reads it)
+    window.CRMIntegrated = window.CRMIntegrated({
         intlPhone: true,
         intlPhoneInitialCountry: $('userCountry') ? $('userCountry').value : 'US',
         dynamicShippingFields: false,
     });
-    window.MELARA_CRM = CRM; // read by ef-events.js (Everflow funnel events)
 
     // Pack cards are ._prodSelect: integrated.js blocks the label's default click, so check the radio here
-    CRM.selectProdToOrderCallback = data => {
+    CRMIntegrated.selectProdToOrderCallback = data => {
         sessionStorage.setItem('main_order_qty', data.target.attr('data-overridequantity'));
         data.item.variationDetailId = data.target.attr('data-variantDetailId');
-        CRM.addOrderProd(data.item);
+        CRMIntegrated.addOrderProd(data.item);
         const radio = data.target[0].querySelector('input[name="pack"]');
         if (radio && !radio.checked) { radio.checked = true; update(); }
         if (ship) window.jQuery(ship).trigger('change');
     };
-    CRM.selectProdToOrder({ el: '._prodSelect', callback: CRM.selectProdToOrderCallback });
-    if (ship) CRM.addAddOnToOrder({ el: '#insuranceAddOn' });
-    // Add-ons with their own Everflow event (offer 84): SecureShip -> "Secure Ship" (559)
-    CRM.conversionEverflowPerEvent = (amount, prodName) => {
-        if (String(prodName).toLowerCase().includes('secure')) CRM.conversionEverflow({ totalAmount: amount }, 559);
-    };
+    CRMIntegrated.selectProdToOrder({ el: '._prodSelect', callback: CRMIntegrated.selectProdToOrderCallback });
+    if (ship) CRMIntegrated.addAddOnToOrder({ el: '#insuranceAddOn' });
+    //conversion event for add-ons
+    CRMIntegrated.conversionEverflowPerEvent=function (amount, prodName, paySource) {
+        if (prodName.toLowerCase().indexOf('secure') != -1) {
+            CRMIntegrated.conversionEverflow({totalAmount:amount}, 559); //secureship event
+        }
+    }
 
     // Phone: at most as many digits as a phone number has in the chosen country (US: 10)
     const phone = $('fields_phone');
     const limitPhone = () => {
-        const utils = window.intlTelInputUtils, iti = CRM.phoneIntelli;
+        const utils = window.intlTelInputUtils, iti = CRMIntegrated.phoneIntelli;
         const example = utils && iti ? utils.getExampleNumber(iti.getSelectedCountryData().iso2, true, utils.numberType.MOBILE) : '';
         const max = example.replace(/\D/g, '').length || 15;
         phone.maxLength = max;
@@ -118,11 +120,11 @@
     };
     phone.addEventListener('countrychange', limitPhone);
 
-    CRM.init(() => {
+    CRMIntegrated.init(() => {
         // put the pack shown on the page (?pack=) in the cart
         setTimeout(() => window.jQuery('._prodSelect.active').trigger('click'), 200);
         // integrated.js fills the states list for the selected country
-        CRM.addStatesProvince('#fields_state');
+        CRMIntegrated.addStatesProvince('#fields_state');
         limitPhone();
     });
 
