@@ -514,7 +514,6 @@ $address      = $OfferApi->companyAddress;
 <script src="public/js/checkout.js?t=<?= $OfferApi->assetVersion('public/js/checkout.js') ?>"></script>
 <!-- Everflow SDK + funnel events (offer 84) -->
 <script src="https://www.b04jdmd.com/scripts/main.js" defer></script>
-<script src="public/js/ef-events.js?t=<?= $OfferApi->assetVersion('public/js/ef-events.js') ?>"></script>
 </body>
 </html>
 

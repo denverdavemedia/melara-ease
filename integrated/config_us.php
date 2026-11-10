@@ -28,23 +28,41 @@ return (object) array(
             'page' => 'extra-seat-cushion',
             'everflowEventId' => 560, // Seat Cushion Upsell (no downsell on this page)
             'productIds' => [34003], // Melara Sitora Seat Cushion
-            'yesBtnTo' => 'knee-pillow',
-            'noBtnTo' => 'knee-pillow',
+            'yesBtnTo' => 'melara-apex-pillow',
+            'noBtnTo' => 'melara-apex-pillow',
             'baseQtyFromCheckout' =>false, // initial qty is base on the selected qty of checkout page
+        ],
+        [
+            // Conditional: buying the Apex pillow (or its popup downsell) leads to the pillowcase upsells.
+            // Declining both skips the pillowcases and goes straight to the knee pillow.
+            'page' => 'melara-apex-pillow',
+            'everflowEventId' => 561, // Melara Apex Pillow Upsell
+            'downsellEverflowEventId' => 562, // Melara Apex Pillow Downsell - fired when the no-thanks popup downsell is accepted
+            'productIds' => [34007, 34009], // Melara Apex Pillow, Melara Apex Pillow Downsell
+            'yesBtnTo' => 'cloudair-pillowcase',
+            'noBtnTo' => 'knee-pillow'
+        ],
+        [
+            'page' => 'cloudair-pillowcase',
+            'everflowEventId' => 597, // CloudAir Pillowcase Upsell
+            'downsellEverflowEventId' => 598, // CloudAir Pillowcase Downsell - fired when the no-thanks popup downsell is accepted
+            'productIds' => [35605, 35607], // CloudAir Pillowcase, CloudAir Pillowcase Downsell
+            'yesBtnTo' => 'anti-dust-pillowcase',
+            'noBtnTo' => 'anti-dust-pillowcase'
+        ],
+        [
+            'page' => 'anti-dust-pillowcase',
+            'everflowEventId' => 599, // Anti-Dust Pillowcase Upsell
+            'downsellEverflowEventId' => 600, // Anti-Dust Pillowcase Downsell - fired when the no-thanks popup downsell is accepted
+            'productIds' => [35601, 35603], // Anti-Dust Pillowcase, Anti-Dust Pillowcase Downsell
+            'yesBtnTo' => 'knee-pillow',
+            'noBtnTo' => 'knee-pillow'
         ],
         [
             'page' => 'knee-pillow',
             'everflowEventId' => 563, // Knee Pillow Upsell
             'downsellEverflowEventId' => 564, // Knee Pillow Downsell - fired when the no-thanks popup downsell (productIds[1]) is accepted
             'productIds' => [34011, 35551], // Knee Pillows, Knee Pillows Downsell
-            'yesBtnTo' => 'melara-apex-pillow',
-            'noBtnTo' => 'melara-apex-pillow'
-        ],
-        [
-            'page' => 'melara-apex-pillow',
-            'everflowEventId' => 561, // Melara Apex Pillow Upsell
-            'downsellEverflowEventId' => 562, // Melara Apex Pillow Downsell - fired when the no-thanks popup downsell is accepted
-            'productIds' => [34007, 34009], // Melara Apex Pillow, Melara Apex Pillow Downsell
             'yesBtnTo' => 'thankyou',
             'noBtnTo' => 'thankyou'
         ],
