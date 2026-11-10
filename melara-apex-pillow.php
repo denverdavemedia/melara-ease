@@ -15,10 +15,12 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
 // The downsell offered in the "No thanks" popup (productIds[1] in the funnel config), qty 1
 $dsId = (int) ($OfferApi->nextFunnelPage()['productIds'][1] ?? 0);
 $dsPrice = $dsShipping = 0;
+$dsVariant = ""; // downsell SKU: first variant of the downsell product, read from the CRM (same as OfferApi::initProduct())
 foreach ($OfferApi->upsaleProducts as $product) {
     if ((int) $product->campaignProductId === $dsId) {
         $dsPrice    = (float) $product->price;
         $dsShipping = (float) $product->shippingPrice;
+        $dsVariant  = $product->variants[0]->variantDetailId ?? "";
     }
 }
 ?>
@@ -55,32 +57,37 @@ foreach ($OfferApi->upsaleProducts as $product) {
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
         <img src="assets/img/logo.svg" alt="Melara" class="h-8 sm:h-9 w-auto shrink-0" width="190" height="49">
 
-        <ol class="hidden md:flex items-center gap-2 text-xs font-medium text-muted" aria-label="<?= $collector->translate('progress_label', 'Order progress') ?>">
+        <ol class="hidden md:flex items-center gap-2 text-xs font-medium text-muted whitespace-nowrap" aria-label="<?= $collector->translate('progress_label', 'Order progress') ?>">
             <li class="flex items-center gap-2">
                 <span class="grid place-items-center w-5 h-5 rounded-full bg-turq text-ink text-[10px]">✓</span>
-                <span class="hidden lg:inline"><?= $collector->translate('progress_order', 'Order placed') ?></span>
+                <span class="hidden xl:inline"><?= $collector->translate('progress_order', 'Order placed') ?></span>
             </li>
-            <li class="w-6 lg:w-8 h-px bg-turq" aria-hidden="true"></li>
+            <li class="w-4 xl:w-8 h-px bg-turq" aria-hidden="true"></li>
             <li class="flex items-center gap-2">
                 <span class="grid place-items-center w-5 h-5 rounded-full bg-turq text-ink text-[10px]">✓</span>
-                <span class="hidden lg:inline"><?= $collector->translate('step_extra-seat-cushion', 'Extra cushion') ?></span>
+                <span class="hidden xl:inline"><?= $collector->translate('step_extra-seat-cushion', 'Extra cushion') ?></span>
             </li>
-            <li class="w-6 lg:w-8 h-px bg-turq" aria-hidden="true"></li>
-            <li class="flex items-center gap-2">
-                <span class="grid place-items-center w-5 h-5 rounded-full bg-turq text-ink text-[10px]">✓</span>
-                <span class="hidden lg:inline"><?= $collector->translate('step_knee-pillow', 'Knee pillow') ?></span>
-            </li>
-            <li class="w-6 lg:w-8 h-px bg-turq" aria-hidden="true"></li>
+            <li class="w-4 xl:w-8 h-px bg-turq" aria-hidden="true"></li>
             <li class="flex items-center gap-2 text-ink" aria-current="step">
-                <span class="grid place-items-center w-6 h-6 rounded-full bg-ink text-cream text-[11px] shadow-[0_0_0_4px_rgba(29,209,161,.25)]">3</span>
+                <span class="grid place-items-center w-6 h-6 rounded-full bg-ink text-cream text-[11px] shadow-[0_0_0_4px_rgba(29,209,161,.25)]">2</span>
                 <span><?= $collector->translate('step_melara-apex-pillow', 'Apex pillow') ?></span>
             </li>
-            <li class="w-6 lg:w-8 h-px bg-sand" aria-hidden="true"></li>
+            <li class="w-4 xl:w-8 h-px bg-sand" aria-hidden="true"></li>
+            <li class="flex items-center gap-2">
+                <span class="grid place-items-center w-5 h-5 rounded-full border border-sand text-[10px]">3</span>
+                <span class="hidden xl:inline"><?= $collector->translate('step_pillowcases', 'Pillowcases') ?></span>
+            </li>
+            <li class="w-4 xl:w-8 h-px bg-sand" aria-hidden="true"></li>
+            <li class="flex items-center gap-2">
+                <span class="grid place-items-center w-5 h-5 rounded-full border border-sand text-[10px]">4</span>
+                <span class="hidden xl:inline"><?= $collector->translate('step_knee-pillow', 'Knee pillow') ?></span>
+            </li>
+            <li class="w-4 xl:w-8 h-px bg-sand" aria-hidden="true"></li>
             <li class="flex items-center gap-2">
                 <span class="grid place-items-center w-5 h-5 rounded-full border border-sand" aria-hidden="true">
                     <svg viewBox="0 0 24 24" class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><path d="m9.5 14 2 2 3.5-4"/></svg>
                 </span>
-                <span class="hidden lg:inline"><?= $collector->translate('progress_confirmation', 'Confirmation') ?></span>
+                <span class="hidden xl:inline"><?= $collector->translate('progress_confirmation', 'Confirmation') ?></span>
             </li>
         </ol>
 
@@ -89,14 +96,15 @@ foreach ($OfferApi->upsaleProducts as $product) {
 
     <div class="md:hidden px-4 pb-3">
         <p class="text-[11px] font-medium text-muted">
-            <?= $collector->translate('progress_offer', 'Special offer') ?> 3/3 ·
+            <?= $collector->translate('progress_offer', 'Special offer') ?> 2/4 ·
             <span class="text-ink"><?= $collector->translate('step_melara-apex-pillow_2', 'Apex pillow') ?></span>
         </p>
         <div class="mt-1.5 flex gap-1" aria-hidden="true">
             <span class="h-1 flex-1 rounded-full bg-turq"></span>
             <span class="h-1 flex-1 rounded-full bg-turq"></span>
             <span class="h-1 flex-1 rounded-full bg-turq"></span>
-            <span class="h-1 flex-1 rounded-full bg-turq"></span>
+            <span class="h-1 flex-1 rounded-full bg-sand"></span>
+            <span class="h-1 flex-1 rounded-full bg-sand"></span>
             <span class="h-1 flex-1 rounded-full bg-sand"></span>
         </div>
     </div>
@@ -221,8 +229,11 @@ foreach ($OfferApi->upsaleProducts as $product) {
                                 </div>
                             </div>
 
-                            <div class="qty-meter mt-2.5 h-1 rounded-full bg-sand overflow-hidden" aria-hidden="true">
-                                <span class="block h-full rounded-full bg-turq" style="width: <?= round(100 / $maxQty) ?>%"></span>
+                            <div class="qty-meter mt-3 flex items-center gap-3" aria-hidden="true">
+                                <div class="flex-1 h-2.5 rounded-full bg-sand/70 overflow-hidden shadow-[inset_0_1px_2px_rgba(29,34,38,.08)]">
+                                    <span class="qty-meter-fill block h-full rounded-full bg-gradient-to-r from-turq to-turq-dark transition-[width] duration-300 ease-out" style="width: <?= round(100 / $maxQty) ?>%"></span>
+                                </div>
+                                <span class="qty-meter-pct min-w-[3rem] rounded-full bg-turq-soft px-2 py-0.5 text-center text-xs font-bold tabular-nums text-turq-ink"><?= round(100 / $maxQty) ?>%</span>
                             </div>
                         </div>
 
@@ -647,7 +658,7 @@ foreach ($OfferApi->upsaleProducts as $product) {
 </footer>
 
 <div id="no-thanks-popup" class="fixed inset-0 z-[100] items-end sm:items-center justify-center p-3 sm:p-6" role="dialog" aria-modal="true" aria-labelledby="ds-title"
-           data-popup-product-id="<?= $dsId ?>" data-popup-unitprice="<?= $dsPrice ?>" data-popup-shipping="<?= $dsShipping ?>">
+           data-popup-product-id="<?= $dsId ?>" data-popup-unitprice="<?= $dsPrice ?>" data-popup-shipping="<?= $dsShipping ?>" data-popup-variant="<?= $dsVariant ?>">
     <div class="ds-backdrop absolute inset-0 bg-ink/70 backdrop-blur-xs"></div>
 
     <div class="ds-card relative w-full max-w-lg rounded-[2rem] bg-white overflow-hidden shadow-[0_40px_90px_-30px_rgba(0,0,0,.6)]">

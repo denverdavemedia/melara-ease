@@ -10,18 +10,41 @@ $product = $collector->translate('product_name', 'Melara Sitora');
 $OfferApi->initProduct(orderData: $_POST);
 $order = $OfferApi->query_customer_order();
 
-// Order lines and totals, the same way shopmelara-apex/thankyou.php adds them up
+// Order lines and totals, grouped the same way as shopmelara-apex/thankyou.php:
+// the main order is every OFFER item (the cushion pack + SecureShip, which checkout adds to the main order),
+// and each UPSALE item is its own charge after checkout.
 $items = (array) ($order->items ?? []);
-$price = $shipping = 0;
-foreach ($items as $item) {
-    $price    += (float) $item->price;
-    $shipping += (float) $item->shipping;
+$mainItems = array_values(array_filter($items, fn($i) => ($i->productType ?? '') === 'OFFER'));
+$upsellItems = array_values(array_filter($items, fn($i) => ($i->productType ?? '') === 'UPSALE'));
+usort($mainItems, fn($a, $b) => (stripos($a->name, 'Secure') !== false) <=> (stripos($b->name, 'Secure') !== false)); // SecureShip under the pack
+// One block per charge, like the shopmelara-apex receipt: the main order first, then one block per upsell
+$charges = [];
+if ($mainItems) {
+    $price = $shipping = 0;
+    foreach ($mainItems as $item) {
+        $price    += (float) $item->price;
+        $shipping += (float) $item->shipping;
+    }
+    $discount  = (float) ($order->totalDiscount ?? 0);
+    // SecureShip is part of the main charge but shown as a small line next to Shipping, not as a product
+    $isSecure  = fn($i) => stripos($i->name, 'secure') !== false;
+    $charges[] = [
+        'items'    => array_values(array_filter($mainItems, fn($i) => !$isSecure($i))),
+        'extras'   => array_values(array_filter($mainItems, $isSecure)),
+        'shipping' => $shipping, 'discount' => $discount, 'total' => $price + $shipping - $discount, 'main' => true,
+    ];
 }
-$total = $price + $shipping - (float) ($order->totalDiscount ?? 0);
+foreach ($upsellItems as $item) {
+    $charges[] = ['items' => [$item], 'extras' => [], 'shipping' => (float) $item->shipping, 'discount' => 0, 'total' => (float) $item->price + (float) $item->shipping, 'main' => false];
+}
 
-// translated once: used on every order line
-$qtyText  = $collector->translate('qty', 'Qty');
-$freeItem = $collector->translate('free_item', 'Free');
+// translated once: used on every block / order line (translate() stops the page if a key is used twice)
+$freeItem    = $collector->translate('free_item', 'Free');
+$shipLabel   = $collector->translate('block_shipping', 'Shipping');
+$discLabel   = $collector->translate('block_discount', 'Discount');
+$totalLabel  = $collector->translate('block_total', 'Total');
+$chargesPre  = $collector->translate('charges_pre', 'Charges on your statement will be processed for');
+$chargesPost = $collector->translate('charges_post', 'and will appear as');
 
 // Order line label + real quantity. Packs are single CRM products named "4x Melara Sitora Seat Cushions" with qty 1,
 // so the "4x" moves out of the name and into the quantity (4 cushions). Also drops the internal word "Downsell".
@@ -38,6 +61,8 @@ function lineItem($item) {
 // Product thumbnail per order line, matched on the item name
 function thumb($name) {
     if (stripos($name, 'knee') !== false)    return 'assets/img/upsell/knee-pack.png';
+    if (stripos($name, 'cloudair') !== false)  return 'assets/img/upsell/cloudair-pack.png';
+    if (stripos($name, 'anti-dust') !== false) return 'assets/img/upsell/anti-dust-pack.png';
     if (stripos($name, 'pillow') !== false)  return 'assets/img/upsell/pillow-pack.png';
     if (stripos($name, 'cushion') !== false) return 'assets/img/anatomy-assembled.webp?t=' . filemtime(__DIR__ . '/assets/img/anatomy-assembled.webp');
     return null;
@@ -130,33 +155,39 @@ function thumb($name) {
 
     <section class="mt-6 rounded-[1.5rem] bg-ink text-white p-6 sm:p-8 bg-[radial-gradient(ellipse_at_top_right,rgba(29,209,161,.35),transparent_60%)]">
         <h2 class="text-lg font-bold"><?= $collector->translate('summary_title', 'Order summary') ?></h2>
-        <ul class="mt-4 divide-y divide-white/10">
-            <?php foreach ($items as $item): [$lineName, $lineQty] = lineItem($item); ?>
-                <li class="flex items-center justify-between gap-4 py-3.5 text-sm sm:text-base">
-                    <span class="flex items-center gap-4 min-w-0">
-                        <?php if ($src = thumb($item->name)): ?>
-                            <img src="<?= $src ?>" alt="" class="w-14 h-14 shrink-0 rounded-xl bg-white/90 object-contain p-1.5" width="56" height="56" loading="lazy">
-                        <?php else: ?>
-                            <span class="grid place-items-center w-14 h-14 shrink-0 rounded-xl bg-white/10 text-turq" aria-hidden="true">✓</span>
+        <div class="mt-3 divide-y divide-white/15">
+            <?php foreach ($charges as $charge):
+                $descriptor = $OfferApi->getDescriptor($charge['items'][0]->productId ?? '') ?: ($OfferApi->customDescriptor ?: 'Melara'); ?>
+                <div class="py-4 first:pt-1 last:pb-0">
+                    <?php foreach ($charge['items'] as $item): [$lineName, $lineQty] = lineItem($item); ?>
+                        <div class="flex items-center justify-between gap-3 py-1 text-sm sm:text-[15px]">
+                            <span class="flex items-center gap-3 min-w-0">
+                                <?php if ($src = thumb($item->name)): ?>
+                                    <img src="<?= $src ?>" alt="" class="w-11 h-11 shrink-0 rounded-lg bg-white object-contain p-1" width="44" height="44" loading="lazy">
+                                <?php else: ?>
+                                    <span class="grid place-items-center w-11 h-11 shrink-0 rounded-lg bg-white/10 text-turq" aria-hidden="true">✓</span>
+                                <?php endif; ?>
+                                <span class="font-medium truncate"><?= $lineQty ?>x <?= htmlspecialchars($lineName) ?></span>
+                            </span>
+                            <span class="font-semibold whitespace-nowrap"><?= (float) $item->price == 0 ? $freeItem : $OfferApi->formatNumber($item->price) ?></span>
+                        </div>
+                    <?php endforeach; ?>
+
+                    <dl class="mt-1.5 space-y-0.5 text-[13px] text-white/60">
+                        <?php foreach ($charge['extras'] as $extra): ?>
+                            <div class="flex justify-between"><dt><?= htmlspecialchars(lineItem($extra)[0]) ?></dt><dd><?= $OfferApi->formatNumber($extra->price) ?></dd></div>
+                        <?php endforeach; ?>
+                        <div class="flex justify-between"><dt><?= $shipLabel ?></dt><dd><?= $OfferApi->formatNumber($charge['shipping']) ?></dd></div>
+                        <?php if ($charge['discount'] > 0): ?>
+                            <div class="flex justify-between text-turq"><dt><?= $discLabel ?></dt><dd>−<?= $OfferApi->formatNumber($charge['discount']) ?></dd></div>
                         <?php endif; ?>
-                        <span class="min-w-0">
-                            <span class="block font-medium"><?= htmlspecialchars($lineName) ?></span>
-                            <span class="block text-xs text-white/50"><?= $qtyText ?> <?= $lineQty ?></span>
-                        </span>
-                    </span>
-                    <span class="font-semibold whitespace-nowrap"><?= (float) $item->price == 0 ? $freeItem : $OfferApi->formatNumber($item->price) ?></span>
-                </li>
+                        <div class="flex justify-between pt-0.5 text-sm sm:text-[15px] font-semibold text-white"><dt><?= $totalLabel ?></dt><dd><?= $OfferApi->formatNumber($charge['total']) ?></dd></div>
+                    </dl>
+
+                    <p class="mt-1.5 text-[11px] leading-snug text-white/40"><?= $chargesPre ?> <?= $OfferApi->formatNumber($charge['total']) ?> (<?= htmlspecialchars($order->orderId ?? '') ?>) <?= $chargesPost ?> <?= htmlspecialchars($descriptor) ?></p>
+                </div>
             <?php endforeach; ?>
-        </ul>
-        <dl class="mt-2 border-t border-white/15 pt-4 space-y-2 text-sm">
-            <div class="flex justify-between text-white/70"><dt><?= $collector->translate('subtotal', 'Subtotal') ?></dt><dd><?= $OfferApi->formatNumber($price) ?></dd></div>
-            <div class="flex justify-between text-white/70"><dt><?= $collector->translate('shipping', 'Shipping') ?></dt><dd class="<?= $shipping > 0 ? '' : 'text-turq' ?>"><?= $shipping > 0 ? $OfferApi->formatNumber($shipping) : $collector->translate('free', 'Free') ?></dd></div>
-            <?php if ((float) ($order->totalDiscount ?? 0) > 0): ?>
-                <div class="flex justify-between text-turq"><dt><?= $collector->translate('discount', 'Discount') ?></dt><dd>−<?= $OfferApi->formatNumber($order->totalDiscount) ?></dd></div>
-            <?php endif; ?>
-            <div class="flex justify-between pt-2 text-lg font-semibold text-white"><dt><?= $collector->translate('total', 'Total') ?></dt><dd><?= $OfferApi->formatNumber($total) ?></dd></div>
-        </dl>
-        <p class="mt-5 rounded-xl bg-white/5 px-4 py-3 text-xs text-white/60"><?= $collector->translate('charges', 'Charges will appear on your statement as') ?> <strong class="text-white"><?= htmlspecialchars($OfferApi->customDescriptor ?: 'Melara') ?></strong>.</p>
+        </div>
     </section>
 
     <section class="mt-6 rounded-[1.5rem] bg-white border border-sand p-6 sm:p-8">

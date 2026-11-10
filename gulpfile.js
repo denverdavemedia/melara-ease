@@ -39,18 +39,7 @@ gulp.task('index-js', function () {
   del_js(file);
   return gulp.src([
       'assets/js/index.js',
-  ])
-    .pipe(concat(file))
-    .pipe(uglify())
-    .pipe(gulp.dest('public/js'));
-});
-
-// Everflow funnel events (Product Page, Checkout, Add to Cart, Add Payment Info, PayPal Checkout) for index + checkout
-gulp.task('ef-events-js', function () {
-  var file = 'ef-events.js';
-  del_js(file);
-  return gulp.src([
-      'assets/js/ef-events.js',
+      "assets/js/advertizerEf.js",
   ])
     .pipe(concat(file))
     .pipe(uglify())
@@ -68,6 +57,7 @@ gulp.task('checkout-js', function () {
       'src/common/js/states.js',
       'src/common/js/integrated.js',
       'assets/js/checkout.js',
+      "assets/js/advertizerEf.js",
       "src/common/js/binWarningPopup.js"
   ])
     .pipe(concat(file))

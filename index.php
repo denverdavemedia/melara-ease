@@ -1,6 +1,13 @@
 <?php
 /* Melara Sitora landing page */
 include_once("integrated/setup.php");
+
+// ?custom_config=hr serves the hemorrhoid-friendly sitting-comfort version (index-hr.php, copy in lang/<code>/index-hr.json).
+// The session value (set by OfferApi) keeps visitors on it when they change language.
+if (($_GET['custom_config'] ?? $_SESSION['custom_config'] ?? '') === 'hr') {
+    include __DIR__ . '/index-hr.php';
+    return;
+}
 include_once(BASEPATH . '/src/JsonTranslateCollector.php');
 include_once(__DIR__ . '/includes/language-selector.php');
 
@@ -1063,7 +1070,6 @@ $address      = $OfferApi->companyAddress;
 <script src="public/js/index.js?t=<?= $OfferApi->assetVersion('public/js/index.js') ?>"></script>
 <!-- Everflow SDK + funnel events (offer 84) -->
 <script src="https://www.b04jdmd.com/scripts/main.js" defer></script>
-<script src="public/js/ef-events.js?t=<?= $OfferApi->assetVersion('public/js/ef-events.js') ?>"></script>
 </body>
 </html>
 
