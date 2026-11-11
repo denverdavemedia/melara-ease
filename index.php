@@ -289,12 +289,10 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
                 <div class="relative aspect-[4/5] rounded-[2.5rem] overflow-hidden" data-ba-loop>
                     <div class="ba-slide is-on absolute inset-0">
                         <?= photo('assets/img/v2/pain-before.webp', 'Woman in her 60s holding her lower back in pain as she sits on a hard dining chair', 'w-full h-full', 'pain-before.webp') ?>
-                        <span class="glow-pulse glow-red" aria-hidden="true"></span>
                         <span class="absolute top-4 left-4 inline-flex items-center gap-2 rounded-full bg-red-500 px-4 py-2 text-sm font-semibold text-white shadow-lg"><span aria-hidden="true">✕</span> <?= $collector->translate('ba_before', 'Before: a hard, flat chair') ?></span>
                     </div>
                     <div class="ba-slide absolute inset-0">
                         <?= photo('assets/img/v2/pain-after.webp', 'The same woman smiling and sitting comfortably on the Melara Sitora cushion on the same dining chair', 'w-full h-full', 'pain-after.webp') ?>
-                        <span class="glow-pulse glow-turq" aria-hidden="true"></span>
                         <span class="absolute top-4 left-4 inline-flex items-center gap-2 rounded-full bg-turq px-4 py-2 text-sm font-semibold text-ink shadow-lg"><span aria-hidden="true">✓</span> <?= $collector->translate('ba_after', 'After: with Melara Sitora') ?></span>
                     </div>
                     <div class="absolute bottom-4 inset-x-0 flex justify-center gap-2" aria-hidden="true">

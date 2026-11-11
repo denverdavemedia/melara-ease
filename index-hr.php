@@ -257,7 +257,6 @@ $reviews = [
                     <article class="reveal rounded-[1.75rem] overflow-hidden bg-white border border-sand/70 shadow-[0_20px_50px_-35px_rgba(29,34,38,.35)]" data-delay="<?= $i + 1 ?>">
                         <div class="relative aspect-square">
                             <?= photo($pa['img'], $pa['alt'], 'w-full h-full', basename($pa['img'])) ?>
-                            <span class="glow-pulse glow-red" style="animation-delay: <?= $i * -.8 ?>s" aria-hidden="true"></span>
                             <span class="badge-ping absolute top-4 left-4 grid place-items-center w-9 h-9 rounded-full bg-red-500 text-white text-sm font-bold shadow-lg"><?= $i + 1 ?></span>
                         </div>
                         <div class="p-5 sm:p-6">
@@ -277,12 +276,10 @@ $reviews = [
                 <div class="relative aspect-[4/5] rounded-[2.5rem] overflow-hidden" data-ba-loop>
                     <div class="ba-slide is-on absolute inset-0">
                         <?= photo('assets/img/v2/pain-before.webp', 'Woman in her 60s holding her lower back as she sits on a hard dining chair', 'w-full h-full', 'pain-before.webp') ?>
-                        <span class="glow-pulse glow-red" aria-hidden="true"></span>
                         <span class="absolute top-4 left-4 inline-flex items-center gap-2 rounded-full bg-red-500 px-4 py-2 text-sm font-semibold text-white shadow-lg"><span aria-hidden="true">✕</span> <?= $collector->translate('ba_before', 'Before: a hard, flat chair') ?></span>
                     </div>
                     <div class="ba-slide absolute inset-0">
                         <?= photo('assets/img/v2/pain-after.webp', 'The same woman smiling and sitting comfortably on the Melara Sitora cushion on the same dining chair', 'w-full h-full', 'pain-after.webp') ?>
-                        <span class="glow-pulse glow-turq" aria-hidden="true"></span>
                         <span class="absolute top-4 left-4 inline-flex items-center gap-2 rounded-full bg-turq px-4 py-2 text-sm font-semibold text-ink shadow-lg"><span aria-hidden="true">✓</span> <?= $collector->translate('ba_after', 'After: with Melara Sitora') ?></span>
                     </div>
                     <div class="absolute bottom-4 inset-x-0 flex justify-center gap-2" aria-hidden="true">
@@ -664,7 +661,7 @@ $reviews = [
                     <p class="reveal text-sm font-medium uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('idx_made_for_real_life', 'Made for real life') ?></p>
                     <h2 class="reveal mt-4 font-serif text-4xl sm:text-5xl leading-tight sm:leading-none tracking-tight" data-delay="1"><?= $collector->translate('life2_h_1', 'One cushion.') ?><br><em><?= $collector->translate('life3_h_2', 'Every seat in your day.') ?></em></h2>
                 </div>
-                <p class="reveal max-w-sm text-muted" data-delay="2"><?= $collector->translate('life3_sub', 'Light and easy to carry: it fits dining chairs, the sofa, your desk chair and the driver\'s seat.') ?></p>
+                <p class="reveal max-w-sm text-muted" data-delay="2"><?= $collector->translate('life3_sub', 'Light and easy to carry: it fits your desk chair, dining chairs, your favourite armchair and your home workspace.') ?></p>
             </div>
 
             <div class="mt-8 lg:mt-14 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
