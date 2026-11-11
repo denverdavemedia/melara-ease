@@ -254,8 +254,8 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
     <!-- Where it hurts: three pain areas of the body (images are placeholders until generated) -->
     <?php
     $painAreas = [
-        ['img' => 'assets/img/v2/pain-back.webp',     'alt' => 'Woman in her 60s sitting, hand on her lower back, with the lower back glowing red', 't' => $collector->translate('pa_0_t', 'Lower back'),        'd' => $collector->translate('pa_0_d', 'A dull ache that builds through the day and stiffens when you stand up.')],
         ['img' => 'assets/img/v2/pain-tailbone.webp', 'alt' => 'Woman in her 60s shifting on a hard chair, with the tailbone and hips glowing red',  't' => $collector->translate('pa_1_t', 'Tailbone and hips'), 'd' => $collector->translate('pa_1_d', 'Sharp pressure at the base of your spine every time you sit down.')],
+        ['img' => 'assets/img/v2/pain-back.webp',     'alt' => 'Woman in her 60s sitting, hand on her lower back, with the lower back glowing red', 't' => $collector->translate('pa_0_t', 'Lower back'),        'd' => $collector->translate('pa_0_d', 'A dull ache that builds through the day and stiffens when you stand up.')],
         ['img' => 'assets/img/v2/pain-leg.webp',      'alt' => 'Woman in her 60s rubbing the back of her thigh, with the sciatic nerve path glowing red from buttock to knee', 't' => $collector->translate('pa_2_t', 'Back of the leg'), 'd' => $collector->translate('pa_2_d', 'Sciatic discomfort that runs from your buttock down the back of your thigh.')],
     ];
     ?>
