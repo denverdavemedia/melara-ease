@@ -742,7 +742,7 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
         <div class="mt-8 lg:mt-14 relative">
             <div class="pointer-events-none absolute inset-y-0 start-0 w-16 sm:w-40 bg-linear-to-r/srgb from-linen to-transparent z-10"></div>
             <div class="pointer-events-none absolute inset-y-0 end-0 w-16 sm:w-40 bg-linear-to-l/srgb from-linen to-transparent z-10"></div>
-            <div class="flex w-max animate-marquee gap-5 hover:[animation-play-state:paused] select-none" style="animation-duration: 55s;" data-marquee-drag>
+            <div class="flex w-max animate-marquee gap-5 hover:[animation-play-state:paused]" style="animation-duration: 55s;">
                 <?php $verifiedBuyer = $collector->translate('idx_verified_buyer', 'Verified buyer'); // translated once, used on every review card ?>
                 <?php for ($r = 0; $r < 2; $r++): foreach ($reviews as $rv): ?>
                     <figure class="bg-white rounded-3xl p-7 w-[300px] sm:w-[370px] shrink-0 border border-sand/70">

@@ -664,7 +664,7 @@ $reviews = [
                     <p class="reveal text-sm font-medium uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('idx_made_for_real_life', 'Made for real life') ?></p>
                     <h2 class="reveal mt-4 font-serif text-4xl sm:text-5xl leading-tight sm:leading-none tracking-tight" data-delay="1"><?= $collector->translate('life2_h_1', 'One cushion.') ?><br><em><?= $collector->translate('life3_h_2', 'Every seat in your day.') ?></em></h2>
                 </div>
-                <p class="reveal max-w-sm text-muted" data-delay="2"><?= $collector->translate('life3_sub', 'Light and easy to carry: it fits your desk chair, dining chairs, your favourite armchair and your home workspace.') ?></p>
+                <p class="reveal max-w-sm text-muted" data-delay="2"><?= $collector->translate('life3_sub', 'Light and easy to carry: it fits dining chairs, the sofa, your desk chair and the driver\'s seat.') ?></p>
             </div>
 
             <div class="mt-8 lg:mt-14 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">

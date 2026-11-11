@@ -179,49 +179,4 @@
         if (tabs.some(t => t.dataset.policyTab === fromHash)) open(fromHash);
     }
 
-    // Reviews marquee: JS takes over from the CSS animation so it can be dragged (mouse) or swiped (touch)
-    // while still auto-scrolling. The track holds the cards twice, so the offset wraps every "period".
-    document.querySelectorAll('[data-marquee-drag]').forEach(track => {
-        const secs = parseFloat(track.style.animationDuration) || 40;
-        track.classList.remove('animate-marquee');
-        track.style.animation = 'none';
-        track.style.touchAction = 'pan-y';   // vertical page scroll still works on phones
-        track.style.cursor = 'grab';
-        track.querySelectorAll('img').forEach(img => img.draggable = false);
-
-        const kids = track.children;
-        let period = 0, offset = 0, speed = 0;
-        const measure = () => {
-            period = kids[kids.length / 2].offsetLeft - kids[0].offsetLeft;
-            speed = period / secs;   // px per second, same pace as the old CSS animation
-        };
-        measure();
-        addEventListener('resize', measure);
-
-        let hover = false, dragging = false, startX = 0, startOffset = 0, last = performance.now();
-        const wrap = () => { if (period) offset = ((offset % period) - period) % period; };   // keep in (-period, 0]
-        const tick = now => {
-            const dt = Math.min((now - last) / 1000, 0.1);
-            last = now;
-            if (!reduce && !hover && !dragging) offset -= speed * dt;
-            wrap();
-            track.style.transform = `translate3d(${offset.toFixed(2)}px, 0, 0)`;
-            requestAnimationFrame(tick);
-        };
-        requestAnimationFrame(tick);
-
-        track.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') hover = true; });
-        track.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') hover = false; });
-        track.addEventListener('pointerdown', e => {
-            if (e.button !== 0) return;
-            dragging = true; startX = e.clientX; startOffset = offset;
-            track.setPointerCapture(e.pointerId);
-            track.style.cursor = 'grabbing';
-        });
-        track.addEventListener('pointermove', e => { if (dragging) offset = startOffset + e.clientX - startX; });
-        const end = () => { dragging = false; track.style.cursor = 'grab'; };
-        track.addEventListener('pointerup', end);
-        track.addEventListener('pointercancel', end);
-    });
-
 })();
