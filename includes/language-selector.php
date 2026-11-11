@@ -10,6 +10,7 @@ function languageFlag($code) {
         'tl' => 'ph', 'cs' => 'cz', 'da' => 'dk', 'hu' => 'hu', 'it' => 'it', 'fi' => 'fi', 'vi' => 'vn',
         'el' => 'gr', 'sr-latn' => 'rs', 'id' => 'id', 'nl' => 'nl', 'ar' => 'qa', 'ro' => 'ro',
         'tr' => 'tr', 'lb' => 'lu', 'nb' => 'no', 'ur' => 'pk', 'sv' => 'se', 'th' => 'th',
+        'ca' => 'es-ct', 'ru' => 'ru',
     ];
     $file = isset($flags[$code]) ? 'assets/img/flags/' . $flags[$code] . '.svg' : null;
     return ($file && is_file(dirname(__DIR__) . '/' . $file)) ? $file : null;
