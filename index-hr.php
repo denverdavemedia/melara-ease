@@ -242,8 +242,8 @@ $reviews = [
     // The two images that don't exist yet (hr/…) show as labelled placeholders until the new art is added.
     $painAreas = [
         ['img' => 'assets/img/v2/pain-tailbone.webp', 'alt' => 'Woman in her 60s shifting on a hard chair, with the tailbone and hips glowing red', 't' => $collector->translate('pa_0_t', 'Hard seating surfaces'), 'd' => $collector->translate('pa_0_d', 'Hard seats press right where you sit, so every sit-down becomes something you brace for.')],
-        ['img' => 'assets/img/v2/pain-leg.webp', 'alt' => 'Woman in her 60s rubbing the back of her thigh, with the area from buttock to knee glowing red', 't' => $collector->translate('pa_1_t', 'Thighs and buttocks'), 'd' => $collector->translate('pa_1_d', 'Hard seat edges press under your thighs and buttocks, so long stretches on a flat surface feel tiring.')],
         ['img' => 'assets/img/v2/pain-back.webp', 'alt' => 'Woman in her 60s sitting, hand on her lower back, with the lower back glowing red', 't' => $collector->translate('pa_2_t', 'Hips and lower back'), 'd' => $collector->translate('pa_2_d', 'Without support, your weight settles into your sit bones and your lower back tires as the day goes on.')],
+        ['img' => 'assets/img/v2/pain-leg.webp', 'alt' => 'Woman in her 60s rubbing the back of her thigh, with the area from buttock to knee glowing red', 't' => $collector->translate('pa_1_t', 'Thighs and buttocks'), 'd' => $collector->translate('pa_1_d', 'Hard seat edges press under your thighs and buttocks, so long stretches on a flat surface feel tiring.')],
     ];
     ?>
     <section id="pain-areas" class="py-5 md:py-[30px] lg:py-16 bg-[#faf4f2] scroll-mt-16">
