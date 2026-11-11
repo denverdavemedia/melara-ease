@@ -67,6 +67,19 @@
     }
 }
 
+/* RTL (ar, he, ur get <html dir="rtl"> from melaraTextDirection()).
+   Layout spacing uses logical classes (ms-/pe-/start-/text-start...), so only motion and arrows need help here. */
+@keyframes marquee-rtl {
+    from { transform: translateX(0); }
+    to { transform: translateX(50%); }
+}
+[dir="rtl"] .animate-marquee { animation-name: marquee-rtl; }
+/* "forward" arrows point left; their hover nudge moves left too */
+[dir="rtl"] svg:has(> path[d^="M5 12h14"]) { scale: -1 1; }
+[dir="rtl"] .group:hover .group-hover\:translate-x-1 { --tw-translate-x: calc(var(--spacing) * -1); }
+/* emails, phone and card numbers still read left-to-right inside an RTL form */
+[dir="rtl"] :is(input[type="email"], input[type="tel"], input[name="_phone_number"], input[name="email"], input[name="number"], input[name="cvv"], input[name="due_date"], input[name="zip"]) { direction: ltr; text-align: right; }
+
 /* v3 defaults the markup was written against (from the v4 upgrade guide) */
 @layer base {
     *, ::after, ::before, ::backdrop, ::file-selector-button {

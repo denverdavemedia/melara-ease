@@ -35,6 +35,10 @@
    *----------------------------------------------------------------------------------------------------
    */
 
+  function melaraTextDirection(string $language): string {
+      return in_array($language, ['ar', 'he', 'ur'], true) ? 'rtl' : 'ltr';
+  }
+
   function assignLanguage(){
       global $OfferApi;
 
