@@ -15,15 +15,17 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
 // The downsell offered in the "No thanks" popup (productIds[1] in the funnel config), qty 1
 $dsId = (int) ($OfferApi->nextFunnelPage()['productIds'][1] ?? 0);
 $dsPrice = $dsShipping = 0;
+$dsVariant = ""; // downsell SKU: first variant of the downsell product, read from the CRM (same as OfferApi::initProduct())
 foreach ($OfferApi->upsaleProducts as $product) {
     if ((int) $product->campaignProductId === $dsId) {
         $dsPrice    = (float) $product->price;
         $dsShipping = (float) $product->shippingPrice;
+        $dsVariant  = $product->variants[0]->variantDetailId ?? "";
     }
 }
 ?>
 <!doctype html>
-<html lang="<?= $OfferApi->targetLanguage ?>" class="scroll-smooth">
+<html lang="<?= $OfferApi->targetLanguage ?>" dir="<?= melaraTextDirection($OfferApi->targetLanguage) ?>" class="scroll-smooth">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -55,32 +57,37 @@ foreach ($OfferApi->upsaleProducts as $product) {
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
         <img src="assets/img/logo.svg" alt="Melara" class="h-8 sm:h-9 w-auto shrink-0" width="190" height="49">
 
-        <ol class="hidden md:flex items-center gap-2 text-xs font-medium text-muted" aria-label="<?= $collector->translate('progress_label', 'Order progress') ?>">
+        <ol class="hidden md:flex items-center gap-2 text-xs font-medium text-muted whitespace-nowrap" aria-label="<?= $collector->translate('progress_label', 'Order progress') ?>">
             <li class="flex items-center gap-2">
                 <span class="grid place-items-center w-5 h-5 rounded-full bg-turq text-ink text-[10px]">✓</span>
-                <span class="hidden lg:inline"><?= $collector->translate('progress_order', 'Order placed') ?></span>
+                <span class="hidden xl:inline"><?= $collector->translate('progress_order', 'Order placed') ?></span>
             </li>
-            <li class="w-6 lg:w-8 h-px bg-turq" aria-hidden="true"></li>
+            <li class="w-4 xl:w-8 h-px bg-turq" aria-hidden="true"></li>
             <li class="flex items-center gap-2">
                 <span class="grid place-items-center w-5 h-5 rounded-full bg-turq text-ink text-[10px]">✓</span>
-                <span class="hidden lg:inline"><?= $collector->translate('step_extra-seat-cushion', 'Extra cushion') ?></span>
+                <span class="hidden xl:inline"><?= $collector->translate('step_extra-seat-cushion', 'Extra cushion') ?></span>
             </li>
-            <li class="w-6 lg:w-8 h-px bg-turq" aria-hidden="true"></li>
-            <li class="flex items-center gap-2">
-                <span class="grid place-items-center w-5 h-5 rounded-full bg-turq text-ink text-[10px]">✓</span>
-                <span class="hidden lg:inline"><?= $collector->translate('step_knee-pillow', 'Knee pillow') ?></span>
-            </li>
-            <li class="w-6 lg:w-8 h-px bg-turq" aria-hidden="true"></li>
+            <li class="w-4 xl:w-8 h-px bg-turq" aria-hidden="true"></li>
             <li class="flex items-center gap-2 text-ink" aria-current="step">
-                <span class="grid place-items-center w-6 h-6 rounded-full bg-ink text-cream text-[11px] shadow-[0_0_0_4px_rgba(29,209,161,.25)]">3</span>
+                <span class="grid place-items-center w-6 h-6 rounded-full bg-ink text-cream text-[11px] shadow-[0_0_0_4px_rgba(29,209,161,.25)]">2</span>
                 <span><?= $collector->translate('step_melara-apex-pillow', 'Apex pillow') ?></span>
             </li>
-            <li class="w-6 lg:w-8 h-px bg-sand" aria-hidden="true"></li>
+            <li class="w-4 xl:w-8 h-px bg-sand" aria-hidden="true"></li>
+            <li class="flex items-center gap-2">
+                <span class="grid place-items-center w-5 h-5 rounded-full border border-sand text-[10px]">3</span>
+                <span class="hidden xl:inline"><?= $collector->translate('step_pillowcases', 'Pillowcases') ?></span>
+            </li>
+            <li class="w-4 xl:w-8 h-px bg-sand" aria-hidden="true"></li>
+            <li class="flex items-center gap-2">
+                <span class="grid place-items-center w-5 h-5 rounded-full border border-sand text-[10px]">4</span>
+                <span class="hidden xl:inline"><?= $collector->translate('step_knee-pillow', 'Knee pillow') ?></span>
+            </li>
+            <li class="w-4 xl:w-8 h-px bg-sand" aria-hidden="true"></li>
             <li class="flex items-center gap-2">
                 <span class="grid place-items-center w-5 h-5 rounded-full border border-sand" aria-hidden="true">
                     <svg viewBox="0 0 24 24" class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><path d="m9.5 14 2 2 3.5-4"/></svg>
                 </span>
-                <span class="hidden lg:inline"><?= $collector->translate('progress_confirmation', 'Confirmation') ?></span>
+                <span class="hidden xl:inline"><?= $collector->translate('progress_confirmation', 'Confirmation') ?></span>
             </li>
         </ol>
 
@@ -89,14 +96,15 @@ foreach ($OfferApi->upsaleProducts as $product) {
 
     <div class="md:hidden px-4 pb-3">
         <p class="text-[11px] font-medium text-muted">
-            <?= $collector->translate('progress_offer', 'Special offer') ?> 3/3 ·
+            <?= $collector->translate('progress_offer', 'Special offer') ?> 2/4 ·
             <span class="text-ink"><?= $collector->translate('step_melara-apex-pillow_2', 'Apex pillow') ?></span>
         </p>
         <div class="mt-1.5 flex gap-1" aria-hidden="true">
             <span class="h-1 flex-1 rounded-full bg-turq"></span>
             <span class="h-1 flex-1 rounded-full bg-turq"></span>
             <span class="h-1 flex-1 rounded-full bg-turq"></span>
-            <span class="h-1 flex-1 rounded-full bg-turq"></span>
+            <span class="h-1 flex-1 rounded-full bg-sand"></span>
+            <span class="h-1 flex-1 rounded-full bg-sand"></span>
             <span class="h-1 flex-1 rounded-full bg-sand"></span>
         </div>
     </div>
@@ -104,8 +112,8 @@ foreach ($OfferApi->upsaleProducts as $product) {
 
 <main>
     <section class="relative overflow-hidden mesh-soft">
-        <div class="absolute -top-32 -right-32 w-[520px] h-[520px] blob bg-turq-soft/80 blur-2xl" aria-hidden="true"></div>
-        <div class="absolute bottom-0 -left-40 w-[420px] h-[420px] blob bg-[#e6f9f3] blur-2xl" aria-hidden="true"></div>
+        <div class="absolute -top-32 -end-32 w-[520px] h-[520px] blob bg-turq-soft/80 blur-2xl" aria-hidden="true"></div>
+        <div class="absolute bottom-0 -start-40 w-[420px] h-[420px] blob bg-[#e6f9f3] blur-2xl" aria-hidden="true"></div>
 
         <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-5 sm:pt-8 pb-5 lg:pt-12 lg:pb-24">
 
@@ -118,7 +126,7 @@ foreach ($OfferApi->upsaleProducts as $product) {
                 </h1>
                 <p class="reveal mt-3 sm:mt-5 text-[15px] sm:text-lg text-muted leading-relaxed sm:leading-7 max-w-2xl mx-auto" data-delay="2"><?= $collector->translate('lead', 'We know you probably have more than one go-to pillow. As part of this one-time offer, add the Melara Memory Foam Pillow to your order at a special price you won\'t see again.') ?></p>
 
-                <ul class="reveal mt-4 sm:mt-7 mx-auto max-w-xl lg:max-w-none grid grid-cols-2 gap-x-3 gap-y-2.5 sm:gap-y-3 rounded-2xl bg-white/80 backdrop-blur-sm border border-sand p-3 sm:p-4 text-left shadow-[0_20px_40px_-30px_rgba(29,34,38,.45)]
+                <ul class="reveal mt-4 sm:mt-7 mx-auto max-w-xl lg:max-w-none grid grid-cols-2 gap-x-3 gap-y-2.5 sm:gap-y-3 rounded-2xl bg-white/80 backdrop-blur-sm border border-sand p-3 sm:p-4 text-start shadow-[0_20px_40px_-30px_rgba(29,34,38,.45)]
                            lg:inline-flex lg:flex-nowrap lg:justify-center lg:items-center lg:gap-0 lg:rounded-full lg:px-3 lg:py-2.5" data-delay="3">
                     <li class="flex items-center gap-2 text-[13px] sm:text-sm font-medium leading-tight sm:leading-5 lg:px-4 lg:whitespace-nowrap">
                         <span class="shrink-0 grid place-items-center w-5 h-5 rounded-full bg-turq text-ink shadow-[0_0_0_3px_rgba(29,209,161,.18)]" aria-hidden="true">
@@ -126,19 +134,19 @@ foreach ($OfferApi->upsaleProducts as $product) {
                         </span>
                         <?= $collector->translate('chip_0_t', 'Contoured memory foam') ?>
                     </li>
-                    <li class="flex items-center gap-2 text-[13px] sm:text-sm font-medium leading-tight sm:leading-5 lg:px-4 lg:whitespace-nowrap lg:border-l lg:border-sand">
+                    <li class="flex items-center gap-2 text-[13px] sm:text-sm font-medium leading-tight sm:leading-5 lg:px-4 lg:whitespace-nowrap lg:border-s lg:border-sand">
                         <span class="shrink-0 grid place-items-center w-5 h-5 rounded-full bg-turq text-ink shadow-[0_0_0_3px_rgba(29,209,161,.18)]" aria-hidden="true">
                             <svg viewBox="0 0 24 24" class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>
                         </span>
                         <?= $collector->translate('chip_1_t', 'Neck & shoulder support') ?>
                     </li>
-                    <li class="flex items-center gap-2 text-[13px] sm:text-sm font-medium leading-tight sm:leading-5 lg:px-4 lg:whitespace-nowrap lg:border-l lg:border-sand">
+                    <li class="flex items-center gap-2 text-[13px] sm:text-sm font-medium leading-tight sm:leading-5 lg:px-4 lg:whitespace-nowrap lg:border-s lg:border-sand">
                         <span class="shrink-0 grid place-items-center w-5 h-5 rounded-full bg-turq text-ink shadow-[0_0_0_3px_rgba(29,209,161,.18)]" aria-hidden="true">
                             <svg viewBox="0 0 24 24" class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>
                         </span>
                         <?= $collector->translate('chip_2_t', 'Removable, washable cover') ?>
                     </li>
-                    <li class="flex items-center gap-2 text-[13px] sm:text-sm font-medium leading-tight sm:leading-5 lg:px-4 lg:whitespace-nowrap lg:border-l lg:border-sand">
+                    <li class="flex items-center gap-2 text-[13px] sm:text-sm font-medium leading-tight sm:leading-5 lg:px-4 lg:whitespace-nowrap lg:border-s lg:border-sand">
                         <span class="shrink-0 grid place-items-center w-5 h-5 rounded-full bg-turq text-ink shadow-[0_0_0_3px_rgba(29,209,161,.18)]" aria-hidden="true">
                             <svg viewBox="0 0 24 24" class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>
                         </span>
@@ -168,11 +176,11 @@ foreach ($OfferApi->upsaleProducts as $product) {
                                 <img src="assets/img/upsell/pillow-hero.webp" alt="Melara Memory Foam Pillow" class="w-full h-full object-cover" fetchpriority="high" decoding="async">                            <span class="sheen" aria-hidden="true"></span>
                             </div>
                         </div>
-                        <div class="absolute left-0 sm:-left-4 top-6 mesh text-cream rounded-2xl px-5 py-3 shadow-xl animate-float" style="--veil: rgba(29,34,38,.35); animation-delay: -2s">
+                        <div class="absolute start-0 sm:-start-4 top-6 mesh text-cream rounded-2xl px-5 py-3 shadow-xl animate-float" style="--veil: rgba(29,34,38,.35); animation-delay: -2s">
                             <p class="font-serif text-3xl leading-none">70%</p>
                             <p class="text-[11px] uppercase tracking-[.2em] text-turq-soft mt-1"><?= $collector->translate('badge_off', 'Off · today only') ?></p>
                         </div>
-                        <div class="absolute right-0 sm:-right-4 bottom-8 bg-white rounded-2xl shadow-xl px-5 py-4 max-w-[220px] animate-float" style="animation-delay: -4s">
+                        <div class="absolute end-0 sm:-end-4 bottom-8 bg-white rounded-2xl shadow-xl px-5 py-4 max-w-[220px] animate-float" style="animation-delay: -4s">
                             <p class="font-serif text-2xl text-turq-ink">1,781</p>
                             <p class="text-xs text-muted leading-snug"><?= $collector->translate('stat_text', 'verified customer reviews') ?></p>
                         </div>
@@ -199,7 +207,7 @@ foreach ($OfferApi->upsaleProducts as $product) {
                                                class="stack-img w-[60%] drop-shadow-[0_8px_10px_rgba(29,34,38,.28)]">
                                     <img src="assets/img/upsell/pillow-pack.png" alt="" decoding="async" data-slot="0"
                                                class="stack-img w-[60%] drop-shadow-[0_8px_10px_rgba(29,34,38,.28)]">
-                                    <span class="qty-badge absolute z-10 top-1.5 right-1.5 hidden rounded-full bg-ink text-cream text-[11px] font-bold px-2 py-0.5 tabular-nums">×1</span>
+                                    <span class="qty-badge absolute z-10 top-1.5 end-1.5 hidden rounded-full bg-ink text-cream text-[11px] font-bold px-2 py-0.5 tabular-nums">×1</span>
                                 </div>
 
                                 <div class="flex-1 min-w-0 flex flex-col justify-between gap-2">
@@ -221,8 +229,11 @@ foreach ($OfferApi->upsaleProducts as $product) {
                                 </div>
                             </div>
 
-                            <div class="qty-meter mt-2.5 h-1 rounded-full bg-sand overflow-hidden" aria-hidden="true">
-                                <span class="block h-full rounded-full bg-turq" style="width: <?= round(100 / $maxQty) ?>%"></span>
+                            <div class="qty-meter mt-3 flex items-center gap-3" aria-hidden="true">
+                                <div class="flex-1 h-2.5 rounded-full bg-sand/70 overflow-hidden shadow-[inset_0_1px_2px_rgba(29,34,38,.08)]">
+                                    <span class="qty-meter-fill block h-full rounded-full bg-gradient-to-r from-turq to-turq-dark transition-[width] duration-300 ease-out" style="width: <?= round(100 / $maxQty) ?>%"></span>
+                                </div>
+                                <span class="qty-meter-pct min-w-[3rem] rounded-full bg-turq-soft px-2 py-0.5 text-center text-xs font-bold tabular-nums text-turq-ink"><?= round(100 / $maxQty) ?>%</span>
                             </div>
                         </div>
 
@@ -349,7 +360,7 @@ foreach ($OfferApi->upsaleProducts as $product) {
                                    style="--x-mobile: 28px; --x-desktop: calc(50% + 48px)">
                             <svg viewBox="0 0 24 24" class="w-7 h-7 lg:w-9 lg:h-9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
                         </span>
-                        <div class="road-card ml-[76px] lg:ml-0 lg:col-start-1 lg:text-right rounded-[1.75rem] bg-white border border-sand p-5 sm:p-6 shadow-[0_30px_60px_-45px_rgba(29,34,38,.55)]">
+                        <div class="road-card ms-[76px] lg:ms-0 lg:col-start-1 lg:text-end rounded-[1.75rem] bg-white border border-sand p-5 sm:p-6 shadow-[0_30px_60px_-45px_rgba(29,34,38,.55)]">
                             <p class="text-xs font-semibold uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('road_stop_label', 'Stop') ?> 01</p>
                             <h3 class="mt-2 font-serif text-xl sm:text-2xl leading-snug sm:leading-8"><?= $collector->translate('road_stop_0_t', 'A third of your life on a pillow') ?></h3>
                             <p class="mt-2 text-sm sm:text-base text-muted leading-relaxed sm:leading-6"><?= $collector->translate('road_stop_0_d', 'Every night your head rests in the same spot for hours. Whatever that pillow does, your neck lives with.') ?></p>
@@ -360,7 +371,7 @@ foreach ($OfferApi->upsaleProducts as $product) {
                                    style="--x-mobile: 36px; --x-desktop: calc(50% - 48px)">
                             <svg viewBox="0 0 24 24" class="w-7 h-7 lg:w-9 lg:h-9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 16h18"/><path d="M5 16c0-2 3-3 7-3s7 1 7 3"/><path d="M8 9 6 7M16 9l2-2M12 8V5.5"/></svg>
                         </span>
-                        <div class="road-card ml-[76px] lg:ml-0 lg:col-start-2 rounded-[1.75rem] bg-white border border-sand p-5 sm:p-6 shadow-[0_30px_60px_-45px_rgba(29,34,38,.55)]">
+                        <div class="road-card ms-[76px] lg:ms-0 lg:col-start-2 rounded-[1.75rem] bg-white border border-sand p-5 sm:p-6 shadow-[0_30px_60px_-45px_rgba(29,34,38,.55)]">
                             <p class="text-xs font-semibold uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('road_stop_label_2', 'Stop') ?> 02</p>
                             <h3 class="mt-2 font-serif text-xl sm:text-2xl leading-snug sm:leading-8"><?= $collector->translate('road_stop_1_t', 'Flat or overstuffed, it bends you') ?></h3>
                             <p class="mt-2 text-sm sm:text-base text-muted leading-relaxed sm:leading-6"><?= $collector->translate('road_stop_1_d', 'Too low and your head drops; too high and it tips forward. Either way your neck sits out of line until morning.') ?></p>
@@ -371,7 +382,7 @@ foreach ($OfferApi->upsaleProducts as $product) {
                                    style="--x-mobile: 28px; --x-desktop: calc(50% + 48px)">
                             <svg viewBox="0 0 24 24" class="w-7 h-7 lg:w-9 lg:h-9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 13c2-3 5-4.5 9-4.5s7 1.5 9 4.5"/><path d="M3 13c2 2 5 3 9 3s7-1 9-3"/><path d="M9 8.6c.6-1.6 1.7-2.6 3-2.6s2.4 1 3 2.6"/></svg>
                         </span>
-                        <div class="road-card ml-[76px] lg:ml-0 lg:col-start-1 lg:text-right rounded-[1.75rem] bg-white border border-sand p-5 sm:p-6 shadow-[0_30px_60px_-45px_rgba(29,34,38,.55)]">
+                        <div class="road-card ms-[76px] lg:ms-0 lg:col-start-1 lg:text-end rounded-[1.75rem] bg-white border border-sand p-5 sm:p-6 shadow-[0_30px_60px_-45px_rgba(29,34,38,.55)]">
                             <p class="text-xs font-semibold uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('road_stop_label_3', 'Stop') ?> 03</p>
                             <h3 class="mt-2 font-serif text-xl sm:text-2xl leading-snug sm:leading-8"><?= $collector->translate('road_stop_2_t', 'Shape changes everything') ?></h3>
                             <p class="mt-2 text-sm sm:text-base text-muted leading-relaxed sm:leading-6"><?= $collector->translate('road_stop_2_d', 'A contoured neck roll fills the gap under your neck, and memory foam holds your head at the right height all night.') ?></p>
@@ -382,7 +393,7 @@ foreach ($OfferApi->upsaleProducts as $product) {
                                    style="--x-mobile: 36px; --x-desktop: calc(50% - 48px)">
                             <svg viewBox="0 0 24 24" class="w-7 h-7 lg:w-9 lg:h-9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.7"/><path d="M20 4v4h-4"/></svg>
                         </span>
-                        <div class="road-card ml-[76px] lg:ml-0 lg:col-start-2 rounded-[1.75rem] bg-white border border-sand p-5 sm:p-6 shadow-[0_30px_60px_-45px_rgba(29,34,38,.55)]">
+                        <div class="road-card ms-[76px] lg:ms-0 lg:col-start-2 rounded-[1.75rem] bg-white border border-sand p-5 sm:p-6 shadow-[0_30px_60px_-45px_rgba(29,34,38,.55)]">
                             <p class="text-xs font-semibold uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('road_stop_label_4', 'Stop') ?> 04</p>
                             <h3 class="mt-2 font-serif text-xl sm:text-2xl leading-snug sm:leading-8"><?= $collector->translate('road_stop_3_t', 'Even when you turn over') ?></h3>
                             <p class="mt-2 text-sm sm:text-base text-muted leading-relaxed sm:leading-6"><?= $collector->translate('road_stop_3_d', 'Back to side and back again — curved cut-outs leave room for your shoulders, so the support goes where you go.') ?></p>
@@ -404,7 +415,7 @@ foreach ($OfferApi->upsaleProducts as $product) {
                                 </div>
                             </div>
 
-                            <div class="reveal-copy text-center lg:text-left">
+                            <div class="reveal-copy text-center lg:text-start">
                                 <p class="text-xs font-semibold uppercase tracking-[.2em] text-turq-soft"><?= $collector->translate('road_reveal_eyebrow', 'Waiting at the end of the night') ?></p>
                                 <h2 class="mt-3 font-serif text-3xl sm:text-4xl leading-tight sm:leading-10 tracking-tight">
                                     <?= $collector->translate('road_reveal_title', 'The Melara Memory Foam Pillow') ?> <em class="text-turq"><?= $collector->translate('road_reveal_accent', '— 70% off, today only.') ?></em>
@@ -417,7 +428,7 @@ foreach ($OfferApi->upsaleProducts as $product) {
                                 </p>
                                 <div class="mt-6">
                                     <div class="shine rounded-full"><button type="button" class="yes-upsell-link inline-flex w-full items-center justify-center gap-2 rounded-full bg-turq px-5 sm:px-7 py-4 text-[15px] sm:text-lg font-bold text-ink shadow-[0_18px_40px_-14px_rgba(29,209,161,.75)] hover:bg-turq-dark hover:-translate-y-0.5 transition nudge"><span><?= $collector->translate('yes_4', 'Yes, add to my order') ?></span><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
-                                    <div class="mt-3"><button type="button" class="js-open-no-thanks-popup block w-full text-center lg:text-left text-xs sm:text-sm text-cream/60 underline underline-offset-4 hover:text-cream transition"><?= $collector->translate('no_thanks_3', 'No thanks, I don\'t want this one-time offer') ?></button></div>
+                                    <div class="mt-3"><button type="button" class="js-open-no-thanks-popup block w-full text-center lg:text-start text-xs sm:text-sm text-cream/60 underline underline-offset-4 hover:text-cream transition"><?= $collector->translate('no_thanks_3', 'No thanks, I don\'t want this one-time offer') ?></button></div>
                                 </div>
                             </div>
                         </div>
@@ -433,7 +444,7 @@ foreach ($OfferApi->upsaleProducts as $product) {
                 <div class="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-[0_40px_80px_-40px_rgba(29,34,38,.45)]">
                     <div class="w-full h-full animate-kenburns"><img src="assets/img/upsell/pillow-life.webp" alt="Person sleeping peacefully on the Melara memory foam pillow" class="w-full h-full object-cover" loading="lazy" decoding="async"></div>
                 </div>
-                <div class="absolute -bottom-6 left-6 sm:-left-6 bg-white rounded-2xl shadow-xl px-5 py-4 max-w-[260px]">
+                <div class="absolute -bottom-6 start-6 sm:-start-6 bg-white rounded-2xl shadow-xl px-5 py-4 max-w-[260px]">
                     <p class="text-amber-500 text-sm">★★★★★</p>
                     <p class="mt-1 text-sm leading-snug">“<?= $collector->translate('review_0_text', 'My neck used to be stiff every morning. Two nights on this pillow and I noticed the difference.') ?>”</p>
                     <p class="mt-2 text-xs text-muted">Yoshiko A.</p>
@@ -504,7 +515,7 @@ foreach ($OfferApi->upsaleProducts as $product) {
                             <span class="block font-semibold">Yoshiko A.</span>
                             <span class="block text-xs text-muted"><?= $collector->translate('review_0_role', 'Back sleeper') ?></span>
                         </span>
-                        <span class="ml-auto rounded-full bg-turq-soft/70 border border-turq/30 px-2.5 py-0.5 text-[11px] font-semibold text-turq-ink whitespace-nowrap"><?= $collector->translate('verified', 'Verified buyer') ?></span>
+                        <span class="ms-auto rounded-full bg-turq-soft/70 border border-turq/30 px-2.5 py-0.5 text-[11px] font-semibold text-turq-ink whitespace-nowrap"><?= $collector->translate('verified', 'Verified buyer') ?></span>
                     </figcaption>
                 </figure>
                 <figure class="reveal bg-white rounded-3xl p-7 border border-sand/70 hover:-translate-y-1 hover:shadow-xl transition" data-delay="2">
@@ -516,7 +527,7 @@ foreach ($OfferApi->upsaleProducts as $product) {
                             <span class="block font-semibold">Taichi T.</span>
                             <span class="block text-xs text-muted"><?= $collector->translate('review_1_role', 'Side sleeper') ?></span>
                         </span>
-                        <span class="ml-auto rounded-full bg-turq-soft/70 border border-turq/30 px-2.5 py-0.5 text-[11px] font-semibold text-turq-ink whitespace-nowrap"><?= $collector->translate('verified_2', 'Verified buyer') ?></span>
+                        <span class="ms-auto rounded-full bg-turq-soft/70 border border-turq/30 px-2.5 py-0.5 text-[11px] font-semibold text-turq-ink whitespace-nowrap"><?= $collector->translate('verified_2', 'Verified buyer') ?></span>
                     </figcaption>
                 </figure>
                 <figure class="reveal bg-white rounded-3xl p-7 border border-sand/70 hover:-translate-y-1 hover:shadow-xl transition" data-delay="3">
@@ -528,7 +539,7 @@ foreach ($OfferApi->upsaleProducts as $product) {
                             <span class="block font-semibold">Lau B.</span>
                             <span class="block text-xs text-muted"><?= $collector->translate('review_2_role', 'Light sleeper') ?></span>
                         </span>
-                        <span class="ml-auto rounded-full bg-turq-soft/70 border border-turq/30 px-2.5 py-0.5 text-[11px] font-semibold text-turq-ink whitespace-nowrap"><?= $collector->translate('verified_3', 'Verified buyer') ?></span>
+                        <span class="ms-auto rounded-full bg-turq-soft/70 border border-turq/30 px-2.5 py-0.5 text-[11px] font-semibold text-turq-ink whitespace-nowrap"><?= $collector->translate('verified_3', 'Verified buyer') ?></span>
                     </figcaption>
                 </figure>
             </div>
@@ -563,11 +574,11 @@ foreach ($OfferApi->upsaleProducts as $product) {
                         <span class="rounded-full bg-turq px-3 py-1 text-xs font-bold text-ink"><?= $collector->translate('rcpt_badge', '70% off') ?></span>
                     </div>
                     <dl class="px-6 py-2 text-sm">
-                        <div class="flex justify-between gap-4 py-3 border-b border-dashed border-sand"><dt class="text-muted"><?= $collector->translate('rcpt_item', 'Item') ?></dt><dd class="font-semibold text-right" data-cta-label>1 × <?= $collector->translate('rcpt_unit', 'Melara Pillow') ?></dd></div>
-                        <div class="flex justify-between gap-4 py-3 border-b border-dashed border-sand"><dt class="text-muted"><?= $collector->translate('rcpt_regular', 'Regular price') ?></dt><dd class="text-right"><s class="text-muted" data-cta-retail><?= $OfferApi->formatNumber($retail) ?></s></dd></div>
-                        <div class="flex justify-between gap-4 py-3 border-b border-dashed border-sand"><dt class="text-muted"><?= $collector->translate('rcpt_shipping', 'Shipping') ?></dt><dd class="font-semibold text-turq-ink text-right"><?= $collector->translate('rcpt_shipping_v', 'Free, in the same box') ?></dd></div>
-                        <div class="flex justify-between gap-4 py-3 border-b border-dashed border-sand"><dt class="text-muted"><?= $collector->translate('rcpt_card', 'Card details') ?></dt><dd class="font-semibold text-right"><?= $collector->translate('rcpt_card_v', 'Not needed, one click') ?></dd></div>
-                        <div class="flex justify-between gap-4 py-3 border-b border-dashed border-sand"><dt class="text-muted"><?= $collector->translate('rcpt_refund', 'Refunds') ?></dt><dd class="font-semibold text-right"><?= $collector->translate('rcpt_refund_v', '30-day policy') ?></dd></div>
+                        <div class="flex justify-between gap-4 py-3 border-b border-dashed border-sand"><dt class="text-muted"><?= $collector->translate('rcpt_item', 'Item') ?></dt><dd class="font-semibold text-end" data-cta-label>1 × <?= $collector->translate('rcpt_unit', 'Melara Pillow') ?></dd></div>
+                        <div class="flex justify-between gap-4 py-3 border-b border-dashed border-sand"><dt class="text-muted"><?= $collector->translate('rcpt_regular', 'Regular price') ?></dt><dd class="text-end"><s class="text-muted" data-cta-retail><?= $OfferApi->formatNumber($retail) ?></s></dd></div>
+                        <div class="flex justify-between gap-4 py-3 border-b border-dashed border-sand"><dt class="text-muted"><?= $collector->translate('rcpt_shipping', 'Shipping') ?></dt><dd class="font-semibold text-turq-ink text-end"><?= $collector->translate('rcpt_shipping_v', 'Free, in the same box') ?></dd></div>
+                        <div class="flex justify-between gap-4 py-3 border-b border-dashed border-sand"><dt class="text-muted"><?= $collector->translate('rcpt_card', 'Card details') ?></dt><dd class="font-semibold text-end"><?= $collector->translate('rcpt_card_v', 'Not needed, one click') ?></dd></div>
+                        <div class="flex justify-between gap-4 py-3 border-b border-dashed border-sand"><dt class="text-muted"><?= $collector->translate('rcpt_refund', 'Refunds') ?></dt><dd class="font-semibold text-end"><?= $collector->translate('rcpt_refund_v', '30-day policy') ?></dd></div>
                         <div class="flex items-end justify-between gap-4 pt-4 pb-2"><dt class="font-semibold"><?= $collector->translate('rcpt_today', 'You pay today') ?></dt><dd class="font-serif text-4xl text-ink" data-cta-total><?= $OfferApi->formatNumber($price) ?></dd></div>
                     </dl>
                     <div class="mx-6 mb-5 flex items-center justify-center gap-2 rounded-xl bg-turq-soft px-4 py-2.5 text-sm font-semibold text-turq-ink">
@@ -647,7 +658,7 @@ foreach ($OfferApi->upsaleProducts as $product) {
 </footer>
 
 <div id="no-thanks-popup" class="fixed inset-0 z-[100] items-end sm:items-center justify-center p-3 sm:p-6" role="dialog" aria-modal="true" aria-labelledby="ds-title"
-           data-popup-product-id="<?= $dsId ?>" data-popup-unitprice="<?= $dsPrice ?>" data-popup-shipping="<?= $dsShipping ?>">
+           data-popup-product-id="<?= $dsId ?>" data-popup-unitprice="<?= $dsPrice ?>" data-popup-shipping="<?= $dsShipping ?>" data-popup-variant="<?= $dsVariant ?>">
     <div class="ds-backdrop absolute inset-0 bg-ink/70 backdrop-blur-xs"></div>
 
     <div class="ds-card relative w-full max-w-lg rounded-[2rem] bg-white overflow-hidden shadow-[0_40px_90px_-30px_rgba(0,0,0,.6)]">
@@ -665,7 +676,7 @@ foreach ($OfferApi->upsaleProducts as $product) {
             <div class="flex items-center gap-4">
                 <div class="relative w-[36%] shrink-0 aspect-square rounded-2xl bg-linen grid place-items-center overflow-hidden">
                     <img src="assets/img/upsell/pillow-pack.png" alt="Melara Memory Foam Pillow" class="w-[82%] drop-shadow-[0_10px_12px_rgba(29,34,38,.3)]" loading="lazy">
-                    <span class="absolute top-2 left-2 rounded-full bg-turq text-ink text-[11px] font-bold px-2 py-0.5">-<?= round(($price - $dsPrice) / $price * 100) ?>%</span>
+                    <span class="absolute top-2 start-2 rounded-full bg-turq text-ink text-[11px] font-bold px-2 py-0.5">-<?= round(($price - $dsPrice) / $price * 100) ?>%</span>
                 </div>
                 <div class="flex-1 grid grid-cols-2 gap-2 text-center">
                     <div class="rounded-2xl border border-sand bg-cream px-2 py-3">

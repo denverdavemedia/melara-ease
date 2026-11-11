@@ -108,7 +108,7 @@ $reviews = [
 function money($n) { global $currency; return $currency . number_format($n, $n == floor($n) ? 0 : 2); }
 ?>
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang="<?= $OfferApi->targetLanguage ?>" dir="<?= melaraTextDirection($OfferApi->targetLanguage) ?>" class="scroll-smooth">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -150,12 +150,12 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
 <main>
 
     <section class="relative overflow-hidden mesh-soft">
-        <div data-speed="-0.25" class="absolute -top-32 -right-32 w-[520px] h-[520px] blob bg-turq-soft/80 blur-2xl" aria-hidden="true"></div>
-        <div data-speed="0.2" class="absolute bottom-0 -left-40 w-[420px] h-[420px] blob bg-ocean-soft blur-2xl" aria-hidden="true"></div>
+        <div data-speed="-0.25" class="absolute -top-32 -end-32 w-[520px] h-[520px] blob bg-turq-soft/80 blur-2xl" aria-hidden="true"></div>
+        <div data-speed="0.2" class="absolute bottom-0 -start-40 w-[420px] h-[420px] blob bg-ocean-soft blur-2xl" aria-hidden="true"></div>
 
         <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-10 pb-5 lg:pt-16 lg:pb-28 grid lg:grid-cols-12 gap-12 items-center">
             <div class="lg:col-span-7">
-                <p class="reveal inline-flex items-center gap-2 rounded-full bg-white/70 border border-sand pl-1.5 pr-4 py-1.5 text-xs font-medium text-muted">
+                <p class="reveal inline-flex items-center gap-2 rounded-full bg-white/70 border border-sand ps-1.5 pe-4 py-1.5 text-xs font-medium text-muted">
                     <span class="flex -space-x-2"><?php foreach (['review-ang', 'review-kim', 'review-yoshiko', 'review-bert'] as $av): ?><img src="assets/img/user/<?= $av ?>.png" alt="" width="24" height="24" class="w-6 h-6 rounded-full object-cover ring-2 ring-white"><?php endforeach; ?></span>
                     <span class="text-amber-500">★★★★★</span> <?= $collector->translate('hero2_loved', 'Loved by 12,400+ customers') ?>
                 </p>
@@ -187,7 +187,7 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
                 <!-- Phone: 3 portrait cards side by side. Tablet and up: horizontal pills -->
                 <ul class="reveal mt-9 grid grid-cols-3 gap-2 sm:flex sm:flex-wrap sm:gap-3 lg:flex-nowrap lg:gap-2.5" data-delay="4">
                     <?php foreach ($heroPerks as [$t, $sub, $icon]): ?>
-                        <li class="group flex flex-col items-center text-center gap-2 px-2 py-3.5 sm:flex-row sm:text-left sm:gap-3 lg:gap-2.5 lg:flex-1 lg:min-w-0 rounded-2xl bg-white/80 backdrop-blur-sm border border-sand sm:pl-2 sm:pr-4 lg:pr-3 sm:py-2 shadow-[0_8px_24px_-16px_rgba(29,34,38,.35)] hover:-translate-y-0.5 hover:border-turq/40 transition">
+                        <li class="group flex flex-col items-center text-center gap-2 px-2 py-3.5 sm:flex-row sm:text-start sm:gap-3 lg:gap-2.5 lg:flex-1 lg:min-w-0 rounded-2xl bg-white/80 backdrop-blur-sm border border-sand sm:ps-2 sm:pe-4 lg:pe-3 sm:py-2 shadow-[0_8px_24px_-16px_rgba(29,34,38,.35)] hover:-translate-y-0.5 hover:border-turq/40 transition">
                             <span class="grid place-items-center shrink-0 w-9 h-9 rounded-xl bg-turq-soft text-turq-ink group-hover:bg-turq group-hover:text-ink transition">
                                 <svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><?= $icon ?></svg>
                             </span>
@@ -207,7 +207,7 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
                         <?= photo($img['hero'], 'Woman in her 60s with a cup of tea, sitting upright on the Melara Sitora cushion on a dining chair at home', 'w-full h-full', 'hero.webp', true) ?>
                     </div>
                 </div>
-                <div class="absolute right-3 sm:-right-6 top-full -mt-6 bg-white rounded-2xl shadow-xl px-5 py-4 max-w-[250px] animate-float">
+                <div class="absolute end-3 sm:-end-6 top-full -mt-6 bg-white rounded-2xl shadow-xl px-5 py-4 max-w-[250px] animate-float">
                     <p class="text-amber-500 text-sm">★★★★★</p>
                     <p class="mt-1 text-sm leading-snug"><?= $collector->translate('hero2_review', '“I can sit through a whole film again without getting up every twenty minutes.”') ?></p>
                     <p class="mt-3 flex items-center gap-2 text-xs text-muted"><img src="assets/img/user/review-ang.png" alt="" width="28" height="28" class="w-7 h-7 rounded-full object-cover"> <?= $collector->translate('hero2_review_by', 'Margaret, retired teacher') ?></p>
@@ -234,7 +234,7 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
     ?>
     <section class="border-y border-sand bg-soft-gray py-6 overflow-hidden" aria-label="As seen in">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row md:items-center gap-4 md:gap-10">
-            <p class="shrink-0 text-xs font-medium uppercase tracking-[.25em] text-muted text-center md:text-left"><?= $collector->translate('idx_as_seen_in', 'As seen in') ?></p>
+            <p class="shrink-0 text-xs font-medium uppercase tracking-[.25em] text-muted text-center md:text-start"><?= $collector->translate('idx_as_seen_in', 'As seen in') ?></p>
             <div class="relative flex-1 overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_10%,#000_90%,transparent)]">
                 <div class="flex w-max animate-marquee items-center gap-14 sm:gap-20 whitespace-nowrap hover:[animation-play-state:paused]" style="animation-duration: 45s;">
                     <?php for ($r = 0; $r < 2; $r++): foreach ($press as $p): ?>
@@ -254,8 +254,8 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
     <!-- Where it hurts: three pain areas of the body (images are placeholders until generated) -->
     <?php
     $painAreas = [
-        ['img' => 'assets/img/v2/pain-back.webp',     'alt' => 'Woman in her 60s sitting, hand on her lower back, with the lower back glowing red', 't' => $collector->translate('pa_0_t', 'Lower back'),        'd' => $collector->translate('pa_0_d', 'A dull ache that builds through the day and stiffens when you stand up.')],
         ['img' => 'assets/img/v2/pain-tailbone.webp', 'alt' => 'Woman in her 60s shifting on a hard chair, with the tailbone and hips glowing red',  't' => $collector->translate('pa_1_t', 'Tailbone and hips'), 'd' => $collector->translate('pa_1_d', 'Sharp pressure at the base of your spine every time you sit down.')],
+        ['img' => 'assets/img/v2/pain-back.webp',     'alt' => 'Woman in her 60s sitting, hand on her lower back, with the lower back glowing red', 't' => $collector->translate('pa_0_t', 'Lower back'),        'd' => $collector->translate('pa_0_d', 'A dull ache that builds through the day and stiffens when you stand up.')],
         ['img' => 'assets/img/v2/pain-leg.webp',      'alt' => 'Woman in her 60s rubbing the back of her thigh, with the sciatic nerve path glowing red from buttock to knee', 't' => $collector->translate('pa_2_t', 'Back of the leg'), 'd' => $collector->translate('pa_2_d', 'Sciatic discomfort that runs from your buttock down the back of your thigh.')],
     ];
     ?>
@@ -270,7 +270,7 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
                     <article class="reveal rounded-[1.75rem] overflow-hidden bg-white border border-sand/70 shadow-[0_20px_50px_-35px_rgba(29,34,38,.35)]" data-delay="<?= $i + 1 ?>">
                         <div class="relative aspect-square">
                             <?= photo($pa['img'], $pa['alt'], 'w-full h-full', basename($pa['img'])) ?>
-                            <span class="badge-ping absolute top-4 left-4 grid place-items-center w-9 h-9 rounded-full bg-red-500 text-white text-sm font-bold shadow-lg"><?= $i + 1 ?></span>
+                            <span class="badge-ping absolute top-4 start-4 grid place-items-center w-9 h-9 rounded-full bg-red-500 text-white text-sm font-bold shadow-lg"><?= $i + 1 ?></span>
                         </div>
                         <div class="p-5 sm:p-6">
                             <h3 class="flex items-center gap-2 font-semibold text-lg"><span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse" aria-hidden="true"></span><?= $pa['t'] ?></h3>
@@ -289,11 +289,11 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
                 <div class="relative aspect-[4/5] rounded-[2.5rem] overflow-hidden" data-ba-loop>
                     <div class="ba-slide is-on absolute inset-0">
                         <?= photo('assets/img/v2/pain-before.webp', 'Woman in her 60s holding her lower back in pain as she sits on a hard dining chair', 'w-full h-full', 'pain-before.webp') ?>
-                        <span class="absolute top-4 left-4 inline-flex items-center gap-2 rounded-full bg-red-500 px-4 py-2 text-sm font-semibold text-white shadow-lg"><span aria-hidden="true">✕</span> <?= $collector->translate('ba_before', 'Before: a hard, flat chair') ?></span>
+                        <span class="absolute top-4 start-4 inline-flex items-center gap-2 rounded-full bg-red-500 px-4 py-2 text-sm font-semibold text-white shadow-lg"><span aria-hidden="true">✕</span> <?= $collector->translate('ba_before', 'Before: a hard, flat chair') ?></span>
                     </div>
                     <div class="ba-slide absolute inset-0">
                         <?= photo('assets/img/v2/pain-after.webp', 'The same woman smiling and sitting comfortably on the Melara Sitora cushion on the same dining chair', 'w-full h-full', 'pain-after.webp') ?>
-                        <span class="absolute top-4 left-4 inline-flex items-center gap-2 rounded-full bg-turq px-4 py-2 text-sm font-semibold text-ink shadow-lg"><span aria-hidden="true">✓</span> <?= $collector->translate('ba_after', 'After: with Melara Sitora') ?></span>
+                        <span class="absolute top-4 start-4 inline-flex items-center gap-2 rounded-full bg-turq px-4 py-2 text-sm font-semibold text-ink shadow-lg"><span aria-hidden="true">✓</span> <?= $collector->translate('ba_after', 'After: with Melara Sitora') ?></span>
                     </div>
                     <div class="absolute bottom-4 inset-x-0 flex justify-center gap-2" aria-hidden="true">
                         <span class="ba-dot is-on"></span><span class="ba-dot"></span>
@@ -357,7 +357,7 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
                     <?php endforeach; ?>
                 </ol>
                 <div class="lg:col-start-7 lg:col-span-6">
-                <div class="reveal  flex flex-col items-center sm:items-start text-center sm:text-left gap-3">
+                <div class="reveal  flex flex-col items-center sm:items-start text-center sm:text-start gap-3">
                     <a href="checkout.php?pack=2" class="group inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full bg-turq px-7 py-4 font-semibold text-ink shadow-[0_14px_30px_-12px_rgba(29,209,161,.6)] hover:bg-turq-dark hover:-translate-y-0.5 transition">
                         <?= $collector->translate('cta_sol', 'Feel all five zones') ?>
                         <svg class="w-4 h-4 transition group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -394,28 +394,28 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
                     <div class="divide-y divide-sand">
                         <div class="grid sm:grid-cols-[1.1fr_1fr_1fr] gap-1 sm:gap-4 px-5 py-4">
                             <p class="flex items-center gap-2 font-semibold text-ink"><span class="grid place-items-center w-6 h-6 shrink-0 rounded-full bg-ink text-cream text-[11px]">1</span><?= $collector->translate('sci_0_zone', 'Lower back (lumbar spine)') ?></p>
-                            <p class="text-muted"><span class="text-rose-400 mr-1" aria-hidden="true">●</span><?= $collector->translate('sci_0_flat', 'Unsupported, so muscles strain to hold you up') ?></p>
-                            <p class="text-ink"><span class="text-turq mr-1" aria-hidden="true">●</span><?= $collector->translate('sci_0_mel', 'Supported by the curved backrest') ?></p>
+                            <p class="text-muted"><span class="text-rose-400 me-1" aria-hidden="true">●</span><?= $collector->translate('sci_0_flat', 'Unsupported, so muscles strain to hold you up') ?></p>
+                            <p class="text-ink"><span class="text-turq me-1" aria-hidden="true">●</span><?= $collector->translate('sci_0_mel', 'Supported by the curved backrest') ?></p>
                         </div>
                         <div class="grid sm:grid-cols-[1.1fr_1fr_1fr] gap-1 sm:gap-4 px-5 py-4">
                             <p class="flex items-center gap-2 font-semibold text-ink"><span class="grid place-items-center w-6 h-6 shrink-0 rounded-full bg-ink text-cream text-[11px]">2</span><?= $collector->translate('sci_1_zone', 'Tailbone (coccyx)') ?></p>
-                            <p class="text-muted"><span class="text-rose-400 mr-1" aria-hidden="true">●</span><?= $collector->translate('sci_1_flat', 'Pressed against the seat') ?></p>
-                            <p class="text-ink"><span class="text-turq mr-1" aria-hidden="true">●</span><?= $collector->translate('sci_1_mel', 'Suspended over the hollow vent') ?></p>
+                            <p class="text-muted"><span class="text-rose-400 me-1" aria-hidden="true">●</span><?= $collector->translate('sci_1_flat', 'Pressed against the seat') ?></p>
+                            <p class="text-ink"><span class="text-turq me-1" aria-hidden="true">●</span><?= $collector->translate('sci_1_mel', 'Suspended over the hollow vent') ?></p>
                         </div>
                         <div class="grid sm:grid-cols-[1.1fr_1fr_1fr] gap-1 sm:gap-4 px-5 py-4">
                             <p class="flex items-center gap-2 font-semibold text-ink"><span class="grid place-items-center w-6 h-6 shrink-0 rounded-full bg-ink text-cream text-[11px]">3</span><?= $collector->translate('sci_2_zone', 'Sit bones and buttocks') ?></p>
-                            <p class="text-muted"><span class="text-rose-400 mr-1" aria-hidden="true">●</span><?= $collector->translate('sci_2_flat', 'Carry most of your weight') ?></p>
-                            <p class="text-ink"><span class="text-turq mr-1" aria-hidden="true">●</span><?= $collector->translate('sci_2_mel', 'Weight spread across the contoured seat') ?></p>
+                            <p class="text-muted"><span class="text-rose-400 me-1" aria-hidden="true">●</span><?= $collector->translate('sci_2_flat', 'Carry most of your weight') ?></p>
+                            <p class="text-ink"><span class="text-turq me-1" aria-hidden="true">●</span><?= $collector->translate('sci_2_mel', 'Weight spread across the contoured seat') ?></p>
                         </div>
                         <div class="grid sm:grid-cols-[1.1fr_1fr_1fr] gap-1 sm:gap-4 px-5 py-4">
                             <p class="flex items-center gap-2 font-semibold text-ink"><span class="grid place-items-center w-6 h-6 shrink-0 rounded-full bg-ink text-cream text-[11px]">4</span><?= $collector->translate('sci_3_zone', 'Back of the thighs') ?></p>
-                            <p class="text-muted"><span class="text-rose-400 mr-1" aria-hidden="true">●</span><?= $collector->translate('sci_3_flat', 'Pressure builds along the sciatic nerve path') ?></p>
-                            <p class="text-ink"><span class="text-turq mr-1" aria-hidden="true">●</span><?= $collector->translate('sci_3_mel', 'Thighs kept level and evenly supported') ?></p>
+                            <p class="text-muted"><span class="text-rose-400 me-1" aria-hidden="true">●</span><?= $collector->translate('sci_3_flat', 'Pressure builds along the sciatic nerve path') ?></p>
+                            <p class="text-ink"><span class="text-turq me-1" aria-hidden="true">●</span><?= $collector->translate('sci_3_mel', 'Thighs kept level and evenly supported') ?></p>
                         </div>
                     </div>
                 </div>
 
-                <div class="reveal mt-6 flex flex-col items-center sm:items-start text-center sm:text-left gap-3">
+                <div class="reveal mt-6 flex flex-col items-center sm:items-start text-center sm:text-start gap-3">
                     <a href="checkout.php?pack=2" class="group inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full bg-turq px-7 py-4 font-semibold text-ink shadow-[0_14px_30px_-12px_rgba(29,209,161,.6)] hover:bg-turq-dark hover:-translate-y-0.5 transition">
                         <?= $collector->translate('cta_sci', 'Ease the pressure today') ?>
                         <svg class="w-4 h-4 transition group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -445,7 +445,7 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
                             <path class="draw-line" d="M24,3 C32,10 36.5,20 37.5,29 S40,36 47,35.5" fill="none" stroke="#1dd1a1" stroke-width="1.1" stroke-linecap="round" stroke-dasharray="2.2 1.6"/>
                             <circle cx="34.8" cy="17" r="1.6" fill="#1dd1a1"/><circle cx="34.8" cy="17" r="3.2" fill="#1dd1a1" opacity=".25"/>
                         </svg>
-                        <span class="absolute left-[40%] top-[14%] rounded-full bg-white border border-sand shadow-sm px-3 py-1 text-xs font-semibold text-ink whitespace-nowrap"><?= $collector->translate('pos_side_label', 'Follows your lower-back curve') ?></span>
+                        <span class="absolute start-[40%] top-[14%] rounded-full bg-white border border-sand shadow-sm px-3 py-1 text-xs font-semibold text-ink whitespace-nowrap"><?= $collector->translate('pos_side_label', 'Follows your lower-back curve') ?></span>
                     </div>
                     <h3 class="mt-4 font-serif text-2xl"><?= $collector->translate('pos_side_t', 'Your spine, naturally straight') ?></h3>
                     <p class="mt-2 text-muted leading-relaxed"><?= $collector->translate('pos_side_d', 'The backrest follows the natural curve of your lower back, helping keep your spine in healthy alignment, so good posture takes less effort.') ?></p>
@@ -562,13 +562,13 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
                 <p class="reveal text-sm font-medium uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('spec_eyebrow', 'Product parameters') ?></p>
                 <h2 class="reveal mt-4 font-serif text-4xl sm:text-5xl leading-tight sm:leading-none tracking-tight" data-delay="1"><?= $collector->translate('spec_heading', 'Made to fit') ?> <em class="text-turq-ink"><?= $collector->translate('spec_heading_2', 'your chair.') ?></em></h2>
                 <dl class="reveal mt-8 divide-y divide-sand rounded-2xl border border-sand bg-white text-sm sm:text-[15px]" data-delay="2">
-                    <div class="flex justify-between gap-6 px-5 py-4"><dt class="text-muted"><?= $collector->translate('spec_size_k', 'Size (W × D × H)') ?></dt><dd class="font-semibold text-right"><?= $collector->translate('spec2_size_v', '44 × 42 × 32 cm<br><span class="font-normal text-muted">17.3 × 16.5 × 12.6 in</span>') ?></dd></div>
-                    <div class="flex justify-between gap-6 px-5 py-4"><dt class="text-muted"><?= $collector->translate('spec_fit_k', 'Fits') ?></dt><dd class="font-semibold text-right"><?= $collector->translate('spec2_fit_v', 'Chair seats 44 cm (17.3 in) wide or more') ?></dd></div>
-                    <div class="flex justify-between gap-6 px-5 py-4"><dt class="text-muted"><?= $collector->translate('spec_design_k', 'Design') ?></dt><dd class="font-semibold text-right"><?= $collector->translate('spec_design_v', 'One-piece seat and backrest') ?></dd></div>
-                    <div class="flex justify-between gap-6 px-5 py-4"><dt class="text-muted"><?= $collector->translate('spec_fabric_k', 'Cover') ?></dt><dd class="font-semibold text-right"><?= $collector->translate('spec_fabric_v', 'Skin-friendly fabric') ?></dd></div>
-                    <div class="flex justify-between gap-6 px-5 py-4"><dt class="text-muted"><?= $collector->translate('spec_fill_k', 'Filling') ?></dt><dd class="font-semibold text-right"><?= $collector->translate('spec_fill_v', 'Slow-rebound memory foam') ?></dd></div>
-                    <div class="flex justify-between gap-6 px-5 py-4"><dt class="text-muted"><?= $collector->translate('spec_base_k', 'Base') ?></dt><dd class="font-semibold text-right"><?= $collector->translate('spec_base_v', 'Silicone anti-slip dots') ?></dd></div>
-                    <div class="flex justify-between gap-6 px-5 py-4"><dt class="text-muted"><?= $collector->translate('spec_vent_k', 'Tailbone') ?></dt><dd class="font-semibold text-right"><?= $collector->translate('spec_vent_v', 'Hollow, breathable vent') ?></dd></div>
+                    <div class="flex justify-between gap-6 px-5 py-4"><dt class="text-muted"><?= $collector->translate('spec_size_k', 'Size (W × D × H)') ?></dt><dd class="font-semibold text-end"><?= $collector->translate('spec2_size_v', '44 × 42 × 32 cm<br><span class="font-normal text-muted">17.3 × 16.5 × 12.6 in</span>') ?></dd></div>
+                    <div class="flex justify-between gap-6 px-5 py-4"><dt class="text-muted"><?= $collector->translate('spec_fit_k', 'Fits') ?></dt><dd class="font-semibold text-end"><?= $collector->translate('spec2_fit_v', 'Chair seats 44 cm (17.3 in) wide or more') ?></dd></div>
+                    <div class="flex justify-between gap-6 px-5 py-4"><dt class="text-muted"><?= $collector->translate('spec_design_k', 'Design') ?></dt><dd class="font-semibold text-end"><?= $collector->translate('spec_design_v', 'One-piece seat and backrest') ?></dd></div>
+                    <div class="flex justify-between gap-6 px-5 py-4"><dt class="text-muted"><?= $collector->translate('spec_fabric_k', 'Cover') ?></dt><dd class="font-semibold text-end"><?= $collector->translate('spec_fabric_v', 'Skin-friendly fabric') ?></dd></div>
+                    <div class="flex justify-between gap-6 px-5 py-4"><dt class="text-muted"><?= $collector->translate('spec_fill_k', 'Filling') ?></dt><dd class="font-semibold text-end"><?= $collector->translate('spec_fill_v', 'Slow-rebound memory foam') ?></dd></div>
+                    <div class="flex justify-between gap-6 px-5 py-4"><dt class="text-muted"><?= $collector->translate('spec_base_k', 'Base') ?></dt><dd class="font-semibold text-end"><?= $collector->translate('spec_base_v', 'Silicone anti-slip dots') ?></dd></div>
+                    <div class="flex justify-between gap-6 px-5 py-4"><dt class="text-muted"><?= $collector->translate('spec_vent_k', 'Tailbone') ?></dt><dd class="font-semibold text-end"><?= $collector->translate('spec_vent_v', 'Hollow, breathable vent') ?></dd></div>
                 </dl>
                 <a href="checkout.php?pack=2" class="reveal group mt-8 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full bg-turq px-7 py-4 font-semibold text-ink shadow-[0_14px_30px_-12px_rgba(29,209,161,.6)] hover:bg-turq-dark transition" data-delay="3"><?= $collector->translate('spec_cta', 'Get 70% Discount') ?> <span class="transition group-hover:translate-x-1" aria-hidden="true">→</span></a>
             </div>
@@ -737,8 +737,8 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
             <p class="reveal mt-4 text-muted" data-delay="2"><?= $collector->translate('idx_4_9_out_of', '4.9 out of 5 from 12,400+ happy sitters') ?></p>
         </div>
         <div class="mt-8 lg:mt-14 relative">
-            <div class="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-40 bg-linear-to-r/srgb from-linen to-transparent z-10"></div>
-            <div class="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-40 bg-linear-to-l/srgb from-linen to-transparent z-10"></div>
+            <div class="pointer-events-none absolute inset-y-0 start-0 w-16 sm:w-40 bg-linear-to-r/srgb from-linen to-transparent z-10"></div>
+            <div class="pointer-events-none absolute inset-y-0 end-0 w-16 sm:w-40 bg-linear-to-l/srgb from-linen to-transparent z-10"></div>
             <div class="flex w-max animate-marquee gap-5 hover:[animation-play-state:paused] select-none" style="animation-duration: 55s;" data-marquee-drag>
                 <?php $verifiedBuyer = $collector->translate('idx_verified_buyer', 'Verified buyer'); // translated once, used on every review card ?>
                 <?php for ($r = 0; $r < 2; $r++): foreach ($reviews as $rv): ?>
@@ -751,7 +751,7 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
                                 <span class="block font-semibold"><?= $rv['name'] ?></span>
                                 <span class="block text-xs text-muted"><?= $rv['role'] ?></span>
                             </span>
-                            <span class="ml-auto inline-flex items-center gap-1 rounded-full bg-turq-soft/70 border border-turq/30 pl-1 pr-2.5 py-0.5 text-[11px] font-semibold text-turq-ink whitespace-nowrap">
+                            <span class="ms-auto inline-flex items-center gap-1 rounded-full bg-turq-soft/70 border border-turq/30 ps-1 pe-2.5 py-0.5 text-[11px] font-semibold text-turq-ink whitespace-nowrap">
                                 <svg viewBox="0 0 24 24" class="w-4 h-4" aria-hidden="true"><path fill="#1dd1a1" d="M12 2 4 5v6.1c0 5 3.4 9.4 8 10.9 4.6-1.5 8-5.9 8-10.9V5l-8-3z"/><path d="M12 2v20c4.6-1.5 8-5.9 8-10.9V5l-8-3z" fill="#14b88c"/><path d="m8.6 12 2.4 2.4 4.4-4.6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                                 <?= $verifiedBuyer ?>
                             </span>
@@ -1067,7 +1067,6 @@ $address      = $OfferApi->companyAddress;
 <script src="public/js/index.js?t=<?= $OfferApi->assetVersion('public/js/index.js') ?>"></script>
 <!-- Everflow SDK + funnel events (offer 84) -->
 <script src="https://www.b04jdmd.com/scripts/main.js" defer></script>
-<script src="public/js/ef-events.js?t=<?= $OfferApi->assetVersion('public/js/ef-events.js') ?>"></script>
 </body>
 </html>
 

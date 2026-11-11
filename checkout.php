@@ -27,7 +27,7 @@ $product  = $collector->translate('product_name', 'Melara Sitora');
 $freeText = $collector->translate('co_free', 'Free');
 ?>
 <!doctype html>
-<html lang="en">
+<html lang="<?= $OfferApi->targetLanguage ?>" dir="<?= melaraTextDirection($OfferApi->targetLanguage) ?>">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -114,9 +114,9 @@ $freeText = $collector->translate('co_free', 'Free');
                            data-price="<?= $row->price ?>" data-compare="<?= $retailPrice ?>" data-shipping="<?= $row->shippingPrice ?>" data-label="<?= htmlspecialchars($label) ?>">
                     <div class="pack-body h-full rounded-2xl border-2 border-sand bg-white p-4 pt-5 flex items-center gap-3">
                         <?php if ($qty == 2): ?>
-                            <span class="absolute -top-3 left-4 rounded-full px-3 py-0.5 text-[11px] font-semibold uppercase tracking-wide bg-turq text-ink"><?= $collector->translate('pack_2_badge', 'Most popular') ?></span>
+                            <span class="absolute -top-3 start-4 rounded-full px-3 py-0.5 text-[11px] font-semibold uppercase tracking-wide bg-turq text-ink"><?= $collector->translate('pack_2_badge', 'Most popular') ?></span>
                         <?php elseif ($qty == 4): ?>
-                            <span class="absolute -top-3 left-4 rounded-full px-3 py-0.5 text-[11px] font-semibold uppercase tracking-wide bg-ink text-white"><?= $collector->translate('pack_4_badge', 'Best value') ?></span>
+                            <span class="absolute -top-3 start-4 rounded-full px-3 py-0.5 text-[11px] font-semibold uppercase tracking-wide bg-ink text-white"><?= $collector->translate('pack_4_badge', 'Best value') ?></span>
                         <?php endif; ?>
                         <div class="stack relative w-[42%] aspect-square shrink-0 rounded-xl bg-linen grid place-items-center overflow-hidden">
                             <?php // one copy per cushion, fanned from top-left (back) to bottom-right (front)
@@ -162,7 +162,7 @@ $freeText = $collector->translate('co_free', 'Free');
                 <div class="flex items-center gap-4">
                     <div class="relative w-16 h-16 shrink-0 rounded-xl bg-white grid place-items-center">
                         <img src="assets/img/anatomy-assembled.webp?t=<?= $OfferApi->assetVersion('assets/img/anatomy-assembled.webp') ?>" alt="" class="w-14">
-                        <span id="sumQty" class="absolute -top-2 -right-2 grid place-items-center w-6 h-6 rounded-full bg-turq text-ink text-xs font-bold"><?= $selected ?></span>
+                        <span id="sumQty" class="absolute -top-2 -end-2 grid place-items-center w-6 h-6 rounded-full bg-turq text-ink text-xs font-bold"><?= $selected ?></span>
                     </div>
                     <div class="flex-1">
                         <p class="font-semibold"><?= $product ?> — <span id="sumLabel"><?= $sel['label'] ?></span></p>
@@ -514,7 +514,6 @@ $address      = $OfferApi->companyAddress;
 <script src="public/js/checkout.js?t=<?= $OfferApi->assetVersion('public/js/checkout.js') ?>"></script>
 <!-- Everflow SDK + funnel events (offer 84) -->
 <script src="https://www.b04jdmd.com/scripts/main.js" defer></script>
-<script src="public/js/ef-events.js?t=<?= $OfferApi->assetVersion('public/js/ef-events.js') ?>"></script>
 </body>
 </html>
 

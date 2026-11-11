@@ -92,6 +92,9 @@ body.popup-open { overflow: hidden; }
     transition: transform .5s cubic-bezier(.2,.9,.25,1.4), background-color .4s, color .4s, box-shadow .4s;
 }
 @media (min-width: 1024px) { .road-node { left: var(--x-desktop); } }
+/* RTL: mirror the stops (the road is drawn through them, so it follows) */
+[dir="rtl"] .road-node { left: calc(100% - var(--x-mobile)); }
+@media (min-width: 1024px) { [dir="rtl"] .road-node { left: calc(100% - var(--x-desktop)); } }
 .road-reveal .road-node { top: 0; }
 .is-lit > .road-node { transform: translate(-50%, -50%) scale(1); background: #1dd1a1; color: #1d2226; box-shadow: 0 0 0 6px rgba(29,209,161,.22), 0 0 40px rgba(29,209,161,.65); }
 .is-lit > .road-node::after { content: ""; position: absolute; inset: -6px; border-radius: 9999px; border: 2px solid #1dd1a1; animation: nodePing 1.2s ease-out forwards; }
@@ -113,6 +116,9 @@ body.popup-open { overflow: hidden; }
 @media (min-width: 1024px) {
     .road-ready [data-side="left"] .road-card  { transform: translateX(-36px); }
     .road-ready [data-side="right"] .road-card { transform: translateX(36px); }
+    /* RTL: the grid columns swap, so each card slides in from the other side */
+    [dir="rtl"] .road-ready [data-side="left"]:not(.is-lit) .road-card  { transform: translateX(36px); }
+    [dir="rtl"] .road-ready [data-side="right"]:not(.is-lit) .road-card { transform: translateX(-36px); }
 }
 .road-ready .is-lit .road-card { opacity: 1; transform: none; }
 .road-ready .reveal-img { filter: blur(18px) grayscale(.7) brightness(1.15); transform: scale(.86); transition: filter 1.1s ease, transform 1.1s cubic-bezier(.2,.9,.25,1.15); }

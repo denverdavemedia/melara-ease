@@ -13,7 +13,7 @@ $retail   = round($price / (1 - 0.7), 2); // crossed-out price: 70% off
 $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
 ?>
 <!doctype html>
-<html lang="<?= $OfferApi->targetLanguage ?>" class="scroll-smooth">
+<html lang="<?= $OfferApi->targetLanguage ?>" dir="<?= melaraTextDirection($OfferApi->targetLanguage) ?>" class="scroll-smooth">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -45,32 +45,37 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
         <img src="assets/img/logo.svg" alt="Melara" class="h-8 sm:h-9 w-auto shrink-0" width="190" height="49">
 
-        <ol class="hidden md:flex items-center gap-2 text-xs font-medium text-muted" aria-label="<?= $collector->translate('progress_label', 'Order progress') ?>">
+        <ol class="hidden md:flex items-center gap-2 text-xs font-medium text-muted whitespace-nowrap" aria-label="<?= $collector->translate('progress_label', 'Order progress') ?>">
             <li class="flex items-center gap-2">
                 <span class="grid place-items-center w-5 h-5 rounded-full bg-turq text-ink text-[10px]">✓</span>
-                <span class="hidden lg:inline"><?= $collector->translate('progress_order', 'Order placed') ?></span>
+                <span class="hidden xl:inline"><?= $collector->translate('progress_order', 'Order placed') ?></span>
             </li>
-            <li class="w-6 lg:w-8 h-px bg-turq" aria-hidden="true"></li>
+            <li class="w-4 xl:w-8 h-px bg-turq" aria-hidden="true"></li>
             <li class="flex items-center gap-2 text-ink" aria-current="step">
                 <span class="grid place-items-center w-6 h-6 rounded-full bg-ink text-cream text-[11px] shadow-[0_0_0_4px_rgba(29,209,161,.25)]">1</span>
                 <span><?= $collector->translate('step_extra-seat-cushion', 'Extra cushion') ?></span>
             </li>
-            <li class="w-6 lg:w-8 h-px bg-sand" aria-hidden="true"></li>
+            <li class="w-4 xl:w-8 h-px bg-sand" aria-hidden="true"></li>
             <li class="flex items-center gap-2">
                 <span class="grid place-items-center w-5 h-5 rounded-full border border-sand text-[10px]">2</span>
-                <span class="hidden lg:inline"><?= $collector->translate('step_knee-pillow', 'Knee pillow') ?></span>
+                <span class="hidden xl:inline"><?= $collector->translate('step_melara-apex-pillow', 'Apex pillow') ?></span>
             </li>
-            <li class="w-6 lg:w-8 h-px bg-sand" aria-hidden="true"></li>
+            <li class="w-4 xl:w-8 h-px bg-sand" aria-hidden="true"></li>
             <li class="flex items-center gap-2">
                 <span class="grid place-items-center w-5 h-5 rounded-full border border-sand text-[10px]">3</span>
-                <span class="hidden lg:inline"><?= $collector->translate('step_melara-apex-pillow', 'Apex pillow') ?></span>
+                <span class="hidden xl:inline"><?= $collector->translate('step_pillowcases', 'Pillowcases') ?></span>
             </li>
-            <li class="w-6 lg:w-8 h-px bg-sand" aria-hidden="true"></li>
+            <li class="w-4 xl:w-8 h-px bg-sand" aria-hidden="true"></li>
+            <li class="flex items-center gap-2">
+                <span class="grid place-items-center w-5 h-5 rounded-full border border-sand text-[10px]">4</span>
+                <span class="hidden xl:inline"><?= $collector->translate('step_knee-pillow', 'Knee pillow') ?></span>
+            </li>
+            <li class="w-4 xl:w-8 h-px bg-sand" aria-hidden="true"></li>
             <li class="flex items-center gap-2">
                 <span class="grid place-items-center w-5 h-5 rounded-full border border-sand" aria-hidden="true">
                     <svg viewBox="0 0 24 24" class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><path d="m9.5 14 2 2 3.5-4"/></svg>
                 </span>
-                <span class="hidden lg:inline"><?= $collector->translate('progress_confirmation', 'Confirmation') ?></span>
+                <span class="hidden xl:inline"><?= $collector->translate('progress_confirmation', 'Confirmation') ?></span>
             </li>
         </ol>
 
@@ -79,12 +84,13 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
 
     <div class="md:hidden px-4 pb-3">
         <p class="text-[11px] font-medium text-muted">
-            <?= $collector->translate('progress_offer', 'Special offer') ?> 1/3 ·
+            <?= $collector->translate('progress_offer', 'Special offer') ?> 1/4 ·
             <span class="text-ink"><?= $collector->translate('step_extra-seat-cushion_2', 'Extra cushion') ?></span>
         </p>
         <div class="mt-1.5 flex gap-1" aria-hidden="true">
             <span class="h-1 flex-1 rounded-full bg-turq"></span>
             <span class="h-1 flex-1 rounded-full bg-turq"></span>
+            <span class="h-1 flex-1 rounded-full bg-sand"></span>
             <span class="h-1 flex-1 rounded-full bg-sand"></span>
             <span class="h-1 flex-1 rounded-full bg-sand"></span>
             <span class="h-1 flex-1 rounded-full bg-sand"></span>
@@ -94,8 +100,8 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
 
 <main>
     <section class="relative overflow-hidden mesh-soft">
-        <div class="absolute -top-32 -right-32 w-[520px] h-[520px] blob bg-turq-soft/80 blur-2xl" aria-hidden="true"></div>
-        <div class="absolute bottom-0 -left-40 w-[420px] h-[420px] blob bg-[#e6f9f3] blur-2xl" aria-hidden="true"></div>
+        <div class="absolute -top-32 -end-32 w-[520px] h-[520px] blob bg-turq-soft/80 blur-2xl" aria-hidden="true"></div>
+        <div class="absolute bottom-0 -start-40 w-[420px] h-[420px] blob bg-[#e6f9f3] blur-2xl" aria-hidden="true"></div>
 
         <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-5 sm:pt-8 pb-5 lg:pt-12 lg:pb-24">
 
@@ -108,7 +114,7 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
                 </h1>
                 <p class="reveal mt-3 sm:mt-5 text-[15px] sm:text-lg text-muted leading-relaxed sm:leading-7 max-w-2xl mx-auto" data-delay="2"><?= $collector->translate('lead2', 'Your back needs support on every chair, not just one. Add a second Melara Sitora for your reading chair, the dining table or the study, at our lowest price.') ?></p>
 
-                <ul class="reveal mt-4 sm:mt-7 mx-auto max-w-xl lg:max-w-none grid grid-cols-2 gap-x-3 gap-y-2.5 sm:gap-y-3 rounded-2xl bg-white/80 backdrop-blur-sm border border-sand p-3 sm:p-4 text-left shadow-[0_20px_40px_-30px_rgba(29,34,38,.45)]
+                <ul class="reveal mt-4 sm:mt-7 mx-auto max-w-xl lg:max-w-none grid grid-cols-2 gap-x-3 gap-y-2.5 sm:gap-y-3 rounded-2xl bg-white/80 backdrop-blur-sm border border-sand p-3 sm:p-4 text-start shadow-[0_20px_40px_-30px_rgba(29,34,38,.45)]
                            lg:inline-flex lg:flex-nowrap lg:justify-center lg:items-center lg:gap-0 lg:rounded-full lg:px-3 lg:py-2.5" data-delay="3">
                     <li class="flex items-center gap-2 text-[13px] sm:text-sm font-medium leading-tight sm:leading-5 lg:px-4 lg:whitespace-nowrap">
                         <span class="shrink-0 grid place-items-center w-5 h-5 rounded-full bg-turq text-ink shadow-[0_0_0_3px_rgba(29,209,161,.18)]" aria-hidden="true">
@@ -116,19 +122,19 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
                         </span>
                         <?= $collector->translate('chip_0_t', 'Wave-shaped backrest') ?>
                     </li>
-                    <li class="flex items-center gap-2 text-[13px] sm:text-sm font-medium leading-tight sm:leading-5 lg:px-4 lg:whitespace-nowrap lg:border-l lg:border-sand">
+                    <li class="flex items-center gap-2 text-[13px] sm:text-sm font-medium leading-tight sm:leading-5 lg:px-4 lg:whitespace-nowrap lg:border-s lg:border-sand">
                         <span class="shrink-0 grid place-items-center w-5 h-5 rounded-full bg-turq text-ink shadow-[0_0_0_3px_rgba(29,209,161,.18)]" aria-hidden="true">
                             <svg viewBox="0 0 24 24" class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>
                         </span>
                         <?= $collector->translate('chip_1_t', 'Tailbone relief cut-out') ?>
                     </li>
-                    <li class="flex items-center gap-2 text-[13px] sm:text-sm font-medium leading-tight sm:leading-5 lg:px-4 lg:whitespace-nowrap lg:border-l lg:border-sand">
+                    <li class="flex items-center gap-2 text-[13px] sm:text-sm font-medium leading-tight sm:leading-5 lg:px-4 lg:whitespace-nowrap lg:border-s lg:border-sand">
                         <span class="shrink-0 grid place-items-center w-5 h-5 rounded-full bg-turq text-ink shadow-[0_0_0_3px_rgba(29,209,161,.18)]" aria-hidden="true">
                             <svg viewBox="0 0 24 24" class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>
                         </span>
                         <?= $collector->translate('chip_2_t', 'Fits any chair') ?>
                     </li>
-                    <li class="flex items-center gap-2 text-[13px] sm:text-sm font-medium leading-tight sm:leading-5 lg:px-4 lg:whitespace-nowrap lg:border-l lg:border-sand">
+                    <li class="flex items-center gap-2 text-[13px] sm:text-sm font-medium leading-tight sm:leading-5 lg:px-4 lg:whitespace-nowrap lg:border-s lg:border-sand">
                         <span class="shrink-0 grid place-items-center w-5 h-5 rounded-full bg-turq text-ink shadow-[0_0_0_3px_rgba(29,209,161,.18)]" aria-hidden="true">
                             <svg viewBox="0 0 24 24" class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>
                         </span>
@@ -158,11 +164,11 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
                                 <img src="assets/img/upsell/cushion-hero.webp?t=<?= $OfferApi->assetVersion('assets/img/upsell/cushion-hero.webp') ?>" alt="Melara Sitora" class="w-full h-full object-cover" fetchpriority="high" decoding="async">                            <span class="sheen" aria-hidden="true"></span>
                             </div>
                         </div>
-                        <div class="absolute left-0 sm:-left-4 top-6 mesh text-cream rounded-2xl px-5 py-3 shadow-xl animate-float" style="--veil: rgba(29,34,38,.35); animation-delay: -2s">
+                        <div class="absolute start-0 sm:-start-4 top-6 mesh text-cream rounded-2xl px-5 py-3 shadow-xl animate-float" style="--veil: rgba(29,34,38,.35); animation-delay: -2s">
                             <p class="font-serif text-3xl leading-none">70%</p>
                             <p class="text-[11px] uppercase tracking-[.2em] text-turq-soft mt-1"><?= $collector->translate('badge_off', 'Off · today only') ?></p>
                         </div>
-                        <div class="absolute right-0 sm:-right-4 bottom-8 bg-white rounded-2xl shadow-xl px-5 py-4 max-w-[220px] animate-float" style="animation-delay: -4s">
+                        <div class="absolute end-0 sm:-end-4 bottom-8 bg-white rounded-2xl shadow-xl px-5 py-4 max-w-[220px] animate-float" style="animation-delay: -4s">
                             <p class="font-serif text-xl text-turq-ink"><?= $collector->translate('stat2_t', 'Tailbone relief') ?></p>
                             <p class="text-xs text-muted leading-snug"><?= $collector->translate('stat2_d', 'Hollow vent lifts pressure off your coccyx') ?></p>
                         </div>
@@ -189,7 +195,7 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
                                                class="stack-img w-[54%] drop-shadow-[0_8px_10px_rgba(29,34,38,.28)]">
                                     <img src="assets/img/anatomy-assembled.webp?t=<?= $OfferApi->assetVersion('assets/img/anatomy-assembled.webp') ?>" alt="" decoding="async" data-slot="0"
                                                class="stack-img w-[54%] drop-shadow-[0_8px_10px_rgba(29,34,38,.28)]">
-                                    <span class="qty-badge absolute z-10 top-1.5 right-1.5 hidden rounded-full bg-ink text-cream text-[11px] font-bold px-2 py-0.5 tabular-nums">×1</span>
+                                    <span class="qty-badge absolute z-10 top-1.5 end-1.5 hidden rounded-full bg-ink text-cream text-[11px] font-bold px-2 py-0.5 tabular-nums">×1</span>
                                 </div>
 
                                 <div class="flex-1 min-w-0 flex flex-col justify-between gap-2">
@@ -211,8 +217,11 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
                                 </div>
                             </div>
 
-                            <div class="qty-meter mt-2.5 h-1 rounded-full bg-sand overflow-hidden" aria-hidden="true">
-                                <span class="block h-full rounded-full bg-turq" style="width: <?= round(100 / $maxQty) ?>%"></span>
+                            <div class="qty-meter mt-3 flex items-center gap-3" aria-hidden="true">
+                                <div class="flex-1 h-2.5 rounded-full bg-sand/70 overflow-hidden shadow-[inset_0_1px_2px_rgba(29,34,38,.08)]">
+                                    <span class="qty-meter-fill block h-full rounded-full bg-gradient-to-r from-turq to-turq-dark transition-[width] duration-300 ease-out" style="width: <?= round(100 / $maxQty) ?>%"></span>
+                                </div>
+                                <span class="qty-meter-pct min-w-[3rem] rounded-full bg-turq-soft px-2 py-0.5 text-center text-xs font-bold tabular-nums text-turq-ink"><?= round(100 / $maxQty) ?>%</span>
                             </div>
                         </div>
 
@@ -339,7 +348,7 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
                                    style="--x-mobile: 28px; --x-desktop: calc(50% + 48px)">
                             <svg viewBox="0 0 24 24" class="w-7 h-7 lg:w-9 lg:h-9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>
                         </span>
-                        <div class="road-card ml-[76px] lg:ml-0 lg:col-start-1 lg:text-right rounded-[1.75rem] bg-white border border-sand p-5 sm:p-6 shadow-[0_30px_60px_-45px_rgba(29,34,38,.55)]">
+                        <div class="road-card ms-[76px] lg:ms-0 lg:col-start-1 lg:text-end rounded-[1.75rem] bg-white border border-sand p-5 sm:p-6 shadow-[0_30px_60px_-45px_rgba(29,34,38,.55)]">
                             <p class="text-xs font-semibold uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('road_stop_label', 'Stop') ?> 01</p>
                             <h3 class="mt-2 font-serif text-xl sm:text-2xl leading-snug sm:leading-8"><?= $collector->translate('road_stop_0_t', '8+ hours a day, sitting') ?></h3>
                             <p class="mt-2 text-sm sm:text-base text-muted leading-relaxed sm:leading-6"><?= $collector->translate('road2_stop_0_d', 'Breakfast, the morning paper, lunch, a film in the evening. Your lower back carries you through all of it.') ?></p>
@@ -350,7 +359,7 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
                                    style="--x-mobile: 36px; --x-desktop: calc(50% - 48px)">
                             <svg viewBox="0 0 24 24" class="w-7 h-7 lg:w-9 lg:h-9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3v7M5.5 7.5 8 10l2.5-2.5M16 3v7M13.5 7.5 16 10l2.5-2.5"/><path d="M4 15c2.5 2.5 13.5 2.5 16 0"/><path d="M4 19.5h16"/></svg>
                         </span>
-                        <div class="road-card ml-[76px] lg:ml-0 lg:col-start-2 rounded-[1.75rem] bg-white border border-sand p-5 sm:p-6 shadow-[0_30px_60px_-45px_rgba(29,34,38,.55)]">
+                        <div class="road-card ms-[76px] lg:ms-0 lg:col-start-2 rounded-[1.75rem] bg-white border border-sand p-5 sm:p-6 shadow-[0_30px_60px_-45px_rgba(29,34,38,.55)]">
                             <p class="text-xs font-semibold uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('road_stop_label_2', 'Stop') ?> 02</p>
                             <h3 class="mt-2 font-serif text-xl sm:text-2xl leading-snug sm:leading-8"><?= $collector->translate('road_stop_1_t', 'Pressure piles up on two small spots') ?></h3>
                             <p class="mt-2 text-sm sm:text-base text-muted leading-relaxed sm:leading-6"><?= $collector->translate('road2_stop_1_d', 'On a flat seat your weight sinks onto your tailbone and sit bones. By the afternoon, that pressure turns into an ache.') ?></p>
@@ -361,7 +370,7 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
                                    style="--x-mobile: 28px; --x-desktop: calc(50% + 48px)">
                             <svg viewBox="0 0 24 24" class="w-7 h-7 lg:w-9 lg:h-9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5c2.2-1.6 4.3-1.6 6.5 0s4.3 1.6 6.5 0 3.5-1.2 5-.8"/><path d="M3 14.5c2.2-1.6 4.3-1.6 6.5 0s4.3 1.6 6.5 0 3.5-1.2 5-.8"/><path d="M3 19.5h18"/></svg>
                         </span>
-                        <div class="road-card ml-[76px] lg:ml-0 lg:col-start-1 lg:text-right rounded-[1.75rem] bg-white border border-sand p-5 sm:p-6 shadow-[0_30px_60px_-45px_rgba(29,34,38,.55)]">
+                        <div class="road-card ms-[76px] lg:ms-0 lg:col-start-1 lg:text-end rounded-[1.75rem] bg-white border border-sand p-5 sm:p-6 shadow-[0_30px_60px_-45px_rgba(29,34,38,.55)]">
                             <p class="text-xs font-semibold uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('road_stop_label_3', 'Stop') ?> 03</p>
                             <h3 class="mt-2 font-serif text-xl sm:text-2xl leading-snug sm:leading-8"><?= $collector->translate('road_stop_2_t', 'Shape changes everything') ?></h3>
                             <p class="mt-2 text-sm sm:text-base text-muted leading-relaxed sm:leading-6"><?= $collector->translate('road_stop_2_d', 'Slow-rebound foam that spreads your weight, a cut-out that lets your tailbone float, and a backrest that keeps you upright.') ?></p>
@@ -372,7 +381,7 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
                                    style="--x-mobile: 36px; --x-desktop: calc(50% - 48px)">
                             <svg viewBox="0 0 24 24" class="w-7 h-7 lg:w-9 lg:h-9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5h13.5L14 4M20 16.5H6.5L10 20"/></svg>
                         </span>
-                        <div class="road-card ml-[76px] lg:ml-0 lg:col-start-2 rounded-[1.75rem] bg-white border border-sand p-5 sm:p-6 shadow-[0_30px_60px_-45px_rgba(29,34,38,.55)]">
+                        <div class="road-card ms-[76px] lg:ms-0 lg:col-start-2 rounded-[1.75rem] bg-white border border-sand p-5 sm:p-6 shadow-[0_30px_60px_-45px_rgba(29,34,38,.55)]">
                             <p class="text-xs font-semibold uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('road_stop_label_4', 'Stop') ?> 04</p>
                             <h3 class="mt-2 font-serif text-xl sm:text-2xl leading-snug sm:leading-8"><?= $collector->translate('road_stop_3_t', 'And it shouldn\'t stay in one chair') ?></h3>
                             <p class="mt-2 text-sm sm:text-base text-muted leading-relaxed sm:leading-6"><?= $collector->translate('road2_stop_3_d', 'The comfort you have on one seat should follow you to the next: the dining table, your reading chair or the desk in the study.') ?></p>
@@ -394,7 +403,7 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
                                 </div>
                             </div>
 
-                            <div class="reveal-copy text-center lg:text-left">
+                            <div class="reveal-copy text-center lg:text-start">
                                 <p class="text-xs font-semibold uppercase tracking-[.2em] text-turq-soft"><?= $collector->translate('road_reveal_eyebrow', 'Waiting at the end of the road') ?></p>
                                 <h2 class="mt-3 font-serif text-3xl sm:text-4xl leading-tight sm:leading-10 tracking-tight">
                                     <?= $collector->translate('road_reveal_title', 'A second Melara Sitora') ?> <em class="text-turq"><?= $collector->translate('road_reveal_accent', '— 70% off, today only.') ?></em>
@@ -407,7 +416,7 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
                                 </p>
                                 <div class="mt-6">
                                     <div class="shine rounded-full"><button type="button" class="yes-upsell-link inline-flex w-full items-center justify-center gap-2 rounded-full bg-turq px-5 sm:px-7 py-4 text-[15px] sm:text-lg font-bold text-ink shadow-[0_18px_40px_-14px_rgba(29,209,161,.75)] hover:bg-turq-dark hover:-translate-y-0.5 transition nudge"><span><?= $collector->translate('yes_4', 'Yes, add to my order') ?></span><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
-                                    <div class="mt-3"><button type="button" class="no-upsell-link block w-full text-center lg:text-left text-xs sm:text-sm text-cream/60 underline underline-offset-4 hover:text-cream transition"><?= $collector->translate('no_thanks_3', 'No thanks, I don\'t want this one-time offer') ?></button></div>
+                                    <div class="mt-3"><button type="button" class="no-upsell-link block w-full text-center lg:text-start text-xs sm:text-sm text-cream/60 underline underline-offset-4 hover:text-cream transition"><?= $collector->translate('no_thanks_3', 'No thanks, I don\'t want this one-time offer') ?></button></div>
                                 </div>
                             </div>
                         </div>
@@ -423,7 +432,7 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
                 <div class="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-[0_40px_80px_-40px_rgba(29,34,38,.45)]">
                     <div class="w-full h-full animate-kenburns"><img src="assets/img/upsell/cushion-life.webp?t=<?= $OfferApi->assetVersion('assets/img/upsell/cushion-life.webp') ?>" alt="Woman in her 60s reading in a chair at home, sitting on the Melara Sitora cushion" class="w-full h-full object-cover" style="object-position: 50% 30%;" width="1120" height="1400" loading="lazy" decoding="async"></div>
                 </div>
-                <div class="absolute -bottom-6 left-6 sm:-left-6 bg-white rounded-2xl shadow-xl px-5 py-4 max-w-[260px]">
+                <div class="absolute -bottom-6 start-6 sm:-start-6 bg-white rounded-2xl shadow-xl px-5 py-4 max-w-[260px]">
                     <p class="text-amber-500 text-sm">★★★★★</p>
                     <p class="mt-1 text-sm leading-snug">“<?= $collector->translate('rev2_0_text', 'Bought one for the dining room, then a second for my reading chair. The back support is wonderful.') ?>”</p>
                     <p class="mt-2 text-xs text-muted">Eley S.</p>
@@ -494,7 +503,7 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
                             <span class="block font-semibold">Eley S.</span>
                             <span class="block text-xs text-muted"><?= $collector->translate('rev2_0_role', 'Bought two') ?></span>
                         </span>
-                        <span class="ml-auto rounded-full bg-turq-soft/70 border border-turq/30 px-2.5 py-0.5 text-[11px] font-semibold text-turq-ink whitespace-nowrap"><?= $collector->translate('verified', 'Verified buyer') ?></span>
+                        <span class="ms-auto rounded-full bg-turq-soft/70 border border-turq/30 px-2.5 py-0.5 text-[11px] font-semibold text-turq-ink whitespace-nowrap"><?= $collector->translate('verified', 'Verified buyer') ?></span>
                     </figcaption>
                 </figure>
                 <figure class="reveal bg-white rounded-3xl p-7 border border-sand/70 hover:-translate-y-1 hover:shadow-xl transition" data-delay="2">
@@ -506,7 +515,7 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
                             <span class="block font-semibold">Bert D.</span>
                             <span class="block text-xs text-muted"><?= $collector->translate('rev2_1_role', 'Retired engineer') ?></span>
                         </span>
-                        <span class="ml-auto rounded-full bg-turq-soft/70 border border-turq/30 px-2.5 py-0.5 text-[11px] font-semibold text-turq-ink whitespace-nowrap"><?= $collector->translate('verified_2', 'Verified buyer') ?></span>
+                        <span class="ms-auto rounded-full bg-turq-soft/70 border border-turq/30 px-2.5 py-0.5 text-[11px] font-semibold text-turq-ink whitespace-nowrap"><?= $collector->translate('verified_2', 'Verified buyer') ?></span>
                     </figcaption>
                 </figure>
                 <figure class="reveal bg-white rounded-3xl p-7 border border-sand/70 hover:-translate-y-1 hover:shadow-xl transition" data-delay="3">
@@ -518,7 +527,7 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
                             <span class="block font-semibold">Kim R.</span>
                             <span class="block text-xs text-muted"><?= $collector->translate('rev2_2_role', 'Grandmother of five') ?></span>
                         </span>
-                        <span class="ml-auto rounded-full bg-turq-soft/70 border border-turq/30 px-2.5 py-0.5 text-[11px] font-semibold text-turq-ink whitespace-nowrap"><?= $collector->translate('verified_3', 'Verified buyer') ?></span>
+                        <span class="ms-auto rounded-full bg-turq-soft/70 border border-turq/30 px-2.5 py-0.5 text-[11px] font-semibold text-turq-ink whitespace-nowrap"><?= $collector->translate('verified_3', 'Verified buyer') ?></span>
                     </figcaption>
                 </figure>
             </div>
@@ -553,11 +562,11 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
                         <span class="rounded-full bg-turq px-3 py-1 text-xs font-bold text-ink"><?= $collector->translate('rcpt_badge', '70% off') ?></span>
                     </div>
                     <dl class="px-6 py-2 text-sm">
-                        <div class="flex justify-between gap-4 py-3 border-b border-dashed border-sand"><dt class="text-muted"><?= $collector->translate('rcpt_item', 'Item') ?></dt><dd class="font-semibold text-right" data-cta-label>1 × <?= $collector->translate('rcpt_unit', 'Seat Cushion') ?></dd></div>
-                        <div class="flex justify-between gap-4 py-3 border-b border-dashed border-sand"><dt class="text-muted"><?= $collector->translate('rcpt_regular', 'Regular price') ?></dt><dd class="text-right"><s class="text-muted" data-cta-retail><?= $OfferApi->formatNumber($retail) ?></s></dd></div>
-                        <div class="flex justify-between gap-4 py-3 border-b border-dashed border-sand"><dt class="text-muted"><?= $collector->translate('rcpt_shipping', 'Shipping') ?></dt><dd class="font-semibold text-turq-ink text-right"><?= $collector->translate('rcpt_shipping_v', 'Free, in the same box') ?></dd></div>
-                        <div class="flex justify-between gap-4 py-3 border-b border-dashed border-sand"><dt class="text-muted"><?= $collector->translate('rcpt_card', 'Card details') ?></dt><dd class="font-semibold text-right"><?= $collector->translate('rcpt_card_v', 'Not needed, one click') ?></dd></div>
-                        <div class="flex justify-between gap-4 py-3 border-b border-dashed border-sand"><dt class="text-muted"><?= $collector->translate('rcpt_refund', 'Refunds') ?></dt><dd class="font-semibold text-right"><?= $collector->translate('rcpt_refund_v', '30-day policy') ?></dd></div>
+                        <div class="flex justify-between gap-4 py-3 border-b border-dashed border-sand"><dt class="text-muted"><?= $collector->translate('rcpt_item', 'Item') ?></dt><dd class="font-semibold text-end" data-cta-label>1 × <?= $collector->translate('rcpt_unit', 'Seat Cushion') ?></dd></div>
+                        <div class="flex justify-between gap-4 py-3 border-b border-dashed border-sand"><dt class="text-muted"><?= $collector->translate('rcpt_regular', 'Regular price') ?></dt><dd class="text-end"><s class="text-muted" data-cta-retail><?= $OfferApi->formatNumber($retail) ?></s></dd></div>
+                        <div class="flex justify-between gap-4 py-3 border-b border-dashed border-sand"><dt class="text-muted"><?= $collector->translate('rcpt_shipping', 'Shipping') ?></dt><dd class="font-semibold text-turq-ink text-end"><?= $collector->translate('rcpt_shipping_v', 'Free, in the same box') ?></dd></div>
+                        <div class="flex justify-between gap-4 py-3 border-b border-dashed border-sand"><dt class="text-muted"><?= $collector->translate('rcpt_card', 'Card details') ?></dt><dd class="font-semibold text-end"><?= $collector->translate('rcpt_card_v', 'Not needed, one click') ?></dd></div>
+                        <div class="flex justify-between gap-4 py-3 border-b border-dashed border-sand"><dt class="text-muted"><?= $collector->translate('rcpt_refund', 'Refunds') ?></dt><dd class="font-semibold text-end"><?= $collector->translate('rcpt_refund_v', '30-day policy') ?></dd></div>
                         <div class="flex items-end justify-between gap-4 pt-4 pb-2"><dt class="font-semibold"><?= $collector->translate('rcpt_today', 'You pay today') ?></dt><dd class="font-serif text-4xl text-ink" data-cta-total><?= $OfferApi->formatNumber($price) ?></dd></div>
                     </dl>
                     <div class="mx-6 mb-5 flex items-center justify-center gap-2 rounded-xl bg-turq-soft px-4 py-2.5 text-sm font-semibold text-turq-ink">

@@ -90,7 +90,9 @@ $(function () {
             $picker.find('.qty-value').text(qty);
             $picker.find('.qty-minus').prop('disabled', qty <= 1);
             $picker.find('.qty-plus').prop('disabled', qty >= maxQty);
-            $picker.find('.qty-meter span').css('width', (qty / maxQty * 100) + '%');
+            var pct = Math.round(qty / maxQty * 100);
+            $picker.find('.qty-meter-fill').css('width', pct + '%');
+            $picker.find('.qty-meter-pct').text(pct + '%');
             showProductCopies(qty);
 
             // Every price / label on the page (hero, section CTAs, road reveal, final CTA, floating bar)
@@ -223,11 +225,14 @@ $(function () {
     $(document).on('click', '.js-popup-yes', function (e) {
         e.preventDefault();
         // Switch the order to the downsell product, qty 1
-        $('input._product_order')
+        var $order = $('input._product_order')
             .val($popup.data('popup-product-id'))
             .attr('unitprice', $popup.data('popup-unitprice'))
             .attr('shipping', $popup.data('popup-shipping'))
             .attr('quantity', 1);
+        // The downsell's own variant (SKU), read from the CRM on the page; without one, don't send the upsell's variant
+        var dsVariant = $popup.attr('data-popup-variant');
+        if (dsVariant) $order.attr('variantid', dsVariant); else $order.removeAttr('variantid');
         // Fire the downsell Everflow event instead of the upsell one, when set in the config
         var downsellEventId = $('#downsellEverFlowEventId').val();
         if (downsellEventId) $('#everFlowEventId').val(downsellEventId);
@@ -236,7 +241,9 @@ $(function () {
 
     /* 8. CRM: integrated.js handles the Yes / No buttons */
     if (typeof CRMIntegrated === 'function') {
-        CRMIntegrated().init(function () {});
+        // Global CRMIntegrated instance, same as shopmelara-apex upsell pages
+        window.CRMIntegrated = CRMIntegrated();
+        window.CRMIntegrated.init();
         // Wallet payers (Google / Apple Pay): copy the wallet look onto the popup button, as apex does
         var $wallet = $('.yes-upsell-link.replacedBtn').first();
         if ($wallet.length) $('.popup-yes-btn').html($wallet.html()).attr('style', $wallet.attr('style')).addClass('replacedBtn');
