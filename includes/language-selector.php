@@ -100,12 +100,12 @@ function languageSelector($variant = 'header') {
             <span class="<?= $up ? 'hidden' : 'sm:hidden' ?> text-xs font-semibold tracking-wider uppercase"><?= htmlspecialchars($active) ?></span>
             <svg viewBox="0 0 24 24" class="lang-chev w-3.5 h-3.5 text-muted <?= $up ? '' : 'hidden sm:block' ?>" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
         </summary>
-        <div class="lang-panel absolute <?= $up ? 'bottom-full mb-2 left-1/2 -translate-x-1/2 sm:left-auto sm:right-0 sm:translate-x-0' : 'top-full mt-2 right-0' ?> z-50 w-64 rounded-2xl border border-sand bg-white p-2 shadow-[0_24px_60px_-20px_rgba(29,34,38,.35)] text-left">
+        <div class="lang-panel absolute <?= $up ? 'bottom-full mb-2 left-1/2 -translate-x-1/2 sm:start-auto sm:end-0 sm:translate-x-0' : 'top-full mt-2 end-0' ?> z-50 w-64 rounded-2xl border border-sand bg-white p-2 shadow-[0_24px_60px_-20px_rgba(29,34,38,.35)] text-start">
             <p class="px-3 pt-2 pb-1 text-[11px] font-semibold uppercase tracking-[.18em] text-muted"><?= $collector->translate('lang_choose' . $k, 'Choose your language') ?></p>
             <?php if (count($languages) > 6): ?>
                 <div class="relative px-1 py-1">
-                    <svg viewBox="0 0 24 24" class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-                    <input type="search" class="lang-search w-full rounded-xl border border-sand bg-cream pl-9 pr-3 py-2 text-sm focus:outline-hidden focus:border-turq focus:ring-4 focus:ring-turq/20" placeholder="<?= $collector->translate('lang_search' . $k, 'Search languages') ?>" aria-label="<?= $collector->translate('lang_search_label' . $k, 'Search languages') ?>">
+                    <svg viewBox="0 0 24 24" class="absolute start-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+                    <input type="search" class="lang-search w-full rounded-xl border border-sand bg-cream ps-9 pe-3 py-2 text-sm focus:outline-hidden focus:border-turq focus:ring-4 focus:ring-turq/20" placeholder="<?= $collector->translate('lang_search' . $k, 'Search languages') ?>" aria-label="<?= $collector->translate('lang_search_label' . $k, 'Search languages') ?>">
                 </div>
             <?php endif; ?>
             <ul class="max-h-72 overflow-y-auto overscroll-contain py-1">

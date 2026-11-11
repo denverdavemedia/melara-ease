@@ -69,7 +69,7 @@ function thumb($name) {
 }
 ?>
 <!doctype html>
-<html lang="<?= $OfferApi->targetLanguage ?>">
+<html lang="<?= $OfferApi->targetLanguage ?>" dir="<?= melaraTextDirection($OfferApi->targetLanguage) ?>">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -194,7 +194,7 @@ function thumb($name) {
         <h2 class="text-lg font-bold"><?= $collector->translate('next_title', 'What happens next') ?></h2>
         <ol class="mt-6 grid gap-6 sm:grid-cols-3 sm:gap-4">
             <li class="relative flex gap-4 sm:block">
-                <span class="hidden sm:block absolute top-6 left-14 right-0 h-0.5 bg-gradient-to-r from-turq to-turq-soft" aria-hidden="true"></span>
+                <span class="hidden sm:block absolute top-6 start-14 end-0 h-0.5 bg-gradient-to-r from-turq to-turq-soft" aria-hidden="true"></span>
                 <span class="relative grid place-items-center shrink-0 w-12 h-12 rounded-2xl bg-turq text-ink shadow-[0_12px_24px_-12px_rgba(29,209,161,.9)]">
                     <svg viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></svg>
                 </span>
@@ -205,7 +205,7 @@ function thumb($name) {
                 </span>
             </li>
             <li class="relative flex gap-4 sm:block">
-                <span class="hidden sm:block absolute top-6 left-14 right-0 h-0.5 bg-turq-soft" aria-hidden="true"></span>
+                <span class="hidden sm:block absolute top-6 start-14 end-0 h-0.5 bg-turq-soft" aria-hidden="true"></span>
                 <span class="relative grid place-items-center shrink-0 w-12 h-12 rounded-2xl bg-turq-soft text-turq-ink">
                     <svg viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/></svg>
                 </span>
