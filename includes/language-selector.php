@@ -32,7 +32,9 @@ function languageSelector($variant = 'header') {
     static $calls = 0;
     $k = ++$calls > 1 ? '_' . $calls : ''; // the 2nd selector on a page (footer) gets its own keys: lang_label_2...
 
-    $languages = $OfferApi->languages();
+    // Only these languages are offered in the selector (others stay reachable via ?lang=)
+    $shown = ['en', 'zh-hans', 'zh-hant', 'ja'];
+    $languages = array_intersect_key($OfferApi->languages(), array_flip($shown));
     asort($languages);
     $active = isset($languages[$OfferApi->targetLanguage]) ? $OfferApi->targetLanguage : (array_key_first($languages) ?? 'en');
     $activeName = $languages[$active] ?? 'English';
