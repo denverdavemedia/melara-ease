@@ -3,10 +3,15 @@
 include_once("integrated/setup.php");
 
 // ?custom_config=hr serves the hemorrhoid-friendly sitting-comfort version (index-hr.php, copy in lang/<code>/index-hr.json).
-// The session value (set by OfferApi) keeps visitors on it when they change language.
-if (($_GET['custom_config'] ?? $_SESSION['custom_config'] ?? '') === 'hr') {
+// Only the URL decides the version, never the session: the language selector and the checkout links keep
+// ?custom_config=hr in the URL, so the session is not needed, and relying on it showed the HR page on plain visits.
+if (($_GET['custom_config'] ?? '') === 'hr') {
     include __DIR__ . '/index-hr.php';
     return;
+}
+// Plain page: drop a leftover 'hr' from an earlier visit so orders placed from here aren't tagged as HR
+if (($_SESSION['custom_config'] ?? '') === 'hr') {
+    unset($_SESSION['custom_config']);
 }
 include_once(BASEPATH . '/src/JsonTranslateCollector.php');
 include_once(__DIR__ . '/includes/language-selector.php');
@@ -20,9 +25,9 @@ $currency = '$';
 $logo     = 'assets/img/logo.svg';
 
 $img = [
-    'hero'     => 'assets/img/v2/hero.webp',   // Margaret at her dining table on the cushion
-    'detail'   => 'assets/img/detail.webp',    // hand pressing the memory foam
-    'cta'      => 'assets/img/cta.webp',       // final banner: cushion on a chair
+    'hero'     => 'assets/img/index/hero.webp',   // Margaret at her dining table on the cushion
+    'detail'   => 'assets/img/index/detail.webp',    // hand pressing the memory foam
+    'cta'      => 'assets/img/index/cta.webp',       // final banner: cushion on a chair
 ];
 
 /** Render an image if it exists, otherwise a soft labelled placeholder. */
@@ -76,10 +81,10 @@ $zones = [
 
 // Everyday home scenes. Images are placeholders until the new photos are made (see the alt text for what each shows).
 $life = [
-    ['img' => 'assets/img/v2/life-sofa.webp',   'alt' => 'Woman in her 60s watching TV on the sofa, sitting on the Melara Sitora cushion',             't' => $collector->translate('life3_0_t', 'On the sofa'),          'd' => $collector->translate('life3_0_d', 'Sink into a film or a good book with your lower back supported.')],
-    ['img' => 'assets/img/v2/life-dining.webp', 'alt' => 'Woman in her 60s having dinner with her husband, sitting on the Melara Sitora cushion on a dining chair',          't' => $collector->translate('life3_1_t', 'On dining chairs'),     'd' => $collector->translate('life2_0_d', 'Long family meals, puzzles and card games, in comfort.')],
-    ['img' => 'assets/img/v2/life-car.webp',    'alt' => 'Woman in her 60s driving, sitting on the Melara Sitora cushion on the driver\'s seat',         't' => $collector->translate('life3_2_t', 'In the driver\'s seat'), 'd' => $collector->translate('life3_2_d', 'Support for errands, family visits and longer drives.')],
-    ['img' => 'assets/img/v2/life-office.webp', 'alt' => 'Woman in her 60s working at a laptop, sitting on the Melara Sitora cushion on an office chair', 't' => $collector->translate('life3_3_t', 'On the office chair'),  'd' => $collector->translate('life3_3_d', 'Hours at the desk, without the afternoon ache.')],
+    ['img' => 'assets/img/index/life-sofa.webp',   'alt' => 'Woman in her 60s watching TV on the sofa, sitting on the Melara Sitora cushion',             't' => $collector->translate('life3_0_t', 'On the sofa'),          'd' => $collector->translate('life3_0_d', 'Sink into a film or a good book with your lower back supported.')],
+    ['img' => 'assets/img/index/life-dining.webp', 'alt' => 'Woman in her 60s having dinner with her husband, sitting on the Melara Sitora cushion on a dining chair',          't' => $collector->translate('life3_1_t', 'On dining chairs'),     'd' => $collector->translate('life2_0_d', 'Long family meals, puzzles and card games, in comfort.')],
+    ['img' => 'assets/img/index/life-car.webp',    'alt' => 'Woman in her 60s driving, sitting on the Melara Sitora cushion on the driver\'s seat',         't' => $collector->translate('life3_2_t', 'In the driver\'s seat'), 'd' => $collector->translate('life3_2_d', 'Support for errands, family visits and longer drives.')],
+    ['img' => 'assets/img/index/life-office.webp', 'alt' => 'Woman in her 60s working at a laptop, sitting on the Melara Sitora cushion on an office chair', 't' => $collector->translate('life3_3_t', 'On the office chair'),  'd' => $collector->translate('life3_3_d', 'Hours at the desk, without the afternoon ache.')],
 ];
 
 $faqs = [
@@ -257,9 +262,9 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
     <!-- Where it hurts: three pain areas of the body (images are placeholders until generated) -->
     <?php
     $painAreas = [
-        ['img' => 'assets/img/v2/pain-tailbone.webp', 'alt' => 'Woman in her 60s shifting on a hard chair, with the tailbone and hips glowing red',  't' => $collector->translate('pa_1_t', 'Tailbone and hips'), 'd' => $collector->translate('pa_1_d', 'Sharp pressure at the base of your spine every time you sit down.')],
-        ['img' => 'assets/img/v2/pain-back.webp',     'alt' => 'Woman in her 60s sitting, hand on her lower back, with the lower back glowing red', 't' => $collector->translate('pa_0_t', 'Lower back'),        'd' => $collector->translate('pa_0_d', 'A dull ache that builds through the day and stiffens when you stand up.')],
-        ['img' => 'assets/img/v2/pain-leg.webp',      'alt' => 'Woman in her 60s rubbing the back of her thigh, with the sciatic nerve path glowing red from buttock to knee', 't' => $collector->translate('pa_2_t', 'Back of the leg'), 'd' => $collector->translate('pa_2_d', 'Sciatic discomfort that runs from your buttock down the back of your thigh.')],
+        ['img' => 'assets/img/index/pain-tailbone.webp', 'alt' => 'Woman in her 60s shifting on a hard chair, with the tailbone and hips glowing red',  't' => $collector->translate('pa_1_t', 'Tailbone and hips'), 'd' => $collector->translate('pa_1_d', 'Sharp pressure at the base of your spine every time you sit down.')],
+        ['img' => 'assets/img/index/pain-back.webp',     'alt' => 'Woman in her 60s sitting, hand on her lower back, with the lower back glowing red', 't' => $collector->translate('pa_0_t', 'Lower back'),        'd' => $collector->translate('pa_0_d', 'A dull ache that builds through the day and stiffens when you stand up.')],
+        ['img' => 'assets/img/index/pain-leg.webp',      'alt' => 'Woman in her 60s rubbing the back of her thigh, with the sciatic nerve path glowing red from buttock to knee', 't' => $collector->translate('pa_2_t', 'Back of the leg'), 'd' => $collector->translate('pa_2_d', 'Sciatic discomfort that runs from your buttock down the back of your thigh.')],
     ];
     ?>
     <section id="pain-areas" class="py-5 md:py-[30px] lg:py-16 bg-[#faf4f2] scroll-mt-16">
@@ -292,11 +297,11 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
             <div class="reveal relative order-2 lg:order-1 mb-6 lg:mb-0" data-ba-loop>
                 <div class="relative aspect-[4/5] rounded-[2.5rem] overflow-hidden">
                     <div class="ba-slide is-on absolute inset-0">
-                        <?= photo('assets/img/v2/pain-before.webp', 'Woman in her 60s holding her lower back in pain as she sits on a hard dining chair', 'w-full h-full', 'pain-before.webp') ?>
+                        <?= photo('assets/img/index/pain-before.webp', 'Woman in her 60s holding her lower back in pain as she sits on a hard dining chair', 'w-full h-full', 'pain-before.webp') ?>
                         <span class="glow-pulse glow-red" aria-hidden="true"></span>
                     </div>
                     <div class="ba-slide absolute inset-0">
-                        <?= photo('assets/img/v2/pain-after.webp', 'The same woman smiling and sitting comfortably on the Melara Sitora cushion on the same dining chair', 'w-full h-full', 'pain-after.webp') ?>
+                        <?= photo('assets/img/index/pain-after.webp', 'The same woman smiling and sitting comfortably on the Melara Sitora cushion on the same dining chair', 'w-full h-full', 'pain-after.webp') ?>
                         <span class="glow-pulse glow-turq" aria-hidden="true"></span>
                     </div>
                     <div class="absolute bottom-4 inset-x-0 flex justify-center gap-2" aria-hidden="true">
@@ -431,7 +436,7 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
             </div>
             <div class="mt-8 lg:mt-14 grid sm:grid-cols-3 gap-4 sm:gap-6">
                 <article class="reveal rounded-[2rem] bg-white border border-sand/70 overflow-hidden">
-                    <div class="aspect-[4/3] overflow-hidden"><?= photo('assets/img/fabric.webp', 'Close-up of the soft, skin-friendly fabric of the Melara seat cushion', 'w-full h-full', 'fabric.webp') ?></div>
+                    <div class="aspect-[4/3] overflow-hidden"><?= photo('assets/img/index/fabric.webp', 'Close-up of the soft, skin-friendly fabric of the Melara seat cushion', 'w-full h-full', 'fabric.webp') ?></div>
                     <div class="p-5 sm:p-6">
                         <h3 class="font-semibold text-lg"><?= $collector->translate('mat_0_t', 'Skin-friendly fabric') ?></h3>
                         <p class="mt-1 text-sm text-muted leading-relaxed"><?= $collector->translate('mat_0_d', 'Soft and smooth, with a delicate feel against your skin.') ?></p>
@@ -445,7 +450,7 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
                     </div>
                 </article>
                 <article class="reveal rounded-[2rem] bg-white border border-sand/70 overflow-hidden" data-delay="2">
-                    <div class="aspect-[4/3] overflow-hidden"><?= photo('assets/img/antislip.webp', 'Close-up of the silicone anti-slip dots on the base of the Melara seat cushion', 'w-full h-full', 'antislip.webp') ?></div>
+                    <div class="aspect-[4/3] overflow-hidden"><?= photo('assets/img/index/antislip.webp', 'Close-up of the silicone anti-slip dots on the base of the Melara seat cushion', 'w-full h-full', 'antislip.webp') ?></div>
                     <div class="p-5 sm:p-6">
                         <h3 class="font-semibold text-lg"><?= $collector->translate('mat_2_t', 'Silicone anti-slip base') ?></h3>
                         <p class="mt-1 text-sm text-muted leading-relaxed"><?= $collector->translate('mat_2_d', 'Anti-slip particles on the base keep the cushion in place, however much you move.') ?></p>

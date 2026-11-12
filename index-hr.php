@@ -12,9 +12,9 @@ $currency = '$';
 $logo     = 'assets/img/logo.svg';
 
 $img = [
-    'hero'     => 'assets/img/v2/hero.webp',   // Margaret at her dining table on the cushion
-    'detail'   => 'assets/img/detail.webp',    // hand pressing the memory foam
-    'cta'      => 'assets/img/cta.webp',       // final banner: cushion on a chair
+    'hero'     => 'assets/img/index-hr/hero.webp',   // Margaret at her dining table on the cushion
+    'detail'   => 'assets/img/index-hr/detail.webp',    // hand pressing the memory foam
+    'cta'      => 'assets/img/index-hr/cta.webp',       // final banner: cushion on a chair
 ];
 // photo() is declared in index.php, which includes this page.
 
@@ -58,10 +58,10 @@ $zones = [
 
 // Everyday home scenes. Images are placeholders until the new photos are made (see the alt text for what each shows).
 $life = [
-    ['img' => 'assets/img/v2/life-sofa.webp', 'alt' => 'Woman in her 60s working at a laptop, sitting on the Melara Sitora cushion on an office chair',                    't' => $collector->translate('life_hr_0_t', 'At your desk'),           'd' => $collector->translate('life_hr_0_d', 'Long hours at the desk, with less pressure under you.')],
-    ['img' => 'assets/img/v2/life-dining.webp', 'alt' => 'Woman in her 60s having dinner with her husband, sitting on the Melara Sitora cushion on a dining chair', 't' => $collector->translate('life_hr_1_t', 'At the dining table'),   'd' => $collector->translate('life_hr_1_d', 'Unhurried family meals, without shifting in your seat.')],
-    ['img' => 'assets/img/v2/life-car.webp',   'alt' => 'Woman in her 60s watching TV on the sofa, sitting on the Melara Sitora cushion',                                   't' => $collector->translate('life_hr_2_t', 'Reading and relaxing'),   'd' => $collector->translate('life_hr_2_d', 'Settle in with a book or a film, supported.')],
-    ['img' => 'assets/img/v2/life-office.webp',    'alt' => 'Woman in her 60s driving, sitting on the Melara Sitora cushion on the driver\'s seat', 't' => $collector->translate('life_hr_3_t', 'In the driver\'s seat'), 'd' => $collector->translate('life_hr_3_d', 'Support for errands, family visits and longer drives.')],
+    ['img' => 'assets/img/index-hr/life-sofa.webp', 'alt' => 'Woman in her 60s working at a laptop, sitting on the Melara Sitora cushion on an office chair',                    't' => $collector->translate('life_hr_0_t', 'At your desk'),           'd' => $collector->translate('life_hr_0_d', 'Long hours at the desk, with less pressure under you.')],
+    ['img' => 'assets/img/index-hr/life-dining.webp', 'alt' => 'Woman in her 60s having dinner with her husband, sitting on the Melara Sitora cushion on a dining chair', 't' => $collector->translate('life_hr_1_t', 'At the dining table'),   'd' => $collector->translate('life_hr_1_d', 'Unhurried family meals, without shifting in your seat.')],
+    ['img' => 'assets/img/index-hr/life-car.webp',   'alt' => 'Woman in her 60s watching TV on the sofa, sitting on the Melara Sitora cushion',                                   't' => $collector->translate('life_hr_2_t', 'Reading and relaxing'),   'd' => $collector->translate('life_hr_2_d', 'Settle in with a book or a film, supported.')],
+    ['img' => 'assets/img/index-hr/life-office.webp',    'alt' => 'Woman in her 60s driving, sitting on the Melara Sitora cushion on the driver\'s seat', 't' => $collector->translate('life_hr_3_t', 'In the driver\'s seat'), 'd' => $collector->translate('life_hr_3_d', 'Support for errands, family visits and longer drives.')],
 ];
 
 // FAQ order follows the brief: hemorrhoids, difference from a regular cushion, everyday use, fit, returns (then extras).
@@ -241,9 +241,9 @@ $reviews = [
     <?php
     // The two images that don't exist yet (hr/…) show as labelled placeholders until the new art is added.
     $painAreas = [
-        ['img' => 'assets/img/v2/pain-tailbone.webp', 'alt' => 'Woman in her 60s shifting on a hard chair, with the tailbone and hips glowing red', 't' => $collector->translate('pa_0_t', 'Hard seating surfaces'), 'd' => $collector->translate('pa_0_d', 'Hard seats press right where you sit, so every sit-down becomes something you brace for.')],
-        ['img' => 'assets/img/v2/pain-back.webp', 'alt' => 'Woman in her 60s sitting, hand on her lower back, with the lower back glowing red', 't' => $collector->translate('pa_2_t', 'Hips and lower back'), 'd' => $collector->translate('pa_2_d', 'Without support, your weight settles into your sit bones and your lower back tires as the day goes on.')],
-        ['img' => 'assets/img/v2/pain-leg.webp', 'alt' => 'Woman in her 60s rubbing the back of her thigh, with the area from buttock to knee glowing red', 't' => $collector->translate('pa_1_t', 'Thighs and buttocks'), 'd' => $collector->translate('pa_1_d', 'Hard seat edges press under your thighs and buttocks, so long stretches on a flat surface feel tiring.')],
+        ['img' => 'assets/img/index-hr/pain-tailbone.webp', 'alt' => 'Woman in her 60s shifting on a hard chair, with the tailbone and hips glowing red', 't' => $collector->translate('pa_0_t', 'Hard seating surfaces'), 'd' => $collector->translate('pa_0_d', 'Hard seats press right where you sit, so every sit-down becomes something you brace for.')],
+        ['img' => 'assets/img/index-hr/pain-back.webp', 'alt' => 'Woman in her 60s sitting, hand on her lower back, with the lower back glowing red', 't' => $collector->translate('pa_2_t', 'Hips and lower back'), 'd' => $collector->translate('pa_2_d', 'Without support, your weight settles into your sit bones and your lower back tires as the day goes on.')],
+        ['img' => 'assets/img/index-hr/pain-leg.webp', 'alt' => 'Woman in her 60s rubbing the back of her thigh, with the area from buttock to knee glowing red', 't' => $collector->translate('pa_1_t', 'Thighs and buttocks'), 'd' => $collector->translate('pa_1_d', 'Hard seat edges press under your thighs and buttocks, so long stretches on a flat surface feel tiring.')],
     ];
     ?>
     <section id="pain-areas" class="py-5 md:py-[30px] lg:py-16 bg-[#faf4f2] scroll-mt-16">
@@ -276,12 +276,12 @@ $reviews = [
                 <!-- Before / after: the two photos cross-fade on a loop (assets/js/index.js) -->
                 <div class="relative aspect-[4/5] rounded-[2.5rem] overflow-hidden" data-ba-loop>
                     <div class="ba-slide is-on absolute inset-0">
-                        <?= photo('assets/img/v2/pain-before.webp', 'Woman in her 60s holding her lower back as she sits on a hard dining chair', 'w-full h-full', 'pain-before.webp') ?>
+                        <?= photo('assets/img/index-hr/pain-before.webp', 'Woman in her 60s holding her lower back as she sits on a hard dining chair', 'w-full h-full', 'pain-before.webp') ?>
                         <span class="glow-pulse glow-red" aria-hidden="true"></span>
                         <span class="absolute top-4 start-4 inline-flex items-center gap-2 rounded-full bg-red-500 px-4 py-2 text-sm font-semibold text-white shadow-lg"><span aria-hidden="true">✕</span> <?= $collector->translate('ba_before', 'Before: a hard, flat chair') ?></span>
                     </div>
                     <div class="ba-slide absolute inset-0">
-                        <?= photo('assets/img/v2/pain-after.webp', 'The same woman smiling and sitting comfortably on the Melara Sitora cushion on the same dining chair', 'w-full h-full', 'pain-after.webp') ?>
+                        <?= photo('assets/img/index-hr/pain-after.webp', 'The same woman smiling and sitting comfortably on the Melara Sitora cushion on the same dining chair', 'w-full h-full', 'pain-after.webp') ?>
                         <span class="glow-pulse glow-turq" aria-hidden="true"></span>
                         <span class="absolute top-4 start-4 inline-flex items-center gap-2 rounded-full bg-turq px-4 py-2 text-sm font-semibold text-ink shadow-lg"><span aria-hidden="true">✓</span> <?= $collector->translate('ba_after', 'After: with Melara Sitora') ?></span>
                     </div>
@@ -480,7 +480,7 @@ $reviews = [
             </div>
             <div class="mt-8 lg:mt-14 grid sm:grid-cols-3 gap-4 sm:gap-6">
                 <article class="reveal rounded-[2rem] bg-white border border-sand/70 overflow-hidden">
-                    <div class="aspect-[4/3] overflow-hidden"><?= photo('assets/img/fabric.webp', 'Close-up of the soft, skin-friendly fabric of the Melara seat cushion', 'w-full h-full', 'fabric.webp') ?></div>
+                    <div class="aspect-[4/3] overflow-hidden"><?= photo('assets/img/index-hr/fabric.webp', 'Close-up of the soft, skin-friendly fabric of the Melara seat cushion', 'w-full h-full', 'fabric.webp') ?></div>
                     <div class="p-5 sm:p-6">
                         <h3 class="font-semibold text-lg"><?= $collector->translate('mat_0_t', 'Skin-friendly fabric') ?></h3>
                         <p class="mt-1 text-sm text-muted leading-relaxed"><?= $collector->translate('mat_0_d', 'Soft and smooth, with a delicate feel against your skin.') ?></p>
@@ -494,7 +494,7 @@ $reviews = [
                     </div>
                 </article>
                 <article class="reveal rounded-[2rem] bg-white border border-sand/70 overflow-hidden" data-delay="2">
-                    <div class="aspect-[4/3] overflow-hidden"><?= photo('assets/img/antislip.webp', 'Close-up of the silicone anti-slip dots on the base of the Melara seat cushion', 'w-full h-full', 'antislip.webp') ?></div>
+                    <div class="aspect-[4/3] overflow-hidden"><?= photo('assets/img/index-hr/antislip.webp', 'Close-up of the silicone anti-slip dots on the base of the Melara seat cushion', 'w-full h-full', 'antislip.webp') ?></div>
                     <div class="p-5 sm:p-6">
                         <h3 class="font-semibold text-lg"><?= $collector->translate('mat_2_t', 'Silicone anti-slip base') ?></h3>
                         <p class="mt-1 text-sm text-muted leading-relaxed"><?= $collector->translate('mat_2_d', 'Anti-slip particles on the base keep the cushion in place, however much you move.') ?></p>
