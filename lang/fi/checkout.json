@@ -1,4 +1,9 @@
 {
+    "co_cvv_full": "CVV/CVC/CSC",
+    "co_cvv_ph": "XXX tai XXXX",
+    "pay_or_card_2": "Tai maksa luottokortilla",
+    "co_discount_ends_in": "{pct} %:n alennuksesi päättyy:",
+    "co_standard_ship": "Peruslähetys",
     "pol_ship_tw_stat": "7 päivää",
     "pol_ship_tw_stat_d": "Toimitus 7 päivässä",
     "pol_ship_tw_p1": "Tilauksesi toimitetaan <b>7 päivän kuluessa</b>. Tilauksesi toimituskulut lasketaan ja näytetään kassalla.",

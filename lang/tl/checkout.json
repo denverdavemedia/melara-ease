@@ -1,4 +1,9 @@
 {
+    "co_cvv_full": "CVV/CVC/CSC",
+    "co_cvv_ph": "XXX o XXXX",
+    "pay_or_card_2": "O magbayad gamit ang credit card",
+    "co_discount_ends_in": "Ang iyong {pct}% na diskwento ay magtatapos sa:",
+    "co_standard_ship": "Karaniwang pagpapadala",
     "pol_ship_tw_stat": "pitong araw",
     "pol_ship_tw_stat_d": "Naiparating sa loob ng 7 araw",
     "pol_ship_tw_p1": "Ihahatid ang iyong order <b>sa loob ng 7 araw</b>. Ang bayad sa pagpapadala para sa iyong order ay ikakalkula at ipapakita sa pag-checkout.",

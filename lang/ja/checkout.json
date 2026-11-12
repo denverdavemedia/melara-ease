@@ -1,4 +1,9 @@
 {
+    "co_cvv_full": "CVV／CVC／CSC",
+    "co_cvv_ph": "XXX または XXXX",
+    "pay_or_card_2": "またはクレジットカードで支払う",
+    "co_discount_ends_in": "{pct}%OFFの終了まで：",
+    "co_standard_ship": "通常配送",
     "pol_ship_tw_stat": "7日間",
     "pol_ship_tw_stat_d": "7日以内に配送",
     "pol_ship_tw_p1": "ご注文の商品は、<b>7日以内</b>にお届けいたします。送料は、お会計時に計算され、表示されます。",

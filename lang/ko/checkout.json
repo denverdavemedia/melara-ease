@@ -1,4 +1,9 @@
 {
+    "co_cvv_full": "CVV/CVC/CSC",
+    "co_cvv_ph": "XXX 또는 XXXX",
+    "pay_or_card_2": "또는 신용카드로 결제하세요",
+    "co_discount_ends_in": "{pct}% 할인 혜택은 다음 시간까지 유효합니다:",
+    "co_standard_ship": "일반 배송",
     "pol_ship_tw_stat": "7일",
     "pol_ship_tw_stat_d": "7일 이내 배송",
     "pol_ship_tw_p1": "주문하신 상품은 <b>7일 이내</b>에 배송됩니다. 주문에 대한 배송비는 결제 시 계산되어 표시됩니다.",

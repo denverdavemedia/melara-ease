@@ -1,4 +1,9 @@
 {
+    "co_cvv_full": "CVV/CVC/CSC",
+    "co_cvv_ph": "XXX o XXXX",
+    "pay_or_card_2": "O paga amb targeta de crèdit",
+    "co_discount_ends_in": "El vostre descompte de {pct}% finalitza en:",
+    "co_standard_ship": "Enviament estàndard",
     "pol_ship_tw_stat": "7 dies",
     "pol_ship_tw_stat_d": "Entrega en 7 dies",
     "pol_ship_tw_p1": "La teva comanda s'entregarà <b>en 7 dies</b>. Els càrrecs d'enviament de la teva comanda es calcularan i es mostraran en finalitzar la compra.",
