@@ -67,7 +67,7 @@
       //if it doesn't match of the two IF conditions above it will select the IP translation
   }
 
-  $allowedCountries = ['US']; // allowed countries, each needs its integrated/config_xx.php. DEFAULT: "US"
+  $allowedCountries = ['US', 'AU', 'JP', 'HK', 'TW']; // allowed countries, each needs its integrated/config_xx.php. DEFAULT: "US"
 
   if(strpos(basename($_SERVER['SCRIPT_NAME']), "shipping-address")===false){
 
