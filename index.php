@@ -81,10 +81,10 @@ $zones = [
 
 // Everyday home scenes. Images are placeholders until the new photos are made (see the alt text for what each shows).
 $life = [
-    ['img' => 'assets/img/index/life-sofa.jpg',   'alt' => 'Woman in her 60s reading a book on the sofa, sitting on the Melara Sitora cushion',             't' => $collector->translate('life3_0_t', 'On the sofa'),          'd' => $collector->translate('life3_0_d', 'Sink into a film or a good book with your lower back supported.')],
-    ['img' => 'assets/img/index/life-dining.jpg', 'alt' => 'Couple laughing over a family dinner, the woman sitting on the Melara Sitora cushion on a wooden dining chair',          't' => $collector->translate('life3_1_t', 'On dining chairs'),     'd' => $collector->translate('life2_0_d', 'Long family meals, puzzles and card games, in comfort.')],
-    ['img' => 'assets/img/index/life-car.jpg',    'alt' => 'Woman adjusting the rear-view mirror in the driver\'s seat, sitting on the Melara Sitora cushion',         't' => $collector->translate('life3_2_t', 'In the driver\'s seat'), 'd' => $collector->translate('life3_2_d', 'Support for errands, family visits and longer drives.')],
-    ['img' => 'assets/img/index/life-office.jpg', 'alt' => 'Man working at his desk, sitting on the Melara Sitora cushion on an office chair', 't' => $collector->translate('life3_3_t', 'On the office chair'),  'd' => $collector->translate('life3_3_d', 'Hours at the desk, without the afternoon ache.')],
+    ['img' => 'assets/img/index/life-sofa-20261112.jpg',   'alt' => 'Woman in her 60s reading a book on the sofa, sitting on the Melara Sitora cushion',             't' => $collector->translate('life3_0_t', 'On the sofa'),          'd' => $collector->translate('life3_0_d', 'Sink into a film or a good book with your lower back supported.')],
+    ['img' => 'assets/img/index/life-dining-20261112.jpg', 'alt' => 'Couple laughing over a family dinner, the woman sitting on the Melara Sitora cushion on a wooden dining chair',          't' => $collector->translate('life3_1_t', 'On dining chairs'),     'd' => $collector->translate('life2_0_d', 'Long family meals, puzzles and card games, in comfort.')],
+    ['img' => 'assets/img/index/life-car-20261112.jpg',    'alt' => 'Woman adjusting the rear-view mirror in the driver\'s seat, sitting on the Melara Sitora cushion',         't' => $collector->translate('life3_2_t', 'In the driver\'s seat'), 'd' => $collector->translate('life3_2_d', 'Support for errands, family visits and longer drives.')],
+    ['img' => 'assets/img/index/life-office-20261112.jpg', 'alt' => 'Man working at his desk, sitting on the Melara Sitora cushion on an office chair', 't' => $collector->translate('life3_3_t', 'On the office chair'),  'd' => $collector->translate('life3_3_d', 'Hours at the desk, without the afternoon ache.')],
 ];
 
 $faqs = [
@@ -262,9 +262,9 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
     <!-- Where it hurts: three pain areas of the body (images are placeholders until generated) -->
     <?php
     $painAreas = [
-        ['img' => 'assets/img/index/pain-tailbone.jpg', 'alt' => 'Woman wincing as she sits down into a car seat, with her tailbone glowing red',  't' => $collector->translate('pa_1_t', 'Tailbone and hips'), 'd' => $collector->translate('pa_1_d', 'Sharp pressure at the base of your spine every time you sit down.')],
-        ['img' => 'assets/img/index/pain-back.jpg',     'alt' => 'Man at his office desk holding his lower back, with the lower spine glowing red', 't' => $collector->translate('pa_0_t', 'Lower back'),        'd' => $collector->translate('pa_0_d', 'A dull ache that builds through the day and stiffens when you stand up.')],
-        ['img' => 'assets/img/index/pain-leg.jpg',      'alt' => 'Woman on a sofa gripping the back of her thigh, with the thigh glowing red', 't' => $collector->translate('pa_2_t', 'Back of the leg'), 'd' => $collector->translate('pa_2_d', 'Sciatic discomfort that runs from your buttock down the back of your thigh.')],
+        ['img' => 'assets/img/index/pain-tailbone-20261112.jpg', 'alt' => 'Woman wincing as she sits down into a car seat, with her tailbone glowing red',  't' => $collector->translate('pa_1_t', 'Tailbone and hips'), 'd' => $collector->translate('pa_1_d', 'Sharp pressure at the base of your spine every time you sit down.')],
+        ['img' => 'assets/img/index/pain-back-20261112.jpg',     'alt' => 'Man at his office desk holding his lower back, with the lower spine glowing red', 't' => $collector->translate('pa_0_t', 'Lower back'),        'd' => $collector->translate('pa_0_d', 'A dull ache that builds through the day and stiffens when you stand up.')],
+        ['img' => 'assets/img/index/pain-leg-20261112.jpg',      'alt' => 'Woman on a sofa gripping the back of her thigh, with the thigh glowing red', 't' => $collector->translate('pa_2_t', 'Back of the leg'), 'd' => $collector->translate('pa_2_d', 'Sciatic discomfort that runs from your buttock down the back of your thigh.')],
     ];
     ?>
     <section id="pain-areas" class="py-5 md:py-[30px] lg:py-16 bg-[#faf4f2] scroll-mt-16">
