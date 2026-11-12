@@ -1,4 +1,11 @@
 {
+    "deliver_to": "Dostarczyć do",
+    "pol_ship_tw_stat": "7 dni",
+    "pol_ship_tw_stat_d": "Dostawa w ciągu 7 dni",
+    "pol_ship_tw_p1": "Twoje zamówienie zostanie dostarczone <b>w ciągu 7 dni</b>. Koszty wysyłki Twojego zamówienia zostaną obliczone i wyświetlone podczas finalizacji zamówienia.",
+    "pol_ship14_stat": "14 dni",
+    "pol_ship14_stat_d": "Dostawa w ciągu 14 dni",
+    "pol_ship14_p1": "Twoje zamówienie zostanie dostarczone <b>w ciągu 14 dni</b>, choć czasami mogą wystąpić opóźnienia. Koszty wysyłki Twojego zamówienia zostaną obliczone i wyświetlone podczas finalizacji zamówienia.",
     "lang_search": "Szukaj języka",
     "lang_search_label": "Szukaj języka",
     "lang_search_2": "Szukaj języka",

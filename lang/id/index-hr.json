@@ -1,4 +1,10 @@
 {
+    "pol_ship_tw_stat": "7 hari",
+    "pol_ship_tw_stat_d": "Dikirim dalam 7 hari",
+    "pol_ship_tw_p1": "Pesanan Anda akan dikirimkan <b>dalam 7 hari</b>. Biaya pengiriman untuk pesanan Anda akan dihitung dan ditampilkan saat proses pembayaran.",
+    "pol_ship14_stat": "14 hari",
+    "pol_ship14_stat_d": "Dikirim dalam waktu 14 hari",
+    "pol_ship14_p1": "Pesanan Anda akan dikirimkan <b>dalam waktu 14 hari</b>, meskipun terkadang mungkin terjadi keterlambatan. Biaya pengiriman untuk pesanan Anda akan dihitung dan ditampilkan saat proses pembayaran.",
     "pain2_0_t": "Kursi keras yang tidak nyaman diduduki",
     "pain2_0_d": "Kursi makan, kursi kantor, dan jok mobil bisa terasa tidak bersahabat begitu Anda duduk.",
     "pain2_1_t": "Tekanan pada area yang sensitif",

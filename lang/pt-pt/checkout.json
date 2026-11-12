@@ -1,4 +1,10 @@
 {
+    "pol_ship_tw_stat": "7 dias",
+    "pol_ship_tw_stat_d": "Entrega em 7 dias",
+    "pol_ship_tw_p1": "A sua encomenda será entregue <b>em 7 dias</b>. Os custos de envio da sua encomenda serão calculados e apresentados no momento do pagamento.",
+    "pol_ship14_stat": "14 dias",
+    "pol_ship14_stat_d": "Entrega no prazo de 14 dias",
+    "pol_ship14_p1": "A sua encomenda será entregue <b>no prazo de 14 dias</b>, embora possam ocorrer atrasos ocasionalmente. Os custos de envio da sua encomenda serão calculados e apresentados no momento do pagamento.",
     "co_shipping_link": "Envio",
     "pol_eyebrow": "Ajuda e políticas",
     "pol_heading": "Estamos aqui para ajudar",

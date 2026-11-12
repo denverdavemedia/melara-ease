@@ -1,4 +1,11 @@
 {
+    "deliver_to": "배송지",
+    "pol_ship_tw_stat": "7일",
+    "pol_ship_tw_stat_d": "7일 이내 배송",
+    "pol_ship_tw_p1": "주문하신 상품은 <b>7일 이내</b>에 배송됩니다. 주문에 대한 배송비는 결제 시 계산되어 표시됩니다.",
+    "pol_ship14_stat": "14일",
+    "pol_ship14_stat_d": "14일 이내에 배송됩니다",
+    "pol_ship14_p1": "주문하신 상품은 <b>14일 이내</b>에 배송될 예정이지만, 경우에 따라 배송이 지연될 수도 있습니다. 주문에 대한 배송비는 결제 시 계산되어 표시됩니다.",
     "lang_search": "언어 검색",
     "lang_search_label": "언어 검색",
     "lang_search_2": "언어 검색",

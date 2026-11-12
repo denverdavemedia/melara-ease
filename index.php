@@ -10,6 +10,7 @@ if (($_GET['custom_config'] ?? $_SESSION['custom_config'] ?? '') === 'hr') {
 }
 include_once(BASEPATH . '/src/JsonTranslateCollector.php');
 include_once(__DIR__ . '/includes/language-selector.php');
+include_once(__DIR__ . '/includes/deliver-to.php');
 
 $collector = new JsonCollector(targetLanguage: $OfferApi->targetLanguage, pageName: "index");
 
@@ -130,6 +131,7 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
 <div class="mesh text-cream text-xs sm:text-sm text-center py-2.5 px-4" style="--veil: rgba(29,34,38,.45)">
     <?= $collector->translate('idx_launch_offer_up_to', 'Launch offer: up to') ?> <strong class="text-turq-soft"><?= $collector->translate('idx_70_off', '70% off') ?></strong> <?= $collector->translate('idx_bundles_ends_in', '· ends in') ?> <span data-countdown class="tabular-nums font-medium">--:--:--</span>
 </div>
+<?= deliverTo('bar') ?>
 
 <header id="nav" class="sticky top-0 z-40 transition-all duration-300">
     <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
@@ -141,6 +143,7 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
             <li><a href="#faq" class="nav-link"><?= $collector->translate('idx_faq', 'FAQ') ?></a></li>
         </ul>
         <div class="flex items-center gap-2 sm:gap-3">
+            <?= deliverTo('header') ?>
             <?= languageSelector('header') ?>
             <a href="checkout.php?pack=2" class="rounded-full bg-ink text-cream text-xs sm:text-sm font-medium px-3.5 sm:px-5 py-2.5 whitespace-nowrap hover:bg-turq hover:text-ink transition"><?= $collector->translate('idx_get_70_discount', 'Get 70% Discount') ?></a>
         </div>
@@ -285,22 +288,25 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
 
     <section class="py-5 md:py-[30px] lg:py-16">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-8 lg:gap-14 items-center">
-            <div class="reveal relative order-2 lg:order-1 mb-6 lg:mb-0">
-                <!-- Before / after: the two photos cross-fade on a loop (assets/js/index.js) -->
-                <div class="relative aspect-[4/5] rounded-[2.5rem] overflow-hidden" data-ba-loop>
+            <!-- Before / after: the two photos and their labels cross-fade on a loop (assets/js/index.js) -->
+            <div class="reveal relative order-2 lg:order-1 mb-6 lg:mb-0" data-ba-loop>
+                <div class="relative aspect-[4/5] rounded-[2.5rem] overflow-hidden">
                     <div class="ba-slide is-on absolute inset-0">
                         <?= photo('assets/img/v2/pain-before.webp', 'Woman in her 60s holding her lower back in pain as she sits on a hard dining chair', 'w-full h-full', 'pain-before.webp') ?>
                         <span class="glow-pulse glow-red" aria-hidden="true"></span>
-                        <span class="absolute top-4 start-4 inline-flex items-center gap-2 rounded-full bg-red-500 px-4 py-2 text-sm font-semibold text-white shadow-lg"><span aria-hidden="true">✕</span> <?= $collector->translate('ba_before', 'Before: a hard, flat chair') ?></span>
                     </div>
                     <div class="ba-slide absolute inset-0">
                         <?= photo('assets/img/v2/pain-after.webp', 'The same woman smiling and sitting comfortably on the Melara Sitora cushion on the same dining chair', 'w-full h-full', 'pain-after.webp') ?>
                         <span class="glow-pulse glow-turq" aria-hidden="true"></span>
-                        <span class="absolute top-4 start-4 inline-flex items-center gap-2 rounded-full bg-turq px-4 py-2 text-sm font-semibold text-ink shadow-lg"><span aria-hidden="true">✓</span> <?= $collector->translate('ba_after', 'After: with Melara Sitora') ?></span>
                     </div>
                     <div class="absolute bottom-4 inset-x-0 flex justify-center gap-2" aria-hidden="true">
                         <span class="ba-dot is-on"></span><span class="ba-dot"></span>
                     </div>
+                </div>
+                <!-- Labels sit under the photo so they never cover the person or the cushion -->
+                <div class="mt-4 grid justify-items-center">
+                    <span class="ba-cap is-on col-start-1 row-start-1 inline-flex items-center gap-2 rounded-full bg-red-500 px-4 py-2 text-sm font-semibold text-white shadow-lg"><span aria-hidden="true">✕</span> <?= $collector->translate('ba_before', 'Before: a hard, flat chair') ?></span>
+                    <span class="ba-cap col-start-1 row-start-1 inline-flex items-center gap-2 rounded-full bg-turq px-4 py-2 text-sm font-semibold text-ink shadow-lg"><span aria-hidden="true">✓</span> <?= $collector->translate('ba_after', 'After: with Melara Sitora') ?></span>
                 </div>
             </div>
             <div class="order-1 lg:order-2">
@@ -375,66 +381,8 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
         </div>
     </section>
 
-    <!-- Sciatica: segmented pressure zones along the sciatic nerve path (diagram image is a placeholder for now) -->
-    <section id="sciatica" class="py-5 md:py-[30px] lg:py-16 scroll-mt-16">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-8 lg:gap-14 items-center">
-            <div class="lg:col-span-5 reveal">
-                <div class="aspect-[4/5] rounded-[2.5rem] overflow-hidden bg-soft-gray border border-sand/70">
-                    <?= photo('assets/img/v2/sciatica-zones.webp', 'Diagram: side view of a seated person on the Melara cushion, with the sciatic nerve path highlighted from the lower back down the back of the leg, and four numbered pressure zones (lower back, tailbone, sit bones, back of thighs)', 'w-full h-full', 'sciatica-zones.webp') ?>
-                </div>
-            </div>
-            <div class="lg:col-span-7">
-                <p class="reveal text-sm font-medium uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('sci_eyebrow', 'Designed with sciatica in mind') ?></p>
-                <h2 class="reveal mt-4 font-serif text-4xl sm:text-5xl leading-tight sm:leading-none tracking-tight" data-delay="1"><?= $collector->translate('sci_heading', 'Less pressure') ?> <em class="text-turq-ink"><?= $collector->translate('sci_heading_2', 'where it hurts.') ?></em></h2>
-                <p class="reveal mt-4 text-muted leading-relaxed" data-delay="2"><?= $collector->translate('sci_intro', 'Your sciatic nerve runs from your lower back, through your buttocks and down the back of each leg. On a flat, hard seat, your weight presses along that path. Melara\'s zoned support spreads it out instead.') ?></p>
-
-                <div class="reveal mt-6 overflow-hidden rounded-2xl border border-sand bg-white text-sm" data-delay="3">
-                    <div class="hidden sm:grid grid-cols-[1.1fr_1fr_1fr] gap-4 bg-linen px-5 py-3 text-xs font-semibold uppercase tracking-[.14em] text-muted">
-                        <span><?= $collector->translate('sci_col_zone', 'Pressure zone') ?></span>
-                        <span><?= $collector->translate('sci_col_flat', 'On a flat chair') ?></span>
-                        <span class="text-turq-ink"><?= $collector->translate('sci_col_melara', 'With Melara') ?></span>
-                    </div>
-                    <div class="divide-y divide-sand">
-                        <div class="grid sm:grid-cols-[1.1fr_1fr_1fr] gap-1 sm:gap-4 px-5 py-4">
-                            <p class="flex items-center gap-2 font-semibold text-ink"><span class="grid place-items-center w-6 h-6 shrink-0 rounded-full bg-ink text-cream text-[11px]">1</span><?= $collector->translate('sci_0_zone', 'Lower back (lumbar spine)') ?></p>
-                            <p class="text-muted"><span class="text-rose-400 me-1" aria-hidden="true">●</span><?= $collector->translate('sci_0_flat', 'Unsupported, so muscles strain to hold you up') ?></p>
-                            <p class="text-ink"><span class="text-turq me-1" aria-hidden="true">●</span><?= $collector->translate('sci_0_mel', 'Supported by the curved backrest') ?></p>
-                        </div>
-                        <div class="grid sm:grid-cols-[1.1fr_1fr_1fr] gap-1 sm:gap-4 px-5 py-4">
-                            <p class="flex items-center gap-2 font-semibold text-ink"><span class="grid place-items-center w-6 h-6 shrink-0 rounded-full bg-ink text-cream text-[11px]">2</span><?= $collector->translate('sci_1_zone', 'Tailbone (coccyx)') ?></p>
-                            <p class="text-muted"><span class="text-rose-400 me-1" aria-hidden="true">●</span><?= $collector->translate('sci_1_flat', 'Pressed against the seat') ?></p>
-                            <p class="text-ink"><span class="text-turq me-1" aria-hidden="true">●</span><?= $collector->translate('sci_1_mel', 'Suspended over the hollow vent') ?></p>
-                        </div>
-                        <div class="grid sm:grid-cols-[1.1fr_1fr_1fr] gap-1 sm:gap-4 px-5 py-4">
-                            <p class="flex items-center gap-2 font-semibold text-ink"><span class="grid place-items-center w-6 h-6 shrink-0 rounded-full bg-ink text-cream text-[11px]">3</span><?= $collector->translate('sci_2_zone', 'Sit bones and buttocks') ?></p>
-                            <p class="text-muted"><span class="text-rose-400 me-1" aria-hidden="true">●</span><?= $collector->translate('sci_2_flat', 'Carry most of your weight') ?></p>
-                            <p class="text-ink"><span class="text-turq me-1" aria-hidden="true">●</span><?= $collector->translate('sci_2_mel', 'Weight spread across the contoured seat') ?></p>
-                        </div>
-                        <div class="grid sm:grid-cols-[1.1fr_1fr_1fr] gap-1 sm:gap-4 px-5 py-4">
-                            <p class="flex items-center gap-2 font-semibold text-ink"><span class="grid place-items-center w-6 h-6 shrink-0 rounded-full bg-ink text-cream text-[11px]">4</span><?= $collector->translate('sci_3_zone', 'Back of the thighs') ?></p>
-                            <p class="text-muted"><span class="text-rose-400 me-1" aria-hidden="true">●</span><?= $collector->translate('sci_3_flat', 'Pressure builds along the sciatic nerve path') ?></p>
-                            <p class="text-ink"><span class="text-turq me-1" aria-hidden="true">●</span><?= $collector->translate('sci_3_mel', 'Thighs kept level and evenly supported') ?></p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="reveal mt-6 flex flex-col items-center sm:items-start text-center sm:text-start gap-3">
-                    <a href="checkout.php?pack=2" class="group inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full bg-turq px-7 py-4 font-semibold text-ink shadow-[0_14px_30px_-12px_rgba(29,209,161,.6)] hover:bg-turq-dark hover:-translate-y-0.5 transition">
-                        <?= $collector->translate('cta_sci', 'Ease the pressure today') ?>
-                        <svg class="w-4 h-4 transition group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-                    </a>
-                    <p class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-muted">
-                        <span class="inline-flex items-center gap-1"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5 text-turq-ink" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><?= $collector->translate('cta_sci_n1', '30-day returns') ?></span>
-                        <span class="inline-flex items-center gap-1"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5 text-turq-ink" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><?= $collector->translate('cta_sci_n3', '70% off today') ?></span>
-                    </p>
-                </div>
-                <p class="reveal mt-4 text-xs text-muted leading-relaxed" data-delay="4"><?= $collector->translate('sci_disclaimer', 'Melara is a comfort and posture-support cushion, not a medical device. It is not intended to diagnose, treat or cure any condition. If you have ongoing or severe pain, please talk to your doctor or physiotherapist.') ?></p>
-            </div>
-        </div>
-    </section>
-
     <!-- Golden sitting angle + goodbye crossed legs: real side and front photos with drawn guides -->
-    <section id="posture" class="py-5 md:pt-0 md:pb-[30px] lg:py-16 scroll-mt-16">
+    <section id="posture" class="py-5 md:py-[30px] lg:py-16 scroll-mt-16">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="max-w-2xl">
                 <p class="reveal text-sm font-medium uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('pos_eyebrow', 'Sit the way your spine wants') ?></p>
@@ -548,16 +496,16 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
                             <path class="dim-line" pathLength="100" style="--d: 0s"  d="M1,75 L26,97"/>
                             <path class="dim-tick" style="--d: .7s" d="M-0.4,76.6 L2.4,73.4M24.6,98.6 L27.4,95.4"/>
                             <path class="dim-glow" pathLength="100" style="--d: 0s"  d="M1,75 L26,97"/>
-                            <path class="dim-line" pathLength="100" style="--d: .45s" d="M36,97 L98,63"/>
-                            <path class="dim-tick" style="--d: 1.15s" d="M35.2,95.6 L36.8,98.4M97.2,61.6 L98.8,64.4"/>
-                            <path class="dim-glow" pathLength="100" style="--d: .45s" d="M36,97 L98,63"/>
+                            <path class="dim-line" pathLength="100" style="--d: .45s" d="M36,97 L88,68.5"/>
+                            <path class="dim-tick" style="--d: 1.15s" d="M35.2,95.6 L36.8,98.4M87.2,67.1 L88.8,69.9"/>
+                            <path class="dim-glow" pathLength="100" style="--d: .45s" d="M36,97 L88,68.5"/>
                             <path class="dim-line" pathLength="100" style="--d: .9s" d="M102,11 L102,55"/>
                             <path class="dim-tick" style="--d: 1.6s" d="M100.4,11 L103.6,11M100.4,55 L103.6,55"/>
                             <path class="dim-glow" pathLength="100" style="--d: .9s" d="M102,11 L102,55"/>
                         </g>
                     </svg>
                     <span class="dim-pill" style="left: 13.5%; top: 86%; --d: .8s;">44 cm<small>17.3 in</small></span>
-                    <span class="dim-pill" style="left: 67%; top: 80%; --d: 1.25s;">42 cm<small>16.5 in</small></span>
+                    <span class="dim-pill" style="left: 62%; top: 82.75%; --d: 1.25s;">42 cm<small>16.5 in</small></span>
                     <span class="dim-pill" style="left: 102%; top: 33%; --d: 1.7s;">32 cm<small>12.6 in</small></span>
                 </div>
             </div>
@@ -573,7 +521,9 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
                     <div class="flex justify-between gap-6 px-5 py-4"><dt class="text-muted"><?= $collector->translate('spec_base_k', 'Base') ?></dt><dd class="font-semibold text-end"><?= $collector->translate('spec_base_v', 'Silicone anti-slip dots') ?></dd></div>
                     <div class="flex justify-between gap-6 px-5 py-4"><dt class="text-muted"><?= $collector->translate('spec_vent_k', 'Tailbone') ?></dt><dd class="font-semibold text-end"><?= $collector->translate('spec_vent_v', 'Hollow, breathable vent') ?></dd></div>
                 </dl>
-                <a href="checkout.php?pack=2" class="reveal group mt-8 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full bg-turq px-7 py-4 font-semibold text-ink shadow-[0_14px_30px_-12px_rgba(29,209,161,.6)] hover:bg-turq-dark transition" data-delay="3"><?= $collector->translate('spec_cta', 'Get 70% Discount') ?> <span class="transition group-hover:translate-x-1" aria-hidden="true">→</span></a>
+                <div class="reveal mt-8 flex justify-center" data-delay="3">
+                    <a href="checkout.php?pack=2" class="group inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full bg-turq px-7 py-4 font-semibold text-ink shadow-[0_14px_30px_-12px_rgba(29,209,161,.6)] hover:bg-turq-dark transition"><?= $collector->translate('spec_cta', 'Get 70% Discount') ?> <span class="transition group-hover:translate-x-1" aria-hidden="true">→</span></a>
+                </div>
             </div>
         </div>
     </section>
@@ -675,7 +625,7 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
                             <div class="mt-4 flex items-start gap-3">
                                 <span class="grid place-items-center shrink-0 w-9 h-9 rounded-xl bg-rose-50 text-rose-500"><?= $face($mood) ?></span>
                                 <div class="flex-1 min-w-0">
-                                    <p class="text-sm text-muted leading-tight"><?= $rt ?></p>
+                                    <p class="min-h-[2.5em] text-sm text-muted leading-tight"><?= $rt ?></p>
                                     <div class="mt-2 h-1.5 rounded-full bg-linen overflow-hidden"><div class="cmp-bar h-full rounded-full bg-rose-400" style="--w: <?= $rv ?>%; transition-delay: <?= .4 + $i * .15 ?>s"></div></div>
                                 </div>
                             </div>
@@ -683,7 +633,7 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
                             <div class="mt-4 flex items-start gap-3 rounded-2xl bg-turq-soft/40 -mx-2 px-2 py-2">
                                 <span class="grid place-items-center shrink-0 w-9 h-9 rounded-xl bg-turq text-ink shadow-[0_6px_16px_-6px_rgba(29,209,161,.9)]"><?= $face('happy') ?></span>
                                 <div class="flex-1 min-w-0">
-                                    <p class="text-sm font-medium leading-tight"><?= $mt ?></p>
+                                    <p class="min-h-[2.5em] text-sm font-medium leading-tight"><?= $mt ?></p>
                                     <div class="mt-2 h-1.5 rounded-full bg-white overflow-hidden"><div class="cmp-bar h-full rounded-full bg-turq" style="--w: <?= $mv ?>%; transition-delay: <?= .6 + $i * .15 ?>s"></div></div>
                                 </div>
                             </div>
@@ -874,20 +824,21 @@ $address      = $OfferApi->companyAddress;
         <!-- Body -->
         <div class="policy-body flex-1 overflow-y-auto overscroll-contain px-5 sm:px-8 py-6 sm:py-8 text-[15px] leading-relaxed text-muted">
 
-            <!-- Shipping -->
+            <!-- Shipping: Taiwan (zh-hant) is delivered in 7 days; every other language gets the safer 'within 14 days' -->
+            <?php $shipTw = $OfferApi->targetLanguage === 'zh-hant'; ?>
             <section id="panel-shipping" role="tabpanel" aria-labelledby="tab-shipping" data-policy-panel="shipping">
                 <h3 class="font-serif text-xl text-ink"><?= $collector->translate('pol_ship_title', 'Shipping') ?></h3>
                 <div class="mt-4 grid grid-cols-2 gap-3">
                     <div class="rounded-2xl bg-turq-soft/60 p-4">
-                        <p class="font-serif text-2xl text-ink"><?= $collector->translate('pol_ship_stat_1', '5–7 days') ?></p>
-                        <p class="text-xs text-muted"><?= $collector->translate('pol_ship_stat_1_d', 'Typical delivery (business days)') ?></p>
+                        <p class="font-serif text-2xl text-ink"><?= $shipTw ? $collector->translate('pol_ship_tw_stat', '7 days') : $collector->translate('pol_ship14_stat', '14 days') ?></p>
+                        <p class="text-xs text-muted"><?= $shipTw ? $collector->translate('pol_ship_tw_stat_d', 'Delivered in 7 days') : $collector->translate('pol_ship14_stat_d', 'Delivered within 14 days') ?></p>
                     </div>
                     <div class="rounded-2xl bg-linen p-4">
                         <p class="font-serif text-2xl text-ink"><?= $collector->translate('pol_ship_stat_2', 'SecureShip') ?></p>
                         <p class="text-xs text-muted"><?= $collector->translate('pol_ship_stat_2_d', 'Optional cover for lost packages') ?></p>
                     </div>
                 </div>
-                <p class="mt-5"><?= $collector->translate('pol_ship_p1', 'Delivery typically takes <b>5 to 7 business days</b>, although delays may occasionally occur. Shipping charges for your order will be calculated and displayed at checkout.') ?></p>
+                <p class="mt-5"><?= $shipTw ? $collector->translate('pol_ship_tw_p1', 'Your order will be delivered <b>in 7 days</b>. Shipping charges for your order will be calculated and displayed at checkout.') : $collector->translate('pol_ship14_p1', 'Your order will be delivered <b>within 14 days</b>, although delays may occasionally occur. Shipping charges for your order will be calculated and displayed at checkout.') ?></p>
                 <p class="mt-3"><?= $collector->translate('pol_ship_p2', 'We are not responsible for any customs or taxes applied to your order. All fees imposed during or after shipping (tariffs, taxes, etc.) are your responsibility.') ?></p>
                 <ul class="policy-list mt-4">
                     <li><?= $collector->translate('pol_ship_li_1', '<b>Lost packages</b> are only covered if you purchased the <b>SecureShip add-on</b> at checkout.') ?></li>

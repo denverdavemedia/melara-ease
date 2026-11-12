@@ -1,4 +1,10 @@
 {
+    "pol_ship_tw_stat": "7 dagen",
+    "pol_ship_tw_stat_d": "Wordt binnen 7 dagen geleverd",
+    "pol_ship_tw_p1": "Uw bestelling wordt <b>binnen 7 dagen</b> geleverd. De verzendkosten voor uw bestelling worden berekend en weergegeven bij het afrekenen.",
+    "pol_ship14_stat": "14 dagen",
+    "pol_ship14_stat_d": "Levering binnen 14 dagen",
+    "pol_ship14_p1": "Uw bestelling wordt <b>binnen 14 dagen</b> geleverd, hoewel er af en toe vertragingen kunnen optreden. De verzendkosten voor uw bestelling worden berekend en weergegeven bij het afrekenen.",
     "co_shipping_link": "Verzending",
     "pol_eyebrow": "Hulp & beleid",
     "pol_heading": "We helpen je graag",
