@@ -1,4 +1,9 @@
 {
+    "co_cvv_full": "CVV/CVC/CSC",
+    "co_cvv_ph": "XXX veya XXXX",
+    "pay_or_card_2": "Ya da kredi kartıyla ödeme yapabilirsiniz",
+    "co_discount_ends_in": "{pct}%'lik indiriminizin süresi şu kadar sonra sona eriyor:",
+    "co_standard_ship": "Standart kargo",
     "pol_ship_tw_stat": "7 gün",
     "pol_ship_tw_stat_d": "7 gün içinde teslim edilir",
     "pol_ship_tw_p1": "Siparişiniz <b>7 gün içinde</b> teslim edilecektir. Siparişinizin kargo ücretleri, ödeme sayfasında hesaplanarak gösterilecektir.",

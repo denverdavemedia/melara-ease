@@ -1,4 +1,9 @@
 {
+    "co_cvv_full": "CVV/CVC/CSC",
+    "co_cvv_ph": "XXX eller XXXX",
+    "pay_or_card_2": "Eller betal med kredittkort",
+    "co_discount_ends_in": "Din {pct} %-rabatt utløper om:",
+    "co_standard_ship": "Standardfrakt",
     "pol_ship_tw_stat": "7 dager",
     "pol_ship_tw_stat_d": "Leveres innen 7 dager",
     "pol_ship_tw_p1": "Bestillingen din vil bli levert <b>innen 7 dager</b>. Fraktkostnadene for bestillingen din vil bli beregnet og vist ved kassen.",

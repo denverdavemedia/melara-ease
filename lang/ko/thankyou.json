@@ -1,4 +1,6 @@
 {
+    "next_2b_when": "다음",
+    "next_2b_title": "주문하신 상품이 발송됩니다",
     "block_main": "주문 상품",
     "block_addon": "원클릭 추가 상품",
     "block_shipping": "배송비",

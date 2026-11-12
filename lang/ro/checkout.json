@@ -1,4 +1,9 @@
 {
+    "co_cvv_full": "CVV/CVC/CSC",
+    "co_cvv_ph": "XXX sau XXXX",
+    "pay_or_card_2": "Sau plătește cu cardul de credit",
+    "co_discount_ends_in": "Reducerea ta de {pct}% expiră în:",
+    "co_standard_ship": "Livrare standard",
     "pol_ship_tw_stat": "7 zile",
     "pol_ship_tw_stat_d": "Livrare în 7 zile",
     "pol_ship_tw_p1": "Comanda dumneavoastră va fi livrată <b>în 7 zile</b>. Costurile de livrare pentru comanda dumneavoastră vor fi calculate și afișate la finalizarea comenzii.",

@@ -1,4 +1,6 @@
 {
+    "next_2b_when": "Next",
+    "next_2b_title": "Your order ships",
     "block_main": "Your order",
     "block_addon": "One-click add-on",
     "block_shipping": "Shipping",

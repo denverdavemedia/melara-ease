@@ -1,4 +1,9 @@
 {
+    "co_cvv_full": "CVV/CVC/CSC",
+    "co_cvv_ph": "XXX o XXXX",
+    "pay_or_card_2": "O bien, paga con tarjeta de crédito",
+    "co_discount_ends_in": "Tu descuento del {pct} % finaliza en:",
+    "co_standard_ship": "Envío estándar",
     "pol_ship_tw_stat": "7 días",
     "pol_ship_tw_stat_d": "Entrega en 7 días",
     "pol_ship_tw_p1": "Tu pedido se entregará <b>en 7 días</b>. Los gastos de envío de tu pedido se calcularán y se mostrarán al finalizar la compra.",
