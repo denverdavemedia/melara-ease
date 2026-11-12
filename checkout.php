@@ -51,9 +51,9 @@ $freeText = $collector->translate('co_free', 'Free');
 
 <header class="bg-white border-b border-sand">
     <div class="mx-auto max-w-6xl px-4 sm:px-6 h-16 flex items-center justify-between">
-        <a href="index.php" class="shrink-0"><img src="assets/img/logo.svg" alt="Melara" class="h-9 w-auto" width="190" height="49"></a>
-        <div class="flex items-center gap-3 sm:gap-5">
-            <span class="inline-flex items-center gap-2 text-sm text-muted"><span class="text-turq-ink"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3M12 14.5v2.5"/></svg></span> <span class="hidden sm:inline"><?= $collector->translate('co_secure_checkout', 'Secure checkout') ?></span></span>
+        <a href="index.php" class="shrink-0"><img src="assets/img/logo.svg" alt="Melara" class="h-7 sm:h-9 w-auto" width="190" height="49"></a>
+        <div class="min-w-0 flex items-center gap-2 sm:gap-5">
+            <span class="min-w-0 inline-flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-muted"><span class="text-turq-ink"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3M12 14.5v2.5"/></svg></span> <span class="leading-tight"><?= $collector->translate('co_secure_checkout', 'Secure checkout') ?></span></span>
             <?= languageSelector('locked') ?>
         </div>
     </div>
@@ -70,7 +70,7 @@ $freeText = $collector->translate('co_free', 'Free');
 </section>
 
 <main class="mx-auto max-w-6xl px-4 sm:px-6 py-8 sm:py-10">
-    <form id="checkout" novalidate class="grid gap-6 lg:grid-cols-[1.1fr_1fr] lg:grid-rows-[auto_1fr_auto] lg:items-start">
+    <form id="checkout" novalidate class="grid gap-6 lg:grid-cols-[1.1fr_1fr] lg:grid-rows-[auto_1fr] lg:items-start">
 
         <section class="card p-5 sm:p-7 lg:col-start-1 lg:row-start-1">
             <!-- Phones get only the one-line timer below, like the shopmelara-apex checkout (checkout_v1.php); the discount text is too long there -->
@@ -159,7 +159,10 @@ $freeText = $collector->translate('co_free', 'Free');
             <?php endif; ?>
         </section>
 
-        <section class="card p-5 sm:p-7 lg:col-start-2 lg:row-start-1 lg:row-span-2">
+        <!-- Right column on desktop: steps 2-3 card, then the order button directly under it.
+             On phones the wrapper is display:contents, so its two parts stay separate grid items (button goes last). -->
+        <div class="contents lg:flex lg:flex-col lg:gap-6 lg:col-start-2 lg:row-start-1 lg:row-span-2">
+        <section class="card p-5 sm:p-7">
             <!-- No order summary box here, to match the shopmelara-apex checkout: pack prices are on the cards, shipping and SecureShip on their own rows -->
             <ul class="grid grid-cols-1 gap-2 text-sm font-medium"><!-- one per line on every screen, as on phones -->
                 <li class="flex items-center gap-2"><span class="grid place-items-center w-5 h-5 rounded-full bg-turq text-ink"><svg viewBox="0 0 24 24" class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg></span><?= $collector->translate('co2_feature_1', 'Lumbar support') ?></li>
@@ -206,6 +209,22 @@ $freeText = $collector->translate('co_free', 'Free');
             </div>
         </section>
 
+        <!-- Phones: shown last (after billing). Desktop: stacked right under the card above, no gap -->
+        <section class="max-lg:order-last">
+            <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-muted">
+                <span class="inline-flex items-center gap-1.5"><span class="text-turq-ink"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5.5c0 4.4 3 8.2 7 9.5 4-1.3 7-5.1 7-9.5V6l-7-3z"/><path d="m9 12 2.2 2.2L15.5 10"/></svg></span> <?= $collector->translate('co_100_night_money_back', '30-day money-back') ?></span>
+                <span class="inline-flex items-center gap-1.5"><span class="text-turq-ink"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V4h8l9.5 9.5-8 8L3 12z"/><circle cx="7.5" cy="8" r="1.5"/></svg></span> <?= $collector->translate('co_launch_price_locked', 'Launch price locked') ?></span>
+            </div>
+            <button type="button" id="submitForm" class="group mt-4 w-full rounded-full bg-turq px-6 py-4 text-base sm:text-lg font-semibold text-ink shadow-[0_14px_30px_-12px_rgba(29,209,161,.8)] hover:bg-turq-dark transition">
+                <?= $collector->translate('co_get', 'Get') ?> <?= $maxSave ?><?= $collector->translate('co_discount_order_now', '% Discount &amp; Order Now') ?> <span aria-hidden="true" class="inline-block transition group-hover:translate-x-1">→</span>
+            </button>
+            <div class="mt-4 text-center">
+                <p class="inline-flex items-center gap-2 text-sm font-semibold"><span class="text-turq-ink"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3M12 14.5v2.5"/></svg></span> <span><span class="text-turq-ink"><?= $collector->translate('co_ssl', 'SSL') ?></span> <?= $collector->translate('co_secured_payment', 'secured payment') ?></span></p>
+                <p class="mt-1 text-xs text-muted"><?= $collector->translate('co_your_information_is_protected', 'Your information is protected by 256-bit SSL encryption.') ?></p>
+            </div>
+        </section>
+        </div>
+
         <section class="card p-5 sm:p-7 lg:col-start-1 lg:row-start-2">
             <!-- Express checkout sits right above billing, like shopmelara-apex (_paymentMethod.php): integrated.js mounts the Stripe wallet buttons
                  (Google Pay / Apple Pay / Link) into #express-checkout-stripe and opens PayPal from .paypal-btn -->
@@ -239,19 +258,6 @@ $freeText = $collector->translate('co_free', 'Free');
             </div>
         </section>
 
-        <section class="lg:col-start-2 lg:row-start-3">
-            <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-muted">
-                <span class="inline-flex items-center gap-1.5"><span class="text-turq-ink"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5.5c0 4.4 3 8.2 7 9.5 4-1.3 7-5.1 7-9.5V6l-7-3z"/><path d="m9 12 2.2 2.2L15.5 10"/></svg></span> <?= $collector->translate('co_100_night_money_back', '30-day money-back') ?></span>
-                <span class="inline-flex items-center gap-1.5"><span class="text-turq-ink"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V4h8l9.5 9.5-8 8L3 12z"/><circle cx="7.5" cy="8" r="1.5"/></svg></span> <?= $collector->translate('co_launch_price_locked', 'Launch price locked') ?></span>
-            </div>
-            <button type="button" id="submitForm" class="group mt-4 w-full rounded-full bg-turq px-6 py-4 text-base sm:text-lg font-semibold text-ink shadow-[0_14px_30px_-12px_rgba(29,209,161,.8)] hover:bg-turq-dark transition">
-                <?= $collector->translate('co_get', 'Get') ?> <?= $maxSave ?><?= $collector->translate('co_discount_order_now', '% Discount &amp; Order Now') ?> <span aria-hidden="true" class="inline-block transition group-hover:translate-x-1">→</span>
-            </button>
-            <div class="mt-4 text-center">
-                <p class="inline-flex items-center gap-2 text-sm font-semibold"><span class="text-turq-ink"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3M12 14.5v2.5"/></svg></span> <span><span class="text-turq-ink"><?= $collector->translate('co_ssl', 'SSL') ?></span> <?= $collector->translate('co_secured_payment', 'secured payment') ?></span></p>
-                <p class="mt-1 text-xs text-muted"><?= $collector->translate('co_your_information_is_protected', 'Your information is protected by 256-bit SSL encryption.') ?></p>
-            </div>
-        </section>
     </form>
 </main>
 
