@@ -42,10 +42,9 @@ function languageSelector($variant = 'header') {
 
     if ($variant === 'locked') {
         $lock = '<svg viewBox="0 0 24 24" class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
-        return '<span class="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-sand bg-linen/60 px-2.5 sm:px-3 py-2 text-sm font-medium text-muted cursor-not-allowed select-none" aria-disabled="true"'
+        return '<span class="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-sand bg-linen/60 px-2.5 sm:px-3 py-2 text-xs sm:text-sm font-medium text-muted cursor-not-allowed select-none" aria-disabled="true"'
              . ' title="' . $collector->translate('lang_locked' . $k, 'Language is set before checkout') . '" aria-label="' . $collector->translate('lang_label' . $k, 'Language') . ': ' . htmlspecialchars($activeName) . '">'
-             . '<span class="hidden sm:inline">' . htmlspecialchars($activeName) . '</span>'
-             . '<span class="sm:hidden text-xs font-semibold tracking-wider uppercase">' . htmlspecialchars($active) . '</span>'
+             . '<span class="whitespace-nowrap">' . htmlspecialchars($activeName) . '</span>' // full name on phones too (not the "EN" code)
              . $lock . '</span>';
     }
 
