@@ -1,4 +1,10 @@
 {
+    "pol_ship_tw_stat": "7 Tage",
+    "pol_ship_tw_stat_d": "Lieferung innerhalb von 7 Tagen",
+    "pol_ship_tw_p1": "Ihre Bestellung wird <b>innerhalb von 7 Tagen</b> geliefert. Die Versandkosten für Ihre Bestellung werden an der Kasse berechnet und angezeigt.",
+    "pol_ship14_stat": "14 Tage",
+    "pol_ship14_stat_d": "Lieferung innerhalb von 14 Tagen",
+    "pol_ship14_p1": "Ihre Bestellung wird <b>innerhalb von 14 Tagen</b> geliefert, wobei es gelegentlich zu Verzögerungen kommen kann. Die Versandkosten für Ihre Bestellung werden an der Kasse berechnet und angezeigt.",
     "pain2_0_t": "Harte Sitze, auf denen das Sitzen schwerfällt",
     "pain2_0_d": "Esszimmerstühle, Bürostühle und Autositze können sich vom ersten Moment an unnachgiebig anfühlen.",
     "pain2_1_t": "Druck auf empfindliche Stellen",

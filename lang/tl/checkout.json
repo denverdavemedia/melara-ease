@@ -1,4 +1,10 @@
 {
+    "pol_ship_tw_stat": "pitong araw",
+    "pol_ship_tw_stat_d": "Naiparating sa loob ng 7 araw",
+    "pol_ship_tw_p1": "Ihahatid ang iyong order <b>sa loob ng 7 araw</b>. Ang bayad sa pagpapadala para sa iyong order ay ikakalkula at ipapakita sa pag-checkout.",
+    "pol_ship14_stat": "labing-apat na araw",
+    "pol_ship14_stat_d": "Naipapadala sa loob ng 14 na araw",
+    "pol_ship14_p1": "Ihahatid ang iyong order <b>sa loob ng 14 na araw</b>, bagaman paminsan-minsan ay maaaring may pagkaantala. Ang bayad sa pagpapadala para sa iyong order ay ikokompyut at ipapakita sa pag-checkout.",
     "co_shipping_link": "Pagpapadala",
     "pol_eyebrow": "Tulong at mga patakaran",
     "pol_heading": "Nandito kami para tumulong",

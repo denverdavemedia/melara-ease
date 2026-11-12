@@ -1,4 +1,10 @@
 {
+    "pol_ship_tw_stat": "7 zile",
+    "pol_ship_tw_stat_d": "Livrare în 7 zile",
+    "pol_ship_tw_p1": "Comanda dumneavoastră va fi livrată <b>în 7 zile</b>. Costurile de livrare pentru comanda dumneavoastră vor fi calculate și afișate la finalizarea comenzii.",
+    "pol_ship14_stat": "14 zile",
+    "pol_ship14_stat_d": "Livrare în termen de 14 zile",
+    "pol_ship14_p1": "Comanda dumneavoastră va fi livrată <b>în termen de 14 zile</b>, deși pot apărea ocazional întârzieri. Costurile de livrare pentru comanda dumneavoastră vor fi calculate și afișate la finalizarea comenzii.",
     "co_shipping_link": "Livrare",
     "pol_eyebrow": "Ajutor și politici",
     "pol_heading": "Suntem aici să te ajutăm",

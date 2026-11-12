@@ -1,4 +1,11 @@
 {
+    "deliver_to": "Entrega a",
+    "pol_ship_tw_stat": "7 dies",
+    "pol_ship_tw_stat_d": "Entrega en 7 dies",
+    "pol_ship_tw_p1": "La teva comanda s'entregarà <b>en 7 dies</b>. Els costos d'enviament de la teva comanda es calcularan i es mostraran a la finalització de la compra.",
+    "pol_ship14_stat": "14 dies",
+    "pol_ship14_stat_d": "Entrega en 14 dies",
+    "pol_ship14_p1": "La teva comanda s'entregarà <b>en un termini de 14 dies</b>, tot i que ocasionalment es poden produir retards. Les despeses d'enviament de la teva comanda es calcularan i es mostraran en finalitzar la compra.",
     "lang_search": "Cerca un idioma",
     "lang_search_label": "Cerca un idioma",
     "lang_search_2": "Cerca un idioma",

@@ -1,4 +1,10 @@
 {
+    "pol_ship_tw_stat": "7 nap",
+    "pol_ship_tw_stat_d": "Szállítási idő: 7 nap",
+    "pol_ship_tw_p1": "Rendelését <b>7 napon belül</b> szállítjuk ki. A rendelés szállítási költségeit a fizetés során számoljuk ki és jelenítjük meg.",
+    "pol_ship14_stat": "14 nap",
+    "pol_ship14_stat_d": "14 napon belül kiszállítjuk",
+    "pol_ship14_p1": "Rendelését <b>14 napon belül</b> kézbesítjük, bár esetenként késedelem is előfordulhat. A rendelés szállítási költségeit a fizetés során számoljuk ki és jelenítjük meg.",
     "pain2_0_t": "Kemény ülések, amelyeken nehéz ülni",
     "pain2_0_d": "Az étkezőszékek, irodai székek és autóülések már a leülés pillanatában kíméletlennek tűnhetnek.",
     "pain2_1_t": "Nyomás az érzékeny területeken",

@@ -1,4 +1,10 @@
 {
+    "pol_ship_tw_stat": "7 dni",
+    "pol_ship_tw_stat_d": "Dostawa w ciągu 7 dni",
+    "pol_ship_tw_p1": "Twoje zamówienie zostanie dostarczone <b>w ciągu 7 dni</b>. Koszty wysyłki Twojego zamówienia zostaną obliczone i wyświetlone podczas finalizacji zamówienia.",
+    "pol_ship14_stat": "14 dni",
+    "pol_ship14_stat_d": "Dostawa w ciągu 14 dni",
+    "pol_ship14_p1": "Twoje zamówienie zostanie dostarczone <b>w ciągu 14 dni</b>, choć czasami mogą wystąpić opóźnienia. Koszty wysyłki Twojego zamówienia zostaną obliczone i wyświetlone podczas finalizacji zamówienia.",
     "pain2_0_t": "Twarde siedziska, na których trudno wysiedzieć",
     "pain2_0_d": "Krzesła przy stole, krzesła biurowe i fotele samochodowe potrafią być bezlitosne od momentu, gdy usiądziesz.",
     "pain2_1_t": "Nacisk na wrażliwe miejsca",

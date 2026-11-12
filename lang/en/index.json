@@ -1,4 +1,11 @@
 {
+    "deliver_to": "Deliver to",
+    "pol_ship_tw_stat": "7 days",
+    "pol_ship_tw_stat_d": "Delivered in 7 days",
+    "pol_ship_tw_p1": "Your order will be delivered <b>in 7 days<\/b>. Shipping charges for your order will be calculated and displayed at checkout.",
+    "pol_ship14_stat": "14 days",
+    "pol_ship14_stat_d": "Delivered within 14 days",
+    "pol_ship14_p1": "Your order will be delivered <b>within 14 days<\/b>, although delays may occasionally occur. Shipping charges for your order will be calculated and displayed at checkout.",
     "lang_search": "Search languages",
     "lang_search_label": "Search languages",
     "lang_search_2": "Search languages",

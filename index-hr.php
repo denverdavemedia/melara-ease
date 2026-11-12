@@ -825,20 +825,21 @@ $address      = $OfferApi->companyAddress;
         <!-- Body -->
         <div class="policy-body flex-1 overflow-y-auto overscroll-contain px-5 sm:px-8 py-6 sm:py-8 text-[15px] leading-relaxed text-muted">
 
-            <!-- Shipping -->
+            <!-- Shipping: Taiwan (zh-hant) is delivered in 7 days; every other language gets the safer 'within 14 days' -->
+            <?php $shipTw = $OfferApi->targetLanguage === 'zh-hant'; ?>
             <section id="panel-shipping" role="tabpanel" aria-labelledby="tab-shipping" data-policy-panel="shipping">
                 <h3 class="font-serif text-xl text-ink"><?= $collector->translate('pol_ship_title', 'Shipping') ?></h3>
                 <div class="mt-4 grid grid-cols-2 gap-3">
                     <div class="rounded-2xl bg-turq-soft/60 p-4">
-                        <p class="font-serif text-2xl text-ink"><?= $collector->translate('pol_ship_stat_1', '5–7 days') ?></p>
-                        <p class="text-xs text-muted"><?= $collector->translate('pol_ship_stat_1_d', 'Typical delivery (business days)') ?></p>
+                        <p class="font-serif text-2xl text-ink"><?= $shipTw ? $collector->translate('pol_ship_tw_stat', '7 days') : $collector->translate('pol_ship14_stat', '14 days') ?></p>
+                        <p class="text-xs text-muted"><?= $shipTw ? $collector->translate('pol_ship_tw_stat_d', 'Delivered in 7 days') : $collector->translate('pol_ship14_stat_d', 'Delivered within 14 days') ?></p>
                     </div>
                     <div class="rounded-2xl bg-linen p-4">
                         <p class="font-serif text-2xl text-ink"><?= $collector->translate('pol_ship_stat_2', 'SecureShip') ?></p>
                         <p class="text-xs text-muted"><?= $collector->translate('pol_ship_stat_2_d', 'Optional cover for lost packages') ?></p>
                     </div>
                 </div>
-                <p class="mt-5"><?= $collector->translate('pol_ship_p1', 'Delivery typically takes <b>5 to 7 business days</b>, although delays may occasionally occur. Shipping charges for your order will be calculated and displayed at checkout.') ?></p>
+                <p class="mt-5"><?= $shipTw ? $collector->translate('pol_ship_tw_p1', 'Your order will be delivered <b>in 7 days</b>. Shipping charges for your order will be calculated and displayed at checkout.') : $collector->translate('pol_ship14_p1', 'Your order will be delivered <b>within 14 days</b>, although delays may occasionally occur. Shipping charges for your order will be calculated and displayed at checkout.') ?></p>
                 <p class="mt-3"><?= $collector->translate('pol_ship_p2', 'We are not responsible for any customs or taxes applied to your order. All fees imposed during or after shipping (tariffs, taxes, etc.) are your responsibility.') ?></p>
                 <ul class="policy-list mt-4">
                     <li><?= $collector->translate('pol_ship_li_1', '<b>Lost packages</b> are only covered if you purchased the <b>SecureShip add-on</b> at checkout.') ?></li>

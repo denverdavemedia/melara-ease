@@ -115,12 +115,13 @@
 
     // ---------- Pain section: before / after photos cross-fade on a loop ----------
     document.querySelectorAll('[data-ba-loop]').forEach(box => {
-        const slides = [...box.querySelectorAll('.ba-slide')], dots = [...box.querySelectorAll('.ba-dot')];
+        const slides = [...box.querySelectorAll('.ba-slide')], dots = [...box.querySelectorAll('.ba-dot')], caps = [...box.querySelectorAll('.ba-cap')];
         let cur = 0;
         setInterval(() => {
             cur = (cur + 1) % slides.length;
             slides.forEach((s, i) => s.classList.toggle('is-on', i === cur));
             dots.forEach((d, i) => d.classList.toggle('is-on', i === cur));
+            caps.forEach((c, i) => c.classList.toggle('is-on', i === cur));
         }, 3500);
     });
 

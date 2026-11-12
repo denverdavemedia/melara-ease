@@ -1,4 +1,11 @@
 {
+    "deliver_to": "Doručit na adresu",
+    "pol_ship_tw_stat": "7 dní",
+    "pol_ship_tw_stat_d": "Dodání do 7 dnů",
+    "pol_ship_tw_p1": "Vaše objednávka bude doručena <b>do 7 dnů</b>. Poštovné za vaši objednávku bude vypočítáno a zobrazeno při dokončení objednávky.",
+    "pol_ship14_stat": "14 dní",
+    "pol_ship14_stat_d": "Dodání do 14 dnů",
+    "pol_ship14_p1": "Vaše objednávka bude doručena <b>do 14 dnů</b>, i když se občas mohou vyskytnout zpoždění. Poštovné za vaši objednávku bude vypočítáno a zobrazeno při dokončení objednávky.",
     "lang_search": "Hledat jazyk",
     "lang_search_label": "Hledat jazyk",
     "lang_search_2": "Hledat jazyk",

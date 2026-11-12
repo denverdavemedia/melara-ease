@@ -1,4 +1,10 @@
 {
+    "pol_ship_tw_stat": "7 jours",
+    "pol_ship_tw_stat_d": "Livré sous 7 jours",
+    "pol_ship_tw_p1": "Votre commande vous sera livrée <b>dans un délai de 7 jours</b>. Les frais de livraison de votre commande seront calculés et affichés lors du paiement.",
+    "pol_ship14_stat": "14 jours",
+    "pol_ship14_stat_d": "Livraison sous 14 jours",
+    "pol_ship14_p1": "Votre commande vous sera livrée <b>dans un délai de 14 jours</b>, bien que des retards puissent parfois survenir. Les frais de livraison de votre commande seront calculés et affichés lors du paiement.",
     "pain2_0_t": "Des sièges durs, pénibles à supporter",
     "pain2_0_d": "Chaises de salle à manger, fauteuils de bureau et sièges auto peuvent sembler impitoyables dès que vous vous asseyez.",
     "pain2_1_t": "Une pression sur les zones sensibles",

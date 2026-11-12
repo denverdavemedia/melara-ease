@@ -1,4 +1,10 @@
 {
+    "pol_ship_tw_stat": "7 päivää",
+    "pol_ship_tw_stat_d": "Toimitus 7 päivässä",
+    "pol_ship_tw_p1": "Tilauksesi toimitetaan <b>7 päivän kuluessa</b>. Tilauksesi toimituskulut lasketaan ja näytetään kassalla.",
+    "pol_ship14_stat": "14 päivää",
+    "pol_ship14_stat_d": "Toimitetaan 14 päivän kuluessa",
+    "pol_ship14_p1": "Tilauksesi toimitetaan <b>14 päivän kuluessa</b>, vaikka toisinaan voi esiintyä viivästyksiä. Tilauksesi toimituskulut lasketaan ja näytetään kassalla.",
     "pain2_0_t": "Kovat istuimet, joilla on vaikea istua",
     "pain2_0_d": "Ruokapöydän tuolit, toimistotuolit ja autonistuimet voivat tuntua armottomilta heti, kun istuudut.",
     "pain2_1_t": "Painetta herkille alueille",

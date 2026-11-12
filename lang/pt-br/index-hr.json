@@ -1,4 +1,10 @@
 {
+    "pol_ship_tw_stat": "7 dias",
+    "pol_ship_tw_stat_d": "Entrega em 7 dias",
+    "pol_ship_tw_p1": "Seu pedido será entregue <b>em 7 dias</b>. As taxas de envio do seu pedido serão calculadas e exibidas na finalização da compra.",
+    "pol_ship14_stat": "14 dias",
+    "pol_ship14_stat_d": "Entrega em até 14 dias",
+    "pol_ship14_p1": "Seu pedido será entregue <b>em até 14 dias</b>, embora possam ocorrer atrasos ocasionalmente. As taxas de envio do seu pedido serão calculadas e exibidas na finalização da compra.",
     "pain2_0_t": "Assentos duros, difíceis de aguentar",
     "pain2_0_d": "Cadeiras de jantar, cadeiras de escritório e bancos de carro podem parecer implacáveis assim que você se senta.",
     "pain2_1_t": "Pressão em áreas sensíveis",
