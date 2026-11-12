@@ -501,16 +501,16 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
                             <path class="dim-line" pathLength="100" style="--d: 0s"  d="M1,75 L26,97"/>
                             <path class="dim-tick" style="--d: .7s" d="M-0.4,76.6 L2.4,73.4M24.6,98.6 L27.4,95.4"/>
                             <path class="dim-glow" pathLength="100" style="--d: 0s"  d="M1,75 L26,97"/>
-                            <path class="dim-line" pathLength="100" style="--d: .45s" d="M36,97 L88,68.5"/>
-                            <path class="dim-tick" style="--d: 1.15s" d="M35.2,95.6 L36.8,98.4M87.2,67.1 L88.8,69.9"/>
-                            <path class="dim-glow" pathLength="100" style="--d: .45s" d="M36,97 L88,68.5"/>
+                            <path class="dim-line" pathLength="100" style="--d: .45s" d="M36,96.5 L78,72"/>
+                            <path class="dim-tick" style="--d: 1.15s" d="M35.2,95.1 L36.8,97.9M77.2,70.6 L78.8,73.4"/>
+                            <path class="dim-glow" pathLength="100" style="--d: .45s" d="M36,96.5 L78,72"/>
                             <path class="dim-line" pathLength="100" style="--d: .9s" d="M102,11 L102,55"/>
                             <path class="dim-tick" style="--d: 1.6s" d="M100.4,11 L103.6,11M100.4,55 L103.6,55"/>
                             <path class="dim-glow" pathLength="100" style="--d: .9s" d="M102,11 L102,55"/>
                         </g>
                     </svg>
                     <span class="dim-pill" style="left: 13.5%; top: 86%; --d: .8s;">44 cm<small>17.3 in</small></span>
-                    <span class="dim-pill" style="left: 62%; top: 82.75%; --d: 1.25s;">42 cm<small>16.5 in</small></span>
+                    <span class="dim-pill" style="left: 57%; top: 84.25%; --d: 1.25s;">42 cm<small>16.5 in</small></span>
                     <span class="dim-pill" style="left: 102%; top: 33%; --d: 1.7s;">32 cm<small>12.6 in</small></span>
                 </div>
             </div>
@@ -781,7 +781,7 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
 <footer class="border-t border-sand pb-8 md:pb-10 pt-8 md:pt-12">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-muted">
         <img src="<?= $logo ?>" alt="<?= $brand ?>" class="h-10 w-auto" width="190" height="49" loading="lazy">
-        <ul class="flex flex-wrap justify-center gap-6">
+        <ul class="grid grid-cols-2 gap-x-8 gap-y-3 text-center sm:flex sm:flex-wrap sm:justify-center sm:gap-6"><!-- 2x2 on phones so no link is left alone on a second line -->
             <li><a href="#shipping" data-policy="shipping" class="hover:text-ink transition"><?= $collector->translate('idx_shipping', 'Shipping') ?></a></li>
             <li><a href="#returns" data-policy="returns" class="hover:text-ink transition"><?= $collector->translate('idx_returns', 'Returns') ?></a></li>
             <li><a href="#privacy" data-policy="privacy" class="hover:text-ink transition"><?= $collector->translate('idx_privacy', 'Privacy') ?></a></li>
@@ -829,8 +829,10 @@ $address      = $OfferApi->companyAddress;
         <!-- Body -->
         <div class="policy-body flex-1 overflow-y-auto overscroll-contain px-5 sm:px-8 py-6 sm:py-8 text-[15px] leading-relaxed text-muted">
 
-            <!-- Shipping: Taiwan (zh-hant) is delivered in 7 days; every other language gets the safer 'within 14 days' -->
-            <?php $shipTw = $OfferApi->targetLanguage === 'zh-hant'; ?>
+            <!-- Shipping: visitors in Taiwan get 'delivered in 7 days', every other country gets 'within 14 days'.
+                 Country comes from the visitor's IP (Cloudflare header, as in OfferApi::getUserCountry), not from sessionCountry,
+                 which only holds the allowed checkout countries (US for now). -->
+            <?php $shipTw = strtoupper($_SERVER['HTTP_CF_IPCOUNTRY'] ?? $_SERVER['GEOIP_COUNTRY_CODE'] ?? $OfferApi->sessionCountry ?? '') === 'TW'; ?>
             <section id="panel-shipping" role="tabpanel" aria-labelledby="tab-shipping" data-policy-panel="shipping">
                 <h3 class="font-serif text-xl text-ink"><?= $collector->translate('pol_ship_title', 'Shipping') ?></h3>
                 <div class="mt-4 grid grid-cols-2 gap-3">

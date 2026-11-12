@@ -1,4 +1,9 @@
 {
+    "co_cvv_full": "CVV/CVC/CSC",
+    "co_cvv_ph": "XXX או XXXX",
+    "pay_or_card_2": "או לשלם בכרטיס אשראי",
+    "co_discount_ends_in": "ההנחה שלך בשיעור {pct}% מסתיימת בעוד:",
+    "co_standard_ship": "משלוח רגיל",
     "pol_ship_tw_stat": "7 ימים",
     "pol_ship_tw_stat_d": "משלוח תוך 7 ימים",
     "pol_ship_tw_p1": "ההזמנה שלך תסופק <b>תוך 7 ימים</b>. דמי המשלוח עבור ההזמנה יחושבו ויוצגו בעת השלמת התשלום.",

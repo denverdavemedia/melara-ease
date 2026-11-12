@@ -1,4 +1,6 @@
 {
+    "next_2b_when": "Suivant",
+    "next_2b_title": "Votre commande est expédiée",
     "block_main": "Votre commande",
     "block_addon": "Ajout en un clic",
     "block_shipping": "Livraison",

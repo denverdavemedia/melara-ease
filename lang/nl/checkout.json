@@ -1,4 +1,9 @@
 {
+    "co_cvv_full": "CVV/CVC/CSC",
+    "co_cvv_ph": "XXX of XXXX",
+    "pay_or_card_2": "Of betaal met creditcard",
+    "co_discount_ends_in": "Uw korting van {pct}% loopt af over:",
+    "co_standard_ship": "Standaardverzending",
     "pol_ship_tw_stat": "7 dagen",
     "pol_ship_tw_stat_d": "Wordt binnen 7 dagen geleverd",
     "pol_ship_tw_p1": "Uw bestelling wordt <b>binnen 7 dagen</b> geleverd. De verzendkosten voor uw bestelling worden berekend en weergegeven bij het afrekenen.",

@@ -1,4 +1,6 @@
 {
+    "next_2b_when": "Sonraki",
+    "next_2b_title": "Siparişiniz kargoya verilir",
     "block_main": "Siparişiniz",
     "block_addon": "Tek tıkla eklenen ürün",
     "block_shipping": "Kargo",
