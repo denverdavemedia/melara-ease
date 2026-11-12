@@ -1,4 +1,11 @@
 {
+    "deliver_to": "Entregar en",
+    "pol_ship_tw_stat": "7 días",
+    "pol_ship_tw_stat_d": "Entrega en 7 días",
+    "pol_ship_tw_p1": "Tu pedido se entregará <b>en 7 días</b>. Los gastos de envío de tu pedido se calcularán y se mostrarán al finalizar la compra.",
+    "pol_ship14_stat": "14 días",
+    "pol_ship14_stat_d": "Entrega en un plazo de 14 días",
+    "pol_ship14_p1": "Tu pedido se entregará <b>en un plazo de 14 días</b>, aunque en ocasiones pueden producirse retrasos. Los gastos de envío de tu pedido se calcularán y se mostrarán al finalizar la compra.",
     "lang_search": "Buscar idioma",
     "lang_search_label": "Buscar idioma",
     "lang_search_2": "Buscar idioma",

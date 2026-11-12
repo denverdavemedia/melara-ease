@@ -1,4 +1,10 @@
 {
+    "pol_ship_tw_stat": "7 dies",
+    "pol_ship_tw_stat_d": "Entrega en 7 dies",
+    "pol_ship_tw_p1": "La teva comanda s'entregarà <b>en 7 dies</b>. Els costos d'enviament de la teva comanda es calcularan i es mostraran en finalitzar la compra.",
+    "pol_ship14_stat": "14 dies",
+    "pol_ship14_stat_d": "Entrega en 14 dies",
+    "pol_ship14_p1": "La teva comanda s'entregarà <b>en un termini de 14 dies</b>, tot i que ocasionalment es poden produir retards. Els costos d'enviament de la teva comanda es calcularan i es mostraran en finalitzar la compra.",
     "pain2_0_t": "Seients durs on costa seure",
     "pain2_0_d": "Les cadires de menjador, les d'oficina i els seients del cotxe poden semblar implacables tan bon punt seus.",
     "pain2_1_t": "Pressió sobre zones sensibles",

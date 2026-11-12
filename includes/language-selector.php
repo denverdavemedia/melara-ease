@@ -44,7 +44,6 @@ function languageSelector($variant = 'header') {
         $lock = '<svg viewBox="0 0 24 24" class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
         return '<span class="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-sand bg-linen/60 px-2.5 sm:px-3 py-2 text-sm font-medium text-muted cursor-not-allowed select-none" aria-disabled="true"'
              . ' title="' . $collector->translate('lang_locked' . $k, 'Language is set before checkout') . '" aria-label="' . $collector->translate('lang_label' . $k, 'Language') . ': ' . htmlspecialchars($activeName) . '">'
-             . languageBadge($active, true, 'w-6 h-4 opacity-80')
              . '<span class="hidden sm:inline">' . htmlspecialchars($activeName) . '</span>'
              . '<span class="sm:hidden text-xs font-semibold tracking-wider uppercase">' . htmlspecialchars($active) . '</span>'
              . $lock . '</span>';
@@ -98,9 +97,9 @@ function languageSelector($variant = 'header') {
     <details class="lang-sel relative" <?= $up ? 'data-up' : '' ?>>
         <summary class="inline-flex items-center <?= $up ? 'gap-2 px-3' : 'gap-1.5 px-2.5 sm:gap-2 sm:px-3' ?> cursor-pointer select-none rounded-full border border-sand bg-white/70 backdrop-blur-sm py-2 text-sm font-medium text-ink hover:border-turq hover:text-turq-ink focus-visible:outline-hidden focus-visible:ring-4 focus-visible:ring-turq/30 transition"
                  aria-label="<?= $collector->translate('lang_label' . $k, 'Language') ?>: <?= htmlspecialchars($activeName) ?>">
-            <?= languageFlag($active) ? languageBadge($active, true, 'w-6 h-4') : '<span class="text-turq-ink">' . $globe . '</span>' ?>
+            <span class="text-turq-ink"><?= $globe ?></span>
             <span class="<?= $up ? '' : 'hidden sm:inline' ?>"><?= htmlspecialchars($activeName) ?></span>
-            <span class="<?= $up ? 'hidden' : 'sm:hidden' ?> text-xs font-semibold tracking-wider uppercase"><?= htmlspecialchars($active) ?></span>
+            <span class="<?= $up ? 'hidden' : 'sm:hidden' ?> whitespace-nowrap text-xs font-semibold tracking-wider uppercase"><?= htmlspecialchars($active) ?></span>
             <svg viewBox="0 0 24 24" class="lang-chev w-3.5 h-3.5 text-muted <?= $up ? '' : 'hidden sm:block' ?>" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
         </summary>
         <div class="lang-panel absolute <?= $up ? 'bottom-full mb-2 left-1/2 -translate-x-1/2 sm:start-auto sm:end-0 sm:translate-x-0' : 'top-full mt-2 end-0' ?> z-50 w-64 rounded-2xl border border-sand bg-white p-2 shadow-[0_24px_60px_-20px_rgba(29,34,38,.35)] text-start">
@@ -117,7 +116,6 @@ function languageSelector($variant = 'header') {
                         <a href="<?= $href($code) ?>" hreflang="<?= $code ?>" lang="<?= $code ?>" data-search="<?= htmlspecialchars(mb_strtolower($name . ' ' . $code)) ?>"
                            class="lang-opt flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition focus:outline-hidden focus-visible:ring-2 focus-visible:ring-turq <?= $isActive ? 'bg-turq-soft text-turq-ink font-semibold' : 'text-ink hover:bg-cream' ?>"
                            <?= $isActive ? 'aria-current="true"' : '' ?>>
-                            <?= languageBadge($code, $isActive) ?>
                             <span class="flex-1"><?= htmlspecialchars($name) ?></span>
                             <?php if ($isActive) echo $check; ?>
                         </a>

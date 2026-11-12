@@ -1,4 +1,10 @@
 {
+    "pol_ship_tw_stat": "7 dage",
+    "pol_ship_tw_stat_d": "Leveres inden for 7 dage",
+    "pol_ship_tw_p1": "Din ordre leveres <b>inden for 7 dage</b>. Forsendelsesomkostningerne for din ordre beregnes og vises ved kassen.",
+    "pol_ship14_stat": "14 dage",
+    "pol_ship14_stat_d": "Leveres inden for 14 dage",
+    "pol_ship14_p1": "Din ordre leveres <b>inden for 14 dage</b>, selvom der lejlighedsvis kan opstå forsinkelser. Forsendelsesomkostningerne for din ordre beregnes og vises ved kassen.",
     "pain2_0_t": "Hårde sæder, der er svære at sidde på",
     "pain2_0_d": "Spisestuestole, kontorstole og bilsæder kan føles ubarmhjertige, i samme øjeblik du sætter dig.",
     "pain2_1_t": "Tryk på følsomme områder",

@@ -220,6 +220,8 @@ html:has(.policy-modal[open]) { overflow: hidden; }
 /* ---------- Pain section: before / after photos cross-fade on a loop ---------- */
 .ba-slide { opacity: 0; transition: opacity 1.1s ease; }
 .ba-slide.is-on { opacity: 1; }
+.ba-cap { opacity: 0; transition: opacity 1.1s ease; }
+.ba-cap.is-on { opacity: 1; }
 .ba-dot { width: .55rem; height: .55rem; border-radius: 9999px; background: rgba(255,255,255,.6); box-shadow: 0 1px 4px rgba(29,34,38,.35); transition: width .4s, background .4s; }
 .ba-dot.is-on { width: 1.6rem; background: #fff; }
 

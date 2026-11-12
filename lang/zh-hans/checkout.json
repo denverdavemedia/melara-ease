@@ -1,4 +1,10 @@
 {
+    "pol_ship_tw_stat": "7天",
+    "pol_ship_tw_stat_d": "7天内送达",
+    "pol_ship_tw_p1": "您的订单将于<b>7天内</b>送达。该订单的运费将在结账时计算并显示。",
+    "pol_ship14_stat": "14天",
+    "pol_ship14_stat_d": "14天内送达",
+    "pol_ship14_p1": "您的订单将在<b>14天内</b>送达，但偶尔可能会出现延误。订单的运费将在结账时计算并显示。",
     "co_shipping_link": "配送",
     "pol_eyebrow": "帮助与政策",
     "pol_heading": "我们随时为您提供帮助",
