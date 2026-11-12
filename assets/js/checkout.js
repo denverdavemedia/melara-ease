@@ -1,38 +1,22 @@
-/* Melara checkout: order summary, countdown and the CRM order form (integrated.js validates and imports the order). */
+/* Melara checkout: shipping row, countdown and the CRM order form (integrated.js validates and imports the order). */
 (() => {
     const cfg = window.MELARA_CHECKOUT;
     const fmt = n => cfg.currency + (Number.isInteger(n) ? n : n.toFixed(2));
     const $ = id => document.getElementById(id);
     const packs = [...document.querySelectorAll('input[name="pack"]')];
     const ship = $('insuranceAddOn'); // SecureShip, only on the page when the campaign has the add-on
-    const withShip = () => !!ship && ship.checked;
 
-    // Order summary follows the selected pack and add-on
+    // The shipping row follows the selected pack (no order summary box, same as shopmelara-apex)
     const update = () => {
         const p = packs.find(r => r.checked);
-        const price = +p.dataset.price, compare = +p.dataset.compare, shipping = +p.dataset.shipping || 0;
-        const total = price + shipping + (withShip() ? cfg.secureShip : 0);
-        $('sumQty').textContent = p.value;
-        $('sumLabel').textContent = p.dataset.label;
-        $('sumPack').textContent = fmt(price);
-        $('sumCompare').textContent = fmt(compare);
-        $('sumDiscount').textContent = '−' + fmt(compare - price);
-        if (ship) {
-            $('sumShip').textContent = ship.checked ? fmt(cfg.secureShip) : fmt(0);
-            $('sumShipRow').style.opacity = ship.checked ? 1 : .45;
-        }
-        const shipText = shipping > 0 ? fmt(shipping) : cfg.freeText;
-        $('sumShipping').textContent = shipText;
-        $('sumShipping').classList.toggle('text-turq', !(shipping > 0));
-        $('sumShippingOpt').textContent = shipText;
-        $('sumTotal').textContent = fmt(Math.round(total * 100) / 100);
+        const shipping = +p.dataset.shipping || 0;
+        $('sumShippingOpt').textContent = shipping > 0 ? fmt(shipping) : cfg.freeText;
         // keep lang, affiliate and tracking params; only the pack changes
         const qs = new URLSearchParams(location.search);
         qs.set('pack', p.value);
         history.replaceState(null, '', location.pathname + '?' + qs);
     };
     packs.forEach(r => r.addEventListener('change', update));
-    if (ship) ship.addEventListener('change', update);
     update();
 
     // 10-minute reservation timer (restarts on reload)

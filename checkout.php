@@ -73,7 +73,8 @@ $freeText = $collector->translate('co_free', 'Free');
     <form id="checkout" novalidate class="grid gap-6 lg:grid-cols-[1.1fr_1fr] lg:grid-rows-[auto_1fr_auto] lg:items-start">
 
         <section class="card p-5 sm:p-7 lg:col-start-1 lg:row-start-1">
-            <div class="flex items-start gap-4">
+            <!-- Phones get only the one-line timer below, like the shopmelara-apex checkout (checkout_v1.php); the discount text is too long there -->
+            <div class="hidden sm:flex items-start gap-4">
                 <span class="relative shrink-0 w-[76px] h-[76px] grid place-items-center" aria-label="Up to <?= $maxSave ?>% off">
                     <svg viewBox="0 0 100 100" class="absolute inset-0 w-full h-full drop-shadow-[0_10px_18px_rgba(29,209,161,.55)] animate-[spin_24s_linear_infinite]" aria-hidden="true">
                         <path fill="#1dd1a1" stroke="#1dd1a1" stroke-width="3" stroke-linejoin="round" d="M50,2L55.55,7.86L62.42,3.64L66.26,10.74L74,8.43L75.87,16.28L83.94,16.06L83.72,24.13L91.57,26L89.26,33.74L96.36,37.58L92.14,44.45L98,50L92.14,55.55L96.36,62.42L89.26,66.26L91.57,74L83.72,75.87L83.94,83.94L75.87,83.72L74,91.57L66.26,89.26L62.42,96.36L55.55,92.14L50,98L44.45,92.14L37.58,96.36L33.74,89.26L26,91.57L24.13,83.72L16.06,83.94L16.28,75.87L8.43,74L10.74,66.26L3.64,62.42L7.86,55.55L2,50L7.86,44.45L3.64,37.58L10.74,33.74L8.43,26L16.28,24.13L16.06,16.06L24.13,16.28L26,8.43L33.74,10.74L37.58,3.64L44.45,7.86Z"/>
@@ -89,9 +90,9 @@ $freeText = $collector->translate('co_free', 'Free');
                     <p class="mt-1 text-sm text-muted"><?= $collector->translate('co_limited_time_the', 'Limited time: the') ?> <?= $product ?> <?= $collector->translate('co_is_available_from', 'is available from') ?> <s><?= $OfferApi->formatNumber(round($firstPack->price / (1 - $percentage[0]))) ?></s> <strong class="text-ink"><?= $OfferApi->formatNumber($firstPack->price) ?></strong><?= $collector->translate('co_with_up_to', ', with up to') ?> <?= $maxSave ?><?= $collector->translate('co_off_bundles', '% off when you buy more than one.') ?></p>
                 </div>
             </div>
-            <div class="mt-5 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 rounded-2xl border border-dashed border-turq/50 bg-turq-soft/40 px-4 py-3 text-sm">
-                <span class="inline-flex items-center gap-2 font-medium"><span class="text-turq-ink"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span> <?= $collector->translate('co_your_discount_is_reserved', 'Your discount is reserved for:') ?></span>
-                <span data-countdown class="font-semibold tabular-nums text-ink text-base">10:00</span>
+            <div class="sm:mt-5 flex flex-wrap items-center justify-center gap-x-2 sm:gap-x-3 gap-y-1 rounded-2xl border border-dashed border-turq/50 bg-turq-soft/40 px-3 sm:px-4 py-3 text-sm">
+                <span class="inline-flex items-center gap-2 font-medium"><span class="text-turq-ink"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span> <span class="hidden sm:inline"><?= $collector->translate('co_your_discount_is_reserved', 'Your discount is reserved for:') ?></span><span class="sm:hidden"><?= str_replace('{pct}', $maxSave, $collector->translate('co_discount_ends_in', 'Your {pct}% discount ends in:')) ?></span></span>
+                <span data-countdown class="font-semibold tabular-nums text-red-600 sm:text-ink text-base">10:00</span>
             </div>
 
             <div class="mt-7"><h2 class="flex items-center gap-3 text-lg font-bold"><span class="grid place-items-center w-9 h-9 rounded-xl bg-turq-soft text-turq-ink"><svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8.5 12 4l8 4.5v7L12 20l-8-4.5z"/><path d="M4 8.5l8 4.5 8-4.5M12 13v7"/></svg></span><span><span class="text-muted font-medium"><?= $collector->translate('step_word', 'Step') ?> 1:</span> <?= $collector->translate('step_1_title', 'Select quantity') ?></span></h2></div>
@@ -147,7 +148,8 @@ $freeText = $collector->translate('co_free', 'Free');
                 <input type="checkbox" id="insuranceAddOn" name="productUpsell" value="1" checked
                        data-campaignproductid="<?= $secure->campaignProductId ?>" data-productname="<?= htmlspecialchars($secure->productName) ?>"
                        data-quantity="<?= $secure->maxOrderQty ?>" data-shipping="<?= $secure->shippingPrice ?>" data-unitprice="<?= $securePrice ?>" class="mt-1 w-5 h-5 accent-[#1dd1a1] shrink-0">
-                <span class="grid place-items-center shrink-0 w-11 h-11 rounded-xl bg-white border border-sand text-turq-ink"><svg viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5.5c0 4.4 3 8.2 7 9.5 4-1.3 7-5.1 7-9.5V6l-7-3z"/><path d="m9 12 2.2 2.2L15.5 10"/></svg></span>
+                <!-- same SecureShip picture as the shopmelara-apex checkout (assets/images/silver-ion-v2.png there) -->
+                <img src="assets/img/secureship.png?t=<?= $OfferApi->assetVersion('assets/img/secureship.png') ?>" alt="" width="56" height="56" class="w-14 h-14 shrink-0 object-contain" loading="lazy">
                 <span class="flex-1">
                     <span class="block font-semibold"><?= $collector->translate('co_yes_add', 'Yes, add') ?> <span class="text-turq-ink"><?= $collector->translate('co_secureship', 'SecureShip') ?></span> <?= $collector->translate('co_to_my_order', 'to my order') ?></span>
                     <span class="block mt-1 text-xs text-muted leading-relaxed"><?= $collector->translate('co_full_protection_against_damage', 'Full protection against damage, loss or porch-pirate theft. We reship or refund, no questions asked.') ?></span>
@@ -158,50 +160,14 @@ $freeText = $collector->translate('co_free', 'Free');
         </section>
 
         <section class="card p-5 sm:p-7 lg:col-start-2 lg:row-start-1 lg:row-span-2">
-            <div class="rounded-2xl bg-ink text-white p-5 bg-[radial-gradient(ellipse_at_top_right,rgba(29,209,161,.35),transparent_60%)]">
-                <div class="flex items-center gap-4">
-                    <div class="relative w-16 h-16 shrink-0 rounded-xl bg-white grid place-items-center">
-                        <img src="assets/img/anatomy-assembled.webp?t=<?= $OfferApi->assetVersion('assets/img/anatomy-assembled.webp') ?>" alt="" class="w-14">
-                        <span id="sumQty" class="absolute -top-2 -end-2 grid place-items-center w-6 h-6 rounded-full bg-turq text-ink text-xs font-bold"><?= $selected ?></span>
-                    </div>
-                    <div class="flex-1">
-                        <p class="font-semibold"><?= $product ?> — <span id="sumLabel"><?= $sel['label'] ?></span></p>
-                        <p class="text-xs text-white/60"><?= $collector->translate('co_free_spare_cover_on', 'Free spare cover on 2+ packs') ?></p>
-                    </div>
-                    <p id="sumPack" class="font-semibold"><?= $OfferApi->formatNumber($sel['row']->price) ?></p>
-                </div>
-                <dl class="mt-5 space-y-2 text-sm">
-                    <div class="flex justify-between text-white/70"><dt><?= $collector->translate('co_retail_price', 'Retail price') ?></dt><dd><s id="sumCompare"><?= $OfferApi->formatNumber($sel['retail']) ?></s></dd></div>
-                    <div class="flex justify-between text-white/70"><dt><?= $collector->translate('co_launch_discount', 'Launch discount') ?></dt><dd class="text-turq" id="sumDiscount">−<?= $OfferApi->formatNumber($sel['retail'] - $sel['row']->price) ?></dd></div>
-                    <?php if ($secure): ?><div class="flex justify-between text-white/70" id="sumShipRow"><dt><?= $collector->translate('co_secureship_2', 'SecureShip') ?></dt><dd id="sumShip"><?= $OfferApi->formatNumber($securePrice) ?></dd></div><?php endif; ?>
-                    <div class="flex justify-between text-white/70"><dt><?= $collector->translate('co_shipping', 'Shipping') ?></dt><dd class="<?= $sel['row']->shippingPrice > 0 ? '' : 'text-turq' ?>" id="sumShipping"><?= $sel['shippingText'] ?></dd></div>
-                    <div class="flex justify-between border-t border-white/15 pt-3 text-base font-semibold"><dt><?= $collector->translate('co_total', 'Total') ?></dt><dd id="sumTotal"><?= $OfferApi->formatNumber($sel['row']->price + $sel['row']->shippingPrice + $securePrice) ?></dd></div>
-                </dl>
-            </div>
-            <ul class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-2 text-sm font-medium">
+            <!-- No order summary box here, to match the shopmelara-apex checkout: pack prices are on the cards, shipping and SecureShip on their own rows -->
+            <ul class="grid grid-cols-1 gap-2 text-sm font-medium"><!-- one per line on every screen, as on phones -->
                 <li class="flex items-center gap-2"><span class="grid place-items-center w-5 h-5 rounded-full bg-turq text-ink"><svg viewBox="0 0 24 24" class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg></span><?= $collector->translate('co2_feature_1', 'Lumbar support') ?></li>
                 <li class="flex items-center gap-2"><span class="grid place-items-center w-5 h-5 rounded-full bg-turq text-ink"><svg viewBox="0 0 24 24" class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg></span><?= $collector->translate('co_feature_2', 'Premium memory foam') ?></li>
                 <li class="flex items-center gap-2"><span class="grid place-items-center w-5 h-5 rounded-full bg-turq text-ink"><svg viewBox="0 0 24 24" class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg></span><?= $collector->translate('co2_feature_3', 'Fits most home chairs') ?></li>
             </ul>
 
-            <!-- Express checkout (same as shopmelara-apex _paymentMethod.php): integrated.js mounts the Stripe wallet buttons
-                 (Google Pay / Apple Pay / Link) into #express-checkout-stripe and opens PayPal from .paypal-btn -->
-            <div class="mt-8">
-                <p class="text-center text-sm font-semibold"><?= $collector->translate('express_checkout', 'Express checkout') ?></p>
-                <div class="mt-3 space-y-3">
-                    <div id="express-checkout-stripe" class="w-full"></div>
-                    <?php if ($OfferApi->currencySymbol != 'MOP$'): ?>
-                    <button type="button" id="paypal-btn" class="paypal-btn w-full grid place-items-center rounded-lg bg-[#ffc439] hover:brightness-95 transition h-12" aria-label="<?= $collector->translate('pay_with_paypal', 'Pay with PayPal') ?>">
-                        <img src="assets/img/paypal-logo.png?t=<?= $OfferApi->assetVersion('assets/img/paypal-logo.png') ?>" alt="PayPal" class="h-6 w-auto" width="353" height="90" loading="lazy">
-                    </button>
-                    <?php endif; ?>
-                </div>
-                <div class="mt-5 flex items-center gap-3 text-xs font-medium text-muted">
-                    <span class="flex-1 border-t border-sand"></span><?= $collector->translate('pay_or_card', 'Or fill in your details and pay by card') ?><span class="flex-1 border-t border-sand"></span>
-                </div>
-            </div>
-
-            <div class="mt-6"><h2 class="flex items-center gap-3 text-lg font-bold"><span class="grid place-items-center w-9 h-9 rounded-xl bg-turq-soft text-turq-ink"><svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c1.2-3.6 4-5.5 7.5-5.5s6.3 1.9 7.5 5.5"/></svg></span><span><span class="text-muted font-medium"><?= $collector->translate('step_word_2', 'Step') ?> 2:</span> <?= $collector->translate('step_2_title', 'Customer information') ?></span></h2></div>
+            <div class="mt-7"><h2 class="flex items-center gap-3 text-lg font-bold"><span class="grid place-items-center w-9 h-9 rounded-xl bg-turq-soft text-turq-ink"><svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c1.2-3.6 4-5.5 7.5-5.5s6.3 1.9 7.5 5.5"/></svg></span><span><span class="text-muted font-medium"><?= $collector->translate('step_word_2', 'Step') ?> 2:</span> <?= $collector->translate('step_2_title', 'Customer information') ?></span></h2></div>
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div><label class="label" for="fields_fname"><?= $collector->translate('co_first_name', 'First name') ?></label><div class="has-icon"><span class="field-icon"><svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c1.2-3.6 4-5.5 7.5-5.5s6.3 1.9 7.5 5.5"/></svg></span><input class="field" id="fields_fname" name="first_name" autocomplete="given-name" placeholder="First name" required></div></div>
                 <div><label class="label" for="fields_lname"><?= $collector->translate('co_last_name', 'Last name') ?></label><div class="has-icon"><span class="field-icon"><svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c1.2-3.6 4-5.5 7.5-5.5s6.3 1.9 7.5 5.5"/></svg></span><input class="field" id="fields_lname" name="last_name" autocomplete="family-name" placeholder="Last name" required></div></div>
@@ -233,7 +199,7 @@ $freeText = $collector->translate('co_free', 'Free');
             <div class="mt-5 rounded-2xl border border-sand p-4">
                 <p class="text-sm font-medium"><?= $collector->translate('co_shipping_2', 'Shipping') ?></p>
                 <div class="mt-2 flex items-center justify-between text-sm">
-                    <span class="inline-flex items-center gap-3"><span class="w-5 h-5 rounded-full border-2 border-turq bg-turq shadow-[inset_0_0_0_3px_#fff]"></span> <?= $collector->translate('co_standard_3_6_business', 'Standard (5–7 business days)') ?></span>
+                    <span class="inline-flex items-center gap-3"><span class="w-5 h-5 rounded-full border-2 border-turq bg-turq shadow-[inset_0_0_0_3px_#fff]"></span> <?= $collector->translate('co_standard_ship', 'Standard shipping') ?></span>
                     <span class="font-semibold text-turq-ink" id="sumShippingOpt"><?= $sel['shippingText'] ?></span>
                 </div>
                 <p class="mt-3 text-xs text-muted bg-cream rounded-lg px-3 py-2 inline-flex items-center gap-2"><span class="text-turq-ink"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/></svg></span> <?= $collector->translate('co_we_ship_ddp_all', 'We ship DDP: all taxes and duties are paid by us.') ?></p>
@@ -241,27 +207,41 @@ $freeText = $collector->translate('co_free', 'Free');
         </section>
 
         <section class="card p-5 sm:p-7 lg:col-start-1 lg:row-start-2">
+            <!-- Express checkout sits right above billing, like shopmelara-apex (_paymentMethod.php): integrated.js mounts the Stripe wallet buttons
+                 (Google Pay / Apple Pay / Link) into #express-checkout-stripe and opens PayPal from .paypal-btn -->
+            <div>
+                <p class="text-center text-sm font-semibold"><?= $collector->translate('express_checkout', 'Express checkout') ?></p>
+                <div class="mt-3 space-y-3">
+                    <div id="express-checkout-stripe" class="w-full"></div>
+                    <?php if ($OfferApi->currencySymbol != 'MOP$'): ?>
+                    <button type="button" id="paypal-btn" class="paypal-btn w-full grid place-items-center rounded-lg bg-[#ffc439] hover:brightness-95 transition h-12" aria-label="<?= $collector->translate('pay_with_paypal', 'Pay with PayPal') ?>">
+                        <img src="assets/img/paypal-logo.png?t=<?= $OfferApi->assetVersion('assets/img/paypal-logo.png') ?>" alt="PayPal" class="h-6 w-auto" width="353" height="90" loading="lazy">
+                    </button>
+                    <?php endif; ?>
+                </div>
+                <div class="mt-5 mb-6 flex items-center gap-3 text-xs font-medium text-muted">
+                    <span class="flex-1 border-t border-sand"></span><?= $collector->translate('pay_or_card_2', 'Or pay with credit card') ?><span class="flex-1 border-t border-sand"></span>
+                </div>
+            </div>
+
             <h2 class="flex items-center gap-3 text-lg font-bold"><span class="grid place-items-center w-9 h-9 rounded-xl bg-turq-soft text-turq-ink"><svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M3 10h18M7 15h4"/></svg></span><span><span class="text-muted font-medium"><?= $collector->translate('step_word_4', 'Step') ?> 4:</span> <?= $collector->translate('step_4_title', 'Billing information') ?></span></h2>
             <div class="mt-4 flex items-center gap-3 rounded-2xl border-2 border-turq bg-turq-soft/30 px-4 py-3">
-                <span class="w-5 h-5 rounded-full border-2 border-turq bg-turq shadow-[inset_0_0_0_3px_#fff]"></span>
-                <span class="text-sm font-medium flex-1"><?= $collector->translate('co_credit_or_debit_card', 'Credit or debit card') ?></span>
-                <span class="flex gap-1.5">
-                    <span class="grid place-items-center w-11 h-7 rounded-md bg-white border border-sand"><img src="assets/img/cards/visa.svg" alt="Visa" class="h-3 w-auto" width="37" height="12"></span>
-                    <span class="grid place-items-center w-11 h-7 rounded-md bg-white border border-sand"><img src="assets/img/cards/mastercard.svg" alt="Mastercard" class="h-5 w-auto" width="32" height="20"></span>
-                    <span class="grid place-items-center w-11 h-7 rounded-md bg-white border border-sand"><img src="assets/img/cards/amex.svg" alt="American Express" class="w-[36px] h-auto" width="36" height="10"></span>
-                </span>
+                <span class="w-5 h-5 shrink-0 rounded-full border-2 border-turq bg-turq shadow-[inset_0_0_0_3px_#fff]"></span>
+                <span class="hidden sm:block text-sm font-medium shrink-0"><?= $collector->translate('co_credit_or_debit_card', 'Credit or debit card') ?></span>
+                <!-- Card logos: same images as the shopmelara-apex checkout (_paymentMethod.php); Japanese puts JCB first -->
+                <?php $ccImg = $OfferApi->targetLanguage === 'ja' ? 'assets/img/cards/cc-payments-ja.png' : 'assets/img/cards/cc-payments.png'; ?>
+                <img src="<?= $ccImg ?>?t=<?= $OfferApi->assetVersion($ccImg) ?>" alt="Visa, Mastercard, American Express, Discover, JCB" width="1295" height="142" class="min-w-0 w-full max-w-[240px] h-auto ms-auto">
             </div>
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-5 gap-4">
                 <div class="sm:col-span-5"><label class="label" for="cc_number"><?= $collector->translate('co_card_number', 'Card number') ?></label><div><input class="field tracking-wider" id="cc_number" name="number" inputmode="numeric" autocomplete="off" placeholder="1234 5678 9012 3456" maxlength="19" required></div></div>
                 <div class="sm:col-span-3"><label class="label" for="expiry_date"><?= $collector->translate('co_expiry_date', 'Expiry date') ?></label><div class="has-icon"><span class="field-icon"><svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span><input class="field" id="expiry_date" name="due_date" inputmode="numeric" autocomplete="off" placeholder="MM / YY" maxlength="7" required></div></div>
-                <div class="sm:col-span-2"><label class="label" for="cc_cvv"><?= $collector->translate('co_cvv', 'CVV') ?></label><div class="has-icon"><span class="field-icon"><svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3M12 14.5v2.5"/></svg></span><input class="field" id="cc_cvv" name="cvv" inputmode="numeric" autocomplete="off" placeholder="123" maxlength="4" required></div></div>
+                <div class="sm:col-span-2"><label class="label" for="cc_cvv"><?= $collector->translate('co_cvv_full', 'CVV/CVC/CSC') ?></label><div class="has-icon"><span class="field-icon"><svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3M12 14.5v2.5"/></svg></span><input class="field" id="cc_cvv" name="cvv" inputmode="numeric" autocomplete="off" placeholder="<?= $collector->translate('co_cvv_ph', 'XXX or XXXX') ?>" maxlength="4" required></div></div>
             </div>
         </section>
 
         <section class="lg:col-start-2 lg:row-start-3">
             <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-muted">
                 <span class="inline-flex items-center gap-1.5"><span class="text-turq-ink"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5.5c0 4.4 3 8.2 7 9.5 4-1.3 7-5.1 7-9.5V6l-7-3z"/><path d="m9 12 2.2 2.2L15.5 10"/></svg></span> <?= $collector->translate('co_100_night_money_back', '30-day money-back') ?></span>
-                <span class="inline-flex items-center gap-1.5"><span class="text-turq-ink"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/></svg></span> <?= $collector->translate('co_ships_in_24_hours', 'Ships in 24 hours') ?></span>
                 <span class="inline-flex items-center gap-1.5"><span class="text-turq-ink"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V4h8l9.5 9.5-8 8L3 12z"/><circle cx="7.5" cy="8" r="1.5"/></svg></span> <?= $collector->translate('co_launch_price_locked', 'Launch price locked') ?></span>
             </div>
             <button type="button" id="submitForm" class="group mt-4 w-full rounded-full bg-turq px-6 py-4 text-base sm:text-lg font-semibold text-ink shadow-[0_14px_30px_-12px_rgba(29,209,161,.8)] hover:bg-turq-dark transition">
@@ -278,7 +258,7 @@ $freeText = $collector->translate('co_free', 'Free');
 <footer class="border-t border-sand bg-white">
     <div class="mx-auto max-w-6xl px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted">
         <img src="assets/img/logo.svg" alt="Melara" class="h-8 w-auto" width="190" height="49" loading="lazy">
-        <ul class="flex flex-wrap justify-center gap-5">
+        <ul class="grid grid-cols-2 gap-x-8 gap-y-3 text-center sm:flex sm:flex-wrap sm:justify-center sm:gap-5"><!-- 2x2 on phones so no link is left alone on a second line -->
             <li><a href="#shipping" data-policy="shipping" class="hover:text-ink transition"><?= $collector->translate('co_shipping_link', 'Shipping') ?></a></li>
             <li><a href="#returns" data-policy="returns" class="hover:text-ink transition"><?= $collector->translate('co_returns_refunds', 'Returns &amp; refunds') ?></a></li>
             <li><a href="#privacy" data-policy="privacy" class="hover:text-ink transition"><?= $collector->translate('co_privacy_policy', 'Privacy policy') ?></a></li>
@@ -323,8 +303,10 @@ $address      = $OfferApi->companyAddress;
         <!-- Body -->
         <div class="policy-body flex-1 overflow-y-auto overscroll-contain px-5 sm:px-8 py-6 sm:py-8 text-[15px] leading-relaxed text-muted">
 
-            <!-- Shipping: Taiwan (zh-hant) is delivered in 7 days; every other language gets the safer 'within 14 days' -->
-            <?php $shipTw = $OfferApi->targetLanguage === 'zh-hant'; ?>
+            <!-- Shipping: visitors in Taiwan get 'delivered in 7 days', every other country gets 'within 14 days'.
+                 Country comes from the visitor's IP (Cloudflare header, as in OfferApi::getUserCountry), not from sessionCountry,
+                 which only holds the allowed checkout countries (US for now). -->
+            <?php $shipTw = strtoupper($_SERVER['HTTP_CF_IPCOUNTRY'] ?? $_SERVER['GEOIP_COUNTRY_CODE'] ?? $OfferApi->sessionCountry ?? '') === 'TW'; ?>
             <section id="panel-shipping" role="tabpanel" aria-labelledby="tab-shipping" data-policy-panel="shipping">
                 <h3 class="font-serif text-xl text-ink"><?= $collector->translate('pol_ship_title', 'Shipping') ?></h3>
                 <div class="mt-4 grid grid-cols-2 gap-3">

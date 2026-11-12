@@ -1,4 +1,9 @@
 {
+    "co_cvv_full": "CVV/CVC/CSC",
+    "co_cvv_ph": "XXX ou XXXX",
+    "pay_or_card_2": "Ou payer par carte bancaire",
+    "co_discount_ends_in": "Votre remise de {pct} % expire dans :",
+    "co_standard_ship": "Livraison standard",
     "pol_ship_tw_stat": "7 jours",
     "pol_ship_tw_stat_d": "Livré sous 7 jours",
     "pol_ship_tw_p1": "Votre commande sera livrée <b>dans un délai de 7 jours</b>. Les frais de livraison de votre commande seront calculés et affichés lors du paiement.",

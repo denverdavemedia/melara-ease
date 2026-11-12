@@ -1,4 +1,9 @@
 {
+    "co_cvv_full": "CVV/CVC/CSC",
+    "co_cvv_ph": "XXX hoặc XXXX",
+    "pay_or_card_2": "Hoặc thanh toán bằng thẻ tín dụng",
+    "co_discount_ends_in": "Ưu đãi giảm giá {pct}% của bạn sẽ hết hạn trong:",
+    "co_standard_ship": "Vận chuyển tiêu chuẩn",
     "pol_ship_tw_stat": "7 ngày",
     "pol_ship_tw_stat_d": "Giao hàng trong 7 ngày",
     "pol_ship_tw_p1": "Đơn hàng của bạn sẽ được giao <b>trong vòng 7 ngày</b>. Phí vận chuyển cho đơn hàng của bạn sẽ được tính toán và hiển thị tại bước thanh toán.",

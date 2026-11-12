@@ -210,8 +210,8 @@ function thumb($name) {
                     <svg viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/></svg>
                 </span>
                 <span class="block sm:mt-4">
-                    <span class="block text-xs font-semibold uppercase tracking-[.18em] text-turq-ink"><?= $collector->translate('next_2_when', 'Within 24 hours') ?></span>
-                    <span class="mt-1 block font-semibold"><?= $collector->translate('next_2_title', 'Ships within 24 hours') ?></span>
+                    <span class="block text-xs font-semibold uppercase tracking-[.18em] text-turq-ink"><?= $collector->translate('next_2b_when', 'Next') ?></span>
+                    <span class="mt-1 block font-semibold"><?= $collector->translate('next_2b_title', 'Your order ships') ?></span>
                     <span class="mt-1 block text-sm text-muted"><?= $collector->translate('next_2_text', 'You\'ll get a tracking link as soon as it leaves our warehouse.') ?></span>
                 </span>
             </li>
