@@ -237,3 +237,39 @@ html:has(.policy-modal[open]) { overflow: hidden; }
 .badge-ping::after { content: ""; position: absolute; inset: 0; border-radius: 9999px; border: 2px solid rgba(239, 68, 68, .7); animation: badgePing 1.8s ease-out infinite; }
 @keyframes badgePing { from { transform: scale(1); opacity: 1; } to { transform: scale(1.9); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .glow-pulse { animation: none; opacity: .7; } .badge-ping::after { animation: none; opacity: 0; } }
+
+/* ---------- Hero labels (HTML over the 1200x1200 hero render, translated per language) ---------- */
+/* Show the whole square render on phones too, so the side labels are never cropped */
+.hero-media { aspect-ratio: 1 / 1 !important; }
+/* Ken Burns zoom grows from the top edge, so the head at the top of the render is never cropped */
+.hero-media .animate-kenburns { transform-origin: 50% 0; animation-name: heroKenburns; }
+/* 5% instead of the site-wide 8%: growing from the top pushes everything down, and this keeps the bottom labels inside the frame */
+@keyframes heroKenburns { from { transform: scale(1); } to { transform: scale(1.05); } }
+/* Square layer that matches the image exactly (same as object-cover on a square image).
+   It's a size container, so the labels below scale with the image (cqw = 1% of its width) instead of staying 14px on a small phone image */
+.hero-anno { position: absolute; top: 0; left: 50%; height: 100%; aspect-ratio: 1 / 1; transform: translateX(-50%); pointer-events: none; direction: ltr; container-type: inline-size; }
+.hero-anno-lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.hero-anno-lines line { stroke: #1dd1a1; stroke-width: 2; stroke-linecap: round; vector-effect: non-scaling-stroke; opacity: 0; }
+.hero-anno-dot { position: absolute; width: clamp(10px, 2.6cqw, 14px); aspect-ratio: 1; translate: -50% -50%; border-radius: 9999px; background: #1dd1a1; border: 2px solid #fff;
+    box-shadow: 0 0 0 4px rgba(29, 209, 161, .25), 0 0 14px rgba(29, 209, 161, .85); opacity: 0; scale: .6; }
+/* one line in English at every size; long translations still wrap inside max-width instead of running off the image */
+.hero-anno-pill { position: absolute; transform: translateY(-50%); width: max-content; white-space: nowrap; unicode-bidi: isolate;
+    background: #fff; color: #1d2226; border: 1px solid #1dd1a1; border-radius: 9999px; padding: .4em .85em;
+    /* same text and shadow as the old floating review card (text-sm, normal weight, shadow-xl), sized to the image: 14px max, 10px min */
+    font-size: clamp(10px, 3cqw, 14px); font-weight: 400; line-height: 1.3; text-align: center;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, .1), 0 8px 10px -6px rgba(0, 0, 0, .1); opacity: 0; scale: .6; }
+@supports (text-wrap: balance) { .hero-anno-pill { white-space: normal; text-wrap: balance; } }
+/* Anchor point is the pill edge the line touches */
+.hero-anno-pill[data-side="r"] { left: var(--x); max-width: calc(97% - var(--x)); transform-origin: left center; }
+.hero-anno-pill[data-side="l"] { right: calc(100% - var(--x)); max-width: calc(var(--x) - 3%); transform-origin: right center; }
+.reveal.in .hero-anno-lines line { animation: dimFade .45s ease var(--d, 0s) forwards; }
+.reveal.in .hero-anno-dot { animation: dimPop .5s cubic-bezier(.34, 1.56, .64, 1) var(--d, 0s) forwards; }
+/* pop in, then bob up and down like the old review card (Tailwind animate-float: 10px over 7s). Uses `translate`,
+   so it stacks on the pill's translateY(-50%) centring; --d staggers the pills so they don't move in lockstep */
+.reveal.in .hero-anno-pill { animation: dimPop .5s cubic-bezier(.34, 1.56, .64, 1) var(--d, 0s) forwards, pillFloat 7s ease-in-out calc(var(--d, 0s) * 4) infinite; }
+/* 10px on desktop, less on a small image so the line end stays hidden under the smaller pill */
+@keyframes pillFloat { 0%, 100% { translate: 0 0; } 50% { translate: 0 calc(-1 * min(10px, 2.4cqw)); } }
+@media (prefers-reduced-motion: reduce) {
+    .hero-anno-lines line { opacity: .75; }
+    .hero-anno-dot, .hero-anno-pill { opacity: 1; scale: 1; }
+}
