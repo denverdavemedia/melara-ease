@@ -18,6 +18,18 @@ $img = [
 ];
 // photo() is declared in index.php, which includes this page.
 
+// Temporary: images listed in HR_PLACEHOLDER_FILES (pain scenes, lifestyle scenes), avatars and press logos are labelled placeholders until the new art
+// is ready. Anything that shows the cushion keeps its real image. Set HR_PLACEHOLDERS to false to restore everything.
+const HR_PLACEHOLDERS = true;
+const HR_PLACEHOLDER_FILES = ['pain-before.webp', 'pain-back.webp', 'pain-leg.webp', 'pain-tailbone.webp', 'life-sofa.webp', 'life-dining.webp', 'life-car.webp', 'life-office.webp'];
+function hr_photo($src, $alt, $class = '', $label = null, $eager = false) {
+    if (!HR_PLACEHOLDERS || !in_array(basename($src), HR_PLACEHOLDER_FILES, true)) { return photo($src, $alt, $class, $label, $eager); }
+    $label = $label ?: basename($src);
+    return '<div class="' . $class . ' ph grid place-items-center" role="img" aria-label="' . htmlspecialchars($alt) . '">'
+         . '<span class="flex flex-col items-center gap-2 px-6 text-center"><span class="text-[11px] tracking-widest uppercase text-ink/40 bg-white/60 rounded-full px-3 py-1">Image placeholder</span>'
+         . '<span class="max-w-xs text-xs text-ink/50 leading-snug normal-case tracking-normal">' . htmlspecialchars($alt) . '</span></span></div>';
+}
+
 $offers = [
     ['qty' => 1, 'title' => 'Just me',       'tag' => 'Start feeling better', 'price' => 49,  'compare' => 109,  'perks' => ['1 × Melara Sitora', 'Skin-friendly fabric'], 'badge' => null, 'featured' => false],
     ['qty' => 2, 'title' => 'Home & work',   'tag' => 'Home office + work',           'price' => 89,  'compare' => 234, 'perks' => ['2 × Melara Sitora', 'Free spare cover', 'Priority support'], 'badge' => 'Most loved', 'featured' => true],
@@ -58,16 +70,19 @@ $zones = [
 
 // Everyday home scenes. Images are placeholders until the new photos are made (see the alt text for what each shows).
 $life = [
-    ['img' => 'assets/img/index-hr/life-sofa.webp', 'alt' => 'Woman in her 60s working at a laptop, sitting on the Melara Sitora cushion on an office chair',                    't' => $collector->translate('life_hr_0_t', 'At your desk'),           'd' => $collector->translate('life_hr_0_d', 'Long hours at the desk, with less pressure under you.')],
-    ['img' => 'assets/img/index-hr/life-dining.webp', 'alt' => 'Woman in her 60s having dinner with her husband, sitting on the Melara Sitora cushion on a dining chair', 't' => $collector->translate('life_hr_1_t', 'At the dining table'),   'd' => $collector->translate('life_hr_1_d', 'Unhurried family meals, without shifting in your seat.')],
-    ['img' => 'assets/img/index-hr/life-car.webp',   'alt' => 'Woman in her 60s watching TV on the sofa, sitting on the Melara Sitora cushion',                                   't' => $collector->translate('life_hr_2_t', 'Reading and relaxing'),   'd' => $collector->translate('life_hr_2_d', 'Settle in with a book or a film, supported.')],
-    ['img' => 'assets/img/index-hr/life-office.webp',    'alt' => 'Woman in her 60s driving, sitting on the Melara Sitora cushion on the driver\'s seat', 't' => $collector->translate('life_hr_3_t', 'In the driver\'s seat'), 'd' => $collector->translate('life_hr_3_d', 'Support for errands, family visits and longer drives.')],
+    ['img' => 'assets/img/index-hr/life-sofa.webp',   'alt' => 'Adult sitting upright at a desk on the Melara Sitora cushion, looking comfortable during a long work day', 't' => $collector->translate('life_hr_0_t', 'At your desk'),         'd' => $collector->translate('life_hr_0_d', 'Hours of meetings without the burn and the constant squirming.')],
+    ['img' => 'assets/img/index-hr/life-dining.webp', 'alt' => 'Couple having dinner at a dining table, one sitting on the Melara Sitora cushion on a hard wooden chair',   't' => $collector->translate('life_hr_1_t', 'At the dining table'), 'd' => $collector->translate('life_hr_1_d', 'Stay for the whole meal instead of cutting dinner short.')],
+    ['img' => 'assets/img/index-hr/life-car.webp',    'alt' => 'Driver sitting on the Melara Sitora cushion on a car seat, relaxed behind the wheel',                       't' => $collector->translate('life_hr_2_t', 'In the driver\'s seat'),  'd' => $collector->translate('life_hr_2_d', 'Commutes, school runs and long drives with less pressure on the sore spot.')],
+    ['img' => 'assets/img/index-hr/life-office.webp', 'alt' => 'Person relaxing on a sofa with a book, sitting on the Melara Sitora cushion',                                  't' => $collector->translate('life_hr_3_t', 'On the sofa'),          'd' => $collector->translate('life_hr_3_d', 'Relax in front of a film without hunting for a position that doesn\'t hurt.')],
 ];
 
 // FAQ order follows the brief: hemorrhoids, difference from a regular cushion, everyday use, fit, returns (then extras).
 $faqs = [
     ['q' => $collector->translate('faq_hr_1_q', 'Can I use this cushion if sitting is uncomfortable because of hemorrhoids?'), 'a' => $collector->translate('faq_hr_1_a', 'Many people find that a flat, hard seat makes sitting less comfortable when they are sensitive. Melara Sitora is an ergonomic seat cushion with a hollow relief vent and contoured support, designed to ease sitting pressure. It is a comfort and support accessory, not a replacement for professional medical diagnosis or treatment, and it does not treat, cure or shrink hemorrhoids. If you have rectal bleeding, or discomfort that is persistent, worsening or severe, please consult a qualified healthcare professional.')],
     ['q' => $collector->translate('faq_hr_2_q', 'What makes it different from a regular cushion?'), 'a' => $collector->translate('faq_hr_2_a', 'A regular cushion is usually flat. Melara Sitora is a one-piece seat and backrest with five support zones: a lumbar curve, upright posture wings, a hollow relief vent under the tailbone, a contoured seat for your sit bones, and thigh grooves that keep your legs level.')],
+    ['q' => $collector->translate('faq_hr_8_q', 'Will a seat cushion cure hemorrhoids?'), 'a' => $collector->translate('faq_hr_8_a', 'No. A seat cushion can only help with comfort by spreading sitting pressure. Hemorrhoid care usually centres on fiber, fluids, avoiding straining and, where needed, treatment from a doctor.')],
+    ['q' => $collector->translate('faq_hr_9_q', 'Is a donut cushion or a U-shaped cushion better?'), 'a' => $collector->translate('faq_hr_9_a', 'For long sits, many people find a U-shaped or keyhole relief vent more comfortable because there is no closed rim pressing around the opening. Melara Sitora uses a hollow relief vent under the tailbone.')],
+    ['q' => $collector->translate('faq_hr_10_q', 'Can I use it after childbirth or surgery?'), 'a' => $collector->translate('faq_hr_10_a', 'Many people find a contoured cushion more comfortable. Always follow your doctor\'s, midwife\'s or surgeon\'s after-care instructions first.')],
     ['q' => $collector->translate('faq_hr_4_q', 'Is it suitable for everyday sitting?'), 'a' => $collector->translate('faq_hr_4_a', 'Yes. It is designed for everyday sitting at your desk, dining table, sofa or in the car. As with any seat, it helps to stand up and move around regularly.')],
     ['q' => $collector->translate('faq_hr_0_q', 'Will it fit my chair?'), 'a' => $collector->translate('faq_hr_0_a', 'It measures 44 × 42 × 32 cm (17.3 × 16.5 × 12.6 in, W × D × H) and fits most sofas, dining chairs, car seats and office chairs with a seat at least 44 cm (17.3 in) wide. Just set it on the seat and sit back.')],
     ['q' => $collector->translate('faq_hr_7_q', 'What is the return policy?'), 'a' => $collector->translate('faq_hr_7_a', 'We offer refunds within 30 days of purchase. Just contact our support team and we\'ll guide you through the return.')],
@@ -76,7 +91,7 @@ $faqs = [
     ['q' => $collector->translate('faq_hr_6_q', 'When should I speak to a doctor?'), 'a' => $collector->translate('faq_hr_6_a', 'Please speak to a healthcare professional if you notice rectal bleeding, pain that is getting worse, or severe or ongoing symptoms. A seat cushion is not a substitute for medical advice.')],
 ];
 
-// Sample reviews: replace with real customer reviews (and photos) before launch.
+// SAMPLE reviews (copy written for this template, not real customers): replace with real customer reviews and photos before launch.
 // Keep them to comfort and experience; no medical results.
 $reviews = [
     ['name' => 'Margaret H.', 'photo' => 'review-ang',     'role' => $collector->translate('rev2_0_role', 'Retired teacher'),        'text' => $collector->translate('rev2_0_text', 'I can sit through a whole film again without getting up every twenty minutes. My lower back is so much happier.')],
@@ -101,8 +116,8 @@ $reviews = [
     <link rel="icon" href="assets/img/favicon/favicon.ico" sizes="any">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon/favicon-16x16.png">
-    <title><?= $product ?> — Ergonomic Seat Cushion for Comfortable Sitting</title>
-    <meta name="description" content="<?= $product ?>: an ergonomic memory-foam seat cushion with a hollow relief vent and contoured support, designed to ease sitting pressure. 30-day returns.">
+    <title><?= $product ?> — Hemorrhoid Seat Cushion for Comfortable Sitting</title>
+    <meta name="description" content=$product . ': an ergonomic memory-foam seat cushion for hemorrhoid discomfort, with a hollow relief vent and contoured support to ease sitting pressure. 30-day returns.'>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -121,6 +136,7 @@ $reviews = [
     <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <a href="#" class="shrink-0"><img src="<?= $logo ?>" alt="<?= $brand ?>" class="h-8 sm:h-10 w-auto" width="190" height="49"></a>
         <ul class="hidden md:flex items-center gap-9 text-sm text-muted">
+            <li><a href="#why-sitting" class="nav-link"><?= $collector->translate('idx_hr_guide', 'Hemorrhoid guide') ?></a></li>
             <li><a href="#solution" class="nav-link"><?= $collector->translate('idx_why_it_helps', 'Why it helps') ?></a></li>
             <li><a href="#life" class="nav-link"><?= $collector->translate('idx_who_it_s_for', 'Who it\'s for') ?></a></li>
             <li><a href="#reviews" class="nav-link"><?= $collector->translate('idx_reviews', 'Reviews') ?></a></li>
@@ -190,7 +206,7 @@ $reviews = [
                 <div class="relative">
                 <div class="relative aspect-[4/5] sm:aspect-[5/5] rounded-[2.5rem] overflow-hidden shadow-[0_40px_80px_-30px_rgba(29,34,38,.35)]">
                     <div class="absolute inset-0 animate-kenburns">
-                        <?= photo($img['hero'], 'Woman in her 60s with a cup of tea, sitting upright on the Melara Sitora cushion on a dining chair at home', 'w-full h-full', 'hero.webp', true) ?>
+                        <?= hr_photo($img['hero'], 'Woman in her 60s with a cup of tea, sitting upright on the Melara Sitora cushion on a dining chair at home', 'w-full h-full', 'hero.webp', true) ?>
                     </div>
                 </div>
                 <div class="absolute end-3 sm:-end-6 top-full -mt-6 bg-white rounded-2xl shadow-xl px-5 py-4 max-w-[250px] animate-float">
@@ -225,7 +241,7 @@ $reviews = [
                 <div class="flex w-max animate-marquee items-center gap-14 sm:gap-20 whitespace-nowrap hover:[animation-play-state:paused]" style="animation-duration: 45s;">
                     <?php for ($r = 0; $r < 2; $r++): foreach ($press as $p): ?>
                         <span class="flex items-center h-10 shrink-0" <?= $r ? 'aria-hidden="true"' : '' ?>>
-                            <?php if (is_file(__DIR__ . '/' . $p['logo'])): ?>
+                            <?php if (!HR_PLACEHOLDERS && is_file(__DIR__ . '/' . $p['logo'])): ?>
                                 <img src="<?= $p['logo'] ?>" alt="<?= $r ? '' : htmlspecialchars($p['name']) ?>" style="height: <?= $p['h'] ?>px" class="w-auto grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition duration-300" loading="lazy">
                             <?php else: ?>
                                 <span class="font-serif text-xl text-ink/45"><?= $p['name'] ?></span>
@@ -256,7 +272,7 @@ $reviews = [
                 <?php foreach ($painAreas as $i => $pa): ?>
                     <article class="reveal rounded-[1.75rem] overflow-hidden bg-white border border-sand/70 shadow-[0_20px_50px_-35px_rgba(29,34,38,.35)]" data-delay="<?= $i + 1 ?>">
                         <div class="relative aspect-square">
-                            <?= photo($pa['img'], $pa['alt'], 'w-full h-full', basename($pa['img'])) ?>
+                            <?= hr_photo($pa['img'], $pa['alt'], 'w-full h-full', basename($pa['img'])) ?>
                             <span class="glow-pulse glow-red" style="animation-delay: <?= $i * -.8 ?>s" aria-hidden="true"></span>
                             <span class="badge-ping absolute top-4 start-4 grid place-items-center w-9 h-9 rounded-full bg-red-500 text-white text-sm font-bold shadow-lg"><?= $i + 1 ?></span>
                         </div>
@@ -276,12 +292,12 @@ $reviews = [
                 <!-- Before / after: the two photos cross-fade on a loop (assets/js/index.js) -->
                 <div class="relative aspect-[4/5] rounded-[2.5rem] overflow-hidden" data-ba-loop>
                     <div class="ba-slide is-on absolute inset-0">
-                        <?= photo('assets/img/index-hr/pain-before.webp', 'Woman in her 60s holding her lower back as she sits on a hard dining chair', 'w-full h-full', 'pain-before.webp') ?>
+                        <?= hr_photo('assets/img/index-hr/pain-before.webp', 'Woman in her 60s holding her lower back as she sits on a hard dining chair', 'w-full h-full', 'pain-before.webp') ?>
                         <span class="glow-pulse glow-red" aria-hidden="true"></span>
                         <span class="absolute top-4 start-4 inline-flex items-center gap-2 rounded-full bg-red-500 px-4 py-2 text-sm font-semibold text-white shadow-lg"><span aria-hidden="true">✕</span> <?= $collector->translate('ba_before', 'Before: a hard, flat chair') ?></span>
                     </div>
                     <div class="ba-slide absolute inset-0">
-                        <?= photo('assets/img/index-hr/pain-after.webp', 'The same woman smiling and sitting comfortably on the Melara Sitora cushion on the same dining chair', 'w-full h-full', 'pain-after.webp') ?>
+                        <?= hr_photo('assets/img/index-hr/pain-after.webp', 'The same woman smiling and sitting comfortably on the Melara Sitora cushion on the same dining chair', 'w-full h-full', 'pain-after.webp') ?>
                         <span class="glow-pulse glow-turq" aria-hidden="true"></span>
                         <span class="absolute top-4 start-4 inline-flex items-center gap-2 rounded-full bg-turq px-4 py-2 text-sm font-semibold text-ink shadow-lg"><span aria-hidden="true">✓</span> <?= $collector->translate('ba_after', 'After: with Melara Sitora') ?></span>
                     </div>
@@ -430,6 +446,91 @@ $reviews = [
         </div>
     </section>
 
+    <!-- Why unsupported sitting feels worse: educational, comfort-focused (no treatment claims). Sources listed in the footnote. -->
+    <section id="why-sitting" class="py-5 md:py-[30px] lg:py-16 bg-[#faf4f2] scroll-mt-16">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl">
+                <p class="reveal text-sm font-medium uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('ws_eyebrow', 'The science of sitting') ?></p>
+                <h2 class="reveal mt-4 font-serif text-4xl sm:text-5xl leading-tight sm:leading-none tracking-tight" data-delay="1"><?= $collector->translate('ws_heading', 'Why sitting without support') ?> <em class="text-turq-ink"><?= $collector->translate('ws_heading_2', 'can feel worse.') ?></em></h2>
+                <p class="reveal mt-4 text-muted leading-relaxed" data-delay="2"><?= $collector->translate('ws_intro', 'Hemorrhoids are very common: one colonoscopy-based study found them in nearly 4 in 10 adults.<sup>1</sup> They are swollen vascular cushions in the anal canal that can become tender or irritated.<sup>2</sup> When you are sensitive, how you sit matters.') ?></p>
+            </div>
+
+            <div class="mt-8 lg:mt-12 grid sm:grid-cols-2 gap-4 lg:gap-5">
+                <?php foreach ([
+                    ['ws_0', 'Direct pressure', 'On a flat, hard seat your weight is carried by a small contact area. Contoured, cushioned seats spread the load and lower peak pressure.<sup>3</sup>'],
+                    ['ws_1', 'Unbroken pressure', 'Hours in one position load the same tissue the whole time. A long meeting or drive often feels worse than a short sit.'],
+                    ['ws_2', 'Straining and long toilet time', 'Straining and lingering on the toilet are recognised contributors to symptomatic hemorrhoids,<sup>2,4</sup> and phone use on the toilet has been linked to a higher likelihood of them.<sup>5</sup>'],
+                    ['ws_3', 'Less chance to settle', 'A tender area that is pressed on all day has little chance to calm down between flare-ups, so everyday sitting feels like a chore.'],
+                ] as $wsi => [$wsKey, $wsT, $wsD]): ?>
+                    <article class="reveal bg-white rounded-3xl p-6 sm:p-7 border border-sand/70 flex gap-4" data-delay="<?= ($wsi % 2) + 1 ?>">
+                        <span class="grid place-items-center w-9 h-9 shrink-0 rounded-full bg-ink text-cream text-sm font-semibold"><?= $wsi + 1 ?></span>
+                        <div>
+                            <h3 class="font-serif text-xl sm:text-2xl"><?= $collector->translate($wsKey . '_t', $wsT) ?></h3>
+                            <p class="mt-2 text-[15px] text-muted leading-relaxed"><?= $collector->translate($wsKey . '_d', $wsD) ?></p>
+                        </div>
+                    </article>
+                <?php endforeach; ?>
+            </div>
+
+            <p class="reveal mt-6 max-w-3xl rounded-2xl border border-sand bg-white px-5 py-4 text-sm text-muted leading-relaxed" data-delay="2"><strong class="text-ink"><?= $collector->translate('ws_note_h', 'An honest note:') ?></strong> <?= $collector->translate('ws_note', 'No clinical trial has shown that a seat cushion treats or shrinks hemorrhoids. A cushion is about pressure distribution and comfort. Fiber, fluids and not straining remain the first-line advice.<sup>6,7</sup>') ?></p>
+
+            <div class="reveal mt-6 flex flex-col items-center sm:items-start gap-3" data-delay="3">
+                <a href="checkout.php?pack=2&custom_config=hr" class="group inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full bg-turq px-7 py-4 font-semibold text-ink shadow-[0_14px_30px_-12px_rgba(29,209,161,.6)] hover:bg-turq-dark hover:-translate-y-0.5 transition">
+                    <?= $collector->translate('cta_ws', 'Take the pressure off today') ?>
+                    <svg class="w-4 h-4 transition group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </a>
+            </div>
+
+            <details class="reveal mt-4 max-w-3xl text-xs text-muted leading-relaxed" data-delay="3">
+                <summary class="cursor-pointer font-medium text-turq-ink"><?= $collector->translate('ws_src_h', 'Sources') ?></summary>
+                <ol class="mt-2 list-decimal ps-5 space-y-1">
+                    <li>Riss S, et al. The prevalence of hemorrhoids in adults. Int J Colorectal Dis. 2012;27:215-220.</li>
+                    <li>Lohsiriwat V. Hemorrhoids: from basic pathophysiology to clinical management. World J Gastroenterol. 2012;18:2009-2017.</li>
+                    <li>Hobson DA. Comparative effects of posture on pressure and shear at the body-seat interface. J Rehabil Res Dev. 1992;29:21-31.</li>
+                    <li>Sun Z, Migaly J. Review of hemorrhoid disease: presentation and management. Clin Colon Rectal Surg. 2016;29:22-29.</li>
+                    <li>Anand S, et al. Smartphone use on the toilet and hemorrhoid risk. PLOS ONE. 2025.</li>
+                    <li>Davis BR, et al. ASCRS Clinical Practice Guidelines for the Management of Hemorrhoids. Dis Colon Rectum. 2018;61:284-292.</li>
+                    <li>Alonso-Coello P, et al. Fibre for the treatment of hemorrhoidal disease. Cochrane Database Syst Rev. 2005.</li>
+                </ol>
+            </details>
+        </div>
+    </section>
+
+    <!-- Who it is for: four everyday groups -->
+    <section id="who" class="py-5 md:py-[30px] lg:py-16 scroll-mt-16">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto">
+                <p class="reveal text-sm font-medium uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('who_eyebrow', 'Who it\'s for') ?></p>
+                <h2 class="reveal mt-4 font-serif text-4xl sm:text-5xl leading-tight sm:leading-none tracking-tight" data-delay="1"><?= $collector->translate('who_heading', 'Who might benefit from') ?> <em class="text-turq-ink"><?= $collector->translate('who_heading_2', 'a supportive seat?') ?></em></h2>
+            </div>
+            <div class="mt-8 lg:mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5">
+                <?php foreach ([
+                    ['who_0', 'Office workers', 'Sit 8+ hours a day on firm chairs, with little chance to shift. Pressure builds as the day goes on.', 'M4 7h16v9H4zM9 20h6M12 16v4'],
+                    ['who_1', 'Long-haul drivers', 'Hours behind the wheel in a fixed posture. A supportive, non-slip seat helps you sit comfortably for longer.', 'M3 16V9h11l4 4h3v3M7 18.5a1.5 1.5 0 1 0 0-.01M17 18.5a1.5 1.5 0 1 0 0-.01'],
+                    ['who_2', 'New mothers', 'Hemorrhoids are common in late pregnancy and after birth.<sup>8</sup> A contoured seat can make sitting and feeding more comfortable. Follow your midwife\'s or doctor\'s advice.', 'M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10z'],
+                    ['who_3', 'Recovering after treatment', 'Comfort while you follow your doctor\'s or surgeon\'s after-care instructions, with less pressure on tender areas.', 'M12 4v16M4 12h16'],
+                ] as $whi => [$whKey, $whT, $whD, $whPath]): ?>
+                    <article class="reveal bg-white rounded-3xl p-6 border border-sand/70" data-delay="<?= ($whi % 4) + 1 ?>">
+                        <span class="grid place-items-center w-11 h-11 rounded-2xl bg-turq-soft/70 text-turq-ink"><svg viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="<?= $whPath ?>"/></svg></span>
+                        <h3 class="mt-4 font-serif text-xl"><?= $collector->translate($whKey . '_t', $whT) ?></h3>
+                        <p class="mt-2 text-[15px] text-muted leading-relaxed"><?= $collector->translate($whKey . '_d', $whD) ?></p>
+                    </article>
+                <?php endforeach; ?>
+            </div>
+            <p class="reveal mt-5 text-center text-xs text-muted" data-delay="2"><sup>8</sup> Poskus T, et al. Haemorrhoids and anal fissures during pregnancy and after childbirth. BJOG. 2014;121:1666-1671.</p>
+            <ul class="reveal mt-6 mx-auto max-w-3xl grid sm:grid-cols-2 gap-x-8 gap-y-3 text-[15px] text-muted leading-relaxed" data-delay="3">
+                <?php foreach ([
+                    ['xb_0', 'Encourages a more comfortable, upright sitting posture'],
+                    ['xb_1', 'Can ease lower back and hip pressure during long sits'],
+                    ['xb_2', 'Reduces irritation from hard seats on long trips'],
+                    ['xb_3', 'Helps you stay comfortable through a working day'],
+                ] as [$xbKey, $xbText]): ?>
+                    <li class="flex gap-3"><svg viewBox="0 0 24 24" class="w-5 h-5 mt-0.5 shrink-0 text-turq-ink" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span><?= $collector->translate($xbKey, $xbText) ?></span></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </section>
+
     <!-- Golden sitting angle + goodbye crossed legs: real side and front photos with drawn guides -->
     <section id="posture" class="py-5 md:pt-0 md:pb-[30px] lg:py-16 scroll-mt-16">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -440,7 +541,7 @@ $reviews = [
             <div class="mt-8 lg:mt-14 grid md:grid-cols-2 gap-4 sm:gap-6">
                 <article class="reveal rounded-[2rem] bg-soft-gray border border-sand/70 p-5 sm:p-8 flex flex-col">
                     <div class="relative mx-auto w-full max-w-[520px] my-auto py-6">
-                        <img src="assets/img/product/product-side.webp?t=<?= $OfferApi->assetVersion('assets/img/product/product-side.webp') ?>" alt="Side view of the <?= $product ?> showing the curved backrest" class="w-full h-auto" width="1000" height="519" loading="lazy" decoding="async">
+                        <?= hr_photo('assets/img/product/product-side.webp', 'Side view of the ' . $product . ' showing the curved backrest', 'w-full aspect-[1000/519]', 'product-side.webp') ?>
                         <svg class="absolute inset-x-0 top-6 w-full h-auto overflow-visible" viewBox="0 0 100 51.9" aria-hidden="true">
                             <path class="draw-line" d="M24,3 C32,10 36.5,20 37.5,29 S40,36 47,35.5" fill="none" stroke="#1dd1a1" stroke-width="1.1" stroke-linecap="round" stroke-dasharray="2.2 1.6"/>
                             <circle cx="34.8" cy="17" r="1.6" fill="#1dd1a1"/><circle cx="34.8" cy="17" r="3.2" fill="#1dd1a1" opacity=".25"/>
@@ -452,7 +553,7 @@ $reviews = [
                 </article>
                 <article class="reveal rounded-[2rem] bg-soft-gray border border-sand/70 p-5 sm:p-8 flex flex-col" data-delay="1">
                     <div class="relative mx-auto w-[70%] max-w-[340px] my-auto">
-                        <img src="assets/img/product/product-front.webp?t=<?= $OfferApi->assetVersion('assets/img/product/product-front.webp') ?>" alt="Front view of the <?= $product ?> showing the U-shaped leg support" class="w-full h-auto" width="1000" height="1120" loading="lazy" decoding="async">
+                        <?= hr_photo('assets/img/product/product-front.webp', 'Front view of the ' . $product . ' showing the U-shaped leg support', 'w-full aspect-[1000/1120]', 'product-front.webp') ?>
                         <svg class="absolute inset-0 w-full h-full overflow-visible" viewBox="0 0 100 112" aria-hidden="true">
                             <defs><marker id="legArrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1dd1a1"/></marker></defs>
                             <!-- arrows: dashes flow toward the seat and the arrows gently push inward (legs drawn together) -->
@@ -480,21 +581,21 @@ $reviews = [
             </div>
             <div class="mt-8 lg:mt-14 grid sm:grid-cols-3 gap-4 sm:gap-6">
                 <article class="reveal rounded-[2rem] bg-white border border-sand/70 overflow-hidden">
-                    <div class="aspect-[4/3] overflow-hidden"><?= photo('assets/img/index-hr/fabric.webp', 'Close-up of the soft, skin-friendly fabric of the Melara seat cushion', 'w-full h-full', 'fabric.webp') ?></div>
+                    <div class="aspect-[4/3] overflow-hidden"><?= hr_photo('assets/img/index-hr/fabric.webp', 'Close-up of the soft, skin-friendly fabric of the Melara seat cushion', 'w-full h-full', 'fabric.webp') ?></div>
                     <div class="p-5 sm:p-6">
                         <h3 class="font-semibold text-lg"><?= $collector->translate('mat_0_t', 'Skin-friendly fabric') ?></h3>
                         <p class="mt-1 text-sm text-muted leading-relaxed"><?= $collector->translate('mat_0_d', 'Soft and smooth, with a delicate feel against your skin.') ?></p>
                     </div>
                 </article>
                 <article class="reveal rounded-[2rem] bg-white border border-sand/70 overflow-hidden" data-delay="1">
-                    <div class="aspect-[4/3] overflow-hidden"><?= photo($img['detail'], 'Hand pressing into the slow-rebound memory foam of the Melara seat cushion', 'w-full h-full object-[50%_55%]', 'detail.webp') ?></div>
+                    <div class="aspect-[4/3] overflow-hidden"><?= hr_photo($img['detail'], 'Hand pressing into the slow-rebound memory foam of the Melara seat cushion', 'w-full h-full object-[50%_55%]', 'detail.webp') ?></div>
                     <div class="p-5 sm:p-6">
                         <h3 class="font-semibold text-lg"><?= $collector->translate('mat_1_t', 'Slow-rebound memory foam') ?></h3>
                         <p class="mt-1 text-sm text-muted leading-relaxed"><?= $collector->translate('mat_1_d', 'Shapes to your body, then springs back in about 5 seconds without ever collapsing.') ?></p>
                     </div>
                 </article>
                 <article class="reveal rounded-[2rem] bg-white border border-sand/70 overflow-hidden" data-delay="2">
-                    <div class="aspect-[4/3] overflow-hidden"><?= photo('assets/img/index-hr/antislip.webp', 'Close-up of the silicone anti-slip dots on the base of the Melara seat cushion', 'w-full h-full', 'antislip.webp') ?></div>
+                    <div class="aspect-[4/3] overflow-hidden"><?= hr_photo('assets/img/index-hr/antislip.webp', 'Close-up of the silicone anti-slip dots on the base of the Melara seat cushion', 'w-full h-full', 'antislip.webp') ?></div>
                     <div class="p-5 sm:p-6">
                         <h3 class="font-semibold text-lg"><?= $collector->translate('mat_2_t', 'Silicone anti-slip base') ?></h3>
                         <p class="mt-1 text-sm text-muted leading-relaxed"><?= $collector->translate('mat_2_d', 'Anti-slip particles on the base keep the cushion in place, however much you move.') ?></p>
@@ -537,7 +638,7 @@ $reviews = [
     <section id="specs" class="py-5 md:py-[30px] lg:py-16 scroll-mt-16">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-8 lg:gap-14 items-center">
             <div class="reveal relative mx-auto w-full max-w-[560px] aspect-square rounded-[2.5rem] bg-soft-gray border border-sand/70">
-                <img src="assets/img/anatomy-assembled.webp?t=<?= $OfferApi->assetVersion('assets/img/anatomy-assembled.webp') ?>" alt="<?= $product ?> with its dimensions: 44 cm (17.3 in) wide, 42 cm (16.5 in) deep, 32 cm (12.6 in) high" class="absolute inset-[10%] w-[80%] h-[80%] object-contain" loading="lazy" decoding="async">
+                <?= hr_photo('assets/img/anatomy-assembled.webp', $product . ' with its dimensions: 44 cm (17.3 in) wide, 42 cm (16.5 in) deep, 32 cm (12.6 in) high', 'absolute inset-[10%] w-[80%] h-[80%] object-contain', 'anatomy-assembled.webp') ?>
                 <div class="absolute inset-[10%]">
                     <svg class="absolute inset-0 w-full h-full overflow-visible" viewBox="0 0 100 100" aria-hidden="true">
                         <!-- On scroll-in each line draws itself (one after another), its end ticks appear, then a soft highlight keeps sweeping along it -->
@@ -548,14 +649,14 @@ $reviews = [
                             <path class="dim-line" pathLength="100" style="--d: .45s" d="M36,96.5 L78,72"/>
                             <path class="dim-tick" style="--d: 1.15s" d="M35.2,95.1 L36.8,97.9M77.2,70.6 L78.8,73.4"/>
                             <path class="dim-glow" pathLength="100" style="--d: .45s" d="M36,96.5 L78,72"/>
-                            <path class="dim-line" pathLength="100" style="--d: .9s" d="M102,11 L102,55"/>
-                            <path class="dim-tick" style="--d: 1.6s" d="M100.4,11 L103.6,11M100.4,55 L103.6,55"/>
-                            <path class="dim-glow" pathLength="100" style="--d: .9s" d="M102,11 L102,55"/>
+                            <path class="dim-line" pathLength="100" style="--d: .9s" d="M102,14 L102,60"/>
+                            <path class="dim-tick" style="--d: 1.6s" d="M100.4,14 L103.6,14M100.4,60 L103.6,60"/>
+                            <path class="dim-glow" pathLength="100" style="--d: .9s" d="M102,14 L102,60"/>
                         </g>
                     </svg>
                     <span class="dim-pill" style="left: 13.5%; top: 86%; --d: .8s;">44 cm<small>17.3 in</small></span>
                     <span class="dim-pill" style="left: 57%; top: 84.25%; --d: 1.25s;">42 cm<small>16.5 in</small></span>
-                    <span class="dim-pill" style="left: 102%; top: 33%; --d: 1.7s;">32 cm<small>12.6 in</small></span>
+                    <span class="dim-pill" style="left: 102%; top: 37%; --d: 1.7s;">32 cm<small>12.6 in</small></span>
                 </div>
             </div>
             <div>
@@ -572,6 +673,39 @@ $reviews = [
                 </dl>
                 <a href="checkout.php?pack=2&custom_config=hr" class="reveal group mt-8 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full bg-turq px-7 py-4 font-semibold text-ink shadow-[0_14px_30px_-12px_rgba(29,209,161,.6)] hover:bg-turq-dark transition" data-delay="3"><?= $collector->translate('spec_cta', 'Get 70% Discount') ?> <span class="transition group-hover:translate-x-1" aria-hidden="true">→</span></a>
             </div>
+        </div>
+    </section>
+
+    <!-- How to choose a seat cushion: five factors + ring vs U-shaped note -->
+    <section id="choose" class="py-5 md:py-[30px] lg:py-16 scroll-mt-16">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-8 lg:gap-14">
+            <div class="lg:col-span-5 reveal">
+                <p class="text-sm font-medium uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('ch_eyebrow', 'Buyer\'s guide') ?></p>
+                <h2 class="mt-4 font-serif text-4xl sm:text-5xl leading-tight sm:leading-none tracking-tight"><?= $collector->translate('ch_heading', 'How to choose a') ?> <em class="text-turq-ink"><?= $collector->translate('ch_heading_2', 'seat cushion for sitting.') ?></em></h2>
+                <p class="mt-4 text-muted leading-relaxed"><?= $collector->translate('ch_intro', 'Keep these five factors in mind when you shop.') ?></p>
+                <div class="mt-6 rounded-2xl border border-sand bg-soft-gray px-5 py-4 text-sm text-muted leading-relaxed">
+                    <strong class="text-ink"><?= $collector->translate('ch_ring_h', 'Ring or U-shaped?') ?></strong>
+                    <?= $collector->translate('ch_ring', 'Ring (donut) cushions relieve the centre but can create a rim of higher pressure around it, and pressure-injury guidelines advise against ring-type devices.<sup>9</sup> A U-shaped or keyhole relief vent leaves the rear open without a closed rim, which is the design Melara Sitora uses.') ?>
+                </div>
+            </div>
+            <ol class="lg:col-span-7 space-y-3">
+                <?php foreach ([
+                    ['ch_0', 'Shape and relief cut-out', 'Choose a U-shaped or keyhole vent for long sits. Contoured foam spreads weight over a wider area.'],
+                    ['ch_1', 'Foam density and firmness', 'High-density memory foam stays supportive. Foam that is too soft bottoms out and stops relieving pressure.'],
+                    ['ch_2', 'Breathable, washable cover', 'A removable breathable cover keeps you cooler and cleaner, which matters when skin is sensitive.'],
+                    ['ch_3', 'Fit and a non-slip base', 'Check the size against your chair or car seat, and look for a base that stays put when you shift.'],
+                    ['ch_4', 'Durability', 'Quality foam keeps its shape for months, not weeks. Check the return policy.'],
+                ] as $chi => [$chKey, $chT, $chD]): ?>
+                    <li class="reveal flex gap-4 bg-white rounded-2xl border border-sand/70 px-5 py-4" data-delay="<?= min($chi + 1, 5) ?>">
+                        <span class="grid place-items-center w-8 h-8 shrink-0 rounded-full bg-ink text-cream text-sm font-semibold"><?= $chi + 1 ?></span>
+                        <div>
+                            <h3 class="font-semibold"><?= $collector->translate($chKey . '_t', $chT) ?></h3>
+                            <p class="mt-1 text-[15px] text-muted leading-relaxed"><?= $collector->translate($chKey . '_d', $chD) ?></p>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+                <li class="reveal text-xs text-muted" data-delay="5"><sup>9</sup> NPIAP/EPUAP/PPPIA. Prevention and Treatment of Pressure Ulcers/Injuries: Clinical Practice Guideline. 2019.</li>
+            </ol>
         </div>
     </section>
 
@@ -671,7 +805,7 @@ $reviews = [
                 <?php foreach ($life as $i => $l): $span = 'aspect-[4/5]'; ?>
                     <article class="reveal group relative rounded-[1.75rem] overflow-hidden <?= $span ?>" data-delay="<?= ($i % 3) + 1 ?>">
                         <div class="absolute inset-0 transition duration-700 group-hover:scale-105">
-                            <?= photo($l['img'], $l['alt'], 'w-full h-full object-[50%_25%]', basename($l['img'])) ?>
+                            <?= hr_photo($l['img'], $l['alt'], 'w-full h-full object-[50%_25%]', basename($l['img'])) ?>
                         </div>
                         <div class="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/10 to-transparent"></div>
                         <div class="absolute bottom-0 p-4 sm:p-6 text-cream">
@@ -759,7 +893,7 @@ $reviews = [
     <section class="px-4 sm:px-6 lg:px-8 py-5 md:py-[30px] lg:pt-0 lg:pb-24">
         <div class="reveal relative mx-auto max-w-7xl rounded-[2.5rem] overflow-hidden min-h-[460px] flex items-end">
             <div class="absolute inset-0 animate-kenburns" style="transform-origin: 70% 40%;">
-                <?= photo($img['cta'], 'Chair at home with the Melara seat cushion in warm evening sunlight', 'w-full h-full object-[78%_30%] lg:object-[50%_30%]', 'cta.webp') ?>
+                <?= hr_photo($img['cta'], 'Chair at home with the Melara seat cushion in warm evening sunlight', 'w-full h-full object-[78%_30%] lg:object-[50%_30%]', 'cta.webp') ?>
             </div>
             <div class="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/40 to-transparent"></div>
             <div class="relative p-10 sm:p-16 max-w-xl text-cream">
