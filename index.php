@@ -25,7 +25,7 @@ $currency = '$';
 $logo     = 'assets/img/logo.svg';
 
 $img = [
-    'hero'     => 'assets/img/index/hero.webp',   // Margaret at her dining table on the cushion
+    'hero'     => 'assets/img/index/hero.webp',   // 3D render: seated woman, glowing support zones (labels are HTML, see $heroLabels)
     'detail'   => 'assets/img/index/detail.webp',    // hand pressing the memory foam
     'cta'      => 'assets/img/index/cta.webp',       // final banner: cushion on a chair
 ];
@@ -210,9 +210,32 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
 
             <div class="lg:col-span-5 relative reveal order-first lg:order-none pb-28" data-delay="2">
                 <div class="relative">
-                <div class="relative aspect-[4/5] sm:aspect-[5/5] rounded-[2.5rem] overflow-hidden shadow-[0_40px_80px_-30px_rgba(29,34,38,.35)]">
+                <div class="hero-media relative aspect-[4/5] sm:aspect-[5/5] rounded-[2.5rem] overflow-hidden shadow-[0_40px_80px_-30px_rgba(29,34,38,.35)]">
                     <div class="absolute inset-0 animate-kenburns">
-                        <?= photo($img['hero'], 'Woman in her 60s with a cup of tea, sitting upright on the Melara Sitora cushion on a dining chair at home', 'w-full h-full', 'hero.webp', true) ?>
+                        <?= photo($img['hero'], 'Illustration of a seated woman on the Melara Sitora cushion, showing support for the lower back, tailbone, sit bones, sciatic nerve path and back of the thighs', 'w-full h-full', 'hero.webp', true) ?>
+                        <?php
+                        // Hero labels: HTML so they stay sharp on phones and get translated per language.
+                        // Coordinates are in the 1200x1200 hero image: [key, English, dot x, dot y, label x, label y, side]
+                        // side 'r' = label grows to the right of its point, 'l' = grows to the left.
+                        $heroLabels = [
+                            ['hero3_lbl_lower_back', 'Lower back',     752, 692, 815, 470,  'r'],
+                            ['hero3_lbl_tailbone',   'Tailbone',       765, 902, 905, 790,  'r'],
+                            ['hero3_lbl_sit_bones',  'Sit bones',      643, 945, 880, 1075, 'r'],
+                            ['hero3_lbl_nerve',      'Nerve path',     428, 878, 360, 660,  'l'],
+                            ['hero3_lbl_thighs',     'Back of thighs', 370, 953, 330, 1110, 'r'],
+                        ];
+                        ?>
+                        <div class="hero-anno" aria-hidden="true">
+                            <svg class="hero-anno-lines" viewBox="0 0 1200 1200" preserveAspectRatio="none">
+                                <?php foreach ($heroLabels as $i => [$k, $t, $dx, $dy, $lx, $ly, $side]): ?>
+                                    <line x1="<?= $dx ?>" y1="<?= $dy ?>" x2="<?= $lx ?>" y2="<?= $ly ?>" style="--d: <?= .4 + $i * .12 ?>s" />
+                                <?php endforeach; ?>
+                            </svg>
+                            <?php foreach ($heroLabels as $i => [$k, $t, $dx, $dy, $lx, $ly, $side]): ?>
+                                <span class="hero-anno-dot" style="left: <?= round($dx / 12, 2) ?>%; top: <?= round($dy / 12, 2) ?>%; --d: <?= .4 + $i * .12 ?>s"></span>
+                                <span class="hero-anno-pill" data-side="<?= $side ?>" style="--x: <?= round($lx / 12, 2) ?>%; top: <?= round($ly / 12, 2) ?>%; --d: <?= .55 + $i * .12 ?>s"><?= $collector->translate($k, $t) ?></span>
+                            <?php endforeach; ?>
+                        </div>
                     </div>
                 </div>
                 <div class="absolute end-3 sm:-end-6 top-full -mt-6 bg-white rounded-2xl shadow-xl px-5 py-4 max-w-[250px] animate-float">
