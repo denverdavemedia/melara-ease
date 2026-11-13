@@ -45,31 +45,48 @@ $maxQty   = max(1, (int) $selectedProd->maxOrderQty);
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
         <img src="assets/img/logo.svg" alt="Melara" class="h-8 sm:h-9 w-auto shrink-0" width="190" height="49">
 
+        <?php
+        // Progress bar built from the funnel config (campaignFunnel in integrated/config_xx.php): a page that isn't in the funnel isn't shown.
+        // Pages in the same group share one step (both pillowcase upsells = "Pillowcases"). Labels are translated once, before the loop.
+        $stepNames = [
+            'extra-seat-cushion' => $collector->translate('step_extra-seat-cushion', 'Extra cushion'),
+            'melara-apex-pillow' => $collector->translate('step_melara-apex-pillow', 'Apex pillow'),
+            'pillowcases'        => $collector->translate('step_pillowcases', 'Pillowcases'),
+            'knee-pillow'        => $collector->translate('step_knee-pillow', 'Knee pillow'),
+        ];
+        $stepGroups = ['cloudair-pillowcase' => 'pillowcases', 'anti-dust-pillowcase' => 'pillowcases'];
+        $steps = [];
+        foreach ($OfferApi->upsells ?? [] as $funnelStep) {
+            $group = $stepGroups[$funnelStep['page']] ?? $funnelStep['page'];
+            if (!in_array($group, $steps, true)) $steps[] = $group;
+        }
+        $here = array_search($stepGroups[$OfferApi->funnelPage()] ?? $OfferApi->funnelPage(), $steps, true);
+        ?>
         <ol class="hidden md:flex items-center gap-2 text-xs font-medium text-muted whitespace-nowrap" aria-label="<?= $collector->translate('progress_label', 'Order progress') ?>">
             <li class="flex items-center gap-2">
                 <span class="grid place-items-center w-5 h-5 rounded-full bg-turq text-ink text-[10px]">✓</span>
                 <span class="hidden xl:inline"><?= $collector->translate('progress_order', 'Order placed') ?></span>
             </li>
-            <li class="w-4 xl:w-8 h-px bg-turq" aria-hidden="true"></li>
-            <li class="flex items-center gap-2 text-ink" aria-current="step">
-                <span class="grid place-items-center w-6 h-6 rounded-full bg-ink text-cream text-[11px] shadow-[0_0_0_4px_rgba(29,209,161,.25)]">1</span>
-                <span><?= $collector->translate('step_extra-seat-cushion', 'Extra cushion') ?></span>
-            </li>
-            <li class="w-4 xl:w-8 h-px bg-sand" aria-hidden="true"></li>
-            <li class="flex items-center gap-2">
-                <span class="grid place-items-center w-5 h-5 rounded-full border border-sand text-[10px]">2</span>
-                <span class="hidden xl:inline"><?= $collector->translate('step_melara-apex-pillow', 'Apex pillow') ?></span>
-            </li>
-            <li class="w-4 xl:w-8 h-px bg-sand" aria-hidden="true"></li>
-            <li class="flex items-center gap-2">
-                <span class="grid place-items-center w-5 h-5 rounded-full border border-sand text-[10px]">3</span>
-                <span class="hidden xl:inline"><?= $collector->translate('step_pillowcases', 'Pillowcases') ?></span>
-            </li>
-            <li class="w-4 xl:w-8 h-px bg-sand" aria-hidden="true"></li>
-            <li class="flex items-center gap-2">
-                <span class="grid place-items-center w-5 h-5 rounded-full border border-sand text-[10px]">4</span>
-                <span class="hidden xl:inline"><?= $collector->translate('step_knee-pillow', 'Knee pillow') ?></span>
-            </li>
+            <?php foreach ($steps as $i => $group):
+                $label = $stepNames[$group] ?? ucfirst(str_replace('-', ' ', $group)); ?>
+                <li class="w-4 xl:w-8 h-px <?= $i <= $here ? 'bg-turq' : 'bg-sand' ?>" aria-hidden="true"></li>
+                <?php if ($i < $here): ?>
+                    <li class="flex items-center gap-2">
+                        <span class="grid place-items-center w-5 h-5 rounded-full bg-turq text-ink text-[10px]">✓</span>
+                        <span class="hidden xl:inline"><?= $label ?></span>
+                    </li>
+                <?php elseif ($i === $here): ?>
+                    <li class="flex items-center gap-2 text-ink" aria-current="step">
+                        <span class="grid place-items-center w-6 h-6 rounded-full bg-ink text-cream text-[11px] shadow-[0_0_0_4px_rgba(29,209,161,.25)]"><?= $i + 1 ?></span>
+                        <span><?= $label ?></span>
+                    </li>
+                <?php else: ?>
+                    <li class="flex items-center gap-2">
+                        <span class="grid place-items-center w-5 h-5 rounded-full border border-sand text-[10px]"><?= $i + 1 ?></span>
+                        <span class="hidden xl:inline"><?= $label ?></span>
+                    </li>
+                <?php endif; ?>
+            <?php endforeach; ?>
             <li class="w-4 xl:w-8 h-px bg-sand" aria-hidden="true"></li>
             <li class="flex items-center gap-2">
                 <span class="grid place-items-center w-5 h-5 rounded-full border border-sand" aria-hidden="true">

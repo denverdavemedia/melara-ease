@@ -34,13 +34,13 @@ return (object) array(
         ],
         [
             // Conditional: buying the Apex pillow (or its popup downsell) leads to the pillowcase upsells.
-            // Declining both skips the pillowcases and goes straight to the knee pillow.
+            // Declining both skips the pillowcases and goes straight to the thank-you page (knee pillow removed from the funnel).
             'page' => 'melara-apex-pillow',
             'everflowEventId' => 561, // Melara Apex Pillow Upsell
             'downsellEverflowEventId' => 562, // Melara Apex Pillow Downsell - fired when the no-thanks popup downsell is accepted
             'productIds' => [34007, 34009], // Melara Apex Pillow, Melara Apex Pillow Downsell
             'yesBtnTo' => 'cloudair-pillowcase',
-            'noBtnTo' => 'knee-pillow'
+            'noBtnTo' => 'thankyou'
         ],
         [
             'page' => 'cloudair-pillowcase',
@@ -55,14 +55,6 @@ return (object) array(
             'everflowEventId' => 599, // Anti-Dust Pillowcase Upsell
             'downsellEverflowEventId' => 600, // Anti-Dust Pillowcase Downsell - fired when the no-thanks popup downsell is accepted
             'productIds' => [35601, 35603], // Anti-Dust Pillowcase, Anti-Dust Pillowcase Downsell
-            'yesBtnTo' => 'knee-pillow',
-            'noBtnTo' => 'knee-pillow'
-        ],
-        [
-            'page' => 'knee-pillow',
-            'everflowEventId' => 563, // Knee Pillow Upsell
-            'downsellEverflowEventId' => 564, // Knee Pillow Downsell - fired when the no-thanks popup downsell (productIds[1]) is accepted
-            'productIds' => [34011, 35551], // Knee Pillows, Knee Pillows Downsell
             'yesBtnTo' => 'thankyou',
             'noBtnTo' => 'thankyou'
         ],
