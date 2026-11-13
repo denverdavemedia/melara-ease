@@ -134,7 +134,7 @@ $reviews = [
 
 <header id="nav" class="sticky top-0 z-40 transition-all duration-300">
     <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <a href="#" class="shrink-0"><img src="<?= $logo ?>" alt="<?= $brand ?>" class="h-8 sm:h-10 w-auto" width="190" height="49"></a>
+        <a href="#" class="shrink-0"><img src="<?= $logo ?>" alt="<?= $brand ?>" class="h-7 sm:h-10 w-auto" width="190" height="49"></a>
         <ul class="hidden md:flex items-center gap-9 text-sm text-muted">
             <li><a href="#why-sitting" class="nav-link"><?= $collector->translate('idx_hr_guide', 'Hemorrhoid guide') ?></a></li>
             <li><a href="#solution" class="nav-link"><?= $collector->translate('idx_why_it_helps', 'Why it helps') ?></a></li>
@@ -142,9 +142,9 @@ $reviews = [
             <li><a href="#reviews" class="nav-link"><?= $collector->translate('idx_reviews', 'Reviews') ?></a></li>
             <li><a href="#faq" class="nav-link"><?= $collector->translate('idx_faq', 'FAQ') ?></a></li>
         </ul>
-        <div class="flex items-center gap-2 sm:gap-3">
+        <div class="min-w-0 flex items-center justify-end gap-1.5 sm:gap-3">
             <?= languageSelector('header') ?>
-            <a href="checkout.php?pack=2&custom_config=hr" class="rounded-full bg-ink text-cream text-xs sm:text-sm font-medium px-3.5 sm:px-5 py-2.5 whitespace-nowrap hover:bg-turq hover:text-ink transition"><?= $collector->translate('idx_get_70_discount', 'Get 70% Discount') ?></a>
+            <a href="checkout.php?pack=2&custom_config=hr" class="shrink-0 rounded-full bg-ink text-cream text-xs sm:text-sm font-medium px-2.5 sm:px-5 py-2.5 whitespace-nowrap hover:bg-turq hover:text-ink transition"><?= $collector->translate('idx_get_70_discount', 'Get 70% Discount') ?></a>
         </div>
     </nav>
 </header>

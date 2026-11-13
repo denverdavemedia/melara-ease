@@ -140,17 +140,17 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
 
 <header id="nav" class="sticky top-0 z-40 transition-all duration-300">
     <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <a href="#" class="shrink-0"><img src="<?= $logo ?>" alt="<?= $brand ?>" class="h-8 sm:h-10 w-auto" width="190" height="49"></a>
+        <a href="#" class="shrink-0"><img src="<?= $logo ?>" alt="<?= $brand ?>" class="h-7 sm:h-10 w-auto" width="190" height="49"></a>
         <ul class="hidden md:flex items-center gap-9 text-sm text-muted">
             <li><a href="#solution" class="nav-link"><?= $collector->translate('idx_why_it_helps', 'Why it helps') ?></a></li>
             <li><a href="#life" class="nav-link"><?= $collector->translate('idx_who_it_s_for', 'Who it\'s for') ?></a></li>
             <li><a href="#reviews" class="nav-link"><?= $collector->translate('idx_reviews', 'Reviews') ?></a></li>
             <li><a href="#faq" class="nav-link"><?= $collector->translate('idx_faq', 'FAQ') ?></a></li>
         </ul>
-        <div class="flex items-center gap-2 sm:gap-3">
+        <div class="min-w-0 flex items-center justify-end gap-1.5 sm:gap-3">
             <?= deliverTo('header') ?>
             <?= languageSelector('header') ?>
-            <a href="checkout.php?pack=2" class="rounded-full bg-ink text-cream text-xs sm:text-sm font-medium px-3.5 sm:px-5 py-2.5 whitespace-nowrap hover:bg-turq hover:text-ink transition"><?= $collector->translate('idx_get_70_discount', 'Get 70% Discount') ?></a>
+            <a href="checkout.php?pack=2" class="shrink-0 rounded-full bg-ink text-cream text-xs sm:text-sm font-medium px-2.5 sm:px-5 py-2.5 whitespace-nowrap hover:bg-turq hover:text-ink transition"><?= $collector->translate('idx_get_70_discount', 'Get 70% Discount') ?></a>
         </div>
     </nav>
 </header>
@@ -163,6 +163,8 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
 
         <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-10 pb-5 lg:pt-16 lg:pb-28 grid lg:grid-cols-12 gap-12 items-center">
             <div class="lg:col-span-7">
+                <!-- Phones: the product name right under the hero image (on desktop the image sits beside the headline) -->
+                <p class="reveal lg:hidden mb-4 text-xl font-bold tracking-tight text-ink"><?= $collector->translate('hero_product_name', 'Melara Sitora Seat Cushion') ?></p>
                 <p class="reveal inline-flex items-center gap-2 rounded-full bg-white/70 border border-sand ps-1.5 pe-4 py-1.5 text-xs font-medium text-muted">
                     <span class="flex -space-x-2"><?php foreach (['review-ang', 'review-kim', 'review-yoshiko', 'review-bert'] as $av): ?><img src="assets/img/user/<?= $av ?>.png" alt="" width="24" height="24" class="w-6 h-6 rounded-full object-cover ring-2 ring-white"><?php endforeach; ?></span>
                     <span class="text-amber-500">★★★★★</span> <?= $collector->translate('hero2_loved', 'Loved by 12,400+ customers') ?>
@@ -220,7 +222,7 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
                         // The zoom grows from the top edge (index.css), so keep label y at about 1060 or less, or the bottom labels get cropped at full zoom.
                         $heroLabels = [
                             ['hero3_lbl_lower_back', 'Lower back',     752, 692, 815, 470,  'r'],
-                            ['hero3_lbl_tailbone',   'Tailbone',       765, 902, 905, 790,  'r'],
+                            ['hero3_lbl_tailbone',   'Tailbone',       765, 902, 870, 790,  'r'],
                             ['hero3_lbl_sit_bones',  'Sit bones',      643, 945, 880, 1035, 'r'],
                             ['hero3_lbl_nerve',      'Nerve path',     428, 878, 360, 660,  'l'],
                             ['hero3_lbl_thighs',     'Back of thighs', 370, 953, 330, 1060, 'r'],

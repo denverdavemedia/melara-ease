@@ -254,9 +254,9 @@ html:has(.policy-modal[open]) { overflow: hidden; }
     box-shadow: 0 0 0 4px rgba(29, 209, 161, .25), 0 0 14px rgba(29, 209, 161, .85); opacity: 0; scale: .6; }
 /* one line in English at every size; long translations still wrap inside max-width instead of running off the image */
 .hero-anno-pill { position: absolute; transform: translateY(-50%); width: max-content; white-space: nowrap; unicode-bidi: isolate;
-    background: #fff; color: #1d2226; border: 1px solid #1dd1a1; border-radius: 9999px; padding: .4em .85em;
-    /* same text and shadow as the old floating review card (text-sm, normal weight, shadow-xl), sized to the image: 14px max, 10px min */
-    font-size: clamp(10px, 3cqw, 14px); font-weight: 400; line-height: 1.3; text-align: center;
+    background: #fff; color: #1d2226; border: 2px solid #1dd1a1; border-radius: 9999px; padding: .4em .85em;
+    /* review-card size and shadow (text-sm, shadow-xl) but semibold with a 2px border so the labels read clearly; 14px max, 10px min */
+    font-size: clamp(10px, 3cqw, 14px); font-weight: 600; line-height: 1.3; text-align: center;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, .1), 0 8px 10px -6px rgba(0, 0, 0, .1); opacity: 0; scale: .6; }
 @supports (text-wrap: balance) { .hero-anno-pill { white-space: normal; text-wrap: balance; } }
 /* Anchor point is the pill edge the line touches */
@@ -267,8 +267,8 @@ html:has(.policy-modal[open]) { overflow: hidden; }
 /* pop in, then bob up and down like the old review card (Tailwind animate-float: 10px over 7s). Uses `translate`,
    so it stacks on the pill's translateY(-50%) centring; --d staggers the pills so they don't move in lockstep */
 .reveal.in .hero-anno-pill { animation: dimPop .5s cubic-bezier(.34, 1.56, .64, 1) var(--d, 0s) forwards, pillFloat 7s ease-in-out calc(var(--d, 0s) * 4) infinite; }
-/* 10px on desktop, less on a small image so the line end stays hidden under the smaller pill */
-@keyframes pillFloat { 0%, 100% { translate: 0 0; } 50% { translate: 0 calc(-1 * min(10px, 2.4cqw)); } }
+/* gentle bob: 5px on desktop, less on a small image (Krystal: the 10px float was too wide) */
+@keyframes pillFloat { 0%, 100% { translate: 0 0; } 50% { translate: 0 calc(-1 * min(5px, 1.2cqw)); } }
 @media (prefers-reduced-motion: reduce) {
     .hero-anno-lines line { opacity: .75; }
     .hero-anno-dot, .hero-anno-pill { opacity: 1; scale: 1; }
