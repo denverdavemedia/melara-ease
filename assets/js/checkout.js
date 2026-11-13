@@ -72,7 +72,7 @@
     window.CRMIntegrated = window.CRMIntegrated({
         intlPhone: true,
         intlPhoneInitialCountry: $('userCountry') ? $('userCountry').value : 'US',
-        dynamicShippingFields: false,
+        dynamicShippingFields: true, // country change loads src/shipping/shipping-address-{cc}.php into #shipping-container, like shopmelara-apex
     });
 
     // Pack cards are ._prodSelect: integrated.js blocks the label's default click, so check the radio here

@@ -27,7 +27,7 @@ $product  = $collector->translate('product_name', 'Melara Sitora');
 $freeText = $collector->translate('co_free', 'Free');
 ?>
 <!doctype html>
-<html lang="<?= $OfferApi->targetLanguage ?>" dir="<?= melaraTextDirection($OfferApi->targetLanguage) ?>">
+<html lang="<?= $OfferApi->targetLanguage ?>" dir="<?= melaraTextDirection($OfferApi->targetLanguage) ?>" translate="no"><!-- same as shopmelara-apex: stops Chrome Translate rewriting the page, e.g. the Chinese address placeholders -->
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -45,6 +45,14 @@ $freeText = $collector->translate('co_free', 'Free');
     <link rel="stylesheet" href="assets/css/checkout.css?t=<?= $OfferApi->assetVersion('assets/css/checkout.css') ?>">
     <link rel="stylesheet" href="public/css/app.css?t=<?= $OfferApi->assetVersion('public/css/app.css') ?>">
     <script src="https://js.stripe.com/v3/" async></script>
+    <style>
+        /* address suggestion popups used by the per-country shipping forms, from shopmelara-apex checkout_v1.php */
+        .fields-zip-wrapper, .field_address_wrapper { position: relative; width: 100%; }
+        #address-suggest { position: absolute; top: calc(100% + 4px); left: 0; width: 100%; display: none; border: 1px solid #ddd; background: #fff; box-shadow: 0 8px 24px rgba(0,0,0,.15); z-index: 99; }
+        #close-suggestion { position: absolute; right: -10px; top: -10px; color: #fff; background-color: #333; border: 2px solid #fff; border-radius: 50%; width: 25px; height: 25px; text-align: center; cursor: pointer; text-decoration: none; font-weight: 700; line-height: 22px; padding: 0; margin: 0; z-index: 11; font-size: .8em; }
+        #disclaimer { display: none; border: 1px solid #e5e7eb; border-radius: 6px; padding: 8px 14px; color: #4b5563; font-size: .875rem; line-height: 1.6; box-shadow: 0 1px 2px rgba(0,0,0,.05); margin-top: 10px; }
+        @media (max-width: 768px) { #address-suggest { top: auto; height: 100%; margin-top: 5px; } }
+    </style>
 </head>
 <body class="font-sans text-ink antialiased">
 <?= $mainProd->hiddenInputs ?? '' ?>
@@ -149,7 +157,6 @@ $freeText = $collector->translate('co_free', 'Free');
                        data-campaignproductid="<?= $secure->campaignProductId ?>" data-productname="<?= htmlspecialchars($secure->productName) ?>"
                        data-quantity="<?= $secure->maxOrderQty ?>" data-shipping="<?= $secure->shippingPrice ?>" data-unitprice="<?= $securePrice ?>" class="mt-1 w-5 h-5 accent-[#1dd1a1] shrink-0">
                 <!-- same SecureShip picture as the shopmelara-apex checkout (assets/images/silver-ion-v2.png there) -->
-                <img src="assets/img/secureship.png?t=<?= $OfferApi->assetVersion('assets/img/secureship.png') ?>" alt="" width="56" height="56" class="w-14 h-14 shrink-0 object-contain" loading="lazy">
                 <span class="flex-1">
                     <span class="block font-semibold"><?= $collector->translate('co_yes_add', 'Yes, add') ?> <span class="text-turq-ink"><?= $collector->translate('co_secureship', 'SecureShip') ?></span> <?= $collector->translate('co_to_my_order', 'to my order') ?></span>
                     <span class="block mt-1 text-xs text-muted leading-relaxed"><?= $collector->translate('co_full_protection_against_damage', 'Full protection against damage, loss or porch-pirate theft. We reship or refund, no questions asked.') ?></span>
@@ -164,13 +171,7 @@ $freeText = $collector->translate('co_free', 'Free');
         <div class="contents lg:flex lg:flex-col lg:gap-6 lg:col-start-2 lg:row-start-1 lg:row-span-2">
         <section class="card p-5 sm:p-7">
             <!-- No order summary box here, to match the shopmelara-apex checkout: pack prices are on the cards, shipping and SecureShip on their own rows -->
-            <ul class="grid grid-cols-1 gap-2 text-sm font-medium"><!-- one per line on every screen, as on phones -->
-                <li class="flex items-center gap-2"><span class="grid place-items-center w-5 h-5 rounded-full bg-turq text-ink"><svg viewBox="0 0 24 24" class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg></span><?= $collector->translate('co2_feature_1', 'Lumbar support') ?></li>
-                <li class="flex items-center gap-2"><span class="grid place-items-center w-5 h-5 rounded-full bg-turq text-ink"><svg viewBox="0 0 24 24" class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg></span><?= $collector->translate('co_feature_2', 'Premium memory foam') ?></li>
-                <li class="flex items-center gap-2"><span class="grid place-items-center w-5 h-5 rounded-full bg-turq text-ink"><svg viewBox="0 0 24 24" class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg></span><?= $collector->translate('co2_feature_3', 'Fits most home chairs') ?></li>
-            </ul>
-
-            <div class="mt-7"><h2 class="flex items-center gap-3 text-lg font-bold"><span class="grid place-items-center w-9 h-9 rounded-xl bg-turq-soft text-turq-ink"><svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c1.2-3.6 4-5.5 7.5-5.5s6.3 1.9 7.5 5.5"/></svg></span><span><span class="text-muted font-medium"><?= $collector->translate('step_word_2', 'Step') ?> 2:</span> <?= $collector->translate('step_2_title', 'Customer information') ?></span></h2></div>
+            <div><h2 class="flex items-center gap-3 text-lg font-bold"><span class="grid place-items-center w-9 h-9 rounded-xl bg-turq-soft text-turq-ink"><svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c1.2-3.6 4-5.5 7.5-5.5s6.3 1.9 7.5 5.5"/></svg></span><span><span class="text-muted font-medium"><?= $collector->translate('step_word_2', 'Step') ?> 2:</span> <?= $collector->translate('step_2_title', 'Customer information') ?></span></h2></div>
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div><label class="label" for="fields_fname"><?= $collector->translate('co_first_name', 'First name') ?></label><div class="has-icon"><span class="field-icon"><svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c1.2-3.6 4-5.5 7.5-5.5s6.3 1.9 7.5 5.5"/></svg></span><input class="field" id="fields_fname" name="first_name" autocomplete="given-name" placeholder="First name" required></div></div>
                 <div><label class="label" for="fields_lname"><?= $collector->translate('co_last_name', 'Last name') ?></label><div class="has-icon"><span class="field-icon"><svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c1.2-3.6 4-5.5 7.5-5.5s6.3 1.9 7.5 5.5"/></svg></span><input class="field" id="fields_lname" name="last_name" autocomplete="family-name" placeholder="Last name" required></div></div>
@@ -183,21 +184,18 @@ $freeText = $collector->translate('co_free', 'Free');
                 <div class="sm:col-span-2"><label class="label" for="fields_country_select"><?= $collector->translate('co_country', 'Country') ?></label>
                     <div class="has-icon"><span class="field-icon"><svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg></span>
                     <select class="field" id="fields_country_select" name="country" autocomplete="country" required>
-                        <?php foreach ($countries as $c): ?><option value="<?= $c->countryCode ?>" <?= $c->countryCode === 'US' ? 'selected' : '' ?>><?= $collector->translate('country_name' . $c->countryCode, $c->countryName) ?></option><?php endforeach; ?>
+                        <?php foreach ($countries as $c): ?><option value="<?= $c->countryCode ?>" <?= $c->countryCode === strtoupper($userCountry ?? 'US') ? 'selected' : '' ?>><?= $collector->translate('country_name' . $c->countryCode, $c->countryName) ?></option><?php endforeach; ?>
                     </select>
                     </div>
                 </div>
-                <div class="sm:col-span-2"><label class="label" for="fields_address1"><?= $collector->translate('co_address_1', 'Address 1') ?></label><div class="has-icon"><span class="field-icon"><svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V20H4z"/><path d="M10 20v-5.5h4V20"/></svg></span><input class="field" id="fields_address1" name="address 1" autocomplete="address-line1" placeholder="Street address" required></div></div>
-                <div class="sm:col-span-2"><label class="label" for="fields_address2"><?= $collector->translate('co_address_2', 'Address 2') ?> <span class="text-muted font-normal"><?= $collector->translate('co_optional', '(optional)') ?></span></label><div class="has-icon"><span class="field-icon"><svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="3" width="12" height="18" rx="1.5"/><path d="M14.5 12.5h.01"/></svg></span><input class="field" id="fields_address2" name="address 2" autocomplete="address-line2" placeholder="Apt, suite, unit, etc."></div></div>
-                <div class="sm:col-span-2"><label class="label" for="fields_city"><?= $collector->translate('co_town_city', 'Town / City') ?></label><div class="has-icon"><span class="field-icon"><svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V9l5-3v15M10 21V4l9 4v13"/><path d="M13 10h3M13 13.5h3M13 17h3"/></svg></span><input class="field" id="fields_city" name="city" autocomplete="address-level2" placeholder="Town / City" required></div></div>
-                <div><label class="label" for="state"><?= $collector->translate('co_state_province', 'State / Province') ?></label>
-                    <div class="has-icon"><span class="field-icon"><svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 4-6 2.5v13.5l6-2.5 6 2.5 6-2.5V4l-6 2.5z"/><path d="M9 4v13.5M15 6.5V20"/></svg></span>
-                    <select class="field" id="fields_state" name="state" autocomplete="address-level1" required>
-                        <option value=""><?= $collector->translate('co_select_state', 'Select state') ?></option>
-                    </select>
-                    </div>
+                <!-- Per-country address form, like shopmelara-apex (checkout_v1.php): the visitor's country is included here,
+                     and integrated.js (dynamicShippingFields) reloads this box when the country changes, e.g. Taiwan gets store pickup -->
+                <div id="shipping-container" class="sm:col-span-2">
+                    <?php
+                    $shipFile = __DIR__ . '/src/shipping/shipping-address-' . strtolower($userCountry ?? 'us') . '.php';
+                    include is_file($shipFile) ? $shipFile : __DIR__ . '/src/shipping/shipping-address-us.php';
+                    ?>
                 </div>
-                <div><label class="label" for="fields_zip"><?= $collector->translate('co_zip_postal_code', 'Zip / Postal code') ?></label><div class="has-icon"><span class="field-icon"><svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 9h14M5 15h14M10 4 8 20M16 4l-2 16"/></svg></span><input class="field" id="fields_zip" name="zip" autocomplete="postal-code" placeholder="Zip / Postal code" required></div></div>
             </div>
             <div class="mt-5 rounded-2xl border border-sand p-4">
                 <p class="text-sm font-medium"><?= $collector->translate('co_shipping_2', 'Shipping') ?></p>
@@ -501,6 +499,12 @@ $address      = $OfferApi->companyAddress;
 <script>window.MELARA_CHECKOUT = { currency: '<?= $OfferApi->currencySymbol ?: '$' ?>', secureShip: <?= $securePrice ?>, freeText: '<?= addslashes($freeText) ?>' };</script>
 <script src="src/system/<?= $OfferApi->targetLanguage ?>.js?t=<?= $OfferApi->assetVersion('src/system/' . $OfferApi->targetLanguage . '.js') ?>"></script>
 <script src="public/js/checkout.js?t=<?= $OfferApi->assetVersion('public/js/checkout.js') ?>"></script>
+<?php /* Address helpers for the per-country shipping forms, same as shopmelara-apex (checkout_v1.php) */ ?>
+<?php if (in_array($OfferApi->countryName, ["United States", "Greece", "Switzerland", "Portugal"])): ?>
+<script src="src/common/js/address.google.autocomplete.min.js?t=<?= $OfferApi->assetVersion('src/common/js/address.google.autocomplete.min.js') ?>" defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxvJBBYYmuMntWjTVCu1hNmnbiJmrC6Xw&callback=initAutocomplete&libraries=places&v=weekly<?= strtolower($userCountry ?? '') === 'pt' ? '&language=pt-PT' : '' ?>" defer></script>
+<?php endif; ?>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" async></script>
 <!-- Everflow SDK + funnel events (offer 84) -->
 <script src="https://www.b04jdmd.com/scripts/main.js" defer></script>
 </body>
