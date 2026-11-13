@@ -24,6 +24,31 @@ select.field { appearance: none; background-image: url("data:image/svg+xml,%3Csv
 .field.error { border-color: #fb7185; box-shadow: 0 0 0 4px rgba(251,113,133,.15); }
 .has-icon:has(.error) .field-icon { color: #fb7185; }
 span.error-message { display: block; margin-top: 6px; font-size: 12px; color: #e11d48; }
+/* Per-country address forms (src/shipping/shipping-address-*.php) are shared with shopmelara-apex and use its
+   Bootstrap-style markup (.cart-input, .row/.col-sm-*). Give them the same look as .field/.label here. */
+#shipping-container .cart-input { width: 100%; border: 1px solid #e1e4e8; background: #fff; border-radius: 12px; padding: 12px 14px; font-size: 16px; line-height: 1.4; color: #1d2226; transition: border-color .2s, box-shadow .2s; }
+#shipping-container .cart-input::placeholder { color: #ccc; opacity: 1; } /* same as shopmelara-apex */
+#shipping-container .cart-input:focus { outline: none; border-color: #1dd1a1; box-shadow: 0 0 0 4px rgba(29,209,161,.18); }
+#shipping-container .cart-input.error, #shipping-container .cart-input.invalid { border-color: #fb7185; box-shadow: 0 0 0 4px rgba(251,113,133,.15); }
+/* auto-suggest pickers (e.g. Taiwan county/city and district) open a list, so give them the same arrow as a select */
+#shipping-container .self-autocomplete input.cart-input,
+#shipping-container select.cart-input { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%235e656d' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; background-size: 20px 20px; padding-right: 40px; }
+#shipping-container .cart-input-label { display: block; font-size: 13px; font-weight: 500; color: #1d2226; margin-bottom: 6px; }
+#shipping-container .mb-3 { margin-bottom: 16px; }
+#shipping-container .mb-n3 { margin-bottom: -16px; }
+#shipping-container .d-none { display: none !important; }
+#shipping-container .tw-mb-2 { margin-bottom: 12px; }
+#shipping-container .row { display: flex; flex-wrap: wrap; column-gap: 16px; }
+#shipping-container .row > [class*="col-"] { flex: 1 1 100%; min-width: 0; padding: 0; }
+#shipping-container .row > .col-4 { flex-basis: calc(33.333% - 11px); }
+#shipping-container .row > .col-5 { flex-basis: calc(41.666% - 8px); }
+#shipping-container .row > .col-7 { flex-basis: calc(58.333% - 8px); }
+#shipping-container .row > .col-8 { flex-basis: calc(66.666% - 6px); }
+@media (min-width: 576px) {
+    #shipping-container .row > .col-sm-4 { flex-basis: calc(33.333% - 11px); }
+    #shipping-container .row > .col-sm-6 { flex-basis: calc(50% - 8px); }
+    #shipping-container .row > .col-sm-8 { flex-basis: calc(66.666% - 6px); }
+}
 .iti { width: 100%; }
 .iti .field { padding-left: 52px; }
 
