@@ -527,14 +527,14 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
                             <path class="dim-line" pathLength="100" style="--d: .45s" d="M36,96.5 L78,72"/>
                             <path class="dim-tick" style="--d: 1.15s" d="M35.2,95.1 L36.8,97.9M77.2,70.6 L78.8,73.4"/>
                             <path class="dim-glow" pathLength="100" style="--d: .45s" d="M36,96.5 L78,72"/>
-                            <path class="dim-line" pathLength="100" style="--d: .9s" d="M102,11 L102,55"/>
-                            <path class="dim-tick" style="--d: 1.6s" d="M100.4,11 L103.6,11M100.4,55 L103.6,55"/>
-                            <path class="dim-glow" pathLength="100" style="--d: .9s" d="M102,11 L102,55"/>
+                            <path class="dim-line" pathLength="100" style="--d: .9s" d="M102,14 L102,60"/>
+                            <path class="dim-tick" style="--d: 1.6s" d="M100.4,14 L103.6,14M100.4,60 L103.6,60"/>
+                            <path class="dim-glow" pathLength="100" style="--d: .9s" d="M102,14 L102,60"/>
                         </g>
                     </svg>
                     <span class="dim-pill" style="left: 13.5%; top: 86%; --d: .8s;">44 cm<small>17.3 in</small></span>
                     <span class="dim-pill" style="left: 57%; top: 84.25%; --d: 1.25s;">42 cm<small>16.5 in</small></span>
-                    <span class="dim-pill" style="left: 102%; top: 33%; --d: 1.7s;">32 cm<small>12.6 in</small></span>
+                    <span class="dim-pill" style="left: 102%; top: 37%; --d: 1.7s;">32 cm<small>12.6 in</small></span>
                 </div>
             </div>
             <div>

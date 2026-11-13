@@ -51,6 +51,7 @@ gulp.task('checkout-js', function () {
   del_js(file);
   return gulp.src([
       'src/common/js/jquery-3.4.1.min.js',
+      'src/common/js/self-host-address-suggestion.js', // county/city/district dropdowns in src/shipping forms, same as shopmelara-apex
       'src/common/js/jquery.mask.min.js',
       'src/common/js/intltelinput/utils.js',
       'src/common/js/intltelinput/intltelinput.min.js',
