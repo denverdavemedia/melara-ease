@@ -32,12 +32,15 @@ function languageSelector($variant = 'header') {
     static $calls = 0;
     $k = ++$calls > 1 ? '_' . $calls : ''; // the 2nd selector on a page (footer) gets its own keys: lang_label_2...
 
-    // Only these languages are offered in the selector (others stay reachable via ?lang=)
+    // Names and the active language come from OfferApi::definedLanguages(), same as shopmelara-apex (language-selector.php there),
+    // with the active language's native name on the button at every screen size.
+    // Only these languages are listed (the others stay reachable via ?lang=)
     $shown = ['en', 'zh-hans', 'zh-hant', 'ja'];
-    $languages = array_intersect_key($OfferApi->languages(), array_flip($shown));
+    $defined = $OfferApi->definedLanguages();
+    $languages = array_intersect_key($defined['languages'], array_flip($shown));
     asort($languages);
-    $active = isset($languages[$OfferApi->targetLanguage]) ? $OfferApi->targetLanguage : (array_key_first($languages) ?? 'en');
-    $activeName = $languages[$active] ?? 'English';
+    $active = isset($languages[$defined['active']]) ? $defined['active'] : $OfferApi->targetLanguage;
+    $activeName = $defined['active_lang'] ?? ($languages[$active] ?? 'English');
     $up = $variant === 'footer';
 
     if ($variant === 'locked') {
@@ -53,7 +56,7 @@ function languageSelector($variant = 'header') {
         $params['lang'] = $code;
         return '?' . htmlspecialchars(http_build_query($params));
     };
-    $globe = '<svg viewBox="0 0 24 24" class="w-[18px] h-[18px] shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>';
+    $globe = '<svg viewBox="0 0 24 24" class="w-4 h-4 sm:w-[18px] sm:h-[18px] shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>';
     $check = '<svg viewBox="0 0 24 24" class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg>';
 
     ob_start();
@@ -93,13 +96,13 @@ function languageSelector($variant = 'header') {
             });
         </script>
     <?php endif; ?>
-    <details class="lang-sel relative" <?= $up ? 'data-up' : '' ?>>
-        <summary class="inline-flex items-center <?= $up ? 'gap-2 px-3' : 'gap-1.5 px-2.5 sm:gap-2 sm:px-3' ?> cursor-pointer select-none rounded-full border border-sand bg-white/70 backdrop-blur-sm py-2 text-sm font-medium text-ink hover:border-turq hover:text-turq-ink focus-visible:outline-hidden focus-visible:ring-4 focus-visible:ring-turq/30 transition"
+    <details class="lang-sel relative min-w-0" <?= $up ? 'data-up' : '' ?>>
+        <summary class="max-w-full inline-flex items-center <?= $up ? 'gap-2 px-3' : 'gap-1 px-2 sm:gap-2 sm:px-3' ?> cursor-pointer select-none rounded-full border border-sand bg-white/70 backdrop-blur-sm py-2 text-sm font-medium text-ink hover:border-turq hover:text-turq-ink focus-visible:outline-hidden focus-visible:ring-4 focus-visible:ring-turq/30 transition"
                  aria-label="<?= $collector->translate('lang_label' . $k, 'Language') ?>: <?= htmlspecialchars($activeName) ?>">
-            <span class="text-turq-ink"><?= $globe ?></span>
-            <span class="<?= $up ? '' : 'hidden sm:inline' ?>"><?= htmlspecialchars($activeName) ?></span>
-            <span class="<?= $up ? 'hidden' : 'sm:hidden' ?> whitespace-nowrap text-xs font-semibold tracking-wider uppercase"><?= htmlspecialchars($active) ?></span>
-            <svg viewBox="0 0 24 24" class="lang-chev w-3.5 h-3.5 text-muted <?= $up ? '' : 'hidden sm:block' ?>" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            <span class="shrink-0 text-turq-ink"><?= $globe ?></span>
+            <?php // full name on phones too, like apex; on a narrow phone it ends in … instead of pushing the header CTA off screen ?>
+            <span class="<?= $up ? '' : 'min-w-0 truncate text-xs sm:text-sm' ?> whitespace-nowrap"><?= htmlspecialchars($activeName) ?></span>
+            <svg viewBox="0 0 24 24" class="lang-chev shrink-0 w-3 h-3 sm:w-3.5 sm:h-3.5 text-muted" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
         </summary>
         <div class="lang-panel absolute <?= $up ? 'bottom-full mb-2 left-1/2 -translate-x-1/2 sm:start-auto sm:end-0 sm:translate-x-0' : 'top-full mt-2 end-0' ?> z-50 w-64 rounded-2xl border border-sand bg-white p-2 shadow-[0_24px_60px_-20px_rgba(29,34,38,.35)] text-start">
             <p class="px-3 pt-2 pb-1 text-[11px] font-semibold uppercase tracking-[.18em] text-muted"><?= $collector->translate('lang_choose' . $k, 'Choose your language') ?></p>

@@ -68,7 +68,7 @@ $freeText = $collector->translate('co_free', 'Free');
 </header>
 
 <section class="relative overflow-hidden bg-[radial-gradient(ellipse_at_70%_40%,#d6f7ee_0%,#eef0f2_55%,#f3f4f6_100%)]">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 py-8 sm:py-10 flex items-center justify-between gap-6">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 pt-8 pb-5 sm:py-10 flex items-center justify-between gap-6">
         <div>
             <p class="text-xs font-medium uppercase tracking-[.2em] text-turq-ink"><?= $collector->translate('co_almost_there', 'Almost there') ?></p>
             <h1 class="mt-2 font-serif text-3xl sm:text-5xl leading-tight sm:leading-none tracking-tight"><?= $collector->translate('co_treat_your_back_to', 'Treat your back to a') ?><br class="hidden sm:block"> <em class="text-turq-ink"><?= $collector->translate('co2_better_day', 'more comfortable day.') ?></em></h1>
@@ -77,7 +77,7 @@ $freeText = $collector->translate('co_free', 'Free');
     </div>
 </section>
 
-<main class="mx-auto max-w-6xl px-4 sm:px-6 py-8 sm:py-10">
+<main class="mx-auto max-w-6xl px-4 sm:px-6 pt-5 pb-8 sm:py-10">
     <form id="checkout" novalidate class="grid gap-6 lg:grid-cols-[1.1fr_1fr] lg:grid-rows-[auto_1fr] lg:items-start">
 
         <section class="card p-5 sm:p-7 lg:col-start-1 lg:row-start-1">
@@ -247,7 +247,8 @@ $freeText = $collector->translate('co_free', 'Free');
                 <span class="hidden sm:block text-sm font-medium shrink-0"><?= $collector->translate('co_credit_or_debit_card', 'Credit or debit card') ?></span>
                 <!-- Card logos: same images as the shopmelara-apex checkout (_paymentMethod.php); Japanese puts JCB first -->
                 <?php $ccImg = $OfferApi->targetLanguage === 'ja' ? 'assets/img/cards/cc-payments-ja.png' : 'assets/img/cards/cc-payments.png'; ?>
-                <img src="<?= $ccImg ?>?t=<?= $OfferApi->assetVersion($ccImg) ?>" alt="Visa, Mastercard, American Express, Discover, JCB" width="1295" height="142" class="min-w-0 w-full max-w-[240px] h-auto ms-auto">
+                <img src="<?= $ccImg ?>?t=<?= $OfferApi->assetVersion($ccImg) ?>" alt="Visa, Mastercard, American Express, Discover, JCB" width="1295" height="142" class="min-w-0 w-full max-w-[240px] h-auto mx-auto sm:me-0 sm:ms-auto"><!-- phones: centred in the box -->
+                <span class="w-5 shrink-0 sm:hidden" aria-hidden="true"></span><!-- phones: same width as the radio on the left, so the logos sit in the true middle -->
             </div>
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-5 gap-4">
                 <div class="sm:col-span-5"><label class="label" for="cc_number"><?= $collector->translate('co_card_number', 'Card number') ?></label><div><input class="field tracking-wider" id="cc_number" name="number" inputmode="numeric" autocomplete="off" placeholder="1234 5678 9012 3456" maxlength="19" required></div></div>
