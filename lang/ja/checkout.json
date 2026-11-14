@@ -1,4 +1,9 @@
 {
+    "p_first_name": "名",
+    "p_last_name": "姓",
+    "p_email": "メールアドレス",
+    "p_phone_number": "「例: 09012345678（ハイフンなし）」",
+    "p_expiry_date": "月/年",
     "co_cvv_full": "CVV／CVC／CSC",
     "co_cvv_ph": "XXX または XXXX",
     "pay_or_card_2": "またはクレジットカードで支払う",

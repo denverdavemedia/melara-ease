@@ -1,4 +1,9 @@
 {
+    "p_first_name": "Pangalan",
+    "p_last_name": "Apelyido",
+    "p_email": "Email Address",
+    "p_phone_number": "Phone Number",
+    "p_expiry_date": "MM / YY",
     "co_cvv_full": "CVV/CVC/CSC",
     "co_cvv_ph": "XXX o XXXX",
     "pay_or_card_2": "O magbayad gamit ang credit card",

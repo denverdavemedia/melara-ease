@@ -1,4 +1,9 @@
 {
+    "p_first_name": "Ad",
+    "p_last_name": "Soyad",
+    "p_email": "E-posta adresi",
+    "p_phone_number": "Telefon numarası",
+    "p_expiry_date": "AA / YY",
     "co_cvv_full": "CVV/CVC/CSC",
     "co_cvv_ph": "XXX veya XXXX",
     "pay_or_card_2": "Ya da kredi kartıyla ödeme yapabilirsiniz",

@@ -1,4 +1,9 @@
 {
+    "p_first_name": "שם פרטי",
+    "p_last_name": "שם משפחה",
+    "p_email": "כתובת דוא\"ל",
+    "p_phone_number": "מספר טלפון",
+    "p_expiry_date": "MM / YY",
     "co_cvv_full": "CVV/CVC/CSC",
     "co_cvv_ph": "XXX או XXXX",
     "pay_or_card_2": "או לשלם בכרטיס אשראי",

@@ -161,10 +161,10 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
         <div data-speed="-0.25" class="absolute -top-32 -end-32 w-[520px] h-[520px] blob bg-turq-soft/80 blur-2xl" aria-hidden="true"></div>
         <div data-speed="0.2" class="absolute bottom-0 -start-40 w-[420px] h-[420px] blob bg-ocean-soft blur-2xl" aria-hidden="true"></div>
 
-        <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-10 pb-5 lg:pt-16 lg:pb-28 grid lg:grid-cols-12 gap-12 items-center">
+        <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-3 sm:pt-10 pb-5 lg:pt-16 lg:pb-28 grid lg:grid-cols-12 gap-6 lg:gap-12 items-center">
             <div class="lg:col-span-7">
                 <!-- Phones: the product name right under the hero image (on desktop the image sits beside the headline) -->
-                <p class="reveal lg:hidden mb-4 text-xl font-bold tracking-tight text-ink"><?= $collector->translate('hero_product_name', 'Melara Sitora Seat Cushion') ?></p>
+                <p class="reveal lg:hidden mb-4 text-[1.75rem] sm:text-3xl leading-tight font-bold tracking-tight text-ink"><?= $collector->translate('hero_product_name', 'Melara Sitora Seat Cushion') ?></p>
                 <p class="reveal inline-flex items-center gap-2 rounded-full bg-white/70 border border-sand ps-1.5 pe-4 py-1.5 text-xs font-medium text-muted">
                     <span class="flex -space-x-2"><?php foreach (['review-ang', 'review-kim', 'review-yoshiko', 'review-bert'] as $av): ?><img src="assets/img/user/<?= $av ?>.png" alt="" width="24" height="24" class="w-6 h-6 rounded-full object-cover ring-2 ring-white"><?php endforeach; ?></span>
                     <span class="text-amber-500">★★★★★</span> <?= $collector->translate('hero2_loved', 'Loved by 12,400+ customers') ?>
@@ -195,7 +195,7 @@ function money($n) { global $currency; return $currency . number_format($n, $n =
                 ];
                 ?>
                 <!-- Phone: 3 portrait cards side by side. Tablet and up: horizontal pills -->
-                <ul class="reveal mt-9 grid grid-cols-3 gap-2 sm:flex sm:flex-wrap sm:gap-3 lg:flex-nowrap lg:gap-2.5" data-delay="4">
+                <ul class="reveal mt-5 sm:mt-9 grid grid-cols-3 gap-2 sm:flex sm:flex-wrap sm:gap-3 lg:flex-nowrap lg:gap-2.5" data-delay="4">
                     <?php foreach ($heroPerks as [$t, $sub, $icon]): ?>
                         <li class="group flex flex-col items-center text-center gap-2 px-2 py-3.5 sm:flex-row sm:text-start sm:gap-3 lg:gap-2.5 lg:flex-1 lg:min-w-0 rounded-2xl bg-white/80 backdrop-blur-sm border border-sand sm:ps-2 sm:pe-4 lg:pe-3 sm:py-2 shadow-[0_8px_24px_-16px_rgba(29,34,38,.35)] hover:-translate-y-0.5 hover:border-turq/40 transition">
                             <span class="grid place-items-center shrink-0 w-9 h-9 rounded-xl bg-turq-soft text-turq-ink group-hover:bg-turq group-hover:text-ink transition">

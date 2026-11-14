@@ -1,4 +1,9 @@
 {
+    "p_first_name": "Nome",
+    "p_last_name": "Cognome",
+    "p_email": "Indirizzo email",
+    "p_phone_number": "Numero di telefono",
+    "p_expiry_date": "MM / AA",
     "co_cvv_full": "CVV/CVC/CSC",
     "co_cvv_ph": "XXX o XXXX",
     "pay_or_card_2": "Oppure paga con carta di credito",

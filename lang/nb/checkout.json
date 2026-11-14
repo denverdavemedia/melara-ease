@@ -1,4 +1,9 @@
 {
+    "p_first_name": "Fornavn",
+    "p_last_name": "Etternavn",
+    "p_email": "E-postadresse",
+    "p_phone_number": "Telefonnummer",
+    "p_expiry_date": "MM / YY",
     "co_cvv_full": "CVV/CVC/CSC",
     "co_cvv_ph": "XXX eller XXXX",
     "pay_or_card_2": "Eller betal med kredittkort",

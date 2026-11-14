@@ -1,4 +1,9 @@
 {
+    "p_first_name": "پہلا نام",
+    "p_last_name": "آخری نام",
+    "p_email": "ای میل پتہ",
+    "p_phone_number": "فون نمبر",
+    "p_expiry_date": "MM / YY",
     "co_cvv_full": "سی وی وی/سی وی سی/سی ایس سی",
     "co_cvv_ph": "XXX یا XXXX",
     "pay_or_card_2": "یا کریڈٹ کارڈ سے ادائیگی کریں",

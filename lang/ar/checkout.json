@@ -1,4 +1,9 @@
 {
+    "p_first_name": "الاسم الأول",
+    "p_last_name": "اسم العائلة",
+    "p_email": "عنوان البريد الإلكتروني",
+    "p_phone_number": "رقم الهاتف",
+    "p_expiry_date": "MM / YY",
     "co_cvv_full": "CVV/CVC/CSC",
     "co_cvv_ph": "XXX أو XXXX",
     "pay_or_card_2": "أو ادفع ببطاقة الائتمان",
