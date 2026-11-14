@@ -1,4 +1,9 @@
 {
+    "p_first_name": "Jméno",
+    "p_last_name": "Příjmení",
+    "p_email": "E-mailová adresa",
+    "p_phone_number": "Telefonní číslo",
+    "p_expiry_date": "MM / RR",
     "co_cvv_full": "CVV/CVC/CSC",
     "co_cvv_ph": "XXX nebo XXXX",
     "pay_or_card_2": "Nebo zaplaťte kreditní kartou",

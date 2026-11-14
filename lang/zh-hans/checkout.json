@@ -1,4 +1,9 @@
 {
+    "p_first_name": "名字",
+    "p_last_name": "姓氏",
+    "p_email": "电子邮件地址",
+    "p_phone_number": "电话号码",
+    "p_expiry_date": "MM / YY",
     "co_cvv_full": "CVV/CVC/CSC",
     "co_cvv_ph": "XXX 或 XXXX",
     "pay_or_card_2": "或者使用信用卡支付",

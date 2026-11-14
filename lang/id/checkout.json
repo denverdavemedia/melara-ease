@@ -1,4 +1,9 @@
 {
+    "p_first_name": "Nama Depan",
+    "p_last_name": "Nama Keluarga",
+    "p_email": "Alamat Email",
+    "p_phone_number": "Nomor Telepon",
+    "p_expiry_date": "MM / YY",
     "co_cvv_full": "CVV/CVC/CSC",
     "co_cvv_ph": "XXX atau XXXX",
     "pay_or_card_2": "Atau bayar dengan kartu kredit",

@@ -1,4 +1,9 @@
 {
+    "p_first_name": "ชื่อ",
+    "p_last_name": "ชื่อสกุล",
+    "p_email": "ที่อยู่อีเมล",
+    "p_phone_number": "หมายเลขโทรศัพท์",
+    "p_expiry_date": "เดือน / ปี",
     "co_cvv_full": "CVV/CVC/CSC",
     "co_cvv_ph": "XXX หรือ XXXX",
     "pay_or_card_2": "หรือชำระด้วยบัตรเครดิต",

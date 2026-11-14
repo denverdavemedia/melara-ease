@@ -1,4 +1,9 @@
 {
+    "p_first_name": "Etunimi",
+    "p_last_name": "Sukunimi",
+    "p_email": "Sähköpostiosoite",
+    "p_phone_number": "Puhelinnumero",
+    "p_expiry_date": "MM / YY",
     "co_cvv_full": "CVV/CVC/CSC",
     "co_cvv_ph": "XXX tai XXXX",
     "pay_or_card_2": "Tai maksa luottokortilla",

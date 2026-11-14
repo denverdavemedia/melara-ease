@@ -1,4 +1,9 @@
 {
+    "p_first_name": "Prenume",
+    "p_last_name": "Nume",
+    "p_email": "Adresă de e-mail",
+    "p_phone_number": "Număr de telefon",
+    "p_expiry_date": "LL / AA",
     "co_cvv_full": "CVV/CVC/CSC",
     "co_cvv_ph": "XXX sau XXXX",
     "pay_or_card_2": "Sau plătește cu cardul de credit",
