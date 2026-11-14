@@ -1,4 +1,9 @@
 {
+    "p_first_name": "Имя",
+    "p_last_name": "Фамилия",
+    "p_email": "Адрес электронной почты",
+    "p_phone_number": "Номер телефона",
+    "p_expiry_date": "ММ / ГГ",
     "co_cvv_full": "CVV/CVC/CSC",
     "co_cvv_ph": "XXX или XXXX",
     "pay_or_card_2": "Или оплатите кредитной картой",

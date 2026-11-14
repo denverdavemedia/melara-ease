@@ -1,4 +1,9 @@
 {
+    "p_first_name": "Voornaam",
+    "p_last_name": "Achternaam",
+    "p_email": "E-mailadres",
+    "p_phone_number": "Telefoonnummer",
+    "p_expiry_date": "MM / JJ",
     "co_cvv_full": "CVV/CVC/CSC",
     "co_cvv_ph": "XXX of XXXX",
     "pay_or_card_2": "Of betaal met creditcard",

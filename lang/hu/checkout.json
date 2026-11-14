@@ -1,4 +1,9 @@
 {
+    "p_first_name": "Keresztnév",
+    "p_last_name": "Vezetéknév",
+    "p_email": "E-mail-cím",
+    "p_phone_number": "Telefonszám",
+    "p_expiry_date": "HH / ÉÉ",
     "co_cvv_full": "CVV/CVC/CSC",
     "co_cvv_ph": "XXX vagy XXXX",
     "pay_or_card_2": "Vagy fizessen hitelkártyával",

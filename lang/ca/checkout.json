@@ -1,4 +1,9 @@
 {
+    "p_first_name": "Nom",
+    "p_last_name": "Cognoms",
+    "p_email": "Adreça electrònica",
+    "p_phone_number": "Número de telèfon",
+    "p_expiry_date": "MM / AA",
     "co_cvv_full": "CVV/CVC/CSC",
     "co_cvv_ph": "XXX o XXXX",
     "pay_or_card_2": "O paga amb targeta de crèdit",

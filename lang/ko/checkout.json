@@ -1,4 +1,9 @@
 {
+    "p_first_name": "이름",
+    "p_last_name": "성",
+    "p_email": "이메일 주소",
+    "p_phone_number": "전화번호",
+    "p_expiry_date": "MM / YY",
     "co_cvv_full": "CVV/CVC/CSC",
     "co_cvv_ph": "XXX 또는 XXXX",
     "pay_or_card_2": "또는 신용카드로 결제하세요",

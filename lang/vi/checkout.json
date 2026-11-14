@@ -1,4 +1,9 @@
 {
+    "p_first_name": "Tên",
+    "p_last_name": "Họ",
+    "p_email": "Địa chỉ email",
+    "p_phone_number": "Số điện thoại",
+    "p_expiry_date": "TT / NN",
     "co_cvv_full": "CVV/CVC/CSC",
     "co_cvv_ph": "XXX hoặc XXXX",
     "pay_or_card_2": "Hoặc thanh toán bằng thẻ tín dụng",
